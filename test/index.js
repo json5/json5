@@ -13,14 +13,18 @@ var Path = require('path');
 var dirPath = Path.resolve(__dirname, 'examples');
 var files = FS.readdirSync(dirPath);
 
-for (var i = 0; i < files.length; i++) {
-    var filePath = Path.join(dirPath, files[i]);
+function createTest(fileName) {
+    var filePath = Path.join(dirPath, fileName);
     var str = FS.readFileSync(filePath, 'utf8');
 
-    var objExp = eval('(' + str + ')');
-    var objAct = JSON5.parse(str);
+    exports[fileName] = function () {
+        var objExp = eval('(' + str + ')');
+        var objAct = JSON5.parse(str);
 
-    assert.deepEqual(objAct, objExp);
+        assert.deepEqual(objAct, objExp);
+    };
 }
 
-console.log('Test passed!');
+for (var i = 0; i < files.length; i++) {
+    createTest(files[i]);
+}

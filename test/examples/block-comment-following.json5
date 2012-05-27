@@ -1,0 +1,10 @@
+/*
+    Comments can follow any value but the top-level one.
+    So we use an array:
+*/
+[
+    false
+    /*
+        true
+    */
+]

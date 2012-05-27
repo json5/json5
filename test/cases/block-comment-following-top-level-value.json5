@@ -1,5 +1,5 @@
 null
 /*
-    This should fail.
-    Comments cannot follow the top-level value.
+    Some non-comment top-level value is needed;
+    we use null above.
 */

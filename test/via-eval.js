@@ -26,13 +26,14 @@ function createTest(fileName) {
     }
 
     exports[fileName] = function test() {
-        var objAct, objExp;
+        var objExp, valid = false;
 
         try {
             objExp = eval('(' + str + ')');
+            valid = true;
         } catch (err) {}
 
-        if (objExp) {
+        if (valid) {
             assert.deepEqual(parse(), objExp);
         } else {
             assert.throws(parse);

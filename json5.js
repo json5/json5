@@ -7,10 +7,10 @@
 exports.parse = (function () {
     "use strict";
 
-// This is a function that can parse a JSON text, producing a JavaScript
+// This is a function that can parse a JSON5 text, producing a JavaScript
 // data structure. It is a simple, recursive descent parser. It does not use
 // eval or regular expressions, so it can be used as a model for implementing
-// a JSON parser in other languages.
+// a JSON5 parser in other languages.
 
 // We are defining the function inside of another function to avoid creating
 // global variables.
@@ -108,6 +108,8 @@ exports.parse = (function () {
                 uffff;
 
 // When parsing for string values, we must look for " and \ characters.
+// TODO Update to remember open quote type and look for that end quote type.
+// TODO Also update to support multi-line strings via backslash-newline.
 
             if (ch === '"') {
                 while (next()) {
@@ -181,6 +183,7 @@ exports.parse = (function () {
         array = function () {
 
 // Parse an array value.
+// TODO Update to support trailing commas.
 
             var array = [];
 
@@ -208,6 +211,8 @@ exports.parse = (function () {
         object = function () {
 
 // Parse an object value.
+// TODO Update to support unquoted keys.
+// TODO Update to support trailing commas.
 
             var key,
                 object = {};
@@ -243,6 +248,8 @@ exports.parse = (function () {
 
 // Parse a JSON value. It could be an object, an array, a string, a number,
 // or a word.
+// TODO Update to support single-quoted string.
+// TODO Update to support comments, both inline and block.
 
         white();
         switch (ch) {

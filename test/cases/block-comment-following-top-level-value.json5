@@ -1,0 +1,5 @@
+null
+/*
+    This should fail.
+    Comments cannot follow the top-level value.
+*/

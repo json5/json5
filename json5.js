@@ -105,15 +105,16 @@ exports.parse = (function () {
             var hex,
                 i,
                 string = '',
+                delim,      // double quote or single quote
                 uffff;
 
 // When parsing for string values, we must look for " and \ characters.
-// TODO Update to remember open quote type and look for that end quote type.
 // TODO Also update to support multi-line strings via backslash-newline.
 
-            if (ch === '"') {
+            if (ch === '"' || ch === "'") {
+                delim = ch;
                 while (next()) {
-                    if (ch === '"') {
+                    if (ch === delim) {
                         next();
                         return string;
                     } else if (ch === '\\') {
@@ -248,7 +249,6 @@ exports.parse = (function () {
 
 // Parse a JSON value. It could be an object, an array, a string, a number,
 // or a word.
-// TODO Update to support single-quoted string.
 // TODO Update to support comments, both inline and block.
 
         white();
@@ -258,6 +258,7 @@ exports.parse = (function () {
         case '[':
             return array();
         case '"':
+        case "'":
             return string();
         case '-':
             return number();

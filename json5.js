@@ -230,7 +230,6 @@ exports.parse = (function () {
 
 // Parse an object value.
 // TODO Update to support unquoted keys.
-// TODO Update to support trailing commas.
 
             var key,
                 object = {};
@@ -238,11 +237,11 @@ exports.parse = (function () {
             if (ch === '{') {
                 next('{');
                 white();
-                if (ch === '}') {
-                    next('}');
-                    return object;   // empty object
-                }
                 while (ch) {
+                    if (ch === '}') {
+                        next('}');
+                        return object;   // Potentially empty object
+                    }
                     key = string();
                     white();
                     next(':');
@@ -251,7 +250,9 @@ exports.parse = (function () {
                     }
                     object[key] = value();
                     white();
-                    if (ch === '}') {
+                    // If there's no comma after this pair, this needs to be
+                    // the end of the object.
+                    if (ch !== ',') {
                         next('}');
                         return object;
                     }

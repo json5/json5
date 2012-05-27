@@ -2,4 +2,7 @@
 , "description": "Modern JSON."
 , "version": "0.0.0"
 , "author": "Aseem Kishore <aseem.kishore@gmail.com>"
+, "scripts":
+  { "test": "node test"
+  }
 }

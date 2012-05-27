@@ -1,0 +1,20 @@
+{
+    foo: 'bar',
+    while: true,
+
+    this: 'is a\
+ multi-line string',
+
+    // this is an inline comment
+    here: 'is another', // inline comment
+
+    /* this is a block comment
+       it continues on another line */
+
+    finally: 'a trailing comma',
+    oh: [
+        'we shouldn\'t forget',
+        'arrays can have',
+        'trailing commas too',
+    ],
+}

@@ -22,6 +22,7 @@ exports.parse = (function () {
             '"':  '"',
             '\\': '\\',
             '/':  '/',
+            '\n': '',       // Replace newlines in strings w/ empty string
             b:    '\b',
             f:    '\f',
             n:    '\n',
@@ -110,7 +111,6 @@ exports.parse = (function () {
                 uffff;
 
 // When parsing for string values, we must look for " and \ characters.
-// TODO Also update to support multi-line strings via backslash-newline.
 
             if (ch === '"' || ch === "'") {
                 delim = ch;

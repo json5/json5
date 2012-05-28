@@ -93,7 +93,7 @@ order for the output to be fully compatible with all JSON parsers today.
 ```
 git clone git://github.com/aseemk/json5.git
 cd json5
-npm link
+npm install
 npm test
 ```
 

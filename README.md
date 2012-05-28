@@ -1,14 +1,15 @@
 # JSON5 – Modern JSON
 
-JSON is strict. Keys need to be quoted; strings can only be double-quoted;
-objects and arrays can't have trailing commas; and comments aren't allowed.
+Writing JSON by hand can be tedious. Keys need to be quoted; strings can only
+be double-quoted; objects and arrays can't have trailing commas; and comments
+aren't supported.
 
-Using such a strict subset of "JavaScript object notation" was likely for the
-best at the time, but with modern ECMAScript 5 engines like V8 in Chrome and
+Using such a strict subset of "JavaScript object notation" was great for the
+IE6 generation, but with modern ECMAScript 5 engines like V8 in Chrome and
 Node, these limitations are cumbersome.
 
-JSON5 does for JSON what ES5 did for ES3. It also is to regular ES5 what JSON
-was to ES3 — a pure subset.
+JSON5 does for JSON what ES5 did for ES3. It's also a strict subset of ES5
+like regular JSON is of ES3.
 
 This module provides a replacement for ES5's native `JSON.parse()` method that
 understands these additions. The parser is based directly off of Douglas

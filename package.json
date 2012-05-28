@@ -8,6 +8,6 @@
   { "mocha": "~1.0.3"
   }
 , "scripts":
-  { "test": "mocha --ui exports --reporter list || :"
+  { "test": "mocha --ui exports --reporter list"
   }
 }

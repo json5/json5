@@ -1,6 +1,7 @@
 { "name": "json5"
-, "description": "Modern JSON."
 , "version": "0.0.0"
+, "description": "Modern JSON."
+, "keywords": ["json", "json5"]
 , "author": "Aseem Kishore <aseem.kishore@gmail.com>"
 , "main": "json5"
 , "dependencies": {}
@@ -9,5 +10,10 @@
   }
 , "scripts":
   { "test": "mocha --ui exports --reporter list"
+  }
+, "homepage": "https://github.com/aseemk/json5"
+,"repository":
+  { "type" : "git"
+  , "url" : "https://github.com/aseemk/json5.git"
   }
 }

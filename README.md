@@ -1,25 +1,29 @@
 # JSON5 – Modern JSON
 
 JSON isn't the friendliest to write and maintain by hand. Keys need to be
-quoted, objects and arrays can't have trailing commas, and comments aren't
-supported. None of these is the case with ES5 JavaScript today.
+quoted; objects and arrays can't have trailing commas; comments aren't
+supported — even though none of these is the case with regular JavaScript
+today.
 
 Restricting JSON to such a strict subset of "JavaScript object notation" made
 sense for making it a great data-exchange format, but JSON's usage has
-expanded beyond machine-to-machine communication.
+expanded [beyond][ex1] [machine-to-machine][ex2] [communication][ex3].
 
-**JSON5 is a proposed extension to JSON that brings ES5's enhancements to its
-syntax. It remains a strict subset of JavaScript, adds no new data types, and
-is fully backwards-compatible with all existing JSON.**
+[ex1]: http://plovr.com/docs.html
+[ex2]: http://npmjs.org/doc/json.html
+[ex3]: http://code.google.com/p/fuzztester/wiki/JSONFileFormat
+
+**JSON5 is a proposed extension to JSON** that brings ES5 enhancements to its
+syntax. It remains a **strict subset of JavaScript**, adds **no new data
+types**, and is a **strict superset of existing JSON**.
 
 JSON5 is not an official successor to JSON, and existing JSON parsers may not
 understand these new features. It's thus recommended that files use a new
 extension like `.json5` to be explicit. *[TODO: New MIME type too?]*
 
 This module provides a JavaScript implementation that works on all modern JS
-engines (even IE6). Its `parse()` function is based directly off of Douglas
-Crockford's eval-free [json_parse.js][], making it both secure and robust.
-Give it a try!
+engines (even IE6). Its parser is based directly off of Douglas Crockford's
+eval-free [json_parse.js][], making it both secure and robust. Give it a try!
 
 ## Features
 

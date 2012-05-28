@@ -4,7 +4,9 @@
 // This file is modeled directly off of Douglas Crockford's json_parse.js:
 // https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js
 
-exports.parse = (function () {
+var JSON5 = (typeof exports === 'object' ? exports : {});
+
+JSON5.parse = (function () {
     "use strict";
 
 // This is a function that can parse a JSON5 text, producing a JavaScript
@@ -430,7 +432,7 @@ exports.parse = (function () {
     };
 }());
 
-exports.stringify = function (obj, replacer, space) {
+JSON5.stringify = function (obj, replacer, space) {
     // Since regular JSON is a strict subset of JSON5, we'll always output as
     // regular JSON to foster better interoperability. TODO Should we not?
     return JSON.stringify.apply(JSON, arguments);

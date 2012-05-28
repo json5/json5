@@ -7,16 +7,21 @@ Using such a strict subset of "JavaScript object notation" was likely for the
 best at the time, but with modern ECMAScript 5 engines like V8 in Chrome and
 Node, these limitations are cumbersome.
 
-JSON5 aims to do for JSON what ES5 and HTML5 did for JavaScript and HTML.
-It also aims to continue being a subset of regular JavaScript — ES5 flavor.
+JSON5 does for JSON what ES5 did for ES3. It also is to regular ES5 what JSON
+was to ES3 — a pure subset.
+
+This module provides a replacement for ES5's native `JSON.parse()` method that
+understands these additions. The parser is based directly off of Douglas
+Crockford's [json_parse.js][], which avoids `eval()` and validates input as it
+parses it, making it secure and safe to use today.
 
 ## Features
 
-This project is a WIP, so these aren't necessarily all implemented yet, but
-these are the goals:
-
 - Object keys don't need to be quoted if they contain no special characters.
   Yes, even reserved keywords are valid unquoted keys in ES5.
+
+  *[TODO: Unicode characters and escape sequences aren't yet supported in
+  unquoted keys.]*
 
 - Strings can be single-quoted.
 
@@ -26,7 +31,7 @@ these are the goals:
 
 - Both inline (single-line) and block (multi-line) comments are allowed.
 
-- *[TODO]* Octal and hexadecimal numbers are allowed. *[Is this a bad idea?]*
+- *[IDEA: Allow octal and hexadecimal numbers.]*
 
 ## Example
 
@@ -53,6 +58,52 @@ these are the goals:
 }
 ```
 
+## Installation
+
+Via npm on Node:
+
+```
+npm install json5
+```
+
+```js
+var JSON5 = require('json5');
+```
+
+Or in the browser (adds the `JSON5` object to the global namespace):
+
+```html
+<script src="json5.js"></script>
+```
+
+## Usage
+
+```js
+var obj = JSON5.parse('{unquoted:"key",trailing:"comma",}');
+var str = JSON5.stringify(obj);
+console.log(obj);
+console.log(str);
+```
+
+`JSON5.stringify()` is currently aliased to the native `JSON.stringify()` in
+order for the output to be fully compatible with all JSON parsers today.
+
+## Development
+
+```
+git clone git://github.com/aseemk/json5.git
+cd json5
+npm link
+npm test
+```
+
+Feel free to [file issues](https://github.com/aseemk/json5/issues) and submit
+[pull requests](https://github.com/aseemk/json5/pulls) — contributions are
+welcome.
+
+If you submit a pull request, please be sure to add or update corresponding
+test cases, and ensure that `npm test` continues to pass.
+
 ## License
 
 MIT License. © 2012 Aseem Kishore.
@@ -68,6 +119,7 @@ Recommended reading:
 JSON, but his state machine diagrams on the [JSON website](http://json.org/),
 as cheesy as it may sound, gave me motivation and confidence that building a
 new parser to implement these ideas this was within my reach!
-This code is also modeled directly off of Doug's open-source [json_parse.js](
-https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js) parser.
-I'm super grateful for that clean and well-documented code.
+This code is also modeled directly off of Doug's open-source [json_parse.js][]
+parser. I'm super grateful for that clean and well-documented code.
+
+[json_parse.js]: https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js

@@ -143,12 +143,85 @@ exports.parse = (function () {
             error("Bad string");
         },
 
+        inlineComment = function () {
+
+// Skip inline comments, assuming this is one. The current character should be
+// the second / character in the // pair that begins this inline comment.
+// When parsing inline comments, we look for a newline or the end of the text.
+
+            if (ch !== '/') {
+                error("Not an inline comment");
+            }
+
+            do {
+                next();
+                if (ch === '\n') {
+                    next('\n');
+                    return;
+                }
+            } while (ch);
+        },
+
+        blockComment = function () {
+
+// Skip block comments, assuming this is one. The current character should be
+// the * character in the /* pair that begins this block comment.
+// When parsing block comments, we look for an ending */ pair of characters,
+// but we also watch for the end of text before the comment is terminated.
+
+            if (ch !== '*') {
+                error("Not a block comment");
+            }
+
+            do {
+                next();
+                while (ch === '*') {
+                    next('*');
+                    if (ch === '/') {
+                        next('/');
+                        return;
+                    }
+                }
+            } while (ch);
+
+            error("Unterminated block comment");
+        },
+
+        comment = function () {
+
+// Skip comments, both inline and block-level, assuming this is one. Comments
+// always begin with a / character.
+
+            if (ch !== '/') {
+                error("Not a comment");
+            }
+
+            next('/');
+
+            if (ch === '/') {
+                inlineComment();
+            } else if (ch === '*') {
+                blockComment();
+            } else {
+                error("Unrecognized comment");
+            }
+        },
+
         white = function () {
 
-// Skip whitespace.
+// Skip whitespace and comments.
+// Note that we're detecting comments by only a single / character.
+// This works since regular expressions are not valid JSON(5), but this will
+// break if there are other valid values that begin with a / character!
 
-            while (ch && ch <= ' ') {
-                next();
+            while (ch) {
+                if (ch === '/') {
+                    comment();
+                } else if (ch <= ' ') {
+                    next();
+                } else {
+                    return;
+                }
             }
         },
 
@@ -267,7 +340,6 @@ exports.parse = (function () {
 
 // Parse a JSON value. It could be an object, an array, a string, a number,
 // or a word.
-// TODO Update to support comments, both inline and block.
 
         white();
         switch (ch) {

@@ -59,6 +59,31 @@ exports.parse = (function () {
             return ch;
         },
 
+        identifier = function () {
+
+// Parse an identifier. Normally, reserved words are disallowed here, but we
+// only use this for unquoted object keys, where reserved words are allowed,
+// so we don't check for those here. References:
+// - http://es5.github.com/#x7.6
+// - https://developer.mozilla.org/en/Core_JavaScript_1.5_Guide/Core_Language_Features#Variables
+// - http://docstore.mik.ua/orelly/webprog/jscript/ch02_07.htm
+// TODO Identifiers can have Unicode "letters" in them; add support for those.
+
+            var key = ch;
+
+            // Identifiers must start with a letter, _ or $.
+            if (!ch.match(/^[a-zA-Z_$]$/)) {
+                error("Bad identifier");
+            }
+
+            // Subsequent characters can contain digits.
+            while (next() && ch.match(/^[\w$]$/)) {
+                key += ch;
+            }
+
+            return key;
+        },
+
         number = function () {
 
 // Parse a number value.
@@ -315,7 +340,15 @@ exports.parse = (function () {
                         next('}');
                         return object;   // Potentially empty object
                     }
-                    key = string();
+
+                    // Keys can be unquoted. If they are, they need to be
+                    // valid JS identifiers.
+                    if (ch === '"' || ch === "'") {
+                        key = string();
+                    } else {
+                        key = identifier();
+                    }
+
                     white();
                     next(':');
                     if (Object.hasOwnProperty.call(object, key)) {

@@ -12,14 +12,13 @@ was to ES3 — a pure subset.
 
 This module provides a replacement for ES5's native `JSON.parse()` method that
 understands these additions. The parser is based directly off of Douglas
-Crockford's [json_parse.js][], which avoids `eval()` and validates input as it
-parses it, making it secure and safe to use today.
+Crockford's `eval()`-free [json_parse.js][], which means it's both safe and
+robust. Give it a try!
 
 ## Features
 
 - Object keys don't need to be quoted if they contain no special characters.
   Yes, even reserved keywords are valid unquoted keys in ES5.
-
   *[TODO: Unicode characters and escape sequences aren't yet supported in
   unquoted keys.]*
 

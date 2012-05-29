@@ -91,33 +91,53 @@ JSON5.parse = (function () {
 // Parse a number value.
 
             var number,
-                string = '';
+                string = '',
+                base = 10;
 
             if (ch === '-') {
                 string = '-';
                 next('-');
             }
-            while (ch >= '0' && ch <= '9') {
+            if (ch === '0') {
                 string += ch;
                 next();
-            }
-            if (ch === '.') {
-                string += '.';
-                while (next() && ch >= '0' && ch <= '9') {
+                if (ch === 'x') {
                     string += ch;
+                    next();
+                    base = 16;
                 }
             }
-            if (ch === 'e' || ch === 'E') {
-                string += ch;
-                next();
-                if (ch === '-' || ch === '+') {
+            switch (base) {
+            case 10:
+                while (ch >= '0' && ch <= '9' ) {
                     string += ch;
                     next();
                 }
-                while (ch >= '0' && ch <= '9') {
+                if (ch === '.') {
+                    string += '.';
+                    while (next() && ch >= '0' && ch <= '9') {
+                        string += ch;
+                    }
+                }
+                if (ch === 'e' || ch === 'E') {
+                    string += ch;
+                    next();
+                    if (ch === '-' || ch === '+') {
+                        string += ch;
+                        next();
+                    }
+                    while (ch >= '0' && ch <= '9') {
+                        string += ch;
+                        next();
+                    }
+                }
+                break;
+            case 16:
+                while (ch >= '0' && ch <= '9' || ch >= 'A' && ch <= 'F' || ch >= 'a' && ch <= 'f') {
                     string += ch;
                     next();
                 }
+                break;
             }
             number = +string;
             if (!isFinite(number)) {

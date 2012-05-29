@@ -2,6 +2,9 @@
     foo: 'bar',
     while: true,
 
+    decimalLiteral: 20,
+    hexadecimalLiteral: 0x14,
+
     this: 'is a\
  multi-line string',
 

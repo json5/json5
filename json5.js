@@ -329,7 +329,6 @@ JSON5.parse = (function () {
         object = function () {
 
 // Parse an object value.
-// TODO Update to support unquoted keys.
 
             var key,
                 object = {};

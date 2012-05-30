@@ -24,7 +24,7 @@ JSON5.parse = (function () {
             '"':  '"',
             '\\': '\\',
             '/':  '/',
-            '\n': '',       // Replace newlines in strings w/ empty string
+            '\n': '',       // Replace escaped newlines in strings w/ empty string
             b:    '\b',
             f:    '\f',
             n:    '\n',

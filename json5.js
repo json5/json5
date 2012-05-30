@@ -101,7 +101,7 @@ JSON5.parse = (function () {
             if (ch === '0') {
                 string += ch;
                 next();
-                if (ch === 'x') {
+                if (ch === 'x' || ch === 'X') {
                     string += ch;
                     next();
                     base = 16;

@@ -2,6 +2,8 @@
     foo: 'bar',
     while: true,
 
+    trailingDecimalPoint: 5.,
+
     this: 'is a\
  multi-line string',
 

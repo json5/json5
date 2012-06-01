@@ -19,6 +19,8 @@ var dirPath = Path.resolve(__dirname, 'cases');
 var files = FS.readdirSync(dirPath);
 
 function createTest(fileName) {
+    'use strict';
+
     var filePath = Path.join(dirPath, fileName);
     var str = FS.readFileSync(filePath, 'utf8');
 

@@ -104,6 +104,8 @@ JSON5.parse = (function () {
                     string += ch;
                     next();
                     base = 16;
+                } else if (ch >= '0' && ch <= '9') {
+                    error('Octal literal');
                 }
             }
             switch (base) {

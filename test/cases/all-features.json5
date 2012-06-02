@@ -11,6 +11,8 @@
     /* this is a block comment
        it continues on another line */
 
+    hex: 0xDEADbeef,
+
     finally: 'a trailing comma',
     oh: [
         'we shouldn\'t forget',

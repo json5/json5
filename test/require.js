@@ -7,7 +7,8 @@
 
 var assert = require('assert');
 
-exports['require hook'] = function () {
+exports['misc'] = {};
+exports['misc']['require hook'] = function () {
     require('../require');
 
     var json = require('./cases-json/npm-package');

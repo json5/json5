@@ -1,23 +1,27 @@
-{ "name": "json5"
-, "version": "0.0.1"
-, "description": "Modern JSON."
-, "keywords": ["json", "json5"]
-, "author": "Aseem Kishore <aseem.kishore@gmail.com>"
-, "contributors":
-  [ "Max Nanasy <max.nanasy@gmail.com>"
-  ]
-, "main": "json5"
-, "bin": "cli.js"
-, "dependencies": {}
-, "devDependencies":
-  { "mocha": "~1.0.3"
-  }
-, "scripts":
-  { "test": "mocha --ui exports --reporter spec"
-  }
-, "homepage": "https://github.com/aseemk/json5"
-,"repository":
-  { "type" : "git"
-  , "url" : "https://github.com/aseemk/json5.git"
-  }
+{
+    "name": "json5",
+    "version": "0.0.1",
+    "description": "Modern JSON.",
+    "keywords": [
+        "json",
+        "json5"
+    ],
+    "author": "Aseem Kishore <aseem.kishore@gmail.com>",
+    "contributors": [
+        "Max Nanasy <max.nanasy@gmail.com>"
+    ],
+    "main": "json5",
+    "bin": "cli.js",
+    "dependencies": {},
+    "devDependencies": {
+        "mocha": "~1.0.3"
+    },
+    "scripts": {
+        "test": "mocha --ui exports --reporter spec"
+    },
+    "homepage": "https://github.com/aseemk/json5",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/aseemk/json5.git"
+    }
 }

@@ -108,9 +108,19 @@ order for the output to be fully compatible with all JSON parsers today.
 ```
 git clone git://github.com/aseemk/json5.git
 cd json5
-npm install
+make
 npm test
 ```
+
+If your system doesn't have Make, this should work in place of `make`:
+
+```
+./cli.js -c package.json5
+npm install
+```
+
+Make is used to auto-generate the package.json file that npm requires from our
+package.json5 file. Just re-run `make` if you ever change package.json5.
 
 Feel free to [file issues](https://github.com/aseemk/json5/issues) and submit
 [pull requests](https://github.com/aseemk/json5/pulls) — contributions are

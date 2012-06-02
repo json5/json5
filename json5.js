@@ -37,12 +37,11 @@ JSON5.parse = (function () {
 
 // Call error when something is wrong.
 
-            throw {
-                name:    'SyntaxError',
-                message: m,
-                at:      at,
-                text:    text
-            };
+            var error = new SyntaxError();
+            error.message = m;
+            error.at = at;
+            error.text = text;
+            throw error;
         },
 
         next = function (c) {

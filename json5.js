@@ -458,3 +458,9 @@ JSON5.stringify = function (obj, replacer, space) {
     // regular JSON to foster better interoperability. TODO Should we not?
     return JSON.stringify.apply(JSON, arguments);
 };
+
+typeof require === 'function' && typeof require.extensions === 'object'
+    && (require.extensions['.json5'] = function (module, filename) {
+    'use strict';
+    module.exports = JSON5.parse(require('fs').readFileSync(filename, 'utf8'));
+});

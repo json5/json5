@@ -405,6 +405,7 @@ JSON5.parse = (function () {
         case "'":
             return string();
         case '-':
+        case '.':
             return number();
         default:
             return ch >= '0' && ch <= '9' ? number() : word();

@@ -17,6 +17,7 @@
         "mocha": "~1.0.3"
     },
     "scripts": {
+        "build": "./cli.js -c package.json5",
         "test": "mocha --ui exports --reporter spec"
     },
     "homepage": "https://github.com/aseemk/json5",

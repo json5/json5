@@ -58,6 +58,8 @@ all of these are part of ES5 JavaScript.
     
     /* this is a block comment
        that continues on another line */
+
+    hex: 0xDEADbeef,
        
     finally: 'a trailing comma',
     oh: [

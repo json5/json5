@@ -2,9 +2,6 @@
     foo: 'bar',
     while: true,
 
-    decimalLiteral: 20,
-    hexadecimalLiteral: 0x14,
-
     this: 'is a\
  multi-line string',
 
@@ -13,6 +10,8 @@
 
     /* this is a block comment
        it continues on another line */
+
+    hex: 0xDEADbeef,
 
     finally: 'a trailing comma',
     oh: [

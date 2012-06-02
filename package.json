@@ -3,6 +3,9 @@
 , "description": "Modern JSON."
 , "keywords": ["json", "json5"]
 , "author": "Aseem Kishore <aseem.kishore@gmail.com>"
+, "contributors":
+  [ "Max Nanasy <max.nanasy@gmail.com>"
+  ]
 , "main": "json5"
 , "dependencies": {}
 , "devDependencies":

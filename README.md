@@ -120,7 +120,8 @@ test cases, and ensure that `npm test` continues to pass.
 
 ## License
 
-MIT License. © 2012 Aseem Kishore.
+MIT License. © 2012 Aseem Kishore, and [others](
+https://github.com/aseemk/json5/contributors).
 
 ## Credits
 
@@ -137,3 +138,6 @@ This code is also modeled directly off of Doug's open-source [json_parse.js][]
 parser. I'm super grateful for that clean and well-documented code.
 
 [json_parse.js]: https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js
+
+[Max Nanasy](https://github.com/MaxNanasy) has been an early and prolific
+supporter, contributing multiple patches and ideas. Thanks Max!

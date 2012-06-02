@@ -43,7 +43,8 @@ all of these are part of ES5 JavaScript.
 
 - Both inline (single-line) and block (multi-line) comments are allowed.
 
-- Numbers can be hexadecimal (base 16).
+- Numbers can be hexadecimal (base 16), and they can also begin with a leading
+  decimal (e.g. `.5`).
 
 ## Example
 

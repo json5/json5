@@ -19,7 +19,6 @@ var Path = require('path');
 var TYPES = ['json', 'es5'];
 
 var dirPathBase = Path.resolve(__dirname, 'cases-');
-var files = {};
 
 function createTest(fileName, type) {
     'use strict';

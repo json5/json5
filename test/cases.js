@@ -40,7 +40,7 @@ function createTest(fileName, type) {
         }
     }
 
-    exports[fileName] = function test() {
+    exports[type][fileName] = function test() {
         var objExp, valid = false;
 
         try {
@@ -57,6 +57,7 @@ function createTest(fileName, type) {
 }
 
 TYPES.forEach(function (type) {
+    exports[type] = {};
     FS.readdirSync(dirPathBase + type).forEach(function (file) {
         createTest(file, type);
     });

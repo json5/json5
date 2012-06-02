@@ -30,7 +30,7 @@ eval-free [json_parse.js][], making it both secure and robust. Give it a try!
 These are the new features of JSON5's syntax. All of these are optional, and
 all of these are part of ES5 JavaScript.
 
-- Object keys don't need to be quoted if they contain no [special characters](
+- Object keys don't need to be quoted if they're valid [identifiers](
   https://developer.mozilla.org/en/Core_JavaScript_1.5_Guide/Core_Language_Features#Variables). Yes, even reserved keywords are valid unquoted keys in ES5 [[§11.1.5](http://es5.github.com/#x11.1.5), [§7.6](http://es5.github.com/#x7.6)].
   *[TODO: Unicode characters and escape sequences aren't yet supported in this implementation.]*
 

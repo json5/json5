@@ -43,6 +43,8 @@ all of these are part of ES5 JavaScript.
 
 - Both inline (single-line) and block (multi-line) comments are allowed.
 
+- Numbers can be hexadecimal (base 16).
+
 ## Example
 
 ```js

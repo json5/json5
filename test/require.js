@@ -2,8 +2,8 @@
 // Tests JSON5's require() hook.
 //
 // Important: expects the following test cases to be present:
-// - /cases-json/npm-package.json
-// - /cases-es5/npm-package.json5
+// - /parse-cases/misc/npm-package.json
+// - /parse-cases/misc/npm-package.json5
 
 var assert = require('assert');
 
@@ -11,8 +11,8 @@ exports['misc'] = {};
 exports['misc']['require hook'] = function () {
     require('../require');
 
-    var json = require('./cases-json/npm-package');
-    var json5 = require('./cases-es5/npm-package');
+    var json = require('./parse-cases/misc/npm-package.json');
+    var json5 = require('./parse-cases/misc/npm-package.json5');
 
     assert.deepEqual(json5, json);
 };

@@ -16,13 +16,12 @@ var Path = require('path');
 // Mozilla's test cases are a great inspiration and reference here:
 // http://mxr.mozilla.org/mozilla-central/source/js/src/tests/ecma_5/JSON/
 
-var TYPES = ['json', 'es5'];
+var dirsPath = Path.resolve(__dirname, 'parse-cases');
+var dirs = FS.readdirSync(dirsPath);
 
-var dirPathBase = Path.resolve(__dirname, 'cases-');
-
-function createTest(fileName, type) {
+function createTest(fileName, dir) {
     var ext = Path.extname(fileName);
-    var filePath = Path.join(dirPathBase + type, fileName);
+    var filePath = Path.join(dirsPath, dir, fileName);
     var str = FS.readFileSync(filePath, 'utf8');
 
     function parseJSON5() {
@@ -37,7 +36,7 @@ function createTest(fileName, type) {
         return eval('"use strict"; (\n' + str + '\n)');
     }
 
-    exports[type][fileName] = function test() {
+    exports[dir][fileName] = function test() {
         switch (ext) {
             case '.json':
                 assert.deepEqual(parseJSON5(), parseJSON());
@@ -59,9 +58,17 @@ function createTest(fileName, type) {
     };
 }
 
-TYPES.forEach(function (type) {
-    exports[type] = {};
-    FS.readdirSync(dirPathBase + type).forEach(function (file) {
-        createTest(file, type);
+dirs.forEach(function (dir) {
+    // create a test suite for this group of tests:
+    exports[dir] = {};
+
+    // skip the TODO directory -- these tests are expected to fail:
+    if (dir === 'todo') {
+        return;
+    }
+
+    // otherwise create a test for each file in this group:
+    FS.readdirSync(Path.join(dirsPath, dir)).forEach(function (file) {
+        createTest(file, dir);
     });
 });

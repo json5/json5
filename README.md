@@ -104,6 +104,22 @@ console.log(str);
 `JSON5.stringify()` is currently aliased to the native `JSON.stringify()` in
 order for the output to be fully compatible with all JSON parsers today.
 
+If you're running Node, you can also register a JSON5 `require()` hook to let
+you `require()` `.json5` files just like you can `.json` files:
+
+```js
+require('json5/lib/require');
+require('./path/to/foo');   // tries foo.json5 after foo.js, foo.json, etc.
+require('./path/to/bar.json5');
+```
+
+This module also provides a `json5` executable (requires Node) for converting
+JSON5 files to sibling JSON files:
+
+```
+$ json5 -c path/to/foo.json5    # generates path/to/foo.json
+```
+
 ## Development
 
 ```

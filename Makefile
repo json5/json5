@@ -4,24 +4,24 @@ clean:
 	$(call clean)
 
 install: package
-	npm install
+	@npm install
 	$(call clean)
 
 link: package
-	npm link
+	@npm link
 	$(call clean)
 
 package:
-	./cli.js -c package.json5
+	@./cli.js -c package.json5
 
 publish: package
-	npm publish
+	@npm publish
 	$(call clean)
 
 test: package
-	npm test
+	@npm test
 	$(call clean)
 
 # Helpers:
 
-clean = rm -f package.json
+clean = @rm -f package.json

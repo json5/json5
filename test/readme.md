@@ -1,38 +1,23 @@
-Here, we thoroughly test JSON5's parsing. These are mostly unit tests of each
-individual type, but there can (and should) be aggregate test cases, too.
+These tests are written for [Mocha][] using the [exports][] interface.
 
-JSON5 should be fully backwards-compatible with existing JSON. Valid JSON test
-cases are under `/cases-json`. These cases are tested against the native
-`JSON.parse()`.
+[Mocha]: http://visionmedia.github.com/mocha/
+[exports]: http://visionmedia.github.com/mocha/#exports-interface
 
-JSON5's new features that aren't valid JSON should still be fully valid ES5.
-These test cases are under `/cases-es5`. These cases are tested against strict
-mode `eval()`.
+The `parse()` tests are run by comparing the output of `JSON5.parse()` with
+that of the native `JSON.parse()` and ES5's `eval()` in strict mode. The test
+cases' file extension signals the expected behavior:
 
-Both cases support both positive and negative test cases. E.g. Invalid JSON
-should also be invalid JSON5; if `JSON.parse()` throws an error, it will be
-tested that `JSON5.parse()` does, too.
+- Valid JSON should remain valid JSON5. These cases have a `.json` extension
+  and are tested via `JSON.parse()`.
 
-This should cover all bases, including syntax that's valid ES5 but invalid
-JSON5 — since JSON5 is a strict superset of JSON, that syntax should also be
-invalid JSON.
+- JSON5's new features should remain valid ES5. These cases have a `.json5`
+  extension are tested via `eval()`.
 
-Test cases that are expected to fail right now due to known issues are under
-`/cases-todo`. We should aim to keep this empty, of course. =)
+- Valid ES5 that's explicitly disallowed by JSON5 is also invalid JSON. These
+  cases have a `.js` extension and are expected to fail.
 
-Here's a textual flowchart to help you figure out where to put a test case:
+- Invalid ES5 should remain invalid JSON5. These cases have a `.txt` extension
+  and are expected to fail.
 
-    - Is it valid JSON?
-      => /cases-json
-
-    - Is it invalid ES5?
-      => /cases-es5
-
-    - Is it invalid JSON, but valid JSON5?
-      => /cases-es5
-
-    - Is it valid ES5, but invalid JSON5?
-      => /cases-json
-
-    - Is it not working yet, and fixing it won't be trivial?
-      => /cases-todo
+This should cover all our bases. Most of the cases are unit tests for each
+supported data type, but aggregate test cases are welcome, too.

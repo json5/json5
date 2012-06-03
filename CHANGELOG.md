@@ -1,4 +1,7 @@
-### v0.1.0
+### v0.1.0 [[code][c0.1.0], [diff][d0.1.0]]
+
+[c0.1.0]: https://github.com/aseemk/json5/tree/v0.1.0
+[d0.1.0]: https://github.com/aseemk/json5/compare/v0.0.1...v0.1.0
 
 This release tightens JSON5 support and adds helpful utility features:
 
@@ -25,7 +28,10 @@ This release tightens JSON5 support and adds helpful utility features:
 
 - Add Node.js executable to compile JSON5 files to JSON. Run with `json5`.
 
-### v0.0.1
+### v0.0.1 [[code][c0.0.1], [diff][d0.0.1]]
+
+[c0.0.1]: https://github.com/aseemk/json5/tree/v0.0.1
+[d0.0.1]: https://github.com/aseemk/json5/compare/v0.0.0...v0.0.1
 
 This was the first implementation of this JSON5 parser.
 
@@ -40,7 +46,7 @@ This was the first implementation of this JSON5 parser.
 
 - Support comments, both inline and block.
 
-### v0.0.0
+### v0.0.0 [[code](https://github.com/aseemk/json5/tree/v0.0.0)]
 
 Let's consider this to be Douglas Crockford's original [json_parse.js][] — a
 parser for the regular JSON format.

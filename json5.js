@@ -1,7 +1,7 @@
 // json5.js
 // Modern JSON. See README.md for details.
 //
-// This file is modeled directly off of Douglas Crockford's json_parse.js:
+// This file is based directly off of Douglas Crockford's json_parse.js:
 // https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js
 
 var JSON5 = (typeof exports === 'object' ? exports : {});
@@ -169,7 +169,7 @@ JSON5.parse = (function () {
                 delim,      // double quote or single quote
                 uffff;
 
-// When parsing for string values, we must look for " and \ characters.
+// When parsing for string values, we must look for ' or " and \ characters.
 
             if (ch === '"' || ch === "'") {
                 delim = ch;
@@ -204,9 +204,9 @@ JSON5.parse = (function () {
 
         inlineComment = function () {
 
-// Skip inline comments, assuming this is one. The current character should be
-// the second / character in the // pair that begins this inline comment.
-// When parsing inline comments, we look for a newline or the end of the text.
+// Skip an inline comment, assuming this is one. The current character should
+// be the second / character in the // pair that begins this inline comment.
+// To finish the inline comment, we look for a newline or the end of the text.
 
             if (ch !== '/') {
                 error("Not an inline comment");
@@ -223,9 +223,9 @@ JSON5.parse = (function () {
 
         blockComment = function () {
 
-// Skip block comments, assuming this is one. The current character should be
+// Skip a block comment, assuming this is one. The current character should be
 // the * character in the /* pair that begins this block comment.
-// When parsing block comments, we look for an ending */ pair of characters,
+// To finish the block comment, we look for an ending */ pair of characters,
 // but we also watch for the end of text before the comment is terminated.
 
             if (ch !== '*') {
@@ -248,8 +248,8 @@ JSON5.parse = (function () {
 
         comment = function () {
 
-// Skip comments, both inline and block-level, assuming this is one. Comments
-// always begin with a / character.
+// Skip a comment, whether inline or block-level, assuming this is one.
+// Comments always begin with a / character.
 
             if (ch !== '/') {
                 error("Not a comment");
@@ -456,7 +456,7 @@ JSON5.parse = (function () {
 }());
 
 JSON5.stringify = function (obj, replacer, space) {
-    // Since regular JSON is a strict subset of JSON5, we'll always output as
+    // Since regular JSON is a strict subset of JSON5, we'll always output
     // regular JSON to foster better interoperability. TODO Should we not?
     return JSON.stringify.apply(JSON, arguments);
 };

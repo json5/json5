@@ -317,21 +317,12 @@ JSON5.parse = (function () {
                         next(']');
                         return array;   // Potentially empty array
                     }
-                    // Omitted values are allowed and detected by the presence
-                    // of a trailing comma. Whether the value was omitted or
-                    // not, the current character after this block should be
-                    // the character after the value.
+                    // ES5 allows omitting elements in arrays, e.g. [,] and
+                    // [,null]. We don't allow this in JSON5.
                     if (ch === ',') {
-                        // Pushing an undefined value isn't quite equivalent
-                        // to what ES5 does in practice, but we can emulate it
-                        // by incrementing the array's length.
-                        array.length += 1;
-                        // Don't go next; the comma is the character after the
-                        // omitted (undefined) value.
+                        error("Missing array element");
                     } else {
                         array.push(value());
-                        // The various value methods call next(); the current
-                        // character here is now the one after the value.
                     }
                     white();
                     // If there's no comma after this value, this needs to

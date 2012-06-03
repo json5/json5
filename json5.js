@@ -116,9 +116,14 @@ JSON5.parse = (function () {
                 }
                 if (ch === '.') {
                     string += '.';
-                    while (next() && ch >= '0' && ch <= '9') {
-                        string += ch;
+                    next('.');
+                    if (ch < '0' || ch > '9') {
+                        error('Trailing decimal point');
                     }
+                    do {
+                        string += ch;
+                        next();
+                    } while (ch && ch >= '0' && ch <= '9');
                 }
                 if (ch === 'e' || ch === 'E') {
                     string += ch;

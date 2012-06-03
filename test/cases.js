@@ -21,8 +21,6 @@ var TYPES = ['json', 'es5'];
 var dirPathBase = Path.resolve(__dirname, 'cases-');
 
 function createTest(fileName, type) {
-    'use strict';
-
     var filePath = Path.join(dirPathBase + type, fileName);
     var str = FS.readFileSync(filePath, 'utf8');
 
@@ -35,7 +33,7 @@ function createTest(fileName, type) {
             case 'json':
                 return JSON.parse(str);
             case 'es5':
-                return eval('(\n' + str + '\n)');
+                return eval('"use strict"; (\n' + str + '\n)');
         }
     }
 

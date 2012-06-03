@@ -12,6 +12,7 @@
        it continues on another line */
 
     hex: 0xDEADbeef,
+    half: .5,
 
     finally: 'a trailing comma',
     oh: [

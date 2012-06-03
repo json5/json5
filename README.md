@@ -63,6 +63,7 @@ all of these are part of ES5 JavaScript.
        that continues on another line */
 
     hex: 0xDEADbeef,
+    half: .5,
        
     finally: 'a trailing comma',
     oh: [

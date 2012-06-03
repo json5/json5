@@ -1,5 +1,5 @@
-// cases.js
-// Tests each test case. See readme.txt for details.
+// parse.js
+// Tests parse(). See readme.txt for details.
 
 var assert = require('assert');
 var FS = require('fs');
@@ -21,6 +21,7 @@ var TYPES = ['json', 'es5'];
 var dirPathBase = Path.resolve(__dirname, 'cases-');
 
 function createTest(fileName, type) {
+    var ext = Path.extname(fileName);
     var filePath = Path.join(dirPathBase + type, fileName);
     var str = FS.readFileSync(filePath, 'utf8');
 
@@ -28,27 +29,32 @@ function createTest(fileName, type) {
         return JSON5.parse(str);
     }
 
-    function parseType() {
-        switch (type) {
-            case 'json':
-                return JSON.parse(str);
-            case 'es5':
-                return eval('"use strict"; (\n' + str + '\n)');
-        }
+    function parseJSON() {
+        return JSON.parse(str);
+    }
+
+    function parseES5() {
+        return eval('"use strict"; (\n' + str + '\n)');
     }
 
     exports[type][fileName] = function test() {
-        var objExp, valid = false;
-
-        try {
-            objExp = parseType();
-            valid = true;
-        } catch (err) {}
-
-        if (valid) {
-            assert.deepEqual(parseJSON5(), objExp);
-        } else {
-            assert.throws(parseJSON5);
+        switch (ext) {
+            case '.json':
+                assert.deepEqual(parseJSON5(), parseJSON());
+                break;
+            case '.json5':
+                assert.throws(parseJSON);       // test validation
+                assert.deepEqual(parseJSON5(), parseES5());
+                break;
+            case '.js':
+                assert.throws(parseJSON);       // test validation
+                assert.doesNotThrow(parseES5);  // test validation
+                assert.throws(parseJSON5);
+                break;
+            case '.txt':
+                assert.throws(parseES5);        // test validation
+                assert.throws(parseJSON5);
+                break;
         }
     };
 }

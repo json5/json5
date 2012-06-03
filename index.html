@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>JSON5 by aseemk</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>JSON5</h1>
+        <p>JSON for the ES5 era.</p>
+        <p class="view"><a href="https://github.com/aseemk/json5">View the Project on GitHub <small>aseemk/json5</small></a></p>
+        <ul>
+          <li><a href="https://github.com/aseemk/json5/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/aseemk/json5/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/aseemk/json5">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>JSON isn't the friendliest to write and maintain by hand. Keys need to be
+quoted; objects and arrays can't have trailing commas; comments aren't
+supported — even though none of these is the case with regular JavaScript
+today.</p>
+
+<p>Restricting JSON to such a strict subset of "JavaScript object notation" made
+sense for making it a great data-exchange format, but JSON's usage has
+expanded <a href="http://plovr.com/docs.html">beyond</a> <a href="http://npmjs.org/doc/json.html">machine-to-machine</a> <a href="http://code.google.com/p/fuzztester/wiki/JSONFileFormat">communication</a>.</p>
+
+<p><strong>JSON5 is a proposed extension to JSON</strong> that brings ES5 enhancements to its
+syntax. It remains a <strong>strict subset of JavaScript</strong>, adds <strong>no new data
+types</strong>, and is a <strong>strict superset of existing JSON</strong>.</p>
+
+<p>JSON5 is not an official successor to JSON, and existing JSON parsers may not
+understand these new features. It's thus recommended that files use a new
+extension like <code>.json5</code> to be explicit. <em>[TODO: New MIME type too?]</em></p>
+
+<p>This module provides a JavaScript implementation that works on all modern JS
+engines (even IE6). Its parser is based directly off of Douglas Crockford's
+eval-free <a href="https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js">json_parse.js</a>, making it both secure and robust. Give it a try!</p>
+
+<h2>Features</h2>
+
+<p>These are the new features of JSON5's syntax. All of these are optional, and
+all of these are part of ES5 JavaScript.</p>
+
+<ul>
+<li>
+<p>Object keys don't need to be quoted if they're valid <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Guide/Core_Language_Features#Variables">identifiers</a>. Yes, even reserved keywords are valid unquoted keys in ES5 [<a href="http://es5.github.com/#x11.1.5">§11.1.5</a>, <a href="http://es5.github.com/#x7.6">§7.6</a>].</p>
+
+<p><em>[TODO: Unicode characters and escape sequences aren't yet supported in this implementation.]</em></p>
+</li>
+<li><p>Strings can be single-quoted.</p></li>
+<li><p>Strings can be split across multiple lines; just prefix each newline with a
+backslash. [ES5 <a href="http://es5.github.com/#x7.8.4">§7.8.4</a>]</p></li>
+<li><p>Objects and arrays can have trailing commas.</p></li>
+<li><p>Both inline (single-line) and block (multi-line) comments are allowed.</p></li>
+<li><p>Numbers can be hexadecimal (base 16), and they can also begin with a leading
+decimal (e.g. <code>.5</code>).</p></li>
+</ul><h2>Example</h2>
+
+<div class="highlight">
+<pre><span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="s1">'bar'</span><span class="p">,</span>
+    <span class="k">while</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+
+    <span class="k">this</span><span class="o">:</span> <span class="s1">'is a\</span>
+<span class="s1"> multi-line string'</span><span class="p">,</span>
+
+    <span class="c1">// this is an inline comment</span>
+    <span class="nx">here</span><span class="o">:</span> <span class="s1">'is another'</span><span class="p">,</span> <span class="c1">// inline comment</span>
+
+    <span class="cm">/* this is a block comment</span>
+<span class="cm">       that continues on another line */</span>
+
+    <span class="nx">hex</span><span class="o">:</span> <span class="mh">0xDEADbeef</span><span class="p">,</span>
+    <span class="nx">half</span><span class="o">:</span> <span class="p">.</span><span class="mi">5</span><span class="p">,</span>
+
+    <span class="k">finally</span><span class="o">:</span> <span class="s1">'a trailing comma'</span><span class="p">,</span>
+    <span class="nx">oh</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">"we shouldn't forget"</span><span class="p">,</span>
+        <span class="s1">'arrays can have'</span><span class="p">,</span>
+        <span class="s1">'trailing commas too'</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h2>Installation</h2>
+
+<p>Via npm on Node:</p>
+
+<pre><code>npm install json5
+</code></pre>
+
+<div class="highlight">
+<pre><span class="kd">var</span> <span class="nx">JSON5</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'json5'</span><span class="p">);</span>
+</pre>
+</div>
+
+
+<p>Or in the browser (adds the <code>JSON5</code> object to the global namespace):</p>
+
+<div class="highlight">
+<pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"json5.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre>
+</div>
+
+
+<h2>Usage</h2>
+
+<div class="highlight">
+<pre><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">JSON5</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="s1">'{unquoted:"key",trailing:"comma",}'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">JSON5</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+</pre>
+</div>
+
+
+<p><code>JSON5.stringify()</code> is currently aliased to the native <code>JSON.stringify()</code> in
+order for the output to be fully compatible with all JSON parsers today.</p>
+
+<p>If you're running Node, you can also register a JSON5 <code>require()</code> hook to let
+you <code>require()</code> <code>.json5</code> files just like you can <code>.json</code> files:</p>
+
+<div class="highlight">
+<pre><span class="nx">require</span><span class="p">(</span><span class="s1">'json5/lib/require'</span><span class="p">);</span>
+<span class="nx">require</span><span class="p">(</span><span class="s1">'./path/to/foo'</span><span class="p">);</span>   <span class="c1">// tries foo.json5 after foo.js, foo.json, etc.</span>
+<span class="nx">require</span><span class="p">(</span><span class="s1">'./path/to/bar.json5'</span><span class="p">);</span>
+</pre>
+</div>
+
+
+<p>This module also provides a <code>json5</code> executable (requires Node) for converting
+JSON5 files to sibling JSON files:</p>
+
+<pre><code>$ json5 -c path/to/foo.json5    # generates path/to/foo.json
+</code></pre>
+
+<h2>Development</h2>
+
+<pre><code>git clone git://github.com/aseemk/json5.git
+cd json5
+make
+make test
+</code></pre>
+
+<p>If your system doesn't have Make, this should work in place of <code>make [test]</code>:</p>
+
+<pre><code>./lib/cli.js -c package.json5
+npm install
+npm test
+</code></pre>
+
+<p>Make is used to auto-generate the package.json file that npm requires from our
+package.json5 file. Just re-run <code>make</code> (or <code>./lib/cli.js -c package.json5</code>) on
+changes to package.json5.</p>
+
+<p>Feel free to <a href="https://github.com/aseemk/json5/issues">file issues</a> and submit
+<a href="https://github.com/aseemk/json5/pulls">pull requests</a> — contributions are
+welcome.</p>
+
+<p>If you submit a pull request, please be sure to add or update corresponding
+test cases, and ensure that <code>make test</code> (or <code>npm test</code>) continues to pass.</p>
+
+<h2>License</h2>
+
+<p>MIT License. © 2012 Aseem Kishore, and <a href="https://github.com/aseemk/json5/contributors">others</a>.</p>
+
+<h2>Credits</h2>
+
+<p><a href="http://bolinfest.com/">Michael Bolin</a> independently arrived at and published
+some of these same ideas with awesome explanations and detail.
+Recommended reading:
+<a href="http://bolinfest.com/essays/json.html">Suggested Improvements to JSON</a></p>
+
+<p><a href="http://www.crockford.com/">Douglas Crockford</a> of course designed and built
+JSON, but his state machine diagrams on the <a href="http://json.org/">JSON website</a>,
+as cheesy as it may sound, gave me motivation and confidence that building a
+new parser to implement these ideas this was within my reach!
+This code is also modeled directly off of Doug's open-source <a href="https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js">json_parse.js</a>
+parser. I'm super grateful for that clean and well-documented code.</p>
+
+<p><a href="https://github.com/MaxNanasy">Max Nanasy</a> has been an early and prolific
+supporter, contributing multiple patches and ideas. Thanks Max!</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/aseemk">aseemk</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-32213209-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>

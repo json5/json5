@@ -12,7 +12,7 @@ link: package
 	$(call clean)
 
 package:
-	@./cli.js -c package.json5
+	@./lib/cli.js -c package.json5
 
 publish: package
 	@npm publish

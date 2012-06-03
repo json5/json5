@@ -7,8 +7,8 @@
     contributors: [
         'Max Nanasy <max.nanasy@gmail.com>',
     ],
-    main: 'json5.js',
-    bin: 'cli.js',
+    main: 'lib/json5.js',
+    bin: 'lib/cli.js',
     dependencies: {},
     devDependencies: {
         mocha: '~1.0.3',

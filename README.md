@@ -115,13 +115,13 @@ make test
 If your system doesn't have Make, this should work in place of `make [test]`:
 
 ```
-./cli.js -c package.json5
+./lib/cli.js -c package.json5
 npm install
 npm test
 ```
 
 Make is used to auto-generate the package.json file that npm requires from our
-package.json5 file. Just re-run `make` (or `./cli.js -c package.json5`) on
+package.json5 file. Just re-run `make` (or `./lib/cli.js -c package.json5`) on
 changes to package.json5.
 
 Feel free to [file issues](https://github.com/aseemk/json5/issues) and submit

@@ -54,19 +54,19 @@ all of these are part of ES5 JavaScript.
 {
     foo: 'bar',
     while: true,
-    
+
     this: 'is a\
  multi-line string',
- 
+
     // this is an inline comment
     here: 'is another', // inline comment
-    
+
     /* this is a block comment
        that continues on another line */
 
     hex: 0xDEADbeef,
     half: .5,
-       
+
     finally: 'a trailing comma',
     oh: [
         "we shouldn't forget",

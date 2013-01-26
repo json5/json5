@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/aseemk/json5.png)](https://travis-ci.org/aseemk/json5)
+
 # JSON5 – Modern JSON
 
 JSON isn't the friendliest to write and maintain by hand. Keys need to be

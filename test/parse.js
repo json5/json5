@@ -39,20 +39,28 @@ function createTest(fileName, dir) {
     exports[dir][fileName] = function test() {
         switch (ext) {
             case '.json':
-                assert.deepEqual(parseJSON5(), parseJSON());
+                assert.deepEqual(parseJSON5(), parseJSON(),
+                    'Expected parsed JSON5 to equal parsed JSON.');
                 break;
             case '.json5':
-                assert.throws(parseJSON);       // test validation
-                assert.deepEqual(parseJSON5(), parseES5());
+                assert.throws(parseJSON,        // test validation
+                    'Test case bug: expected JSON parsing to fail.');
+                assert.deepEqual(parseJSON5(), parseES5(),
+                    'Expected parsed JSON5 to equal parsed ES5.');
                 break;
             case '.js':
-                assert.throws(parseJSON);       // test validation
-                assert.doesNotThrow(parseES5);  // test validation
-                assert.throws(parseJSON5);
+                assert.throws(parseJSON,        // test validation
+                    'Test case bug: expected JSON parsing to fail.');
+                assert.doesNotThrow(parseES5,   // test validation
+                    'Test case bug: expected ES5 parsing not to fail.');
+                assert.throws(parseJSON5,
+                    'Expected JSON5 parsing to fail.');
                 break;
             case '.txt':
-                assert.throws(parseES5);        // test validation
-                assert.throws(parseJSON5);
+                assert.throws(parseES5,         // test validation
+                    'Test case bug: expected ES5 parsing to fail.');
+                assert.throws(parseJSON5,
+                    'Expected JSON5 parsing to fail.');
                 break;
         }
     };

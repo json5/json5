@@ -18,6 +18,11 @@ These changes are sitting unreleased on the `develop` branch:
 
 [#24]: https://github.com/aseemk/json5/issues/24
 
+- **New:** `Infinity` and `-Infinity` are now allowed number literals.
+  ([#30][]; thanks [@pepkin88][].)
+
+[#30]: https://github.com/aseemk/json5/issues/30
+
 ### v0.1.0 [[code][c0.1.0], [diff][d0.1.0]]
 
 [c0.1.0]: https://github.com/aseemk/json5/tree/v0.1.0
@@ -75,3 +80,4 @@ parser for the regular JSON format.
 
 [@MaxNanasy]: https://github.com/MaxNanasy
 [@Midar]: https://github.com/Midar
+[@pepkin88]: https://github.com/pepkin88

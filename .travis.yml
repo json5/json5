@@ -3,5 +3,3 @@ node_js:
   - 0.6
   - 0.8
   - 0.9
-install: make install
-script: make test

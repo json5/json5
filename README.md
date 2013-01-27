@@ -127,28 +127,19 @@ $ json5 -c path/to/foo.json5    # generates path/to/foo.json
 ```
 git clone git://github.com/aseemk/json5.git
 cd json5
-make
-make test
-```
-
-If your system doesn't have Make, this should work in place of `make [test]`:
-
-```
-./lib/cli.js -c package.json5
 npm install
 npm test
 ```
 
-Make is used to auto-generate the package.json file that npm requires from our
-package.json5 file. Just re-run `make` (or `./lib/cli.js -c package.json5`) on
-changes to package.json5.
+As the `package.json5` file states, be sure to run `npm run build` on changes
+to `package.json5`, since npm requires `package.json`.
 
 Feel free to [file issues](https://github.com/aseemk/json5/issues) and submit
 [pull requests](https://github.com/aseemk/json5/pulls) — contributions are
 welcome.
 
 If you submit a pull request, please be sure to add or update corresponding
-test cases, and ensure that `make test` (or `npm test`) continues to pass.
+test cases, and ensure that `npm test` continues to pass.
 
 ## License
 

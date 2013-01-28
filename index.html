@@ -17,7 +17,10 @@
       <header>
         <h1>JSON5</h1>
         <p>JSON for the ES5 era.</p>
+
         <p class="view"><a href="https://github.com/aseemk/json5">View the Project on GitHub <small>aseemk/json5</small></a></p>
+
+
         <ul>
           <li><a href="https://github.com/aseemk/json5/zipball/master">Download <strong>ZIP File</strong></a></li>
           <li><a href="https://github.com/aseemk/json5/tarball/master">Download <strong>TAR Ball</strong></a></li>
@@ -27,7 +30,7 @@
       <section>
         <p>JSON isn't the friendliest to write and maintain by hand. Keys need to be
 quoted; objects and arrays can't have trailing commas; comments aren't
-supported — even though none of these is the case with regular JavaScript
+supported — even though none of these are the case with regular JavaScript
 today.</p>
 
 <p>Restricting JSON to such a strict subset of "JavaScript object notation" made
@@ -48,31 +51,45 @@ eval-free <a href="https://github.com/douglascrockford/JSON-js/blob/master/json_
 
 <h2>Features</h2>
 
-<p>These are the new features of JSON5's syntax. All of these are optional, and
-all of these are part of ES5 JavaScript.</p>
+<p>These are the new features of JSON5's syntax. <strong>All of these are optional</strong>,
+and <strong>all of these are part of ES5 JavaScript</strong>.</p>
+
+<h3>Objects</h3>
 
 <ul>
-<li>
-<p>Object keys don't need to be quoted if they're valid <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Guide/Core_Language_Features#Variables">identifiers</a>. Yes, even reserved keywords are valid unquoted keys in ES5 [<a href="http://es5.github.com/#x11.1.5">§11.1.5</a>, <a href="http://es5.github.com/#x7.6">§7.6</a>].</p>
+<li><p>Object keys can be unquoted if they're valid <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Guide/Core_Language_Features#Variables">identifiers</a>. Yes, even reserved keywords are valid unquoted keys in ES5 [<a href="http://es5.github.com/#x11.1.5">§11.1.5</a>, <a href="http://es5.github.com/#x7.6">§7.6</a>].
+<em>[TODO: Unicode characters and escape sequences aren't yet supported in this implementation.]</em></p></li>
+<li><p>Objects can have trailing commas.</p></li>
+</ul><h3>Arrays</h3>
 
-<p><em>[TODO: Unicode characters and escape sequences aren't yet supported in this implementation.]</em></p>
-</li>
+<ul>
+<li>Arrays can have trailing commas.</li>
+</ul><h3>Strings</h3>
+
+<ul>
 <li><p>Strings can be single-quoted.</p></li>
 <li><p>Strings can be split across multiple lines; just prefix each newline with a
 backslash. [ES5 <a href="http://es5.github.com/#x7.8.4">§7.8.4</a>]</p></li>
-<li><p>Objects and arrays can have trailing commas.</p></li>
-<li><p>Both inline (single-line) and block (multi-line) comments are allowed.</p></li>
-<li><p>Numbers can be hexadecimal (base 16), and they can also begin with a leading
-decimal (e.g. <code>.5</code>).</p></li>
+</ul><h3>Numbers</h3>
+
+<ul>
+<li><p>Numbers can be hexadecimal (base 16). (Note that signed hexadecimals are not
+allowed by ES5, nor are hexadecimal floats.)</p></li>
+<li><p>Numbers can begin or end with a (leading or trailing) decimal point.</p></li>
+<li><p>Numbers can include <code>Infinity</code> and <code>-Infinity</code>.</p></li>
+<li><p>Numbers can begin with an explicit plus (<code>+</code>) sign.</p></li>
+</ul><h3>Comments</h3>
+
+<ul>
+<li>Both inline (single-line) and block (multi-line) comments are allowed.</li>
 </ul><h2>Example</h2>
 
-<div class="highlight">
-<pre><span class="p">{</span>
+<div class="highlight"><pre><span class="p">{</span>
     <span class="nx">foo</span><span class="o">:</span> <span class="s1">'bar'</span><span class="p">,</span>
     <span class="k">while</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
 
-    <span class="k">this</span><span class="o">:</span> <span class="s1">'is a\</span>
-<span class="s1"> multi-line string'</span><span class="p">,</span>
+    <span class="k">this</span><span class="o">:</span> <span class="s1">'is a \</span>
+<span class="s1">multi-line string'</span><span class="p">,</span>
 
     <span class="c1">// this is an inline comment</span>
     <span class="nx">here</span><span class="o">:</span> <span class="s1">'is another'</span><span class="p">,</span> <span class="c1">// inline comment</span>
@@ -82,6 +99,8 @@ decimal (e.g. <code>.5</code>).</p></li>
 
     <span class="nx">hex</span><span class="o">:</span> <span class="mh">0xDEADbeef</span><span class="p">,</span>
     <span class="nx">half</span><span class="o">:</span> <span class="p">.</span><span class="mi">5</span><span class="p">,</span>
+    <span class="nx">delta</span><span class="o">:</span> <span class="o">+</span><span class="mi">10</span><span class="p">,</span>
+    <span class="nx">to</span><span class="o">:</span> <span class="kc">Infinity</span><span class="p">,</span>   <span class="c1">// and beyond!</span>
 
     <span class="k">finally</span><span class="o">:</span> <span class="s1">'a trailing comma'</span><span class="p">,</span>
     <span class="nx">oh</span><span class="o">:</span> <span class="p">[</span>
@@ -90,9 +109,7 @@ decimal (e.g. <code>.5</code>).</p></li>
         <span class="s1">'trailing commas too'</span><span class="p">,</span>
     <span class="p">],</span>
 <span class="p">}</span>
-</pre>
-</div>
-
+</pre></div>
 
 <h2>Installation</h2>
 
@@ -101,30 +118,19 @@ decimal (e.g. <code>.5</code>).</p></li>
 <pre><code>npm install json5
 </code></pre>
 
-<div class="highlight">
-<pre><span class="kd">var</span> <span class="nx">JSON5</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'json5'</span><span class="p">);</span>
-</pre>
-</div>
-
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">JSON5</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'json5'</span><span class="p">);</span>
+</pre></div>
 
 <p>Or in the browser (adds the <code>JSON5</code> object to the global namespace):</p>
 
-<div class="highlight">
-<pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"json5.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-</pre>
-</div>
-
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"json5.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
 
 <h2>Usage</h2>
 
-<div class="highlight">
-<pre><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">JSON5</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="s1">'{unquoted:"key",trailing:"comma",}'</span><span class="p">);</span>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">JSON5</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="s1">'{unquoted:"key",trailing:"comma",}'</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">JSON5</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
-</pre>
-</div>
-
+</pre></div>
 
 <p><code>JSON5.stringify()</code> is currently aliased to the native <code>JSON.stringify()</code> in
 order for the output to be fully compatible with all JSON parsers today.</p>
@@ -132,13 +138,10 @@ order for the output to be fully compatible with all JSON parsers today.</p>
 <p>If you're running Node, you can also register a JSON5 <code>require()</code> hook to let
 you <code>require()</code> <code>.json5</code> files just like you can <code>.json</code> files:</p>
 
-<div class="highlight">
-<pre><span class="nx">require</span><span class="p">(</span><span class="s1">'json5/lib/require'</span><span class="p">);</span>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">(</span><span class="s1">'json5/lib/require'</span><span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span><span class="s1">'./path/to/foo'</span><span class="p">);</span>   <span class="c1">// tries foo.json5 after foo.js, foo.json, etc.</span>
 <span class="nx">require</span><span class="p">(</span><span class="s1">'./path/to/bar.json5'</span><span class="p">);</span>
-</pre>
-</div>
-
+</pre></div>
 
 <p>This module also provides a <code>json5</code> executable (requires Node) for converting
 JSON5 files to sibling JSON files:</p>
@@ -150,27 +153,17 @@ JSON5 files to sibling JSON files:</p>
 
 <pre><code>git clone git://github.com/aseemk/json5.git
 cd json5
-make
-make test
-</code></pre>
-
-<p>If your system doesn't have Make, this should work in place of <code>make [test]</code>:</p>
-
-<pre><code>./lib/cli.js -c package.json5
 npm install
 npm test
 </code></pre>
 
-<p>Make is used to auto-generate the package.json file that npm requires from our
-package.json5 file. Just re-run <code>make</code> (or <code>./lib/cli.js -c package.json5</code>) on
-changes to package.json5.</p>
+<p>As the <code>package.json5</code> file states, be sure to run <code>npm run build</code> on changes
+to <code>package.json5</code>, since npm requires <code>package.json</code>.</p>
 
 <p>Feel free to <a href="https://github.com/aseemk/json5/issues">file issues</a> and submit
 <a href="https://github.com/aseemk/json5/pulls">pull requests</a> — contributions are
-welcome.</p>
-
-<p>If you submit a pull request, please be sure to add or update corresponding
-test cases, and ensure that <code>make test</code> (or <code>npm test</code>) continues to pass.</p>
+welcome. If you do submit a pull request, please be sure to add or update
+corresponding test cases, and ensure that <code>npm test</code> continues to pass.</p>
 
 <h2>License</h2>
 

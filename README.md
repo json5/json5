@@ -4,7 +4,7 @@
 
 JSON isn't the friendliest to write and maintain by hand. Keys need to be
 quoted; objects and arrays can't have trailing commas; comments aren't
-supported — even though none of these is the case with regular JavaScript
+supported — even though none of these are the case with regular JavaScript
 today.
 
 Restricting JSON to such a strict subset of "JavaScript object notation" made
@@ -29,24 +29,42 @@ eval-free [json_parse.js][], making it both secure and robust. Give it a try!
 
 ## Features
 
-These are the new features of JSON5's syntax. All of these are optional, and
-all of these are part of ES5 JavaScript.
+These are the new features of JSON5's syntax. **All of these are optional**,
+and **all of these are part of ES5 JavaScript**.
 
-- Object keys don't need to be quoted if they're valid [identifiers](
+### Objects
+
+- Object keys can be unquoted if they're valid [identifiers](
   https://developer.mozilla.org/en/Core_JavaScript_1.5_Guide/Core_Language_Features#Variables). Yes, even reserved keywords are valid unquoted keys in ES5 [[§11.1.5](http://es5.github.com/#x11.1.5), [§7.6](http://es5.github.com/#x7.6)].
   *[TODO: Unicode characters and escape sequences aren't yet supported in this implementation.]*
+
+- Objects can have trailing commas.
+
+### Arrays
+
+- Arrays can have trailing commas.
+
+### Strings
 
 - Strings can be single-quoted.
 
 - Strings can be split across multiple lines; just prefix each newline with a
   backslash. [ES5 [§7.8.4](http://es5.github.com/#x7.8.4)]
 
-- Objects and arrays can have trailing commas.
+### Numbers
+
+- Numbers can be hexadecimal (base 16). (Note that signed hexadecimals are not
+  allowed by ES5, nor are hexadecimal floats.)
+
+- Numbers can begin or end with a (leading or trailing) decimal point.
+
+- Numbers can include `Infinity` and `-Infinity`.
+
+- Numbers can begin with an explicit plus (`+`) sign.
+
+### Comments
 
 - Both inline (single-line) and block (multi-line) comments are allowed.
-
-- Numbers can be hexadecimal (base 16), and they can also begin with a leading
-  decimal (e.g. `.5`).
 
 ## Example
 
@@ -55,8 +73,8 @@ all of these are part of ES5 JavaScript.
     foo: 'bar',
     while: true,
 
-    this: 'is a\
- multi-line string',
+    this: 'is a \
+multi-line string',
 
     // this is an inline comment
     here: 'is another', // inline comment
@@ -66,6 +84,8 @@ all of these are part of ES5 JavaScript.
 
     hex: 0xDEADbeef,
     half: .5,
+    delta: +10,
+    to: Infinity,   // and beyond!
 
     finally: 'a trailing comma',
     oh: [
@@ -99,8 +119,6 @@ Or in the browser (adds the `JSON5` object to the global namespace):
 ```js
 var obj = JSON5.parse('{unquoted:"key",trailing:"comma",}');
 var str = JSON5.stringify(obj);
-console.log(obj);
-console.log(str);
 ```
 
 `JSON5.stringify()` is currently aliased to the native `JSON.stringify()` in
@@ -136,10 +154,8 @@ to `package.json5`, since npm requires `package.json`.
 
 Feel free to [file issues](https://github.com/aseemk/json5/issues) and submit
 [pull requests](https://github.com/aseemk/json5/pulls) — contributions are
-welcome.
-
-If you submit a pull request, please be sure to add or update corresponding
-test cases, and ensure that `npm test` continues to pass.
+welcome. If you do submit a pull request, please be sure to add or update
+corresponding test cases, and ensure that `npm test` continues to pass.
 
 ## License
 

@@ -23,7 +23,7 @@ express data more easily:
 [v8-hex-fix]: http://code.google.com/p/v8/issues/detail?id=2240
 [#36]: https://github.com/aseemk/json5/issues/36
 
-- **Breaking:** Trailing decimal points in decimal numbers are allowed again.
+- **New:** Trailing decimal points in decimal numbers are allowed again.
   They're allowed by ES5, and differentiating between integers and floats may
   make sense on some platforms. ([#16][]; thanks [@Midar][].)
 

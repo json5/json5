@@ -23,6 +23,12 @@ These changes are sitting unreleased on the `develop` branch:
 
 [#30]: https://github.com/aseemk/json5/issues/30
 
+- **Breaking:** Trailing decimal points in decimal numbers are allowed again.
+  They're allowed by ES5, and differentiating between integers and floats may
+  make sense on some platforms. ([#16][]; thanks [@Midar][].)
+
+[#16]: https://github.com/aseemk/json5/issues/16
+
 ### v0.1.0 [[code][c0.1.0], [diff][d0.1.0]]
 
 [c0.1.0]: https://github.com/aseemk/json5/tree/v0.1.0

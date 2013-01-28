@@ -29,6 +29,10 @@ These changes are sitting unreleased on the `develop` branch:
 
 [#16]: https://github.com/aseemk/json5/issues/16
 
+- **New:** Plus signs (`+`) in front of numbers are now allowed, since it can
+  be helpful in some contexts to explicitly mark numbers as positive.
+  (E.g. when a property represents changes or deltas.)
+
 ### v0.1.0 [[code][c0.1.0], [diff][d0.1.0]]
 
 [c0.1.0]: https://github.com/aseemk/json5/tree/v0.1.0

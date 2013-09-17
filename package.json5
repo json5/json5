@@ -9,6 +9,7 @@
     author: 'Aseem Kishore <aseem.kishore@gmail.com>',
     contributors: [
         'Max Nanasy <max.nanasy@gmail.com>',
+        'Andrew Eisenberg <andrew@eisenberg.as>',
     ],
     main: 'lib/json5.js',
     bin: 'lib/cli.js',

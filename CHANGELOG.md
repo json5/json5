@@ -5,7 +5,18 @@
 
 These changes are sitting unreleased on the `develop` branch:
 
-- (Nothing yet.)
+- **New:** `JSON5.stringify()` method now implemented.  This method
+  is analogous to the `JSON.stringify()` method. The only difference 
+  is that `JSON5.stringify()` will avoid quoting keys if possible.
+  The [space parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FGlobal_Objects%2FJSON%2Fstringify#Parameters)
+  (parameter 3) is supported, and this provides formatting for the stringified object.
+  There are some limitations with this new method: 
+    * does not handle the [`replacer` parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FGlobal_Objects%2FJSON%2Fstringify#Parameters)
+    (second parameter)
+    * does not respect the [`toJSON` method of objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FGlobal_Objects%2FJSON%2Fstringify#toJSON_behavior)
+    to be converted
+		
+[#36]: https://github.com/aseemk/json5/pull/35
 
 ### v0.2.0 [[code][c0.2.0], [diff][d0.2.0]]
 

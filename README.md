@@ -40,7 +40,7 @@ from JSON to a completely different format is undesirable in many cases.
 JSON5’s aim is to remain close to JSON and JavaScript.
 
 
-## Features
+## Features of `JSON.parse()`
 
 The following is the exact list of additions to JSON's syntax introduced by
 JSON5. **All of these are optional**, and **all of these come from ES5**.
@@ -84,8 +84,7 @@ JSON5. **All of these are optional**, and **all of these come from ES5**.
 
 - Both inline (single-line) and block (multi-line) comments are allowed.
 
-
-## Example
+## Parse Example
 
 The following is a contrived example, but it illustrates most of the features:
 
@@ -150,6 +149,46 @@ This implementation's own [package.json5](package.json5) is more realistic:
 }
 ```
 
+## Features of `JSON.stringify()`
+
+As of v0.3.0. JSON5 supports the `stringify` method, which is analogous to 
+[`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify).
+The only difference is that `JSON5.stringify()` will avoid quoting keys where appropriate.
+`stringify` takes 3 parameters, but only two are currently supported:
+
+1. **value:** the JavaScript value to convert to a JSON string.
+2. **replacer:** a transformer to run on each value (not supported, will throw an exception if used)
+3. **space:** Causes the resulting string to be pretty-printed.
+
+Another limitation is that the [`toJSON` behavior](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior)
+is not yet supported.
+
+## Stringify example
+
+Using JSON5, you can stringify JS objects like this:
+
+```js
+JSON5.stringify({first: 8, 'second key': 9});
+// => '{first:8,"second key":9}'
+
+JSON5.stringify({first: 8, 'second key': 9}, function() {return 'nuthin';});
+// => Error: JSON5 does not support the replacer parameter. Use JSON instead.
+
+JSON5.stringify({first: 8, 'second key': 9}, null, ' ');
+// => '{\n first: 8,\n "second key": 9\n}'
+```
+When using JSON, all keys are quoted:
+
+```js
+JSON.stringify({first: 8, 'second key': 9});
+// => '{"first":8,"second key":9}'
+
+JSON.stringify({first: 8, 'second key': 9}, function() {return 'nuthin';});
+// => "nuthin"'
+
+JSON.stringify({first: 8, 'second key': 9}, null, ' ');
+// => '{\n "first": 8,\n "second key": 9\n}'
+```
 
 ## Community
 

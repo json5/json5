@@ -3,7 +3,10 @@
 [cNew]: https://github.com/aseemk/json5/tree/develop
 [dNew]: https://github.com/aseemk/json5/compare/master...develop
 
-These changes are sitting unreleased on the `develop` branch:
+### v0.3.0 [[code][c0.3.0], [diff][d0.3.0]]
+
+[c0.3.0]: https://github.com/aseemk/json5/tree/v0.3.0
+[d0.3.0]: https://github.com/aseemk/json5/compare/v0.2.0...v0.3.0
 
 - **New:** `JSON5.stringify()` method now implemented.  This method
   is analogous to the `JSON.stringify()` method. The only difference 

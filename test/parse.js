@@ -45,8 +45,15 @@ function createTest(fileName, dir) {
             case '.json5':
                 assert.throws(parseJSON,        // test validation
                     'Test case bug: expected JSON parsing to fail.');
-                assert.deepEqual(parseJSON5(), parseES5(),
+                // Need special case for NaN as NaN != NaN
+                if ( fileName === 'nan.json5' ) {
+                  assert.equal( isNaN( parseJSON5() ), isNaN( parseES5() ),
                     'Expected parsed JSON5 to equal parsed ES5.');
+                }
+                else {
+                  assert.deepEqual( parseJSON5(), parseES5(),
+                    'Expected parsed JSON5 to equal parsed ES5.');
+                }
                 break;
             case '.js':
                 assert.throws(parseJSON,        // test validation

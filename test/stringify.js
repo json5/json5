@@ -228,6 +228,56 @@ exports.stringify.replacer.function.replacingArrayValueWithUndefined = function 
     assertStringify(obj, ReplacerTest);
 };
 
+exports.stringify.replacer.array = {};
+
+exports.stringify.replacer.array.simple = function test() {
+    var ReplacerTest = function() {
+        return {
+            replacer: [],
+            assert: function() { /* no-op */ }
+        }
+    };
+    for (var i=0; i<simpleCases.length; i++) {
+        assertStringify(simpleCases[i], ReplacerTest);
+    }
+};
+
+exports.stringify.replacer.array.complexObject = function test() {
+    var obj = {
+        one: 'string',
+        one_remove: 'string',
+        two: 123,
+        two_remove: 123,
+        three: ['array1', 'array2'],
+        three_remove: ['array1', 'array2'],
+        four: {nested_one:'anotherString', nested_one_remove: 'anotherString'},
+        four_remove: {nested_one:'anotherString', nested_one_remove: 'anotherString'},
+        five: new Date(),
+        five_remove: new Date(),
+        six: Date.now(),
+        six_remove: Date.now(),
+        seven: null,
+        seven_remove: null,
+        eight: true,
+        eight_remove: true,
+        nine: false,
+        nine_remove: false,
+        ten: [NaN, Infinity, -Infinity],
+        ten_remove: [NaN, Infinity, -Infinity],
+        eleven: function() {},
+        eleven_remove: function() {}
+    };
+    var ReplacerTest = function() {
+        return {
+            replacer: [
+                'one', 'two', 'three', 'four', 'nested_one', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 0
+            ],
+            assert: function() {/* no-op */}
+        }
+    };
+    assertStringify(obj, ReplacerTest);
+};
+
 function stringifyJSON5(obj, replacer, space) {
     var start, res, end;
     try {
@@ -258,7 +308,11 @@ function stringifyJSON(obj, replacer, space) {
         var keys = [];
         function findKeys(key, innerObj) {
             if (replacer) {
-                innerObj = replacer(key, innerObj);
+                if (typeof replacer === 'function') {
+                    innerObj = replacer(key, innerObj);
+                } else if (key !== '' && replacer.indexOf(key) < 0) {
+                    return;
+                }
             }
             if (JSON5.isWord(key) &&
                 typeof innerObj !== 'function' &&

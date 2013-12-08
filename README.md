@@ -157,7 +157,7 @@ The only difference is that `JSON5.stringify()` will avoid quoting keys where ap
 `stringify` takes 3 parameters, but only two are currently supported:
 
 1. **value:** the JavaScript value to convert to a JSON string.
-2. **replacer:** a transformer to run on each value (not supported, will throw an exception if used)
+2. **replacer:** a transformer to run on each value (either a function or an array, as with [`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Using_native_JSON#The_replacer_parameter))
 3. **space:** Causes the resulting string to be pretty-printed.
 
 Another limitation is that the [`toJSON` behavior](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior)
@@ -171,8 +171,11 @@ Using JSON5, you can stringify JS objects like this:
 JSON5.stringify({first: 8, 'second key': 9});
 // => '{first:8,"second key":9}'
 
-JSON5.stringify({first: 8, 'second key': 9}, function() {return 'nuthin';});
-// => Error: JSON5 does not support the replacer parameter. Use JSON instead.
+JSON5.stringify({first: 8, 'second key': 9}, function(key, value) {return typeof value === 'object' ? value : 'replaced';});
+// => '{first:"replaced","second key":"replaced"}'
+
+JSON5.stringify({first: 8, 'second key': 9}, ['first']);
+// => '{first:8}'
 
 JSON5.stringify({first: 8, 'second key': 9}, null, ' ');
 // => '{\n first: 8,\n "second key": 9\n}'
@@ -183,8 +186,11 @@ When using JSON, all keys are quoted:
 JSON.stringify({first: 8, 'second key': 9});
 // => '{"first":8,"second key":9}'
 
-JSON.stringify({first: 8, 'second key': 9}, function() {return 'nuthin';});
-// => "nuthin"'
+JSON.stringify({first: 8, 'second key': 9}, function(key, value) {return typeof value === 'object' ? value : 'replaced';});
+// => '{"first":"replaced","second key":"replaced"}'
+
+JSON.stringify({first: 8, 'second key': 9}, ['first']);
+// => '{"first":8}'
 
 JSON.stringify({first: 8, 'second key': 9}, null, ' ');
 // => '{\n "first": 8,\n "second key": 9\n}'

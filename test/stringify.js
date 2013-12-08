@@ -12,34 +12,22 @@ var JSON5 = require('../lib/json5');
 // native JSON.stringify().  The only differences will be in how object keys are 
 // handled.
 
+var simpleCases = [
+    null,
+    9, -9, +9, +9.878,
+    '', "''", '999', '9aa', 'aaa', 'aa a', 'aa\na', 'aa\\a', '\'', '\\\'', '\\"',
+    undefined,
+    true, false,
+    {}, [], function(){},
+    Date.now(), new Date(Date.now())
+];
+
 exports.stringify = {};
 exports.stringify.simple = function test() {
-    assertStringify();
-    assertStringify(null);
-    assertStringify(9);
-    assertStringify(-9);
-    assertStringify(+9);
-    assertStringify(+9.878);
-    assertStringify('');
-    assertStringify("''");
-    assertStringify('999');
-    assertStringify('9aa');
-    assertStringify('aaa');
-    assertStringify('aa a');
-    assertStringify('aa\na');
-    assertStringify('aa\\a');
-    assertStringify('\'');
-    assertStringify('\\\'');
-    assertStringify('\\"');
-    assertStringify(undefined);
-    assertStringify(true);
-    assertStringify(false);
-    assertStringify({});
-    assertStringify([]);
-    assertStringify(function() {});
-    assertStringify(Date.now());
-    assertStringify(new Date(Date.now()));
-};    
+    for (var i=0; i<simpleCases.length; i++) {
+        assertStringify(simpleCases[i]);
+    }
+};
 
 exports.stringify.oddities = function test() {
     assertStringify(Function);
@@ -105,22 +93,146 @@ exports.stringify.oddKeys = function test() {
 exports.stringify.circular = function test() {
     var obj = { };
     obj.obj = obj;
-    assertStringify(obj, true);
-    
+    assertStringify(obj, null, true);
+
     var obj2 = {inner1: {inner2: {}}};
     obj2.inner1.inner2.obj = obj2;
-    assertStringify(obj2, true);
+    assertStringify(obj2, null, true);
 
     var obj3 = {inner1: {inner2: []}};
     obj3.inner1.inner2[0] = obj3;
-    assertStringify(obj3, true);
+    assertStringify(obj3, null, true);
 };
 
-function stringifyJSON5(obj, reviver, space) {
+exports.stringify.replacerType = function test() {
+    var assertStringifyJSON5ThrowsExceptionForReplacer = function(replacer) {
+        assert.throws(
+            function() { JSON5.stringify(null, replacer); },
+            /Replacer must be a function or an array/
+        );
+    };
+    assertStringifyJSON5ThrowsExceptionForReplacer('string');
+    assertStringifyJSON5ThrowsExceptionForReplacer(123);
+    assertStringifyJSON5ThrowsExceptionForReplacer({});
+};
+
+exports.stringify.replacer = {};
+exports.stringify.replacer.function = {};
+
+exports.stringify.replacer.function.simple = function test() {
+    function replacerTestFactory(expectedValue) {
+        return function() {
+            var lastKey = null,
+                lastValue = null,
+                numCalls = 0;
+            return {
+                replacer: function(key, value) {
+                    lastKey = key;
+                    lastValue = value;
+                    numCalls++;
+                    return value;
+                },
+                assert: function() {
+                    assert.equal(numCalls, 1, "Replacer should be called exactly once for " + expectedValue);
+                    assert.equal(lastKey, "");
+                    if (expectedValue && expectedValue['toJSON']) {
+                        expectedValue = expectedValue.toJSON();
+                    }
+                    assert.equal(lastValue, expectedValue);
+                }
+            }
+        }
+    }
+    for (var i=0; i<simpleCases.length; i++) {
+        assertStringify(simpleCases[i], replacerTestFactory(simpleCases[i]));
+    }
+};
+
+exports.stringify.replacer.function.complexObject = function test() {
+    var obj = {
+        one: 'string',
+        two: 123,
+        three: ['array1', 'array2'],
+        four: {nested_one:'anotherString'},
+        five: new Date(),
+        six: Date.now(),
+        seven: null,
+        eight: true,
+        nine: false,
+        ten: [NaN, Infinity, -Infinity],
+        eleven: function() {}
+    };
+    var expectedKeys = [
+        '', // top level object
+        'one',
+        'two',
+        'three', 0, 1, // array keys
+        'four', 'nested_one', // nested object keys
+        'five',
+        'six',
+        'seven',
+        'eight',
+        'nine',
+        'ten', 0, 1, 2, // array keys
+        'eleven'
+    ];
+    var ReplacerTest = function() {
+        var seenKeys = [];
+        return {
+            replacer: function(key, value) {
+                seenKeys.push(key);
+                if (typeof(value) == "object") {
+                    return value;
+                }
+                return 'replaced ' + (value ? value.toString() : '');
+            },
+            assert: function() {
+                assert.deepEqual(seenKeys, expectedKeys);
+            }
+        }
+    };
+    assertStringify(obj, ReplacerTest);
+};
+
+exports.stringify.replacer.function.replacingWithUndefined = function test() {
+    var obj = { shouldSurvive: 'one', shouldBeRemoved: 'two' };
+    var ReplacerTest = function() {
+        return {
+            replacer: function(key, value) {
+                if (key === 'shouldBeRemoved') {
+                    return undefined;
+                } else {
+                    return value;
+                }
+            },
+            assert: function() { /* no-op */ }
+        }
+    };
+    assertStringify(obj, ReplacerTest);
+};
+
+exports.stringify.replacer.function.replacingArrayValueWithUndefined = function test() {
+    var obj = ['should survive', 'should be removed'];
+    var ReplacerTest = function() {
+        return {
+            replacer: function(key, value) {
+                if (value === 'should be removed') {
+                    return undefined;
+                } else {
+                    return value;
+                }
+            },
+            assert: function() { /* no-op */ }
+        }
+    };
+    assertStringify(obj, ReplacerTest);
+};
+
+function stringifyJSON5(obj, replacer, space) {
     var start, res, end;
     try {
         start = new Date();
-        res = JSON5.stringify(obj, null, space);
+        res = JSON5.stringify(obj, replacer, space);
         end = new Date();
     } catch (e) {
         res = e.message;
@@ -133,41 +245,42 @@ function stringifyJSON5(obj, reviver, space) {
     return res;
 }
 
-function stringifyJSON(obj, reviver, space) {
+function stringifyJSON(obj, replacer, space) {
     var start, res, end;
     
     try {
         start = new Date();
-        res = JSON.stringify(obj, null, space);
+        res = JSON.stringify(obj, replacer, space);
         end = new Date();
     
         // now remove all quotes from keys where appropriate
         // first recursively find all key names
         var keys = [];
-        function findKeys(innerObj) {
+        function findKeys(key, innerObj) {
+            if (replacer) {
+                innerObj = replacer(key, innerObj);
+            }
+            if (JSON5.isWord(key) &&
+                typeof innerObj !== 'function' &&
+                typeof innerObj !== 'undefined') {
+                keys.push(key);
+            }
             if (typeof innerObj === 'object') {
-                if (innerObj === null) {
-                    return;
-                } else if (Array.isArray(innerObj)) {
+                if (Array.isArray(innerObj)) {
                     for (var i = 0; i < innerObj.length; i++) {
-                        findKeys(innerObj[i]);
+                        findKeys(i, innerObj[i]);
                     }
-                } else {
+                } else if (innerObj !== null) {
                     for (var prop in innerObj) {
                         if (innerObj.hasOwnProperty(prop)) {
-                            if (JSON5.isWord(prop) &&
-                                typeof innerObj[prop] !== 'function' &&
-                                typeof innerObj[prop] !== 'undefined') {
-                                keys.push(prop);
-                                findKeys(innerObj[prop]);
-                            }
+                            findKeys(prop, innerObj[prop]);
                         }
                     }
                 }
             }
         }
-        findKeys(obj);
-        
+        findKeys('', obj);
+
         // now replace each key in the result
         var last = 0;
         for (var i = 0; i < keys.length; i++) {
@@ -195,47 +308,37 @@ function stringifyJSON(obj, reviver, space) {
     return res;
 }
 
-function assertStringify(obj, expectError) {
-    var j5, j;
-    
-    j5 = stringifyJSON5(obj);
-    j = stringifyJSON(obj);
-    assert.equal(j5, j);
-    
-    j5 = stringifyJSON5(obj, null, " ");
-    j = stringifyJSON(obj, null, " ");
-    assert.equal(j5, j);
-    
-    // max 10 a spaces
-    j5 = stringifyJSON5(obj, null, "          ");
-    j = stringifyJSON(obj, null, "          ");
-    assert.equal(j5, j);
-    
-    // max 10 a spaces
-    j5 = stringifyJSON5(obj, null, "                    ");
-    j = stringifyJSON(obj, null, "                    ");
-    assert.equal(j5, j);
-    
-    j5 = stringifyJSON5(obj, null, "\t");
-    j = stringifyJSON(obj, null, "\t");
-    assert.equal(j5, j);
-    
-    j5 = stringifyJSON5(obj, null, "this is an odd indent");
-    j = stringifyJSON(obj, null, "this is an odd indent");
-    assert.equal(j5, j);
-    
-    j5 = stringifyJSON5(obj, null, 5);
-    j = stringifyJSON(obj, null, 5);
-    assert.equal(j5, j);
-    
-    j5 = stringifyJSON5(obj, null, 20);
-    j = stringifyJSON(obj, null, 20);
-    assert.equal(j5, j);
-    
-    j5 = stringifyJSON5(obj, null, '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t');
-    j = stringifyJSON(obj, null, '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t');
-    assert.equal(j5, j);
-    
+function assertStringify(obj, replacerTestConstructor, expectError) {
+    if (!replacerTestConstructor) {
+        replacerTestConstructor = function(){
+            return {replacer: null, assert: function(){}};
+        };
+    }
+    var testStringsEqual = function(obj, indent) {
+        var j5ReplacerTest = replacerTestConstructor();
+        var jReplacerTest = replacerTestConstructor();
+        var j5, j;
+        j5 = stringifyJSON5(obj, j5ReplacerTest.replacer, indent);
+        j = stringifyJSON(obj, jReplacerTest.replacer, indent);
+        assert.equal(j5, j);
+        j5ReplacerTest.assert();
+    };
+
+    var indents = [
+        undefined,
+        " ",
+        "          ",
+        "                    ",
+        "\t",
+        "this is an odd indent",
+        5,
+        20,
+        '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t'
+    ];
+    for (var i=0; i<indents.length; i++) {
+        testStringsEqual(obj, indents[i]);
+    }
+
     if (!expectError) {
         // no point in round tripping if there is an error
         var origStr = JSON5.stringify(obj), roundTripStr;

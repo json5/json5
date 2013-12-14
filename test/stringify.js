@@ -116,6 +116,55 @@ exports.stringify.circular = function test() {
     assertStringify(obj3, true);
 };
 
+exports.stringify.toJSON = function test() {
+    var customToJSONObject = {
+        name: 'customToJSONObject',
+        toJSON: function() {
+            return 'custom-to-json-object-serialization';
+        }
+    };
+    assertStringify(customToJSONObject);
+
+    var customToJSONPrimitive = "Some string";
+    customToJSONPrimitive.toJSON = function() {
+        return 'custom-to-json-string-serialization';
+    };
+    assertStringify(customToJSONPrimitive);
+
+    var object = {
+        customToJSONObject: customToJSONObject
+    };
+    assertStringify(object);
+
+    // Returning an object with a toJSON function does *NOT* have that toJSON function called: it is omitted
+    var nested = {
+        name: 'nested',
+        toJSON: function() {
+            return customToJSONObject;
+        }
+    };
+    assertStringify(nested);
+
+    var count = 0;
+    function createObjectSerialisingTo(value) {
+        count++;
+        return {
+            name: 'obj-' + count,
+            toJSON: function() {
+                return value;
+            }
+        };
+    }
+    assertStringify(createObjectSerialisingTo(null));
+    assertStringify(createObjectSerialisingTo(undefined));
+    assertStringify(createObjectSerialisingTo([]));
+    assertStringify(createObjectSerialisingTo({}));
+    assertStringify(createObjectSerialisingTo(12345));
+    assertStringify(createObjectSerialisingTo(true));
+    assertStringify(createObjectSerialisingTo(new Date()));
+    assertStringify(createObjectSerialisingTo(function(){}));
+};
+
 function stringifyJSON5(obj, reviver, space) {
     var start, res, end;
     try {
@@ -145,6 +194,9 @@ function stringifyJSON(obj, reviver, space) {
         // first recursively find all key names
         var keys = [];
         function findKeys(innerObj) {
+            if (innerObj && innerObj['toJSON'] && typeof innerObj.toJSON === 'function') {
+                innerObj = innerObj.toJSON();
+            }
             if (typeof innerObj === 'object') {
                 if (innerObj === null) {
                     return;

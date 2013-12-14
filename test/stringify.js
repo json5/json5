@@ -314,6 +314,55 @@ exports.stringify.replacer.array.complexObject = function test() {
     assertStringify(obj, ReplacerTest);
 };
 
+exports.stringify.toJSON = function test() {
+    var customToJSONObject = {
+        name: 'customToJSONObject',
+        toJSON: function() {
+            return 'custom-to-json-object-serialization';
+        }
+    };
+    assertStringify(customToJSONObject);
+
+    var customToJSONPrimitive = "Some string";
+    customToJSONPrimitive.toJSON = function() {
+        return 'custom-to-json-string-serialization';
+    };
+    assertStringify(customToJSONPrimitive);
+
+    var object = {
+        customToJSONObject: customToJSONObject
+    };
+    assertStringify(object);
+
+    // Returning an object with a toJSON function does *NOT* have that toJSON function called: it is omitted
+    var nested = {
+        name: 'nested',
+        toJSON: function() {
+            return customToJSONObject;
+        }
+    };
+    assertStringify(nested);
+
+    var count = 0;
+    function createObjectSerialisingTo(value) {
+        count++;
+        return {
+            name: 'obj-' + count,
+            toJSON: function() {
+                return value;
+            }
+        };
+    }
+    assertStringify(createObjectSerialisingTo(null));
+    assertStringify(createObjectSerialisingTo(undefined));
+    assertStringify(createObjectSerialisingTo([]));
+    assertStringify(createObjectSerialisingTo({}));
+    assertStringify(createObjectSerialisingTo(12345));
+    assertStringify(createObjectSerialisingTo(true));
+    assertStringify(createObjectSerialisingTo(new Date()));
+    assertStringify(createObjectSerialisingTo(function(){}));
+};
+
 function stringifyJSON5(obj, replacer, space) {
     var start, res, end;
     try {
@@ -343,6 +392,9 @@ function stringifyJSON(obj, replacer, space) {
         // first recursively find all key names
         var keys = [];
         function findKeys(key, innerObj) {
+            if (innerObj && innerObj.toJSON && typeof innerObj.toJSON === "function") {
+                innerObj = innerObj.toJSON();
+            }
             if (replacer) {
                 if (typeof replacer === 'function') {
                     innerObj = replacer(key, innerObj);

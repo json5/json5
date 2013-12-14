@@ -160,9 +160,6 @@ The only difference is that `JSON5.stringify()` will avoid quoting keys where ap
 2. **replacer:** a transformer to run on each value (either a function or an array, as with [`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Using_native_JSON#The_replacer_parameter))
 3. **space:** Causes the resulting string to be pretty-printed.
 
-Another limitation is that the [`toJSON` behavior](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior)
-is not yet supported.
-
 ## Stringify example
 
 Using JSON5, you can stringify JS objects like this:
@@ -179,6 +176,9 @@ JSON5.stringify({first: 8, 'second key': 9}, ['first']);
 
 JSON5.stringify({first: 8, 'second key': 9}, null, ' ');
 // => '{\n first: 8,\n "second key": 9\n}'
+
+JSON5.stringify({first: 8, toJSON:function(){ return {'second key': 9}; }}, null, ' ');
+// => '{\n "second key": 9\n}'
 ```
 When using JSON, all keys are quoted:
 
@@ -194,6 +194,9 @@ JSON.stringify({first: 8, 'second key': 9}, ['first']);
 
 JSON.stringify({first: 8, 'second key': 9}, null, ' ');
 // => '{\n "first": 8,\n "second key": 9\n}'
+
+JSON.stringify({first: 8, toJSON:function(){ return {'second key': 9}; }}, null, ' ');
+// => '{\n "second key": 9\n}'
 ```
 
 ## Community

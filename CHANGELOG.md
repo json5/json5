@@ -18,7 +18,7 @@
     (second parameter)
     * does not respect the [`toJSON` method of objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FGlobal_Objects%2FJSON%2Fstringify#toJSON_behavior)
     to be converted
-		
+
 [#36]: https://github.com/aseemk/json5/pull/35
 
 ### v0.2.0 [[code][c0.2.0], [diff][d0.2.0]]

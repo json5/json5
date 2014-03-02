@@ -124,21 +124,25 @@ exports.stringify.replacer.function.simple = function test() {
         return function() {
             var lastKey = null,
                 lastValue = null,
-                numCalls = 0;
+                numCalls = 0,
+                replacerThis;
             return {
                 replacer: function(key, value) {
                     lastKey = key;
                     lastValue = value;
                     numCalls++;
+                    replacerThis = this;
                     return value;
                 },
                 assert: function() {
                     assert.equal(numCalls, 1, "Replacer should be called exactly once for " + expectedValue);
                     assert.equal(lastKey, "");
+                    assert.deepEqual(replacerThis, {"":expectedValue});
+                    var expectedValueToJson = expectedValue;
                     if (expectedValue && expectedValue['toJSON']) {
-                        expectedValue = expectedValue.toJSON();
+                        expectedValueToJson = expectedValue.toJSON();
                     }
-                    assert.equal(lastValue, expectedValue);
+                    assert.equal(lastValue, expectedValueToJson);
                 }
             }
         }
@@ -176,11 +180,27 @@ exports.stringify.replacer.function.complexObject = function test() {
         'ten', 0, 1, 2, // array keys
         'eleven'
     ];
+    var expectedHolders = [
+        {"": obj},
+        obj,
+        obj,
+        obj, obj.three, obj.three,
+        obj, obj.four,
+        obj,
+        obj,
+        obj,
+        obj,
+        obj,
+        obj, obj.ten, obj.ten, obj.ten,
+        obj
+    ];
     var ReplacerTest = function() {
         var seenKeys = [];
+        var seenHolders = [];
         return {
             replacer: function(key, value) {
                 seenKeys.push(key);
+                seenHolders.push(this);
                 if (typeof(value) == "object") {
                     return value;
                 }
@@ -188,6 +208,7 @@ exports.stringify.replacer.function.complexObject = function test() {
             },
             assert: function() {
                 assert.deepEqual(seenKeys, expectedKeys);
+                assert.deepEqual(seenHolders, expectedHolders);
             }
         }
     };

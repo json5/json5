@@ -154,6 +154,7 @@ exports.stringify.replacer.function.simple = function test() {
 
 exports.stringify.replacer.function.complexObject = function test() {
     var obj = {
+        "": "emptyPropertyName",
         one: 'string',
         two: 123,
         three: ['array1', 'array2'],
@@ -168,6 +169,7 @@ exports.stringify.replacer.function.complexObject = function test() {
     };
     var expectedKeys = [
         '', // top level object
+        '', // First key
         'one',
         'two',
         'three', 0, 1, // array keys
@@ -182,6 +184,7 @@ exports.stringify.replacer.function.complexObject = function test() {
     ];
     var expectedHolders = [
         {"": obj},
+        obj,
         obj,
         obj,
         obj, obj.three, obj.three,
@@ -263,8 +266,20 @@ exports.stringify.replacer.array.simple = function test() {
     }
 };
 
+exports.stringify.replacer.array.emptyStringProperty = function test() {
+    var obj = {'': 'keep', 'one': 'remove'};
+    var ReplacerTest = function() {
+        return {
+            replacer: [''],
+            assert: function() {/* no-op */}
+        }
+    };
+    assertStringify(obj, ReplacerTest);
+};
+
 exports.stringify.replacer.array.complexObject = function test() {
     var obj = {
+        "": "emptyPropertyName",
         one: 'string',
         one_remove: 'string',
         two: 123,

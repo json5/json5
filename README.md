@@ -154,7 +154,7 @@ This implementation's own [package.json5](package.json5) is more realistic:
 As of v0.3.0. JSON5 supports the `stringify` method, which is analogous to 
 [`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify).
 The only difference is that `JSON5.stringify()` will avoid quoting keys where appropriate.
-`stringify` takes 3 parameters, but only two are currently supported:
+`stringify` takes 3 parameters:
 
 1. **value:** the JavaScript value to convert to a JSON string.
 2. **replacer:** a transformer to run on each value (either a function or an array, as with [`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Using_native_JSON#The_replacer_parameter))

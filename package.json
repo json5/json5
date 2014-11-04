@@ -7,12 +7,7 @@
         "es5"
     ],
     "author": "Aseem Kishore <aseem.kishore@gmail.com>",
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://raw.githubusercontent.com/aseemk/json5/develop/README.md"
-        }
-    ],
+    "license": "MIT",
     "contributors": [
         "Max Nanasy <max.nanasy@gmail.com>",
         "Andrew Eisenberg <andrew@eisenberg.as>"

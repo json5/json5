@@ -7,6 +7,7 @@
         "es5"
     ],
     "author": "Aseem Kishore <aseem.kishore@gmail.com>",
+    "license": "MIT",
     "contributors": [
         "Max Nanasy <max.nanasy@gmail.com>",
         "Andrew Eisenberg <andrew@eisenberg.as>"

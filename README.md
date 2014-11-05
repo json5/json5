@@ -50,6 +50,7 @@ JSON5. **All of these are optional**, and **all of these come from ES5**.
 - Object keys can be unquoted if they're valid [identifiers][mdn_variables].
   Yes, even reserved keywords (like `default`) are valid unquoted keys in ES5
   [[§11.1.5](http://es5.github.com/#x11.1.5), [§7.6](http://es5.github.com/#x7.6)].
+  ([More info](https://mathiasbynens.be/notes/javascript-identifiers))
 
   *(TODO: Unicode characters and escape sequences aren’t yet supported in this
   implementation.)*

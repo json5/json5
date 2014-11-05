@@ -1,7 +1,9 @@
 ### Unreleased [[code][cNew], [diff][dNew]]
 
-[cNew]: https://github.com/aseemk/json5/tree/develop
-[dNew]: https://github.com/aseemk/json5/compare/master...develop
+[cNew]: https://github.com/aseemk/json5/tree/master
+[dNew]: https://github.com/aseemk/json5/compare/v0.4.0...master
+
+Nothing yet. ;)
 
 
 ### v0.4.0 [[code][c0.4.0], [diff][d0.4.0]]

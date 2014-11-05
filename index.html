@@ -54,7 +54,7 @@ none of these are the case with regular JavaScript today.</p>
 
 <p>That was fine when JSON's goal was to be a great data format, but JSON's usage
 has expanded beyond <em>machines</em>. JSON is now used for writing <a href="http://plovr.com/docs.html">configs</a>,
-<a href="http://npmjs.org/doc/json.html">manifests</a>, even <a href="http://code.google.com/p/fuzztester/wiki/JSONFileFormat">tests</a> — all by <em>humans</em>.</p>
+<a href="https://www.npmjs.org/doc/files/package.json.html">manifests</a>, even <a href="http://code.google.com/p/fuzztester/wiki/JSONFileFormat">tests</a> — all by <em>humans</em>.</p>
 
 <p>There are other formats that are human-friendlier, like YAML, but changing
 from JSON to a completely different format is undesirable in many cases.
@@ -102,10 +102,9 @@ backslash. [ES5 <a href="http://es5.github.com/#x7.8.4">§7.8.4</a>]</p></li>
 <a id="numbers" class="anchor" href="#numbers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Numbers</h3>
 
 <ul>
-<li><p>Numbers can be hexadecimal (base 16). (But note that neither signed
-hexadecimals nor hexadecimal floats are allowed by ES5.)</p></li>
+<li><p>Numbers can be hexadecimal (base 16).</p></li>
 <li><p>Numbers can begin or end with a (leading or trailing) decimal point.</p></li>
-<li><p>Numbers can include <code>Infinity</code> and <code>-Infinity</code>.</p></li>
+<li><p>Numbers can include <code>Infinity</code>, <code>-Infinity</code>,  <code>NaN</code>, and <code>-NaN</code>.</p></li>
 <li><p>Numbers can begin with an explicit plus sign.</p></li>
 </ul>
 
@@ -155,24 +154,30 @@ hexadecimals nor hexadecimal floats are allowed by ES5.)</p></li>
 
 <span class="p">{</span>
     <span class="nx">name</span><span class="o">:</span> <span class="s1">'json5'</span><span class="p">,</span>
-    <span class="nx">version</span><span class="o">:</span> <span class="s1">'0.2.0'</span><span class="p">,</span>
+    <span class="nx">version</span><span class="o">:</span> <span class="s1">'0.4.0'</span><span class="p">,</span>
     <span class="nx">description</span><span class="o">:</span> <span class="s1">'JSON for the ES5 era.'</span><span class="p">,</span>
     <span class="nx">keywords</span><span class="o">:</span> <span class="p">[</span><span class="s1">'json'</span><span class="p">,</span> <span class="s1">'es5'</span><span class="p">],</span>
     <span class="nx">author</span><span class="o">:</span> <span class="s1">'Aseem Kishore &lt;aseem.kishore@gmail.com&gt;'</span><span class="p">,</span>
     <span class="nx">contributors</span><span class="o">:</span> <span class="p">[</span>
+        <span class="c1">// TODO: Should we remove this section in favor of GitHub's list?</span>
+        <span class="c1">// https://github.com/aseemk/json5/contributors</span>
         <span class="s1">'Max Nanasy &lt;max.nanasy@gmail.com&gt;'</span><span class="p">,</span>
+        <span class="s1">'Andrew Eisenberg &lt;andrew@eisenberg.as&gt;'</span><span class="p">,</span>
+        <span class="s1">'Jordan Tucker &lt;jordanbtucker@gmail.com&gt;'</span><span class="p">,</span>
     <span class="p">],</span>
     <span class="nx">main</span><span class="o">:</span> <span class="s1">'lib/json5.js'</span><span class="p">,</span>
     <span class="nx">bin</span><span class="o">:</span> <span class="s1">'lib/cli.js'</span><span class="p">,</span>
     <span class="nx">dependencies</span><span class="o">:</span> <span class="p">{},</span>
     <span class="nx">devDependencies</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">mocha</span><span class="o">:</span> <span class="s1">'~1.0.3'</span><span class="p">,</span>
+        <span class="nx">mocha</span><span class="o">:</span> <span class="s1">'~1.0.3'</span><span class="p">,</span>    <span class="c1">// TODO: Look into Mocha v2.</span>
     <span class="p">},</span>
     <span class="nx">scripts</span><span class="o">:</span> <span class="p">{</span>
         <span class="nx">build</span><span class="o">:</span> <span class="s1">'./lib/cli.js -c package.json5'</span><span class="p">,</span>
         <span class="nx">test</span><span class="o">:</span> <span class="s1">'mocha --ui exports --reporter spec'</span><span class="p">,</span>
+            <span class="c1">// TODO: Would it be better to define these in a mocha.opts file?</span>
     <span class="p">},</span>
     <span class="nx">homepage</span><span class="o">:</span> <span class="s1">'http://json5.org/'</span><span class="p">,</span>
+    <span class="nx">license</span><span class="o">:</span> <span class="s1">'MIT'</span><span class="p">,</span>
     <span class="nx">repository</span><span class="o">:</span> <span class="p">{</span>
         <span class="nx">type</span><span class="o">:</span> <span class="s1">'git'</span><span class="p">,</span>
         <span class="nx">url</span><span class="o">:</span> <span class="s1">'https://github.com/aseemk/json5.git'</span><span class="p">,</span>

@@ -3,23 +3,39 @@
 [cNew]: https://github.com/aseemk/json5/tree/develop
 [dNew]: https://github.com/aseemk/json5/compare/master...develop
 
-### v0.3.0 [[code][c0.3.0], [diff][d0.3.0]]
 
-[c0.3.0]: https://github.com/aseemk/json5/tree/v0.3.0
-[d0.3.0]: https://github.com/aseemk/json5/compare/v0.2.0...v0.3.0
+### v0.4.0 [[code][c0.4.0], [diff][d0.4.0]]
 
-- **New:** `JSON5.stringify()` method now implemented.  This method
-  is analogous to the `JSON.stringify()` method. The only difference 
-  is that `JSON5.stringify()` will avoid quoting keys if possible.
-  The [space parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FGlobal_Objects%2FJSON%2Fstringify#Parameters)
-  (parameter 3) is supported, and this provides formatting for the stringified object.
-  There are some limitations with this new method: 
-    * does not handle the [`replacer` parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FGlobal_Objects%2FJSON%2Fstringify#Parameters)
-    (second parameter)
-    * does not respect the [`toJSON` method of objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FGlobal_Objects%2FJSON%2Fstringify#toJSON_behavior)
-    to be converted
+[c0.4.0]: https://github.com/aseemk/json5/tree/v0.4.0
+[d0.4.0]: https://github.com/aseemk/json5/compare/v0.2.0...v0.4.0
 
-[#36]: https://github.com/aseemk/json5/pull/35
+Note that v0.3.0 was tagged, but never published to npm, so this v0.4.0
+changelog entry includes v0.3.0 features.
+
+This is a massive release that adds `stringify` support, among other things.
+
+- **Major:** `JSON5.stringify()` now exists!
+  This method is analogous to the native `JSON.stringify()`;
+  it just avoids quoting keys where possible.
+  See the [usage documentation](./README.md#usage) for more.
+  ([#32][]; huge thanks and props [@aeisenberg][]!)
+
+- New: `NaN` and `-NaN` are now allowed number literals.
+  ([#30][]; thanks [@rowanhill][].)
+
+- New: Duplicate object keys are now allowed; the last value is used.
+  This is the same behavior as JSON. ([#57][]; thanks [@jordanbtucker][].)
+
+- Fix: Properly handle various whitespace and newline cases now.
+  E.g. JSON5 now properly supports escaped CR and CRLF newlines in strings,
+  and JSON5 now accepts the same whitespace as JSON (stricter than ES5).
+  ([#58][], [#60][], and [#63][]; thanks [@jordanbtucker][].)
+
+- New: Negative hexadecimal numbers (e.g. `-0xC8`) are allowed again.
+  (They were disallowed in v0.2.0; see below.)
+  It turns out they *are* valid in ES5, so JSON5 supports them now too.
+  ([#36][]; thanks [@jordanbtucker][]!)
+
 
 ### v0.2.0 [[code][c0.2.0], [diff][d0.2.0]]
 
@@ -34,28 +50,21 @@ express data more easily:
   in ES5. This has been [fixed in V8][v8-hex-fix] (and by extension, Chrome
   and Node), so JSON5 officially rejects them now, too. ([#36][])
 
-[v8-hex-fix]: http://code.google.com/p/v8/issues/detail?id=2240
-[#36]: https://github.com/aseemk/json5/issues/36
-
-- **New:** Trailing decimal points in decimal numbers are allowed again.
+- New: Trailing decimal points in decimal numbers are allowed again.
+  (They were disallowed in v0.1.0; see below.)
   They're allowed by ES5, and differentiating between integers and floats may
   make sense on some platforms. ([#16][]; thanks [@Midar][].)
 
-[#16]: https://github.com/aseemk/json5/issues/16
-
-- **New:** `Infinity` and `-Infinity` are now allowed number literals.
+- New: `Infinity` and `-Infinity` are now allowed number literals.
   ([#30][]; thanks [@pepkin88][].)
 
-[#30]: https://github.com/aseemk/json5/issues/30
-
-- **New:** Plus signs (`+`) in front of numbers are now allowed, since it can
+- New: Plus signs (`+`) in front of numbers are now allowed, since it can
   be helpful in some contexts to explicitly mark numbers as positive.
   (E.g. when a property represents changes or deltas.)
 
-- Bug fix: unescaped newlines in strings are rejected now. ([#24][]; thanks
-  [@Midar][].)
+- Fix: unescaped newlines in strings are rejected now.
+  ([#24][]; thanks [@Midar][].)
 
-[#24]: https://github.com/aseemk/json5/issues/24
 
 ### v0.1.0 [[code][c0.1.0], [diff][d0.1.0]]
 
@@ -64,16 +73,17 @@ express data more easily:
 
 This release tightens JSON5 support and adds helpful utility features:
 
-- Support hexadecimal numbers. (Thanks [@MaxNanasy][].)
+- New: Support hexadecimal numbers. (Thanks [@MaxNanasy][].)
 
-- Reject octal numbers properly now. Previously, they were accepted but
+- Fix: Reject octal numbers properly now. Previously, they were accepted but
   improperly parsed as base-10 numbers. (Thanks [@MaxNanasy][].)
 
 - **Breaking:** Reject "noctal" numbers now (base-10 numbers that begin with a
   leading zero). These are disallowed by both JSON5 and JSON, as well as by
   ES5's strict mode. (Thanks [@MaxNanasy][].)
 
-- Support leading decimal points in decimal numbers. (Thanks [@MaxNanasy][].)
+- New: Support leading decimal points in decimal numbers.
+  (Thanks [@MaxNanasy][].)
 
 - **Breaking:** Reject trailing decimal points in decimal numbers now. These
   are disallowed by both JSON5 and JSON. (Thanks [@MaxNanasy][].)
@@ -81,11 +91,12 @@ This release tightens JSON5 support and adds helpful utility features:
 - **Breaking:** Reject omitted elements in arrays now. These are disallowed by
   both JSON5 and JSON.
 
-- Throw proper `SyntaxError` instances on errors now.
+- Fix: Throw proper `SyntaxError` instances on errors now.
 
-- Add Node.js `require()` hook. Require `json5/lib/require` to register it.
+- New: Add Node.js `require()` hook. Register via `json5/lib/require`.
 
-- Add Node.js executable to compile JSON5 files to JSON. Run with `json5`.
+- New: Add Node.js `json5` executable to compile JSON5 files to JSON.
+
 
 ### v0.0.1 [[code][c0.0.1], [diff][d0.0.1]]
 
@@ -105,13 +116,29 @@ This was the first implementation of this JSON5 parser.
 
 - Support comments, both inline and block.
 
+
 ### v0.0.0 [[code](https://github.com/aseemk/json5/tree/v0.0.0)]
 
 Let's consider this to be Douglas Crockford's original [json_parse.js][] — a
 parser for the regular JSON format.
 
+
 [json_parse.js]: https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js
+[v8-hex-fix]: http://code.google.com/p/v8/issues/detail?id=2240
 
 [@MaxNanasy]: https://github.com/MaxNanasy
 [@Midar]: https://github.com/Midar
 [@pepkin88]: https://github.com/pepkin88
+[@rowanhill]: https://github.com/rowanhill
+[@aeisenberg]: https://github.com/aeisenberg
+[@jordanbtucker]: https://github.com/jordanbtucker
+
+[#16]: https://github.com/aseemk/json5/issues/16
+[#24]: https://github.com/aseemk/json5/issues/24
+[#30]: https://github.com/aseemk/json5/issues/30
+[#32]: https://github.com/aseemk/json5/issues/32
+[#36]: https://github.com/aseemk/json5/issues/36
+[#57]: https://github.com/aseemk/json5/issues/57
+[#58]: https://github.com/aseemk/json5/pull/58
+[#60]: https://github.com/aseemk/json5/pull/60
+[#63]: https://github.com/aseemk/json5/pull/63

@@ -32,7 +32,7 @@ has expanded beyond *machines*. JSON is now used for writing [configs][ex1],
 [manifests][ex2], even [tests][ex3] — all by *humans*.
 
 [ex1]: http://plovr.com/docs.html
-[ex2]: http://npmjs.org/doc/json.html
+[ex2]: https://www.npmjs.org/doc/files/package.json.html
 [ex3]: http://code.google.com/p/fuzztester/wiki/JSONFileFormat
 
 There are other formats that are human-friendlier, like YAML, but changing
@@ -125,24 +125,30 @@ This implementation's own [package.json5](package.json5) is more realistic:
 
 {
     name: 'json5',
-    version: '0.2.0',
+    version: '0.4.0',
     description: 'JSON for the ES5 era.',
     keywords: ['json', 'es5'],
     author: 'Aseem Kishore <aseem.kishore@gmail.com>',
     contributors: [
+        // TODO: Should we remove this section in favor of GitHub's list?
+        // https://github.com/aseemk/json5/contributors
         'Max Nanasy <max.nanasy@gmail.com>',
+        'Andrew Eisenberg <andrew@eisenberg.as>',
+        'Jordan Tucker <jordanbtucker@gmail.com>',
     ],
     main: 'lib/json5.js',
     bin: 'lib/cli.js',
     dependencies: {},
     devDependencies: {
-        mocha: '~1.0.3',
+        mocha: '~1.0.3',    // TODO: Look into Mocha v2.
     },
     scripts: {
         build: './lib/cli.js -c package.json5',
         test: 'mocha --ui exports --reporter spec',
+            // TODO: Would it be better to define these in a mocha.opts file?
     },
     homepage: 'http://json5.org/',
+    license: 'MIT',
     repository: {
         type: 'git',
         url: 'https://github.com/aseemk/json5.git',

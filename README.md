@@ -72,12 +72,11 @@ JSON5. **All of these are optional**, and **all of these come from ES5**.
 
 ### Numbers
 
-- Numbers can be hexadecimal (base 16). (But note that neither signed
-  hexadecimals nor hexadecimal floats are allowed by ES5.)
+- Numbers can be hexadecimal (base 16).
 
 - Numbers can begin or end with a (leading or trailing) decimal point.
 
-- Numbers can include `Infinity` and `-Infinity`.
+- Numbers can include `Infinity`, `-Infinity`,  `NaN`, and `-NaN`.
 
 - Numbers can begin with an explicit plus sign.
 

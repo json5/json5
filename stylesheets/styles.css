@@ -58,7 +58,7 @@ blockquote {
 }
 
 code, pre {
-  font-family:Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  font-family:Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
   color:#333;
   font-size:12px;
 }

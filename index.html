@@ -28,63 +28,99 @@
         </ul>
       </header>
       <section>
-        <p>JSON isn't the friendliest to write and maintain by hand. Keys need to be
-quoted; objects and arrays can't have trailing commas; comments aren't
-supported — even though none of these are the case with regular JavaScript
-today.</p>
+        <p>JSON is an excellent data format, but we think it can be better.</p>
 
-<p>Restricting JSON to such a strict subset of "JavaScript object notation" made
-sense for making it a great data-exchange format, but JSON's usage has
-expanded <a href="http://plovr.com/docs.html">beyond</a> <a href="http://npmjs.org/doc/json.html">machine-to-machine</a> <a href="http://code.google.com/p/fuzztester/wiki/JSONFileFormat">communication</a>.</p>
+<p><strong>JSON5 is a proposed extension to JSON</strong> that aims to make it easier for
+<em>humans to write and maintain</em> by hand. It does this by adding some minimal
+syntax features directly from ECMAScript 5.</p>
 
-<p><strong>JSON5 is a proposed extension to JSON</strong> that brings ES5 enhancements to its
-syntax. It remains a <strong>strict subset of JavaScript</strong>, adds <strong>no new data
-types</strong>, and is a <strong>strict superset of existing JSON</strong>.</p>
+<p>JSON5 remains a <strong>strict subset of JavaScript</strong>, adds <strong>no new data types</strong>,
+and <strong>works with all existing JSON content</strong>.</p>
 
-<p>JSON5 is not an official successor to JSON, and existing JSON parsers may not
-understand these new features. It's thus recommended that files use a new
-extension like <code>.json5</code> to be explicit. <em>[TODO: New MIME type too?]</em></p>
+<p>JSON5 is <em>not</em> an official successor to JSON, and JSON5 content may <em>not</em>
+work with existing JSON parsers. For this reason, JSON5 files use a new .json5
+extension. <em>(TODO: new MIME type needed too.)</em></p>
 
-<p>This module provides a JavaScript implementation that works on all modern JS
-engines (even IE6). Its parser is based directly off of Douglas Crockford's
-eval-free <a href="https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js">json_parse.js</a>, making it both secure and robust. Give it a try!</p>
+<p>The code here is a <strong>reference JavaScript implementation</strong> for both Node.js
+and all browsers. It's based directly off of Douglas Crockford's own <a href="https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js">JSON
+implementation</a>, and it's both robust and secure.</p>
 
-<h2>Features</h2>
+<h2>
+<a id="why" class="anchor" href="#why" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why</h2>
 
-<p>These are the new features of JSON5's syntax. <strong>All of these are optional</strong>,
-and <strong>all of these are part of ES5 JavaScript</strong>.</p>
+<p>JSON isn't the friendliest to <em>write</em>. Keys need to be quoted, objects and
+arrays can't have trailing commas, and comments aren't allowed — even though
+none of these are the case with regular JavaScript today.</p>
 
-<h3>Objects</h3>
+<p>That was fine when JSON's goal was to be a great data format, but JSON's usage
+has expanded beyond <em>machines</em>. JSON is now used for writing <a href="http://plovr.com/docs.html">configs</a>,
+<a href="http://npmjs.org/doc/json.html">manifests</a>, even <a href="http://code.google.com/p/fuzztester/wiki/JSONFileFormat">tests</a> — all by <em>humans</em>.</p>
+
+<p>There are other formats that are human-friendlier, like YAML, but changing
+from JSON to a completely different format is undesirable in many cases.
+JSON5’s aim is to remain close to JSON and JavaScript.</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<p>The following is the exact list of additions to JSON's syntax introduced by
+JSON5. <strong>All of these are optional</strong>, and <strong>all of these come from ES5</strong>.</p>
+
+<h3>
+<a id="objects" class="anchor" href="#objects" aria-hidden="true"><span class="octicon octicon-link"></span></a>Objects</h3>
 
 <ul>
-<li><p>Object keys can be unquoted if they're valid <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Guide/Core_Language_Features#Variables">identifiers</a>. Yes, even reserved keywords are valid unquoted keys in ES5 [<a href="http://es5.github.com/#x11.1.5">§11.1.5</a>, <a href="http://es5.github.com/#x7.6">§7.6</a>].
-<em>[TODO: Unicode characters and escape sequences aren't yet supported in this implementation.]</em></p></li>
+<li>
+<p>Object keys can be unquoted if they're valid <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Guide/Core_Language_Features#Variables">identifiers</a>.
+Yes, even reserved keywords (like <code>default</code>) are valid unquoted keys in ES5
+[<a href="http://es5.github.com/#x11.1.5">§11.1.5</a>, <a href="http://es5.github.com/#x7.6">§7.6</a>].</p>
+
+<p><em>(TODO: Unicode characters and escape sequences aren’t yet supported in this
+implementation.)</em></p>
+</li>
 <li><p>Objects can have trailing commas.</p></li>
-</ul><h3>Arrays</h3>
+</ul>
+
+<h3>
+<a id="arrays" class="anchor" href="#arrays" aria-hidden="true"><span class="octicon octicon-link"></span></a>Arrays</h3>
 
 <ul>
 <li>Arrays can have trailing commas.</li>
-</ul><h3>Strings</h3>
+</ul>
+
+<h3>
+<a id="strings" class="anchor" href="#strings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Strings</h3>
 
 <ul>
 <li><p>Strings can be single-quoted.</p></li>
 <li><p>Strings can be split across multiple lines; just prefix each newline with a
 backslash. [ES5 <a href="http://es5.github.com/#x7.8.4">§7.8.4</a>]</p></li>
-</ul><h3>Numbers</h3>
+</ul>
+
+<h3>
+<a id="numbers" class="anchor" href="#numbers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Numbers</h3>
 
 <ul>
-<li><p>Numbers can be hexadecimal (base 16). (Note that signed hexadecimals are not
-allowed by ES5, nor are hexadecimal floats.)</p></li>
+<li><p>Numbers can be hexadecimal (base 16). (But note that neither signed
+hexadecimals nor hexadecimal floats are allowed by ES5.)</p></li>
 <li><p>Numbers can begin or end with a (leading or trailing) decimal point.</p></li>
 <li><p>Numbers can include <code>Infinity</code> and <code>-Infinity</code>.</p></li>
-<li><p>Numbers can begin with an explicit plus (<code>+</code>) sign.</p></li>
-</ul><h3>Comments</h3>
+<li><p>Numbers can begin with an explicit plus sign.</p></li>
+</ul>
+
+<h3>
+<a id="comments" class="anchor" href="#comments" aria-hidden="true"><span class="octicon octicon-link"></span></a>Comments</h3>
 
 <ul>
 <li>Both inline (single-line) and block (multi-line) comments are allowed.</li>
-</ul><h2>Example</h2>
+</ul>
 
-<div class="highlight"><pre><span class="p">{</span>
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>The following is a contrived example, but it illustrates most of the features:</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
     <span class="nx">foo</span><span class="o">:</span> <span class="s1">'bar'</span><span class="p">,</span>
     <span class="k">while</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
 
@@ -111,45 +147,104 @@ allowed by ES5, nor are hexadecimal floats.)</p></li>
 <span class="p">}</span>
 </pre></div>
 
-<h2>Installation</h2>
+<p>This implementation's own <a href="package.json5">package.json5</a> is more realistic:</p>
 
-<p>Via npm on Node:</p>
+<div class="highlight highlight-js"><pre><span class="c1">// This file is written in JSON5 syntax, naturally, but npm needs a regular</span>
+<span class="c1">// JSON file, so compile via `npm run build`. Be sure to keep both in sync!</span>
+
+<span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">'json5'</span><span class="p">,</span>
+    <span class="nx">version</span><span class="o">:</span> <span class="s1">'0.2.0'</span><span class="p">,</span>
+    <span class="nx">description</span><span class="o">:</span> <span class="s1">'JSON for the ES5 era.'</span><span class="p">,</span>
+    <span class="nx">keywords</span><span class="o">:</span> <span class="p">[</span><span class="s1">'json'</span><span class="p">,</span> <span class="s1">'es5'</span><span class="p">],</span>
+    <span class="nx">author</span><span class="o">:</span> <span class="s1">'Aseem Kishore &lt;aseem.kishore@gmail.com&gt;'</span><span class="p">,</span>
+    <span class="nx">contributors</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s1">'Max Nanasy &lt;max.nanasy@gmail.com&gt;'</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="nx">main</span><span class="o">:</span> <span class="s1">'lib/json5.js'</span><span class="p">,</span>
+    <span class="nx">bin</span><span class="o">:</span> <span class="s1">'lib/cli.js'</span><span class="p">,</span>
+    <span class="nx">dependencies</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="nx">devDependencies</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">mocha</span><span class="o">:</span> <span class="s1">'~1.0.3'</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="nx">scripts</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">build</span><span class="o">:</span> <span class="s1">'./lib/cli.js -c package.json5'</span><span class="p">,</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="s1">'mocha --ui exports --reporter spec'</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="nx">homepage</span><span class="o">:</span> <span class="s1">'http://json5.org/'</span><span class="p">,</span>
+    <span class="nx">repository</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="s1">'git'</span><span class="p">,</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="s1">'https://github.com/aseemk/json5.git'</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>
+<a id="community" class="anchor" href="#community" aria-hidden="true"><span class="octicon octicon-link"></span></a>Community</h2>
+
+<p>Join the <a href="http://groups.google.com/group/json5">Google Group</a> if you're
+interested in JSON5 news, updates, and general discussion.
+Don't worry, it's very low-traffic.</p>
+
+<p>The <a href="https://github.com/aseemk/json5/wiki">GitHub wiki</a> is a good place to track
+JSON5 support and usage. Contribute freely there!</p>
+
+<p><a href="https://github.com/aseemk/json5/issues">GitHub Issues</a> is the place to
+formally propose feature requests and report bugs. Questions and general
+feedback are better directed at the Google Group.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>This JavaScript implementation of JSON5 simply provides a <code>JSON5</code> object just
+like the native ES5 <code>JSON</code> object.</p>
+
+<p>To use from Node:</p>
 
 <pre><code>npm install json5
 </code></pre>
 
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">JSON5</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'json5'</span><span class="p">);</span>
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">JSON5</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'json5'</span><span class="p">);</span>
 </pre></div>
 
-<p>Or in the browser (adds the <code>JSON5</code> object to the global namespace):</p>
+<p>To use in the browser (adds the <code>JSON5</code> object to the global namespace):</p>
 
-<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"json5.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-</pre></div>
+<pre><code>&lt;script src="json5.js"&gt;&lt;/script&gt;
+</code></pre>
 
-<h2>Usage</h2>
+<p>Then in both cases, you can simply replace native <code>JSON</code> calls with <code>JSON5</code>:</p>
 
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">JSON5</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="s1">'{unquoted:"key",trailing:"comma",}'</span><span class="p">);</span>
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">JSON5</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="s1">'{unquoted:"key",trailing:"comma",}'</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">JSON5</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
 </pre></div>
 
-<p><code>JSON5.stringify()</code> is currently aliased to the native <code>JSON.stringify()</code> in
-order for the output to be fully compatible with all JSON parsers today.</p>
+<p><code>JSON5.parse</code> supports all of the JSON5 features listed above (<em>TODO: except
+Unicode</em>), as well as the native <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse"><code>reviver</code> argument</a>.</p>
 
-<p>If you're running Node, you can also register a JSON5 <code>require()</code> hook to let
-you <code>require()</code> <code>.json5</code> files just like you can <code>.json</code> files:</p>
+<p><code>JSON5.stringify</code> mainly avoids quoting keys where possible, but we hope to
+keep expanding it in the future (e.g. to also output trailing commas).
+It supports the native <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify"><code>replacer</code> and <code>space</code> arguments</a>,
+as well. <em>(TODO: Any implemented <code>toJSON</code> methods aren't used today.)</em></p>
 
-<div class="highlight"><pre><span class="nx">require</span><span class="p">(</span><span class="s1">'json5/lib/require'</span><span class="p">);</span>
+<h3>
+<a id="extras" class="anchor" href="#extras" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extras</h3>
+
+<p>If you're running this on Node, you can also register a JSON5 <code>require()</code> hook
+to let you <code>require()</code> <code>.json5</code> files just like you can <code>.json</code> files:</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">require</span><span class="p">(</span><span class="s1">'json5/lib/require'</span><span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span><span class="s1">'./path/to/foo'</span><span class="p">);</span>   <span class="c1">// tries foo.json5 after foo.js, foo.json, etc.</span>
 <span class="nx">require</span><span class="p">(</span><span class="s1">'./path/to/bar.json5'</span><span class="p">);</span>
 </pre></div>
 
 <p>This module also provides a <code>json5</code> executable (requires Node) for converting
-JSON5 files to sibling JSON files:</p>
+JSON5 files to JSON:</p>
 
 <pre><code>$ json5 -c path/to/foo.json5    # generates path/to/foo.json
 </code></pre>
 
-<h2>Development</h2>
+<h2>
+<a id="development" class="anchor" href="#development" aria-hidden="true"><span class="octicon octicon-link"></span></a>Development</h2>
 
 <pre><code>git clone git://github.com/aseemk/json5.git
 cd json5
@@ -162,14 +257,16 @@ to <code>package.json5</code>, since npm requires <code>package.json</code>.</p>
 
 <p>Feel free to <a href="https://github.com/aseemk/json5/issues">file issues</a> and submit
 <a href="https://github.com/aseemk/json5/pulls">pull requests</a> — contributions are
-welcome. If you do submit a pull request, please be sure to add or update
-corresponding test cases, and ensure that <code>npm test</code> continues to pass.</p>
+welcome. If you do submit a pull request, please be sure to add or update the
+tests, and ensure that <code>npm test</code> continues to pass.</p>
 
-<h2>License</h2>
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>MIT License. © 2012 Aseem Kishore, and <a href="https://github.com/aseemk/json5/contributors">others</a>.</p>
 
-<h2>Credits</h2>
+<h2>
+<a id="credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits</h2>
 
 <p><a href="http://bolinfest.com/">Michael Bolin</a> independently arrived at and published
 some of these same ideas with awesome explanations and detail.
@@ -185,6 +282,8 @@ parser. I'm super grateful for that clean and well-documented code.</p>
 
 <p><a href="https://github.com/MaxNanasy">Max Nanasy</a> has been an early and prolific
 supporter, contributing multiple patches and ideas. Thanks Max!</p>
+
+<p><a href="https://github.com/aeisenberg">Andrew Eisenberg</a> has contributed the <code>stringify</code> method.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/aseemk">aseemk</a></p>

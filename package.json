@@ -7,10 +7,10 @@
         "es5"
     ],
     "author": "Aseem Kishore <aseem.kishore@gmail.com>",
-    "license": "MIT",
     "contributors": [
         "Max Nanasy <max.nanasy@gmail.com>",
-        "Andrew Eisenberg <andrew@eisenberg.as>"
+        "Andrew Eisenberg <andrew@eisenberg.as>",
+        "Jordan Tucker <jordanbtucker@gmail.com>"
     ],
     "main": "lib/json5.js",
     "bin": "lib/cli.js",
@@ -23,6 +23,7 @@
         "test": "mocha --ui exports --reporter spec"
     },
     "homepage": "http://json5.org/",
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "https://github.com/aseemk/json5.git"

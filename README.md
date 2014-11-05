@@ -40,7 +40,7 @@ from JSON to a completely different format is undesirable in many cases.
 JSON5’s aim is to remain close to JSON and JavaScript.
 
 
-## Features of `JSON.parse()`
+## Features
 
 The following is the exact list of additions to JSON's syntax introduced by
 JSON5. **All of these are optional**, and **all of these come from ES5**.
@@ -84,7 +84,8 @@ JSON5. **All of these are optional**, and **all of these come from ES5**.
 
 - Both inline (single-line) and block (multi-line) comments are allowed.
 
-## Parse Example
+
+## Example
 
 The following is a contrived example, but it illustrates most of the features:
 
@@ -149,46 +150,6 @@ This implementation's own [package.json5](package.json5) is more realistic:
 }
 ```
 
-## Features of `JSON.stringify()`
-
-As of v0.3.0. JSON5 supports the `stringify` method, which is analogous to 
-[`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify).
-The only difference is that `JSON5.stringify()` will avoid quoting keys where appropriate.
-`stringify` takes 3 parameters, but only two are currently supported:
-
-1. **value:** the JavaScript value to convert to a JSON string.
-2. **replacer:** a transformer to run on each value (not supported, will throw an exception if used)
-3. **space:** Causes the resulting string to be pretty-printed.
-
-Another limitation is that the [`toJSON` behavior](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior)
-is not yet supported.
-
-## Stringify example
-
-Using JSON5, you can stringify JS objects like this:
-
-```js
-JSON5.stringify({first: 8, 'second key': 9});
-// => '{first:8,"second key":9}'
-
-JSON5.stringify({first: 8, 'second key': 9}, function() {return 'nuthin';});
-// => Error: JSON5 does not support the replacer parameter. Use JSON instead.
-
-JSON5.stringify({first: 8, 'second key': 9}, null, ' ');
-// => '{\n first: 8,\n "second key": 9\n}'
-```
-When using JSON, all keys are quoted:
-
-```js
-JSON.stringify({first: 8, 'second key': 9});
-// => '{"first":8,"second key":9}'
-
-JSON.stringify({first: 8, 'second key': 9}, function() {return 'nuthin';});
-// => "nuthin"'
-
-JSON.stringify({first: 8, 'second key': 9}, null, ' ');
-// => '{\n "first": 8,\n "second key": 9\n}'
-```
 
 ## Community
 
@@ -207,7 +168,7 @@ feedback are better directed at the Google Group.
 ## Usage
 
 This JavaScript implementation of JSON5 simply provides a `JSON5` object just
-like the ES5 `JSON` object.
+like the native ES5 `JSON` object.
 
 To use from Node:
 
@@ -225,15 +186,25 @@ To use in the browser (adds the `JSON5` object to the global namespace):
 <script src="json5.js"></script>
 ```
 
-Then in both cases:
+Then in both cases, you can simply replace native `JSON` calls with `JSON5`:
 
 ```js
 var obj = JSON5.parse('{unquoted:"key",trailing:"comma",}');
 var str = JSON5.stringify(obj);
 ```
 
-`JSON5.stringify()` is currently aliased to the native `JSON.stringify()` in
-order for the output to be fully compatible with all JSON parsers today.
+`JSON5.parse` supports all of the JSON5 features listed above (*TODO: except
+Unicode*), as well as the native [`reviver` argument][json-parse].
+
+[json-parse]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+
+`JSON5.stringify` mainly avoids quoting keys where possible, but we hope to
+keep expanding it in the future (e.g. to also output trailing commas).
+It supports the native [`replacer` and `space` arguments][json-stringify],
+as well. *(TODO: Any implemented `toJSON` methods aren't used today.)*
+
+[json-stringify]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+
 
 ### Extras
 

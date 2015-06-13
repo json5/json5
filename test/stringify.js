@@ -7,6 +7,7 @@ var DEBUG = false;
 
 var assert = require('assert');
 var JSON5 = require('../lib/json5');
+var isWord = require('../lib/is-word');
 
 // Test JSON5.stringify() by comparing its output for each case with 
 // native JSON.stringify().  The only differences will be in how object keys are 
@@ -402,7 +403,7 @@ function stringifyJSON(obj, replacer, space) {
                     return;
                 }
             }
-            if (JSON5.isWord(key) &&
+            if (isWord(key) &&
                 typeof innerObj !== 'function' &&
                 typeof innerObj !== 'undefined') {
                 keys.push(key);

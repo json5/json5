@@ -67,8 +67,7 @@ JSON5. **All of these are optional**, and **all of these come from ES5**.
 
 - Strings can be single-quoted.
 
-- Strings can be split across multiple lines; just prefix each newline with a
-  backslash. [ES5 [§7.8.4](http://es5.github.com/#x7.8.4)]
+- Strings can be split across multiple lines. Just append a backslash at end of the line; before the newline. [ES5 [§7.8.4](http://es5.github.com/#x7.8.4)]
 
 ### Numbers
 

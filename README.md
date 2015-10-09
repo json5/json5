@@ -1,7 +1,6 @@
-[![Build Status](https://travis-ci.org/aseemk/json5.png)](https://travis-ci.org/aseemk/json5)
-
-
 # JSON5 – Modern JSON
+
+[![Build Status](https://travis-ci.org/aseemk/json5.png)](https://travis-ci.org/aseemk/json5)
 
 JSON is an excellent data format, but we think it can be better.
 
@@ -17,17 +16,17 @@ work with existing JSON parsers. For this reason, JSON5 files use a new .json5
 extension. *(TODO: new MIME type needed too.)*
 
 The code here is a **reference JavaScript implementation** for both Node.js
-and all browsers. It's based directly off of Douglas Crockford's own [JSON
-implementation][json_parse.js], and it's both robust and secure.
+and all browsers. It’s based directly off of Douglas Crockford’s own [JSON
+implementation][json_parse.js], and it’s both robust and secure.
 
 
 ## Why
 
-JSON isn't the friendliest to *write*. Keys need to be quoted, objects and
-arrays can't have trailing commas, and comments aren't allowed — even though
+JSON isn’t the friendliest to *write*. Keys need to be quoted, objects and
+arrays can’t have trailing commas, and comments aren’t allowed — even though
 none of these are the case with regular JavaScript today.
 
-That was fine when JSON's goal was to be a great data format, but JSON's usage
+That was fine when JSON’s goal was to be a great data format, but JSON’s usage
 has expanded beyond *machines*. JSON is now used for writing [configs][ex1],
 [manifests][ex2], even [tests][ex3] — all by *humans*.
 
@@ -42,12 +41,12 @@ JSON5’s aim is to remain close to JSON and JavaScript.
 
 ## Features
 
-The following is the exact list of additions to JSON's syntax introduced by
+The following is the exact list of additions to JSON’s syntax introduced by
 JSON5. **All of these are optional**, and **all of these come from ES5**.
 
 ### Objects
 
-- Object keys can be unquoted if they're valid [identifiers][mdn_variables].
+- Object keys can be unquoted if they’re valid [identifiers][mdn_variables].
   Yes, even reserved keywords (like `default`) are valid unquoted keys in ES5
   [[§11.1.5](http://es5.github.com/#x11.1.5), [§7.6](http://es5.github.com/#x7.6)].
   ([More info](https://mathiasbynens.be/notes/javascript-identifiers))
@@ -117,7 +116,7 @@ multi-line string',
 }
 ```
 
-This implementation's own [package.json5](package.json5) is more realistic:
+This implementation’s own [package.json5](package.json5) is more realistic:
 
 ```js
 // This file is written in JSON5 syntax, naturally, but npm needs a regular
@@ -159,9 +158,9 @@ This implementation's own [package.json5](package.json5) is more realistic:
 
 ## Community
 
-Join the [Google Group](http://groups.google.com/group/json5) if you're
+Join the [Google Group](http://groups.google.com/group/json5) if you’re
 interested in JSON5 news, updates, and general discussion.
-Don't worry, it's very low-traffic.
+Don’t worry, it’s very low-traffic.
 
 The [GitHub wiki](https://github.com/aseemk/json5/wiki) is a good place to track
 JSON5 support and usage. Contribute freely there!
@@ -178,8 +177,8 @@ like the native ES5 `JSON` object.
 
 To use from Node:
 
-```
-npm install json5
+```sh
+$ npm install json5
 ```
 
 ```js
@@ -188,7 +187,7 @@ var JSON5 = require('json5');
 
 To use in the browser (adds the `JSON5` object to the global namespace):
 
-```
+```html
 <script src="json5.js"></script>
 ```
 
@@ -207,14 +206,14 @@ Unicode*), as well as the native [`reviver` argument][json-parse].
 `JSON5.stringify` mainly avoids quoting keys where possible, but we hope to
 keep expanding it in the future (e.g. to also output trailing commas).
 It supports the native [`replacer` and `space` arguments][json-stringify],
-as well. *(TODO: Any implemented `toJSON` methods aren't used today.)*
+as well. *(TODO: Any implemented `toJSON` methods aren’t used today.)*
 
 [json-stringify]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
 
 
 ### Extras
 
-If you're running this on Node, you can also register a JSON5 `require()` hook
+If you’re running this on Node, you can also register a JSON5 `require()` hook
 to let you `require()` `.json5` files just like you can `.json` files:
 
 ```js
@@ -226,18 +225,18 @@ require('./path/to/bar.json5');
 This module also provides a `json5` executable (requires Node) for converting
 JSON5 files to JSON:
 
-```
+```sh
 $ json5 -c path/to/foo.json5    # generates path/to/foo.json
 ```
 
 
 ## Development
 
-```
-git clone git://github.com/aseemk/json5.git
-cd json5
-npm install
-npm test
+```sh
+$ git clone git://github.com/aseemk/json5.git
+$ cd json5
+$ npm install
+$ npm test
 ```
 
 As the `package.json5` file states, be sure to run `npm run build` on changes
@@ -251,7 +250,7 @@ tests, and ensure that `npm test` continues to pass.
 
 ## License
 
-MIT License. © 2012 Aseem Kishore, and [others](
+MIT License © 2012-2014 Aseem Kishore, and [others](
 https://github.com/aseemk/json5/contributors).
 
 
@@ -266,8 +265,8 @@ Recommended reading:
 JSON, but his state machine diagrams on the [JSON website](http://json.org/),
 as cheesy as it may sound, gave me motivation and confidence that building a
 new parser to implement these ideas this was within my reach!
-This code is also modeled directly off of Doug's open-source [json_parse.js][]
-parser. I'm super grateful for that clean and well-documented code.
+This code is also modeled directly off of Doug’s open-source [json_parse.js][]
+parser. I’m super grateful for that clean and well-documented code.
 
 [json_parse.js]: https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js
 

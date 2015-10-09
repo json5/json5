@@ -22,7 +22,7 @@
         "mocha": "~1.0.3"
     },
     "scripts": {
-        "build": "./lib/cli.js -c package.json5",
+        "build": "node ./lib/cli.js -c package.json5",
         "test": "mocha --ui exports --reporter spec"
     },
     "homepage": "http://json5.org/",

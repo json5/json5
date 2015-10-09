@@ -178,7 +178,7 @@ like the native ES5 `JSON` object.
 To use from Node:
 
 ```sh
-$ npm install json5
+ npm install json5
 ```
 
 ```js
@@ -226,17 +226,17 @@ This module also provides a `json5` executable (requires Node) for converting
 JSON5 files to JSON:
 
 ```sh
-$ json5 -c path/to/foo.json5    # generates path/to/foo.json
+json5 -c path/to/foo.json5    # generates path/to/foo.json
 ```
 
 
 ## Development
 
 ```sh
-$ git clone git://github.com/aseemk/json5.git
-$ cd json5
-$ npm install
-$ npm test
+git clone git://github.com/aseemk/json5.git
+cd json5
+npm install
+npm test
 ```
 
 As the `package.json5` file states, be sure to run `npm run build` on changes
@@ -250,7 +250,7 @@ tests, and ensure that `npm test` continues to pass.
 
 ## License
 
-MIT License © 2012-2014 Aseem Kishore, and [others](
+MIT License © 2012-2015 Aseem Kishore, and [others](
 https://github.com/aseemk/json5/contributors).
 
 

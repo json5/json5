@@ -178,7 +178,7 @@ like the native ES5 `JSON` object.
 To use from Node:
 
 ```sh
- npm install json5
+npm install json5
 ```
 
 ```js

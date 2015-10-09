@@ -6,10 +6,11 @@
 var DEBUG = false;
 
 var assert = require('assert');
+var helpers = require('../lib/helpers');
 var JSON5 = require('../lib/json5');
 
-// Test JSON5.stringify() by comparing its output for each case with 
-// native JSON.stringify().  The only differences will be in how object keys are 
+// Test JSON5.stringify() by comparing its output for each case with
+// native JSON.stringify().  The only differences will be in how object keys are
 // handled.
 
 var simpleCases = [
@@ -41,7 +42,7 @@ exports.stringify.oddities = function test() {
     assertStringify(0x99);
     assertStringify(/aa/);
     assertStringify(new RegExp('aa'));
-    
+
     assertStringify(new Number(7));
     assertStringify(new String(7));
     assertStringify(new String(""));
@@ -74,7 +75,7 @@ exports.stringify.objects = function test() {
     assertStringify({"a$22222_aa":[1], 'bbbb':{aaaa:2, name:function(a,n,fh,h) { return 'nuthin'; }, foo: undefined}});
     assertStringify({"a$222222_aa":[1], 'bbbb':{aaaa:2, name:'other', foo: undefined}});
     assertStringify({"a$222222_aa":[1, {}, undefined, function() { }, { jjj: function() { } }], 'bbbb':{aaaa:2, name:'other', foo: undefined}});
-    
+
     // using same obj multiple times
     var innerObj = {a: 9, b:6};
     assertStringify({a : innerObj, b: innerObj, c: [innerObj, innerObj, innerObj]});
@@ -382,12 +383,12 @@ function stringifyJSON5(obj, replacer, space) {
 
 function stringifyJSON(obj, replacer, space) {
     var start, res, end;
-    
+
     try {
         start = new Date();
         res = JSON.stringify(obj, replacer, space);
         end = new Date();
-    
+
         // now remove all quotes from keys where appropriate
         // first recursively find all key names
         var keys = [];
@@ -402,7 +403,7 @@ function stringifyJSON(obj, replacer, space) {
                     return;
                 }
             }
-            if (JSON5.isWord(key) &&
+            if (helpers.isWord(key) &&
                 typeof innerObj !== 'function' &&
                 typeof innerObj !== 'undefined') {
                 keys.push(key);
@@ -426,8 +427,8 @@ function stringifyJSON(obj, replacer, space) {
         // now replace each key in the result
         var last = 0;
         for (var i = 0; i < keys.length; i++) {
-        
-            // not perfect since we can match on parts of the previous value that 
+
+            // not perfect since we can match on parts of the previous value that
             // matches the key, but we can design our test around that.
             last = res.indexOf('"' + keys[i] + '"', last);
             if (last === -1) {
@@ -435,8 +436,8 @@ function stringifyJSON(obj, replacer, space) {
                 console.log("Couldn't find: " + keys[i]);
                 throw new Error("Couldn't find: " + keys[i]);
             }
-            res = res.substring(0, last) + 
-                res.substring(last+1, last + keys[i].length+1) + 
+            res = res.substring(0, last) +
+                res.substring(last+1, last + keys[i].length+1) +
                 res.substring(last + keys[i].length + 2, res.length);
             last += keys[i].length;
         }
@@ -489,7 +490,7 @@ function assertStringify(obj, replacerTestConstructor, expectError) {
                 roundTripStr = JSON5.stringify(JSON5.parse(origStr));
             } catch (e) {
                 console.log(e);
-                console.log(origStr);    
+                console.log(origStr);
                 throw e;
             }
             assert.equal(origStr, roundTripStr);

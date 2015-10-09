@@ -16,6 +16,9 @@
     "bin": "lib/cli.js",
     "dependencies": {},
     "devDependencies": {
+        "gulp": "^3.9.0",
+        "gulp-jshint": "^1.11.2",
+        "jshint-stylish": "^2.0.1",
         "mocha": "~1.0.3"
     },
     "scripts": {

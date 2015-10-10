@@ -16,10 +16,11 @@
     "bin": "lib/cli.js",
     "dependencies": {},
     "devDependencies": {
-        "mocha": "~1.0.3"
+        "mocha": "~1.0.3",
+        "browserify": "~10.2.4"
     },
     "scripts": {
-        "build": "./lib/cli.js -c package.json5",
+        "build": "./lib/cli.js -c package.json5 && browserify -s JSON5 lib/json5.js >dist/json5.js",
         "test": "mocha --ui exports --reporter spec"
     },
     "homepage": "http://json5.org/",

@@ -140,12 +140,13 @@ This implementation’s own [package.json5](package.json5) is more realistic:
     dependencies: {},
     devDependencies: {
         gulp: '^3.9.0',
+        'gulp-browserify': "^0.5.1",
         'gulp-jshint': '^1.11.2',
         'jshint-stylish': '^2.0.1',
         mocha: '~1.0.3',    // TODO: Look into Mocha v2.
     },
     scripts: {
-        build: 'node ./lib/cli.js -c package.json5',
+        build: 'node ./lib/cli.js -c package.json5 && gulp',
         test: 'mocha --ui exports --reporter spec',
             // TODO: Would it be better to define these in a mocha.opts file?
     },

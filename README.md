@@ -142,7 +142,7 @@ This implementation’s own [package.json5](package.json5) is more realistic:
         gulp: '^3.9.0',
         'gulp-jshint': '^1.11.2',
         'jshint-stylish': '^2.0.1',
-        mocha: '~1.0.3',    // TODO: Look into Mocha v2.
+        mocha: '^2.3.3',
     },
     scripts: {
         build: 'node ./lib/cli.js -c package.json5',

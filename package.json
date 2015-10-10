@@ -17,13 +17,12 @@
     "dependencies": {},
     "devDependencies": {
         "gulp": "^3.9.0",
-        "gulp-browserify": "^0.5.1",
         "gulp-jshint": "^1.11.2",
         "jshint-stylish": "^2.0.1",
         "mocha": "~1.0.3"
     },
     "scripts": {
-        "build": "node ./lib/cli.js -c package.json5 && gulp",
+        "build": "node ./lib/cli.js -c package.json5",
         "test": "mocha --ui exports --reporter spec"
     },
     "homepage": "http://json5.org/",

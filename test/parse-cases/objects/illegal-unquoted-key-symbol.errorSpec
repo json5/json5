@@ -1,0 +1,6 @@
+{
+    at: 12,
+    lineNumber: 2,
+    columnNumber: 10,
+    message: "Expected ':' instead of '-'"
+}

@@ -1,0 +1,6 @@
+{
+    at: 5,
+    lineNumber: 2,
+    columnNumber: 0,
+    message: "Bad string"
+}

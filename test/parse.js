@@ -1,6 +1,8 @@
 // parse.js
 // Tests parse(). See readme.txt for details.
 
+"use strict";
+
 var assert = require('assert');
 var FS = require('fs');
 var JSON5 = require('..');

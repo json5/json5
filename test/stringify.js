@@ -1,7 +1,5 @@
 // tests stringify()
 
-/*global require console exports */
-
 // set to true to show performance stats
 var DEBUG = false;
 

@@ -1,10 +1,6 @@
 // count-newlines.js
-// Tests JSON5's line counting algorithm's support for all the varieties of newlines supported in ES5.
-// These are described at https://es5.github.io/#x7.3
-
-// Note that the two special separators, LS and PS are not part of JSON but we recognise them as part of 
-// our wider mission to extend the JSON subset towards the ES5 subset - 
-// see http://timelessrepo.com/json-isnt-a-javascript-subset
+// Tests JSON5's line counting algorithm's support for the basic varieties of newline that we support - 
+// LF, CR+LF and CR
 
 "use strict";
 
@@ -15,9 +11,7 @@ var JSON5 = require('..');
 var cases = {
     LF:   "{\u000a    10thing",
     CRLF: "{\u000d\u000a    10thing",
-    CR:   "{\u000d    10thing",
-    LS:   "{\u2028    10thing",
-    PS:   "{\u2029    10thing"
+    CR:   "{\u000d    10thing"
 };
 
 var spec = {

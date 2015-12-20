@@ -1,0 +1,173 @@
+// code for railroad diagram generator http://www.xanthir.com/etc/railroad-diagrams/generator.html
+// You need to copy&paste each diagram separately into the generator input field.
+
+// object
+Diagram(
+  '{',
+  Optional(
+    Sequence(
+      OneOrMore(
+        Sequence(
+          Choice(0,
+            NonTerminal('string'),
+            NonTerminal('identifier')
+          ),
+          ':',
+          NonTerminal('value')
+        ),
+        ','
+      ),
+      Optional(',')
+    )
+  ),
+  '}'
+)
+
+// array
+Diagram(
+  '[',
+  Optional(
+    Sequence(
+      OneOrMore(
+        NonTerminal('value'),
+        ','
+      ),
+      Optional(',')
+    )
+  ),
+  ']'
+)
+
+// value
+Diagram(
+  Choice(0,
+    NonTerminal('string'),
+    NonTerminal('number'),
+    NonTerminal('object'),
+    NonTerminal('array'),
+    'true',
+    'false',
+    'null'
+  )
+)
+
+// identifier
+Diagram(
+  Choice(0,
+    NonTerminal('letter a-zA-Z'),
+    NonTerminal('ISO8859-1 or Unicode letter'),
+    NonTerminal('Unicode escape sequence of a letter'),
+    '_',
+    '$'
+  ),
+  ZeroOrMore(
+    Choice(0,
+      NonTerminal('letter a-zA-Z'),
+      NonTerminal('ISO8859-1 or Unicode letter'),
+      NonTerminal('Unicode escape sequence of a letter'),
+      NonTerminal('digit 0-9'),
+      '_',
+      '$'
+    )
+  )
+)
+
+// string
+Diagram(
+  Choice(0,
+    Sequence(
+      '\'',
+      ZeroOrMore(
+        NonTerminal('string_character')
+      ),
+      '\''
+    ),
+    Sequence(
+      '\"',
+      ZeroOrMore(
+        NonTerminal('string_character')
+      ),
+      '\"'
+    )
+  )
+)
+
+// string_character
+Diagram(
+  Choice(0,
+    NonTerminal('any Unicode character except \' or \" or \\  or control character'),
+    Sequence(
+      '\\',
+      Choice(0,
+        '\'',
+        '\"',
+        '\\',
+        '/',
+        'b',
+        'f',
+        'n',
+        'r',
+        't',
+        Sequence(
+          'u',
+          NonTerminal('4 hexadecimal digits')
+        ),
+        NonTerminal('linebreak')
+      )
+    )
+  )
+)
+
+// number
+Diagram(
+  Sequence(
+    Choice(0, Sequence(), '+', '-'),
+    Choice(1,
+      Sequence(
+        '.',
+        OneOrMore(NonTerminal('digit 0-9')),
+        Optional(
+           Sequence(
+            Choice(0, 'e', 'E'),
+            Choice(0, Sequence(), '+', '-'),
+            OneOrMore(NonTerminal('digit 0-9'))
+          )
+        )
+      ),
+      Sequence(
+        Choice(0,
+          '0',
+          Sequence(
+            NonTerminal('digit 1-9'),
+            OneOrMore(Sequence(), NonTerminal('digit 0-9'))
+          )
+        ),
+        Choice(1,
+          '.',
+          Sequence(
+            Optional(
+              Sequence(
+                '.',
+                OneOrMore(NonTerminal('digit 0-9'))
+              )
+            ),
+            Optional(
+              Sequence(
+                Choice(0, 'e', 'E'),
+                Choice(0, Sequence(), '+', '-'),
+                OneOrMore(NonTerminal('digit 0-9'))
+              )
+            )
+          )
+        )
+      ),
+      'Infinity',
+      'NaN',
+      Sequence(
+        '0',
+        Choice(0, 'x', 'X'),
+        OneOrMore(NonTerminal('hexadecimal digit 0-9a-fA-F'))
+      )
+    )
+  )
+)

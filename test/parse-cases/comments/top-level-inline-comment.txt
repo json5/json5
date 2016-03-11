@@ -1,1 +1,1 @@
-// This should fail; comments cannot be the top-level value.
+// This should fail; comments cannot be the only top-level value.

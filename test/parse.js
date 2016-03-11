@@ -1,6 +1,8 @@
 // parse.js
 // Tests parse(). See readme.txt for details.
 
+"use strict";
+
 var assert = require('assert');
 var FS = require('fs');
 var JSON5 = require('..');
@@ -18,6 +20,49 @@ var Path = require('path');
 
 var dirsPath = Path.resolve(__dirname, 'parse-cases');
 var dirs = FS.readdirSync(dirsPath);
+
+var readErrorSpec = function (filePath) {
+    var specName = Path.basename(filePath, '.txt') + '.errorSpec';
+    var specPath = Path.join(Path.dirname(filePath), specName);
+    var specTxt;
+    try {
+        specTxt = FS.readFileSync(specPath); // note that existsSync has been deprecated
+    } catch (e) {}
+    if (specTxt) {
+        try {
+            return JSON5.parse(specTxt);
+        } catch (err) {
+            err.message = 'Error reading error specification file ' + specName + ': ' + err.message;
+            throw err;
+        }
+    }
+};
+
+var testParseJSON5 = function (filePath, str) {
+    var errorSpec = readErrorSpec(filePath);
+    var err;
+    try {
+        JSON5.parse(str);
+    } catch (e) {
+        err = e;
+    }
+    assert(err, 'Expected JSON5 parsing to fail.');
+    if (errorSpec) {
+        describe("Error fixture " + filePath, function () {
+        Object.keys(errorSpec).forEach(function (key) {
+            if (key === 'message') {
+                it('Expected error message\n' + err.message + '\nto start with ' + errorSpec.message, function () {
+                    assert(err.message.indexOf(errorSpec.message) === 0);
+                });
+            } else {
+                it('Expected parse error field ' + key + ' to hold value ' + errorSpec[key], function () {
+                    assert.equal(err[key], errorSpec[key]);
+                });
+            }
+        })
+        });
+    }
+};
 
 function createTest(fileName, dir) {
     var ext = Path.extname(fileName);
@@ -66,8 +111,7 @@ function createTest(fileName, dir) {
             case '.txt':
                 assert.throws(parseES5,         // test validation
                     'Test case bug: expected ES5 parsing to fail.');
-                assert.throws(parseJSON5,
-                    'Expected JSON5 parsing to fail.');
+                testParseJSON5(filePath, str);
                 break;
         }
     };

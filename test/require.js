@@ -5,6 +5,8 @@
 // - /parse-cases/misc/npm-package.json
 // - /parse-cases/misc/npm-package.json5
 
+"use strict";
+
 var assert = require('assert');
 
 exports['misc'] = {};

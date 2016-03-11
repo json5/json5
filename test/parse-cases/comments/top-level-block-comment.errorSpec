@@ -1,0 +1,6 @@
+{
+    at: 77,
+    lineNumber: 4,
+    columnNumber: 3,
+    message: "Unexpected EOF"
+}

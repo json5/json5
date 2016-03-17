@@ -20,23 +20,23 @@ This is a massive release that adds `stringify` support, among other things.
   This method is analogous to the native `JSON.stringify()`;
   it just avoids quoting keys where possible.
   See the [usage documentation](./README.md#usage) for more.
-  ([#32][]; huge thanks and props [@aeisenberg][]!)
+  ([#32]; huge thanks and props [@aeisenberg]!)
 
 - New: `NaN` and `-NaN` are now allowed number literals.
-  ([#30][]; thanks [@rowanhill][].)
+  ([#30]; thanks [@rowanhill].)
 
 - New: Duplicate object keys are now allowed; the last value is used.
-  This is the same behavior as JSON. ([#57][]; thanks [@jordanbtucker][].)
+  This is the same behavior as JSON. ([#57]; thanks [@jordanbtucker].)
 
 - Fix: Properly handle various whitespace and newline cases now.
   E.g. JSON5 now properly supports escaped CR and CRLF newlines in strings,
   and JSON5 now accepts the same whitespace as JSON (stricter than ES5).
-  ([#58][], [#60][], and [#63][]; thanks [@jordanbtucker][].)
+  ([#58], [#60], and [#63]; thanks [@jordanbtucker].)
 
 - New: Negative hexadecimal numbers (e.g. `-0xC8`) are allowed again.
   (They were disallowed in v0.2.0; see below.)
   It turns out they *are* valid in ES5, so JSON5 supports them now too.
-  ([#36][]; thanks [@jordanbtucker][]!)
+  ([#36]; thanks [@jordanbtucker]!)
 
 
 ### v0.2.0 [[code][c0.2.0], [diff][d0.2.0]]
@@ -50,22 +50,22 @@ express data more easily:
 - **Breaking:** Negative hexadecimal numbers (e.g. `-0xC8`) are rejected now.
   While V8 (e.g. Chrome and Node) supported them, it turns out they're invalid
   in ES5. This has been [fixed in V8][v8-hex-fix] (and by extension, Chrome
-  and Node), so JSON5 officially rejects them now, too. ([#36][])
+  and Node), so JSON5 officially rejects them now, too. ([#36])
 
 - New: Trailing decimal points in decimal numbers are allowed again.
   (They were disallowed in v0.1.0; see below.)
   They're allowed by ES5, and differentiating between integers and floats may
-  make sense on some platforms. ([#16][]; thanks [@Midar][].)
+  make sense on some platforms. ([#16]; thanks [@Midar].)
 
 - New: `Infinity` and `-Infinity` are now allowed number literals.
-  ([#30][]; thanks [@pepkin88][].)
+  ([#30]; thanks [@pepkin88].)
 
 - New: Plus signs (`+`) in front of numbers are now allowed, since it can
   be helpful in some contexts to explicitly mark numbers as positive.
   (E.g. when a property represents changes or deltas.)
 
 - Fix: unescaped newlines in strings are rejected now.
-  ([#24][]; thanks [@Midar][].)
+  ([#24]; thanks [@Midar].)
 
 
 ### v0.1.0 [[code][c0.1.0], [diff][d0.1.0]]
@@ -75,20 +75,20 @@ express data more easily:
 
 This release tightens JSON5 support and adds helpful utility features:
 
-- New: Support hexadecimal numbers. (Thanks [@MaxNanasy][].)
+- New: Support hexadecimal numbers. (Thanks [@MaxNanasy].)
 
 - Fix: Reject octal numbers properly now. Previously, they were accepted but
-  improperly parsed as base-10 numbers. (Thanks [@MaxNanasy][].)
+  improperly parsed as base-10 numbers. (Thanks [@MaxNanasy].)
 
 - **Breaking:** Reject "noctal" numbers now (base-10 numbers that begin with a
   leading zero). These are disallowed by both JSON5 and JSON, as well as by
-  ES5's strict mode. (Thanks [@MaxNanasy][].)
+  ES5's strict mode. (Thanks [@MaxNanasy].)
 
 - New: Support leading decimal points in decimal numbers.
-  (Thanks [@MaxNanasy][].)
+  (Thanks [@MaxNanasy].)
 
 - **Breaking:** Reject trailing decimal points in decimal numbers now. These
-  are disallowed by both JSON5 and JSON. (Thanks [@MaxNanasy][].)
+  are disallowed by both JSON5 and JSON. (Thanks [@MaxNanasy].)
 
 - **Breaking:** Reject omitted elements in arrays now. These are disallowed by
   both JSON5 and JSON.
@@ -121,7 +121,7 @@ This was the first implementation of this JSON5 parser.
 
 ### v0.0.0 [[code](https://github.com/aseemk/json5/tree/v0.0.0)]
 
-Let's consider this to be Douglas Crockford's original [json_parse.js][] — a
+Let's consider this to be Douglas Crockford's original [json_parse.js] — a
 parser for the regular JSON format.
 
 

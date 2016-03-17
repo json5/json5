@@ -124,7 +124,7 @@ This implementation’s own [package.json5](package.json5) is more realistic:
 
 {
     name: 'json5',
-    version: '0.4.0',
+    version: '0.5.0',
     description: 'JSON for the ES5 era.',
     keywords: ['json', 'es5'],
     author: 'Aseem Kishore <aseem.kishore@gmail.com>',

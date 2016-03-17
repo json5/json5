@@ -1,9 +1,18 @@
-### Unreleased [[code][cNew], [diff][dNew]]
+### v0.5.0 [[code][c0.5.0], [diff][d0.5.0]]
 
-[cNew]: https://github.com/aseemk/json5/tree/master
-[dNew]: https://github.com/aseemk/json5/compare/v0.4.0...master
+[c0.5.0]: https://github.com/aseemk/json5/tree/v0.5.0
+[d0.5.0]: https://github.com/aseemk/json5/compare/v0.4.0...v0.5.0
 
-Nothing yet. ;)
+This release includes major internal changes and public API enhancements.
+
+- **Major:** JSON5 officially supports Node.js v4 LTS and v5. Support for
+  Node.js v0.6 and v0.8 have been dropped, while support for v0.10 and v0.12
+  remain.
+
+- Fix: YUI Compressor no longer fails when compressing json5.js. ([#97])
+
+- New: `parse` and the CLI provide line and column numbers when displaying error
+  messages. ([#101]; awesome work by [@amb26].)
 
 
 ### v0.4.0 [[code][c0.4.0], [diff][d0.4.0]]
@@ -134,6 +143,7 @@ parser for the regular JSON format.
 [@rowanhill]: https://github.com/rowanhill
 [@aeisenberg]: https://github.com/aeisenberg
 [@jordanbtucker]: https://github.com/jordanbtucker
+[@amb26]: https://github.com/amb26
 
 [#16]: https://github.com/aseemk/json5/issues/16
 [#24]: https://github.com/aseemk/json5/issues/24
@@ -144,3 +154,5 @@ parser for the regular JSON format.
 [#58]: https://github.com/aseemk/json5/pull/58
 [#60]: https://github.com/aseemk/json5/pull/60
 [#63]: https://github.com/aseemk/json5/pull/63
+[#97]: https://github.com/aseemk/json5/pull/97
+[#101]: https://github.com/aseemk/json5/pull/101

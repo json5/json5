@@ -14,7 +14,9 @@
     ],
     "main": "lib/json5.js",
     "bin": "lib/cli.js",
-    "files": ["lib/"],
+    "files": [
+        "lib/"
+    ],
     "dependencies": {},
     "devDependencies": {
         "gulp": "^3.9.0",

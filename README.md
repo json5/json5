@@ -253,7 +253,7 @@ tests, and ensure that `npm test` continues to pass.
 
 ## License
 
-MIT License © 2012-2015 Aseem Kishore, and [others](
+MIT License © 2012-2016 Aseem Kishore, and [others](
 https://github.com/aseemk/json5/contributors).
 
 

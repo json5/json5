@@ -142,6 +142,7 @@ This implementation’s own [package.json5](package.json5) is more realistic:
     devDependencies: {
         gulp: "^3.9.1",
         'gulp-jshint': "^2.0.0",
+        jshint: "^2.9.1",
         'jshint-stylish': "^2.1.0",
         mocha: "^2.4.5"
     },

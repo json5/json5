@@ -278,4 +278,8 @@ parser. I’m super grateful for that clean and well-documented code.
 [Max Nanasy](https://github.com/MaxNanasy) has been an early and prolific
 supporter, contributing multiple patches and ideas. Thanks Max!
 
-[Andrew Eisenberg](https://github.com/aeisenberg) has contributed the `stringify` method.
+[Andrew Eisenberg](https://github.com/aeisenberg) has contributed the
+`stringify` method.
+
+[Jordan Tucker](https://github.com/jordanbtucker) has aligned JSON5 more closely
+with ES5 and is actively maintaining this project.

@@ -1,6 +1,6 @@
 # JSON5 – Modern JSON
 
-[![Build Status](https://travis-ci.org/aseemk/json5.png)](https://travis-ci.org/aseemk/json5)
+[![Build Status](https://travis-ci.org/aseemk/json5.svg)](https://travis-ci.org/aseemk/json5)
 
 JSON is an excellent data format, but we think it can be better.
 

@@ -53,6 +53,8 @@ JSON5. **All of these are optional**, and **all of these come from ES5**.
 
   *(TODO: Unicode characters and escape sequences aren’t yet supported in this
   implementation.)*
+  
+- Object keys can also be single-quoted.
 
 - Objects can have trailing commas.
 

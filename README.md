@@ -1,6 +1,6 @@
 # JSON5 – Modern JSON
 
-[![Build Status](https://travis-ci.org/aseemk/json5.svg)](https://travis-ci.org/aseemk/json5)
+[![Build Status](https://travis-ci.org/json5/json5.svg)](https://travis-ci.org/json5/json5)
 
 JSON is an excellent data format, but we think it can be better.
 
@@ -257,8 +257,7 @@ tests, and ensure that `npm test` continues to pass.
 
 ## License
 
-MIT License © 2012-2016 Aseem Kishore, and [others](
-https://github.com/aseemk/json5/contributors).
+MIT. See [LICENSE.md](./LICENSE.md) for details.
 
 
 ## Credits

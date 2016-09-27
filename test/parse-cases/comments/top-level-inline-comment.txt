@@ -1,1 +1,0 @@
-// This should fail; comments cannot be the only top-level value.

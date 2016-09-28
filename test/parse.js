@@ -20,7 +20,7 @@ var Path = require('path');
 
 var dirsPath = Path.resolve(__dirname, 'parse-cases');
 var dirs = FS.readdirSync(dirsPath).filter(function(fn) {
-  if (fn.startsWith('.')) {
+  if (fn.substr(0, 1) == '.') {
     return false;
   }
   return FS.statSync(Path.join(dirsPath, fn)).isDirectory();

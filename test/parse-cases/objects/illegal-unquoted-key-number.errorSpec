@@ -1,6 +1,0 @@
-{
-    at: 7,
-    lineNumber: 2,
-    columnNumber: 5,
-    message: "Bad identifier as unquoted key"
-}

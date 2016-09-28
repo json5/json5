@@ -19,7 +19,12 @@ var Path = require('path');
 // http://mxr.mozilla.org/mozilla-central/source/js/src/tests/ecma_5/JSON/
 
 var dirsPath = Path.resolve(__dirname, 'parse-cases');
-var dirs = FS.readdirSync(dirsPath);
+var dirs = FS.readdirSync(dirsPath).filter(function(fn) {
+  if (fn.substr(0, 1) == '.') {
+    return false;
+  }
+  return FS.statSync(Path.join(dirsPath, fn)).isDirectory();
+});
 
 var readErrorSpec = function (filePath) {
     var specName = Path.basename(filePath, '.txt') + '.errorSpec';

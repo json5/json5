@@ -1,6 +1,0 @@
-{
-    at: 16,
-    lineNumber: 3,
-    columnNumber: 5,
-    message: "Expected ']' instead of 'f'"
-}

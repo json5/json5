@@ -1,3 +1,14 @@
+### v0.5.1 [[code][c0.5.1], [diff][d0.5.1]]
+
+[c0.5.1]: https://github.com/aseemk/json5/tree/v0.5.1
+[d0.5.1]: https://github.com/aseemk/json5/compare/v0.5.0...v0.5.1
+
+This release includes a minor fix for indentations when stringifying empty
+arrays.
+
+- Fix: Indents no longer appear in empty arrays when stringified. ([#134])
+
+
 ### v0.5.0 [[code][c0.5.0], [diff][d0.5.0]]
 
 [c0.5.0]: https://github.com/aseemk/json5/tree/v0.5.0

@@ -50,6 +50,7 @@ exports.stringify.oddities = function test() {
 };
 
 exports.stringify.arrays = function test() {
+    assertStringify([]);
     assertStringify([""]);
     assertStringify([1, 2]);
     assertStringify([undefined]);

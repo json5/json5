@@ -9,7 +9,7 @@
     author: 'Aseem Kishore <aseem.kishore@gmail.com>',
     contributors: [
         // TODO: Should we remove this section in favor of GitHub's list?
-        // https://github.com/aseemk/json5/contributors
+        // https://github.com/json5/json5/contributors
         'Max Nanasy <max.nanasy@gmail.com>',
         'Andrew Eisenberg <andrew@eisenberg.as>',
         'Jordan Tucker <jordanbtucker@gmail.com>',
@@ -34,6 +34,6 @@
     license: 'MIT',
     repository: {
         type: 'git',
-        url: 'https://github.com/aseemk/json5.git',
+        url: 'https://github.com/json5/json5',
     },
 }

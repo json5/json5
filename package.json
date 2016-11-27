@@ -33,6 +33,6 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/aseemk/json5.git"
+        "url": "https://github.com/json5/json5"
     }
 }

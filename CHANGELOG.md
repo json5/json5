@@ -1,7 +1,7 @@
 ### v0.5.1 [[code][c0.5.1], [diff][d0.5.1]]
 
-[c0.5.1]: https://github.com/aseemk/json5/tree/v0.5.1
-[d0.5.1]: https://github.com/aseemk/json5/compare/v0.5.0...v0.5.1
+[c0.5.1]: https://github.com/json5/json5/tree/v0.5.1
+[d0.5.1]: https://github.com/json5/json5/compare/v0.5.0...v0.5.1
 
 This release includes a minor fix for indentations when stringifying empty
 arrays.
@@ -11,8 +11,8 @@ arrays.
 
 ### v0.5.0 [[code][c0.5.0], [diff][d0.5.0]]
 
-[c0.5.0]: https://github.com/aseemk/json5/tree/v0.5.0
-[d0.5.0]: https://github.com/aseemk/json5/compare/v0.4.0...v0.5.0
+[c0.5.0]: https://github.com/json5/json5/tree/v0.5.0
+[d0.5.0]: https://github.com/json5/json5/compare/v0.4.0...v0.5.0
 
 This release includes major internal changes and public API enhancements.
 
@@ -28,8 +28,8 @@ This release includes major internal changes and public API enhancements.
 
 ### v0.4.0 [[code][c0.4.0], [diff][d0.4.0]]
 
-[c0.4.0]: https://github.com/aseemk/json5/tree/v0.4.0
-[d0.4.0]: https://github.com/aseemk/json5/compare/v0.2.0...v0.4.0
+[c0.4.0]: https://github.com/json5/json5/tree/v0.4.0
+[d0.4.0]: https://github.com/json5/json5/compare/v0.2.0...v0.4.0
 
 Note that v0.3.0 was tagged, but never published to npm, so this v0.4.0
 changelog entry includes v0.3.0 features.
@@ -61,8 +61,8 @@ This is a massive release that adds `stringify` support, among other things.
 
 ### v0.2.0 [[code][c0.2.0], [diff][d0.2.0]]
 
-[c0.2.0]: https://github.com/aseemk/json5/tree/v0.2.0
-[d0.2.0]: https://github.com/aseemk/json5/compare/v0.1.0...v0.2.0
+[c0.2.0]: https://github.com/json5/json5/tree/v0.2.0
+[d0.2.0]: https://github.com/json5/json5/compare/v0.1.0...v0.2.0
 
 This release fixes some bugs and adds some more utility features to help you
 express data more easily:
@@ -90,8 +90,8 @@ express data more easily:
 
 ### v0.1.0 [[code][c0.1.0], [diff][d0.1.0]]
 
-[c0.1.0]: https://github.com/aseemk/json5/tree/v0.1.0
-[d0.1.0]: https://github.com/aseemk/json5/compare/v0.0.1...v0.1.0
+[c0.1.0]: https://github.com/json5/json5/tree/v0.1.0
+[d0.1.0]: https://github.com/json5/json5/compare/v0.0.1...v0.1.0
 
 This release tightens JSON5 support and adds helpful utility features:
 
@@ -122,8 +122,8 @@ This release tightens JSON5 support and adds helpful utility features:
 
 ### v0.0.1 [[code][c0.0.1], [diff][d0.0.1]]
 
-[c0.0.1]: https://github.com/aseemk/json5/tree/v0.0.1
-[d0.0.1]: https://github.com/aseemk/json5/compare/v0.0.0...v0.0.1
+[c0.0.1]: https://github.com/json5/json5/tree/v0.0.1
+[d0.0.1]: https://github.com/json5/json5/compare/v0.0.0...v0.0.1
 
 This was the first implementation of this JSON5 parser.
 
@@ -139,7 +139,7 @@ This was the first implementation of this JSON5 parser.
 - Support comments, both inline and block.
 
 
-### v0.0.0 [[code](https://github.com/aseemk/json5/tree/v0.0.0)]
+### v0.0.0 [[code](https://github.com/json5/json5/tree/v0.0.0)]
 
 Let's consider this to be Douglas Crockford's original [json_parse.js] — a
 parser for the regular JSON format.
@@ -156,14 +156,15 @@ parser for the regular JSON format.
 [@jordanbtucker]: https://github.com/jordanbtucker
 [@amb26]: https://github.com/amb26
 
-[#16]: https://github.com/aseemk/json5/issues/16
-[#24]: https://github.com/aseemk/json5/issues/24
-[#30]: https://github.com/aseemk/json5/issues/30
-[#32]: https://github.com/aseemk/json5/issues/32
-[#36]: https://github.com/aseemk/json5/issues/36
-[#57]: https://github.com/aseemk/json5/issues/57
-[#58]: https://github.com/aseemk/json5/pull/58
-[#60]: https://github.com/aseemk/json5/pull/60
-[#63]: https://github.com/aseemk/json5/pull/63
-[#97]: https://github.com/aseemk/json5/pull/97
-[#101]: https://github.com/aseemk/json5/pull/101
+[#16]: https://github.com/json5/json5/issues/16
+[#24]: https://github.com/json5/json5/issues/24
+[#30]: https://github.com/json5/json5/issues/30
+[#32]: https://github.com/json5/json5/issues/32
+[#36]: https://github.com/json5/json5/issues/36
+[#57]: https://github.com/json5/json5/issues/57
+[#58]: https://github.com/json5/json5/pull/58
+[#60]: https://github.com/json5/json5/pull/60
+[#63]: https://github.com/json5/json5/pull/63
+[#97]: https://github.com/json5/json5/pull/97
+[#101]: https://github.com/json5/json5/pull/101
+[#134]: https://github.com/json5/json5/pull/134

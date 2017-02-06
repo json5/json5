@@ -1,4 +1,4 @@
-# JSON5 – Modern JSON
+# JSON5 – JSON for Humans
 
 [![Build Status](https://travis-ci.org/json5/json5.svg)](https://travis-ci.org/json5/json5)
 

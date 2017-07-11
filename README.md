@@ -81,6 +81,10 @@ JSON5. **All of these are optional**, and **all of these come from ES5**.
 
 - Numbers can begin with an explicit plus sign.
 
+### Undefined
+
+- Supports the other value keyword in javascript 'undefined'.
+
 ### Comments
 
 - Both inline (single-line) and block (multi-line) comments are allowed.

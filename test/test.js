@@ -82,9 +82,7 @@ describe('JSON5', function () {
             })
 
             it('parses signed numbers', function () {
-                // let warn = sinon.stub(console, 'warn')
                 assert.deepStrictEqual([-1, +2, -0.1, -0, -Infinity], JSON5.parse('[-1,+2,-.1,-0,-Infinity]'))
-                // warn.restore()
             })
 
             it('parses leading decimal points', function () {
@@ -99,34 +97,16 @@ describe('JSON5', function () {
                 assert.deepStrictEqual([1, 10, 10, 1, 1.1, 0.1, 10], JSON5.parse('[1e0,1e1,1e01,1.e0,1.1e0,1e-1,1e+1]'))
             })
 
-            // it('parses binary numbers', function () {
-            //     assert.deepStrictEqual([1, 2, 3], JSON5.parse('[0b1,0b10,0b011]'))
-            // })
-
-            // it('parses octal numbers', function () {
-            //     assert.deepStrictEqual([1, 8, 9], JSON5.parse('[0o1,0o10,0o011]'))
-            // })
-
             it('parses hexadecimal numbers', function () {
                 assert.deepStrictEqual([1, 16, 255, 255], JSON5.parse('[0x1,0x10,0xff,0xFF]'))
             })
 
             it('parses Infinity', function () {
-                // const warn = sinon.stub(console, 'warn', function (message) {
-                //     assert(message.indexOf('Infinity') >= 0)
-                // })
                 assert.strictEqual(Infinity, JSON5.parse('Infinity'))
-                // assert(warn.calledOnce)
-                // warn.restore()
             })
 
             it('parses NaN with a warning', function () {
-                // const warn = sinon.stub(console, 'warn', function (message) {
-                //     assert(message.indexOf('NaN') >= 0)
-                // })
                 assert(isNaN(JSON5.parse('NaN')))
-                // assert(warn.calledOnce)
-                // warn.restore()
             })
         })
 
@@ -157,29 +137,6 @@ describe('JSON5', function () {
                 warn.restore()
             })
         })
-
-        // describe('templates', function () {
-        //     it('parses empty templates', function () {
-        //         assert.strictEqual('', JSON5.parse('``'))
-        //     })
-
-        //     it('parses contents', function () {
-        //         assert.strictEqual('abc', JSON5.parse('`abc`'))
-        //     })
-
-        //     it('parses dollar signs', function () {
-        //         assert.strictEqual('a$b', JSON5.parse('`a$b`'))
-        //     })
-
-        //     it('parses escaped characters', function () {
-        //         // eslint-disable-next-line no-useless-escape
-        //         assert.strictEqual('\b\f\n\r\t\v\0\x0f\u01FF\n\n\a\'\"A', JSON5.parse('`\\b\\f\\n\\r\\t\\v\\0\\x0f\\u01fF\\\n\\\r\n\\a\\\'\\"\\u{000041}`'))
-        //     })
-
-        //     it('parses line breaks', function () {
-        //         assert.strictEqual('\n\n\n\u2028\u2029', JSON5.parse('`\n\r\r\n\u2028\u2029`'))
-        //     })
-        // })
 
         describe('comments', function () {
             it('parses single-line comments', function () {
@@ -343,10 +300,6 @@ describe('JSON5', function () {
                 assert.strictEqual('"abc\'"', JSON5.stringify("abc'"))
             })
 
-            // it('stringifies template strings', function () {
-            //     assert.strictEqual('`abc\'"`', JSON5.stringify('abc\'"'))
-            // })
-
             it('stringifies escaped characters', function () {
                 assert.strictEqual("'\\b\\f\\n\\r\\t\\v\\0\\x0f'", JSON5.stringify('\b\f\n\r\t\v\0\x0f'))
             })
@@ -358,10 +311,6 @@ describe('JSON5', function () {
             it('stringifies escaped double quotes', function () {
                 assert.strictEqual('"\'\'\\""', JSON5.stringify('\'\'"'))
             })
-
-            // it('stringifies escaped backtick quotes', function () {
-            //     assert.strictEqual('`\'\'""\\``', JSON5.stringify('\'\'""`'))
-            // })
 
             it('stringifies escaped line and paragraph separators', function () {
                 assert.strictEqual("'\\u2028\\u2029'", JSON5.stringify('\u2028\u2029'))

@@ -1,8 +1,18 @@
-# Don't allow rules from further up the tree.
+# EditorConfig is awesome: http://EditorConfig.org
+
 root = true
 
-[*]                             # Every file
-end_of_line = lf                # Unix sytle line endings
-insert_final_newline = true     # Ensure a new line at the end of each file
-indent_style = space            # Use spaces instead of tabs
-indent_size = 4                 # Indent 4 spaces
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[package.json]
+indent_size = 2
+
+[*.md]
+indent_size = 2
+trim_trailing_whitespace = false

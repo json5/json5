@@ -7,7 +7,9 @@ import packageJSON from '../package.json'
 
 const cliPath = path.resolve(__dirname, '../lib/cli.js')
 
-describe('CLI', () => {
+describe('CLI', function () {
+    this.timeout(10000)
+
     it('converts JSON5 to JSON from stdin to stdout', done => {
         const proc = child.spawn(process.execPath, [cliPath])
         let output = ''

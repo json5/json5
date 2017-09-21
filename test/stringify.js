@@ -211,6 +211,10 @@ describe('JSON5', () => {
             assert.strictEqual(JSON5.stringify({a: 1, b: 2, 3: 3}, ['a', 3]), "{a:1,'3':3}")
         })
 
+        it('only filters string and number keys when an array is provided', () => {
+            assert.strictEqual(JSON5.stringify({a: 1, b: 2, 3: 3, false: 4}, ['a', 3, false]), "{a:1,'3':3}")
+        })
+
         it('replaces values when a function is provided', () => {
             assert.strictEqual(
                 JSON5.stringify({a: 1, b: 2}, (key, value) => (key === 'a') ? 2 : value),

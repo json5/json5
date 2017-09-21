@@ -24,9 +24,10 @@ function parse (text, reviver) {
     do {
         token = lex()
 
-        if (!parseStates[parseState]) {
-            throw invalidParseState()
-        }
+        // This code is unreachable.
+        // if (!parseStates[parseState]) {
+        //     throw invalidParseState()
+        // }
 
         parseStates[parseState]()
     } while (token.type !== 'eof')
@@ -68,9 +69,11 @@ function lex () {
 
     for (;;) {
         c = peek()
-        if (!lexStates[lexState]) {
-            throw invalidLexState(lexState)
-        }
+
+        // This code is unreachable.
+        // if (!lexStates[lexState]) {
+        //     throw invalidLexState(lexState)
+        // }
 
         const token = lexStates[lexState]()
         if (token) {
@@ -93,6 +96,8 @@ function read () {
         column = 0
     } else if (c) {
         column += c.length
+    } else {
+        column++
     }
 
     if (c) {
@@ -132,9 +137,10 @@ const lexStates = {
             return
         }
 
-        if (!lexStates[parseState]) {
-            throw invalidLexState(parseState)
-        }
+        // This code is unreachable.
+        // if (!lexStates[parseState]) {
+        //     throw invalidLexState(parseState)
+        // }
 
         return lexStates[parseState]()
     },
@@ -152,8 +158,7 @@ const lexStates = {
             return
         }
 
-        read()
-        throw invalidChar(c)
+        throw invalidChar(read())
     },
 
     multiLineComment () {
@@ -163,7 +168,7 @@ const lexStates = {
             break
 
         case undefined:
-            throw invalidChar(c)
+            throw invalidChar(read())
         }
 
         read()
@@ -171,7 +176,7 @@ const lexStates = {
 
     multiLineCommentAsterisk () {
         if (c === undefined) {
-            throw invalidChar(c)
+            throw invalidChar(read())
         }
 
         read()
@@ -265,14 +270,12 @@ const lexStates = {
             return
         }
 
-        read()
-        throw invalidChar(c)
+        throw invalidChar(read())
     },
 
     identifierNameStartEscape () {
         if (c !== 'u') {
-            read()
-            throw invalidChar(c)
+            throw invalidChar(read())
         }
 
         read()
@@ -319,8 +322,7 @@ const lexStates = {
 
     identifierNameEscape () {
         if (c !== 'u') {
-            read()
-            throw invalidChar(c)
+            throw invalidChar(read())
         }
 
         read()
@@ -375,8 +377,7 @@ const lexStates = {
             return newToken('numeric', sign * Infinity)
         }
 
-        read()
-        throw invalidChar(c)
+        throw invalidChar(read())
     },
 
     zero () {
@@ -431,8 +432,7 @@ const lexStates = {
             return
         }
 
-        read()
-        throw invalidChar(c)
+        throw invalidChar(read())
     },
 
     decimalPoint () {
@@ -485,8 +485,7 @@ const lexStates = {
             return
         }
 
-        read()
-        throw invalidChar(c)
+        throw invalidChar(read())
     },
 
     decimalExponentSign () {
@@ -496,8 +495,7 @@ const lexStates = {
             return
         }
 
-        read()
-        throw invalidChar(c)
+        throw invalidChar(read())
     },
 
     decimalExponentInteger () {
@@ -516,8 +514,7 @@ const lexStates = {
             return
         }
 
-        read()
-        throw invalidChar(c)
+        throw invalidChar(read())
     },
 
     hexadecimalInteger () {
@@ -556,8 +553,7 @@ const lexStates = {
 
         case '\n':
         case '\r':
-            read()
-            throw invalidChar(c)
+            throw invalidChar(read())
 
         case '\u2028':
         case '\u2029':
@@ -565,7 +561,7 @@ const lexStates = {
             break
 
         case undefined:
-            throw invalidChar()
+            throw invalidChar(read())
         }
 
         buffer += read()
@@ -577,8 +573,9 @@ const lexStates = {
         case '[':
             return newToken('punctuator', read())
 
-        case undefined:
-            return newToken('eof')
+        // This code is unreachable since the default lexState handles eof.
+        // case undefined:
+        //     return newToken('eof')
         }
 
         lexState = 'value'
@@ -613,8 +610,7 @@ const lexStates = {
             return
         }
 
-        read()
-        throw invalidChar(c)
+        throw invalidChar(read())
     },
 
     afterPropertyName () {
@@ -622,8 +618,7 @@ const lexStates = {
             return newToken('punctuator', read())
         }
 
-        read()
-        throw invalidChar(c)
+        throw invalidChar(read())
     },
 
     beforePropertyValue () {
@@ -637,8 +632,7 @@ const lexStates = {
             return newToken('punctuator', read())
         }
 
-        read()
-        throw invalidChar(c)
+        throw invalidChar(read())
     },
 
     beforeArrayValue () {
@@ -656,19 +650,18 @@ const lexStates = {
             return newToken('punctuator', read())
         }
 
-        read()
-        throw invalidChar(c)
+        throw invalidChar(read())
     },
 
-    // This code is unreachable since lexState is never set to 'end'
-    // end () {
-    //     if (c === undefined) {
-    //         return newToken('eof')
-    //     }
+    end () {
+        // This code is unreachable since it's handled by the default lexState.
+        // if (c === undefined) {
+        //     read()
+        //     return newToken('eof')
+        // }
 
-    //     read()
-    //     throw invalidChar(c)
-    // },
+        throw invalidChar(read())
+    },
 }
 
 function newToken (type, value) {
@@ -685,8 +678,7 @@ function literal (s) {
         const p = peek()
 
         if (p !== c) {
-            read()
-            throw invalidChar(p)
+            throw invalidChar(read())
         }
 
         read()
@@ -747,7 +739,7 @@ function escape () {
         return ''
 
     case undefined:
-        throw invalidChar(c)
+        throw invalidChar(read())
     }
 
     return read()
@@ -758,16 +750,14 @@ function hexEscape () {
     let c = peek()
 
     if (!util.isHexDigit(c)) {
-        read()
-        throw invalidChar(c)
+        throw invalidChar(read())
     }
 
     buffer += read()
 
     c = peek()
     if (!util.isHexDigit(c)) {
-        read()
-        throw invalidChar(c)
+        throw invalidChar(read())
     }
 
     buffer += read()
@@ -782,8 +772,7 @@ function unicodeEscape () {
     while (count-- > 0) {
         const c = peek()
         if (!util.isHexDigit(c)) {
-            read()
-            throw invalidChar(c)
+            throw invalidChar(read())
         }
 
         buffer += read()
@@ -806,21 +795,23 @@ const parseStates = {
             return
 
         case 'punctuator':
-            if (token.value !== '}') {
-                throw invalidToken()
-            }
+            // This code is unreachable since it's handled by the lexState.
+            // if (token.value !== '}') {
+            //     throw invalidToken()
+            // }
 
             pop()
-            return
         }
 
-        throw invalidToken()
+        // This code is unreachable since it's handled by the lexState.
+        // throw invalidToken()
     },
 
     afterPropertyName () {
-        if (token.type !== 'punctuator' || token.value !== ':') {
-            throw invalidToken()
-        }
+        // This code is unreachable since it's handled by the lexState.
+        // if (token.type !== 'punctuator' || token.value !== ':') {
+        //     throw invalidToken()
+        // }
 
         parseState = 'beforePropertyValue'
     },
@@ -839,9 +830,10 @@ const parseStates = {
     },
 
     afterPropertyValue () {
-        if (token.type !== 'punctuator') {
-            throw invalidToken()
-        }
+        // This code is unreachable since it's handled by the lexState.
+        // if (token.type !== 'punctuator') {
+        //     throw invalidToken()
+        // }
 
         switch (token.value) {
         case ',':
@@ -850,16 +842,17 @@ const parseStates = {
 
         case '}':
             pop()
-            return
         }
 
-        throw invalidToken()
+        // This code is unreachable since it's handled by the lexState.
+        // throw invalidToken()
     },
 
     afterArrayValue () {
-        if (token.type !== 'punctuator') {
-            throw invalidToken()
-        }
+        // This code is unreachable since it's handled by the lexState.
+        // if (token.type !== 'punctuator') {
+        //     throw invalidToken()
+        // }
 
         switch (token.value) {
         case ',':
@@ -868,16 +861,17 @@ const parseStates = {
 
         case ']':
             pop()
-            return
         }
 
-        throw invalidToken()
+        // This code is unreachable since it's handled by the lexState.
+        // throw invalidToken()
     },
 
     end () {
-        if (token.type !== 'eof') {
-            throw invalidToken()
-        }
+        // This code is unreachable since it's handled by the lexState.
+        // if (token.type !== 'eof') {
+        //     throw invalidToken()
+        // }
     },
 }
 
@@ -905,8 +899,9 @@ function push () {
         value = token.value
         break
 
-    default:
-        throw invalidToken()
+    // This code is unreachable.
+    // default:
+    //     throw invalidToken()
     }
 
     if (root === undefined) {
@@ -953,37 +948,75 @@ function pop () {
     }
 }
 
-function invalidParseState () {
-    return new Error(`JSON5: invalid parse state '${parseState}'`)
-}
+// This code is unreachable.
+// function invalidParseState () {
+//     return new Error(`JSON5: invalid parse state '${parseState}'`)
+// }
 
-function invalidLexState (state) {
-    return new Error(`JSON5: invalid lex state '${state}`)
-}
+// This code is unreachable.
+// function invalidLexState (state) {
+//     return new Error(`JSON5: invalid lex state '${state}'`)
+// }
 
 function invalidChar (c) {
     if (c === undefined) {
-        return new SyntaxError(`JSON5: invalid end of input at ${line}:${column}`)
+        return syntaxError(`JSON5: invalid end of input at ${line}:${column}`)
     }
 
-    return new SyntaxError(`JSON5: invalid character '${c}' at ${line}:${column}`)
+    return syntaxError(`JSON5: invalid character '${formatChar(c)}' at ${line}:${column}`)
 }
 
-function invalidToken () {
-    if (token.type === 'eof') {
-        return new SyntaxError(`JSON5: invalid end of input at ${line}:${column}`)
-    }
+// This code is unreachable.
+// function invalidToken () {
+//     if (token.type === 'eof') {
+//         return syntaxError(`JSON5: invalid end of input at ${line}:${column}`)
+//     }
 
-    const c = String.fromCodePoint(token.value.codePointAt(0))
-    return new SyntaxError(`JSON5: invalid character '${c}' at ${line}:${column}`)
-}
+//     const c = String.fromCodePoint(token.value.codePointAt(0))
+//     return syntaxError(`JSON5: invalid character '${formatChar(c)}' at ${line}:${column}`)
+// }
 
 function invalidIdentifier () {
-    return new SyntaxError(`JSON5: invalid character '${c}' at ${line}:${column}`)
+    column -= 5
+    return syntaxError(`JSON5: invalid identifier character at ${line}:${column}`)
 }
 
 function separatorChar (c) {
     console.warn(`JSON5: '${c}' is not valid ECMAScript; consider escaping`)
+}
+
+function formatChar (c) {
+    const replacements = {
+        "'": "\\'",
+        '"': '\\"',
+        '\b': '\\b',
+        '\f': '\\f',
+        '\n': '\\n',
+        '\r': '\\r',
+        '\t': '\\t',
+        '\v': '\\v',
+        '\0': '\\0',
+        '\u2028': '\\u2028',
+        '\u2029': '\\u2029',
+    }
+
+    if (replacements[c]) {
+        return replacements[c]
+    }
+
+    if (c < ' ') {
+        const hexString = c.charCodeAt(0).toString(16)
+        return '\\x' + ('00' + hexString).substring(hexString.length)
+    }
+
+    return c
+}
+
+function syntaxError (message) {
+    const err = new SyntaxError(message)
+    err.lineNumber = line
+    err.columnNumber = column
+    return err
 }
 
 export default module.exports = parse

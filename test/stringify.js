@@ -124,30 +124,26 @@ describe('JSON5', () => {
         })
 
         it('stringifies using user defined toJSON methods', () => {
-            /* eslint-disable no-extend-native */
-            RegExp.prototype.toJSON = RegExp.prototype.toString
-            assert.strictEqual(JSON5.stringify(/a/), "'/a/'")
-            RegExp.prototype.toJSON = undefined
-            /* eslint-enable no-extend-native */
+            function C () {}
+            Object.assign(C.prototype, {toJSON () { return {a: 1, b: 2} }})
+            assert.strictEqual(JSON5.stringify(new C()), '{a:1,b:2}')
         })
 
         it('stringifies using user defined toJSON(key) methods', () => {
-            let C = () => {}
-            C.prototype.toJSON = key => (key === 'a') ? 1 : 2
+            function C () {}
+            Object.assign(C.prototype, {toJSON (key) { return (key === 'a') ? 1 : 2 }})
             assert.strictEqual(JSON5.stringify({a: new C(), b: new C()}), '{a:1,b:2}')
         })
 
         it('stringifies using toJSON5 methods', () => {
-            /* eslint-disable no-extend-native */
-            RegExp.prototype.toJSON5 = RegExp.prototype.toString
-            assert.strictEqual(JSON5.stringify(/a/), "'/a/'")
-            RegExp.prototype.toJSON5 = undefined
-            /* eslint-enable no-extend-native */
+            function C () {}
+            Object.assign(C.prototype, {toJSON5 () { return {a: 1, b: 2} }})
+            assert.strictEqual(JSON5.stringify(new C()), '{a:1,b:2}')
         })
 
         it('stringifies using toJSON5(key) methods', () => {
-            let C = () => {}
-            C.prototype.toJSON5 = key => (key === 'a') ? 1 : 2
+            function C () {}
+            Object.assign(C.prototype, {toJSON5 (key) { return (key === 'a') ? 1 : 2 }})
             assert.strictEqual(JSON5.stringify({a: new C(), b: new C()}), '{a:1,b:2}')
         })
     })

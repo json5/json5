@@ -736,7 +736,7 @@ function escape () {
     case '\u2028':
     case '\u2029':
         read()
-        return '\n'
+        return ''
 
     case '\r':
         read()
@@ -744,7 +744,7 @@ function escape () {
             read()
         }
 
-        return '\n'
+        return ''
 
     case undefined:
         throw invalidChar(c)

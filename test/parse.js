@@ -125,7 +125,7 @@ describe('JSON5', () => {
 
             it('parses escaped characters', () => {
                 // eslint-disable-next-line no-useless-escape
-                assert.strictEqual(JSON5.parse(`'\\b\\f\\n\\r\\t\\v\\0\\x0f\\u01fF\\\n\\\r\n\\a\\'\\"'`), `\b\f\n\r\t\v\0\x0f\u01FF\n\n\a'"`)
+                assert.strictEqual(JSON5.parse(`'\\b\\f\\n\\r\\t\\v\\0\\x0f\\u01fF\\\n\\\r\n\\\u2028\\\u2029\\a\\'\\"'`), `\b\f\n\r\t\v\0\x0f\u01FF\a'"`)
             })
 
             it('parses line and paragraph separators with a warning', () => {

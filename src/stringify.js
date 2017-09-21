@@ -5,6 +5,7 @@ let indent
 let propertyList
 let replacerFunc
 let gap
+let quote
 
 function stringify (value, replacer, space) {
     stack = []
@@ -19,6 +20,7 @@ function stringify (value, replacer, space) {
         !Array.isArray(replacer)
     ) {
         space = replacer.space
+        quote = replacer.quote
         replacer = replacer.replacer
     }
 
@@ -133,11 +135,11 @@ function quoteString (value) {
         product += c
     }
 
-    const quote = Object.keys(quotes).reduce((a, b) => (quotes[a] < quotes[b]) ? a : b)
+    const quoteChar = quote || Object.keys(quotes).reduce((a, b) => (quotes[a] < quotes[b]) ? a : b)
 
-    product = product.replace(new RegExp(quote, 'g'), replacements[quote])
+    product = product.replace(new RegExp(quoteChar, 'g'), replacements[quoteChar])
 
-    return quote + product + quote
+    return quoteChar + product + quoteChar
 }
 
 function serializeObject (value) {

@@ -120,12 +120,12 @@ describe('JSON5', function () {
             })
 
             it('parses nested quotes strings', function () {
-                assert.deepStrictEqual(JSON5.parse('[\'"\',"\'"]'), ['"', "'"])
+                assert.deepStrictEqual(JSON5.parse(`['"',"'"]`), ['"', "'"])
             })
 
             it('parses escaped characters', function () {
                 // eslint-disable-next-line no-useless-escape
-                assert.strictEqual(JSON5.parse("'\\b\\f\\n\\r\\t\\v\\0\\x0f\\u01fF\\\n\\\r\n\\a\\'\\\"'"), '\b\f\n\r\t\v\0\x0f\u01FF\n\n\a\'\"')
+                assert.strictEqual(JSON5.parse(`'\\b\\f\\n\\r\\t\\v\\0\\x0f\\u01fF\\\n\\\r\n\\a\\'\\"'`), `\b\f\n\r\t\v\0\x0f\u01FF\n\n\a'"`)
             })
 
             it('parses line and paragraph separators with a warning', function () {
@@ -243,7 +243,7 @@ describe('JSON5', function () {
             })
 
             it('stringifies double quoted string property names', function () {
-                assert.strictEqual(JSON5.stringify({"a'": 1}), '{"a\'":1}')
+                assert.strictEqual(JSON5.stringify({"a'": 1}), `{"a'":1}`)
             })
 
             it('stringifies special character property names', function () {
@@ -321,7 +321,7 @@ describe('JSON5', function () {
             })
 
             it('stringifies double quoted strings', function () {
-                assert.strictEqual(JSON5.stringify("abc'"), '"abc\'"')
+                assert.strictEqual(JSON5.stringify("abc'"), `"abc'"`)
             })
 
             it('stringifies escaped characters', function () {
@@ -329,11 +329,11 @@ describe('JSON5', function () {
             })
 
             it('stringifies escaped single quotes', function () {
-                assert.strictEqual(JSON5.stringify('\'"'), "'\\'\"'")
+                assert.strictEqual(JSON5.stringify(`'"`), `'\\'"'`)
             })
 
             it('stringifies escaped double quotes', function () {
-                assert.strictEqual(JSON5.stringify('\'\'"'), '"\'\'\\""')
+                assert.strictEqual(JSON5.stringify(`''"`), `"''\\""`)
             })
 
             it('stringifies escaped line and paragraph separators', function () {
@@ -442,6 +442,16 @@ describe('JSON5', function () {
 
         it('accepts space as an option', function () {
             assert.strictEqual(JSON5.stringify([1], {space: 2}), '[\n  1,\n]')
+        })
+    })
+
+    describe('#stringify({quote})', function () {
+        it('uses double quotes if provided', function () {
+            assert.strictEqual(JSON5.stringify({'a"': '1"'}, {quote: '"'}), '{"a\\"":"1\\""}')
+        })
+
+        it('uses single quotes if provided', function () {
+            assert.strictEqual(JSON5.stringify({"a'": "1'"}, {quote: "'"}), "{'a\\'':'1\\''}")
         })
     })
 })

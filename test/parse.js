@@ -153,7 +153,7 @@ describe('JSON5', () => {
         })
 
         it('parses whitespace', () => {
-            assert.deepEqual(JSON5.parse('{\t\v\f \u00A0\uFEFF\n\r\u2028\u2029\u2003}'), {})
+            assert.deepStrictEqual(JSON5.parse('{\t\v\f \u00A0\uFEFF\n\r\u2028\u2029\u2003}'), {})
         })
     })
 
@@ -202,7 +202,7 @@ describe('JSON5', () => {
         })
 
         it('modifies the root value', () => {
-            assert.deepStrictEqual(
+            assert.strictEqual(
                 JSON5.parse('1', (k, v) => (k === '') ? 'revived' : v),
                 'revived'
             )

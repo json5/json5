@@ -10,4 +10,9 @@ describe('require(*.json5)', () => {
         require('../lib/require')
         assert.deepStrictEqual({a: 1, b: 2}, require('./test.json5'))
     })
+
+    it('throws on invalid JSON5', () => {
+        require('../lib/register')
+        assert.throws(() => { require('./invalid.json5') }, SyntaxError)
+    })
 })

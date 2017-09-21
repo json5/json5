@@ -208,7 +208,7 @@ describe('JSON5', () => {
 
     describe('#stringify(replacer)', () => {
         it('filters keys when an array is provided', () => {
-            assert.strictEqual(JSON5.stringify({a: 1, b: 2, 0: 3}, ['a', 0]), "{a:1,'0':3}")
+            assert.strictEqual(JSON5.stringify({a: 1, b: 2, 3: 3}, ['a', 3]), "{a:1,'3':3}")
         })
 
         it('replaces values when a function is provided', () => {
@@ -221,7 +221,7 @@ describe('JSON5', () => {
 
     describe('#stringify(options)', () => {
         it('accepts replacer as an option', () => {
-            assert.strictEqual(JSON5.stringify({a: 1, b: 2, 0: 3}, {replacer: ['a', 0]}), "{a:1,'0':3}")
+            assert.strictEqual(JSON5.stringify({a: 1, b: 2, 3: 3}, {replacer: ['a', 3]}), "{a:1,'3':3}")
         })
 
         it('accepts space as an option', () => {

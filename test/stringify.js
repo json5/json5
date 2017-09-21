@@ -146,6 +146,18 @@ describe('JSON5', () => {
             Object.assign(C.prototype, {toJSON5 (key) { return (key === 'a') ? 1 : 2 }})
             assert.strictEqual(JSON5.stringify({a: new C(), b: new C()}), '{a:1,b:2}')
         })
+
+        it('throws on circular objects', () => {
+            let a = {}
+            a.a = a
+            assert.throws(() => { JSON5.stringify(a) }, TypeError, 'Converting circular structure to JSON5')
+        })
+
+        it('throws on circular arrays', () => {
+            let a = []
+            a[0] = a
+            assert.throws(() => { JSON5.stringify(a) }, TypeError, 'Converting circular structure to JSON5')
+        })
     })
 
     describe('#stringify(space)', () => {

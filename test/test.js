@@ -434,6 +434,16 @@ describe('JSON5', function () {
             )
         })
     })
+
+    describe('#stringify(options)', function () {
+        it('accepts replacer as an option', function () {
+            assert.strictEqual(JSON5.stringify({a: 1, b: 2, 0: 3}, {replacer: ['a', 0]}), "{a:1,'0':3}")
+        })
+
+        it('accepts space as an option', function () {
+            assert.strictEqual(JSON5.stringify([1], {space: 2}), '[\n  1,\n]')
+        })
+    })
 })
 
 describe('require(*.json5)', function () {

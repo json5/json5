@@ -13,6 +13,15 @@ function stringify (value, replacer, space) {
     replacerFunc = undefined
     gap = ''
 
+    if (
+        replacer != null &&
+        typeof replacer === 'object' &&
+        !Array.isArray(replacer)
+    ) {
+        space = replacer.space
+        replacer = replacer.replacer
+    }
+
     if (typeof replacer === 'function') {
         replacerFunc = replacer
     } else if (Array.isArray(replacer)) {

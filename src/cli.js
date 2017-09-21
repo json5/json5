@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import minimist from 'minimist'
 
 import packageJSON from '../package.json'
@@ -30,11 +31,13 @@ if (argv.version) {
 } else if (argv.help) {
     usage()
 } else {
+    const inFilename = argv._[0]
+
     let readStream
-    if (argv._.length === 0) {
+    if (inFilename) {
         readStream = process.stdin
     } else {
-        readStream = fs.createReadStream(argv._[0])
+        readStream = fs.createReadStream(inFilename)
     }
 
     let json5 = ''
@@ -57,8 +60,21 @@ if (argv.version) {
                 const json = JSON.stringify(value, null, space)
 
                 let writeStream
-                if (argv.o) {
-                    writeStream = fs.createReadStream(argv.o)
+
+                // --convert is for backward compatibility with v0.5.1. If
+                // specified with <file> and not --out-file, then a file with
+                // the same name but with a .json extension will be written.
+                if (argv.convert && inFilename && !argv.o) {
+                    const outFilename = path.format(
+                        Object.assign(
+                            path.parse(inFilename),
+                            {ext: 'json'}
+                        )
+                    )
+
+                    writeStream = fs.createWriteStream(outFilename)
+                } else if (argv.o) {
+                    writeStream = fs.createWriteStream(argv.o)
                 } else {
                     writeStream = process.stdout
                 }

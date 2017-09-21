@@ -65,10 +65,11 @@ if (argv.version) {
                 // specified with <file> and not --out-file, then a file with
                 // the same name but with a .json extension will be written.
                 if (argv.convert && inFilename && !argv.o) {
+                    const parsedFilename = path.parse(inFilename)
                     const outFilename = path.format(
                         Object.assign(
-                            path.parse(inFilename),
-                            {base: undefined, ext: '.json'}
+                            parsedFilename,
+                            {base: path.basename(parsedFilename.base, parsedFilename.ext) + '.json'}
                         )
                     )
 

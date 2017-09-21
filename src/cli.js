@@ -35,9 +35,9 @@ if (argv.version) {
 
     let readStream
     if (inFilename) {
-        readStream = process.stdin
-    } else {
         readStream = fs.createReadStream(inFilename)
+    } else {
+        readStream = process.stdin
     }
 
     let json5 = ''

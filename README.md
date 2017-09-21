@@ -122,42 +122,71 @@ This implementation’s own [package.json5](https://github.com/json5/json5/blob/
 
 ```js
 // This file is written in JSON5 syntax, naturally, but npm needs a regular
-// JSON file, so compile via `npm run build`. Be sure to keep both in sync!
+// JSON file, so be sure to keep package.json and package.json5 in sync!
 
 {
     name: 'json5',
-    version: '0.5.0',
+    version: '0.5.1',
     description: 'JSON for the ES5 era.',
-    keywords: ['json', 'es5'],
+    main: 'lib/',
+    bin: 'lib/cli.js',
+    files: [
+        'lib/',
+        'dist/',
+    ],
+    scripts: {
+        prepublishOnly: 'npm run lint && npm test',
+        preversion: 'npm run lint && npm test',
+        build: 'node build.js',
+        lint: 'eslint --fix build.js src/',
+        test: 'cross-env NODE_ENV=test npm run build && nyc --reporter=html --reporter=text mocha',
+    },
+    repository: {
+        type: 'git',
+        url: 'git+https://github.com/json5/json5.git',
+    },
+    keywords: [
+        'json',
+        'json5',
+        'es5',
+        'es2015',
+        'ecmascript',
+    ],
     author: 'Aseem Kishore <aseem.kishore@gmail.com>',
     contributors: [
-        // TODO: Should we remove this section in favor of GitHub's list?
-        // https://github.com/json5/json5/contributors
         'Max Nanasy <max.nanasy@gmail.com>',
         'Andrew Eisenberg <andrew@eisenberg.as>',
         'Jordan Tucker <jordanbtucker@gmail.com>',
     ],
-    main: 'lib/json5.js',
-    bin: 'lib/cli.js',
-    files: ["lib/"],
-    dependencies: {},
-    devDependencies: {
-        gulp: "^3.9.1",
-        'gulp-jshint': "^2.0.0",
-        jshint: "^2.9.1",
-        'jshint-stylish': "^2.1.0",
-        mocha: "^2.4.5"
-    },
-    scripts: {
-        build: 'node ./lib/cli.js -c package.json5',
-        test: 'mocha --ui exports --reporter spec',
-            // TODO: Would it be better to define these in a mocha.opts file?
+    license: 'MIT',
+    bugs: {
+        url: 'https://github.com/json5/json5/issues',
     },
     homepage: 'http://json5.org/',
-    license: 'MIT',
-    repository: {
-        type: 'git',
-        url: 'https://github.com/json5/json5',
+    dependencies: {
+        minimist: '^1.2.0',
+    },
+    devDependencies: {
+        'babel-core': '^6.21.0',
+        'babel-plugin-istanbul': '^3.0.0',
+        'babel-preset-env': '^1.6.0',
+        'babel-register': '^6.18.0',
+        'babelify': '^7.3.0',
+        'browserify': '^13.1.1',
+        'cross-env': '^3.1.3',
+        'del': '^2.2.2',
+        'eslint': '^4.4.1',
+        'eslint-config-standard': '^10.2.1',
+        'eslint-plugin-import': '^2.7.0',
+        'eslint-plugin-node': '^5.1.1',
+        'eslint-plugin-promise': '^3.5.0',
+        'eslint-plugin-standard': '^3.0.1',
+        'globby': '^6.1.0',
+        'mocha': '^3.2.0',
+        'nyc': '^10.0.0',
+        'regenerate': '^1.3.2',
+        'sinon': '^1.17.6',
+        'unicode-9.0.0': '^0.7.0',
     },
 }
 ```

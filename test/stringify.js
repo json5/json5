@@ -75,6 +75,10 @@ describe('JSON5', () => {
             assert.strictEqual(JSON5.stringify(() => {}), undefined)
         })
 
+        it('ignores function properties', () => {
+            assert.strictEqual(JSON5.stringify({a () {}}), '{}')
+        })
+
         it('returns null for functions in arrays', () => {
             assert.strictEqual(JSON5.stringify([() => {}]), '[null]')
         })

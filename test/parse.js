@@ -105,7 +105,7 @@ describe('JSON5', () => {
                 assert.strictEqual(JSON5.parse('Infinity'), Infinity)
             })
 
-            it('parses NaN with a warning', () => {
+            it('parses NaN', () => {
                 assert(isNaN(JSON5.parse('NaN')))
             })
         })

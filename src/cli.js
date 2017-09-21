@@ -68,7 +68,7 @@ if (argv.version) {
                     const outFilename = path.format(
                         Object.assign(
                             path.parse(inFilename),
-                            {ext: 'json'}
+                            {base: undefined, ext: '.json'}
                         )
                     )
 

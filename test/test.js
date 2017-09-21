@@ -129,7 +129,7 @@ describe('JSON5', function () {
             })
 
             it('parses line and paragraph separators with a warning', function () {
-                const warn = sinon.stub(console, 'warn', function (message) {
+                const warn = sinon.stub(console, 'warn').callsFake(function (message) {
                     assert(message.indexOf('not valid ECMAScript') >= 0)
                 })
                 assert.strictEqual(JSON5.parse("'\u2028\u2029'"), '\u2028\u2029')

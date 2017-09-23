@@ -1,16 +1,11 @@
-/* eslint camelcase: "off" */
+/* eslint-disable camelcase */
 
-'use strict'
+import fs from 'fs'
+import path from 'path'
+import {transform} from 'babel-core'
+import del from 'del'
+import regenerate from 'regenerate'
 
-const fs = require('fs')
-const path = require('path')
-const del = require('del')
-const globby = require('globby')
-const regenerate = require('regenerate')
-const babel = require('babel-core')
-const browserify = require('browserify')
-
-const srcDir = 'src'
 const libDir = 'lib'
 const distDir = 'dist'
 
@@ -53,53 +48,18 @@ function buildUnicode () {
         fs.mkdirSync(outDir)
     }
 
-    write({
+    const data = {
         Space_Separator,
         ID_Start,
         ID_Continue,
-    })
-
-    function write (data) {
-        fs.writeFileSync(outPath, 'module.exports = {\n')
-        for (const key in data) {
-            fs.appendFileSync(outPath, `${key}: /${data[key]}/,\n`)
-        }
-
-        fs.appendFileSync(outPath, '}\n')
-    }
-}
-
-function buildBabel () {
-    const inDir = srcDir
-    const outDir = libDir
-
-    if (!fs.existsSync(outDir)) {
-        fs.mkdirSync(outDir)
     }
 
-    const inPaths = globby.sync('*.js', {cwd: inDir})
-    for (const inPath of inPaths) {
-        const code = babel.transformFileSync(path.join(inDir, inPath)).code
-        fs.writeFileSync(path.join(outDir, inPath), code)
-    }
-}
+    const es6 = Object.keys(data).map(key => `export const ${key} = /${data[key]}/\n`).join('')
 
-function buildBrowserify () {
-    const inPath = path.join(srcDir, 'index.js')
-    const outDir = distDir
-    const outPath = path.join(outDir, 'json5.js')
+    const es5 = transform(es6, {presets: ['env']}).code
 
-    if (!fs.existsSync(outDir)) {
-        fs.mkdirSync(outDir)
-    }
-
-    browserify(inPath, {standalone: 'JSON5'})
-        .transform('babelify', {presets: ['env']})
-        .bundle()
-        .pipe(fs.createWriteStream(outPath))
+    fs.writeFileSync(outPath, es5)
 }
 
 clean()
 buildUnicode()
-buildBabel()
-buildBrowserify()

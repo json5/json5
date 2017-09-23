@@ -1,4 +1,4 @@
-import util from './util'
+import * as util from './util'
 
 let source
 let parseState
@@ -10,7 +10,7 @@ let token
 let key
 let root
 
-function parse (text, reviver) {
+export default function parse (text, reviver) {
     source = String(text)
     parseState = 'start'
     stack = []
@@ -1018,5 +1018,3 @@ function syntaxError (message) {
     err.columnNumber = column
     return err
 }
-
-export default module.exports = parse

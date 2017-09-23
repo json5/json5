@@ -1,9 +1,7 @@
 import parse from './parse'
 import stringify from './stringify'
 
-const JSON5 = {
+export default {
     parse,
     stringify,
 }
-
-export default module.exports = JSON5

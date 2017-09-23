@@ -3,7 +3,7 @@ import child from 'child_process'
 import fs from 'fs'
 import path from 'path'
 
-import packageJSON from '../package.json'
+import pkg from '../package.json'
 
 const cliPath = path.resolve(__dirname, '../lib/cli.js')
 
@@ -168,7 +168,7 @@ describe('CLI', function () {
         })
 
         proc.stdout.on('end', () => {
-            assert.strictEqual(output, packageJSON.version + '\n')
+            assert.strictEqual(output, pkg.version + '\n')
             done()
         })
     })

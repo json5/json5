@@ -249,4 +249,25 @@ describe('JSON5', () => {
             assert.strictEqual(JSON5.stringify({"a'": "1'"}, {quote: "'"}), "{'a\\'':'1\\''}")
         })
     })
+
+    describe('#stringify(value, {regExps})', () => {
+        it('stringifies RegExps if provided', () => {
+            assert.strictEqual(JSON5.stringify(/a/, {regExps: true}), "'/a/'")
+        })
+    })
+
+    describe('#stringify(value, {replacer, regExps})', () => {
+        it('calls replacer before stringifying RegExps', () => {
+            assert.strictEqual(
+                JSON5.stringify(
+                    {a: 1, b: 2},
+                    {
+                        replacer: (key, value) => (key === 'a') ? /a/ : value,
+                        regExps: true,
+                    }
+                ),
+                "{a:'/a/',b:2}"
+            )
+        })
+    })
 })

@@ -33,7 +33,12 @@ export default function parse (text, reviver) {
     } while (token.type !== 'eof')
 
     if (reviver != null && typeof reviver === 'object') {
+        const regExps = reviver.regExps
         reviver = reviver.reviver
+
+        if (regExps) {
+            root = internalize({'': root}, '', regExpReviver)
+        }
     }
 
     if (typeof reviver === 'function') {
@@ -41,6 +46,72 @@ export default function parse (text, reviver) {
     }
 
     return root
+}
+
+function regExpReviver (name, value) {
+    if (typeof value === 'string' && value[0] === '/') {
+        let p = ''
+        let f = ''
+        let a = false
+
+        let i
+        for (i = 1; ; i++) {
+            const c = value[i]
+
+            switch (c) {
+            case '/':
+                if (a) {
+                    p += c
+                    continue
+                }
+
+                break
+
+            case '[':
+                a = true
+                p += c
+                continue
+
+            case ']':
+                a = false
+                p += c
+                continue
+
+            case '\\':
+                if (value[++i] === undefined) {
+                    return value
+                } else {
+                    p += c + value[i]
+                }
+
+                continue
+
+            case undefined:
+                return value
+
+            default:
+                p += c
+                continue
+            }
+
+            break
+        }
+
+        for (i++; i < value.length; i++) {
+            const c = value[i]
+            if (util.isIdContinueChar(c)) {
+                f += c
+            } else {
+                return value
+            }
+        }
+
+        try {
+            return new RegExp(p, f)
+        } catch (err) {}
+    }
+
+    return value
 }
 
 function internalize (holder, name, reviver) {

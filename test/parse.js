@@ -224,4 +224,84 @@ describe('JSON5', () => {
             )
         })
     })
+
+    describe('#parse(text, {regExps})', () => {
+        it('revives simple RegExps', () => {
+            const pattern = 'a'
+            const parsedRegExp = JSON5.parse(`'/${pattern.replace(/\\/g, '\\\\')}/'`, {regExps: true})
+            assert(parsedRegExp instanceof RegExp)
+            assert.strictEqual(parsedRegExp.toString(), new RegExp(pattern).toString())
+        })
+
+        it('revives complex RegExps', () => {
+            const pattern = '^([a-z0-9_.-]+)@([\\da-z.-]+)\\.([a-z.]{2,6})$'
+            const parsedRegExp = JSON5.parse(`'/${pattern.replace(/\\/g, '\\\\')}/'`, {regExps: true})
+            assert(parsedRegExp instanceof RegExp)
+            assert.strictEqual(parsedRegExp.toString(), new RegExp(pattern).toString())
+        })
+
+        it('revives RegExps with alternation groups', () => {
+            const pattern = '[a]'
+            const parsedRegExp = JSON5.parse(`'/${pattern.replace(/\\/g, '\\\\')}/'`, {regExps: true})
+            assert(parsedRegExp instanceof RegExp)
+            assert.strictEqual(parsedRegExp.toString(), new RegExp(pattern).toString())
+        })
+
+        it('revives RegExps with slashes in alternation groups', () => {
+            const pattern = '[a/b]'
+            const parsedRegExp = JSON5.parse(`'/${pattern.replace(/\\/g, '\\\\')}/'`, {regExps: true})
+            assert(parsedRegExp instanceof RegExp)
+            assert.strictEqual(parsedRegExp.toString(), new RegExp(pattern).toString())
+        })
+
+        it('revives RegExps with escapes', () => {
+            const pattern = '\\[a]'
+            const parsedRegExp = JSON5.parse(`'/${pattern.replace(/\\/g, '\\\\')}/'`, {regExps: true})
+            assert(parsedRegExp instanceof RegExp)
+            assert.strictEqual(parsedRegExp.toString(), new RegExp(pattern).toString())
+        })
+
+        it('revives RegExps with flags', () => {
+            const pattern = 'a'
+            const flags = 'gim'
+            const parsedRegExp = JSON5.parse(`'/${pattern.replace(/\\/g, '\\\\')}/${flags}'`, {regExps: true})
+            assert(parsedRegExp instanceof RegExp)
+            assert.strictEqual(parsedRegExp.toString(), new RegExp(pattern, flags).toString())
+        })
+
+        it('ignores strings that are not RegExps', () => {
+            const value = JSON5.parse("'not a RegExp'", {regExps: true})
+            assert.strictEqual(typeof value, 'string')
+        })
+
+        it('ignores potential RegExps that are unterminated', () => {
+            const value = JSON5.parse("'/a'", {regExps: true})
+            assert.strictEqual(typeof value, 'string')
+        })
+
+        it('ignores potential RegExps that have unterminated escapes', () => {
+            const value = JSON5.parse("'/a\\\\'", {regExps: true})
+            assert.strictEqual(typeof value, 'string')
+        })
+
+        it('ignores potential RegExps that have invalid flags', () => {
+            const value = JSON5.parse("'/a/!'", {regExps: true})
+            assert.strictEqual(typeof value, 'string')
+        })
+    })
+
+    describe('#parse(text, {regExps, reviver})', () => {
+        it('revives RegExps before calling reviver', () => {
+            assert.deepStrictEqual(
+                JSON5.parse(
+                    "{a:{b:'/a/'}}",
+                    {
+                        regExps: true,
+                        reviver: function (k, v) { return (k === 'b' && this.b instanceof RegExp) ? 'revived' : v },
+                    }
+                ),
+                {a: {b: 'revived'}}
+            )
+        })
+    })
 })

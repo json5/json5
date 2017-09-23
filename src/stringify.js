@@ -1,4 +1,4 @@
-import util from './util'
+import * as util from './util'
 
 let stack
 let indent
@@ -7,7 +7,7 @@ let replacerFunc
 let gap
 let quote
 
-function stringify (value, replacer, space) {
+export default function stringify (value, replacer, space) {
     stack = []
     indent = ''
     propertyList = undefined
@@ -235,5 +235,3 @@ function serializeArray (value) {
     indent = stepback
     return final
 }
-
-export default module.exports = stringify

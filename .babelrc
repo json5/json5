@@ -1,12 +1,30 @@
 {
     "presets": [
-        "env"
+        [
+            "env",
+            {
+                "targets": {
+                    "browsers": [
+                        "last 2 versions",
+                        "safari >= 7"
+                    ],
+                    "node": "4"
+                }
+            }
+        ]
+    ],
+    "plugins": [
+        "add-module-exports"
     ],
     "env": {
         "test": {
             "plugins": [
                 "istanbul"
             ]
+        },
+        "production": {
+            "comments": false,
+            "minified": true
         }
     }
 }

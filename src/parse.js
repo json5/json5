@@ -33,7 +33,21 @@ export default function parse (text, reviver) {
     } while (token.type !== 'eof')
 
     if (reviver != null && typeof reviver === 'object') {
+        const dates = reviver.dates
         reviver = reviver.reviver
+
+        if (dates) {
+            root = internalize({'': root}, '', (name, value) => {
+                if (
+                    typeof value === 'string' &&
+                    /^\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d\.\d\d\dZ$/.test(value)
+                ) {
+                    return new Date(value)
+                }
+
+                return value
+            })
+        }
     }
 
     if (typeof reviver === 'function') {

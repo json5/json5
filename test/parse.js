@@ -224,4 +224,39 @@ describe('JSON5', () => {
             )
         })
     })
+
+    describe('#parse(text, {dates})', () => {
+        it('converts ISO strings to Dates', () => {
+            const dateString = '2017-09-23T16:54:48.028Z'
+            const parsedDate = JSON5.parse(`'${dateString}'`, {dates: true})
+            assert.strictEqual(typeof parsedDate, 'object')
+            assert(parsedDate instanceof Date)
+            assert.strictEqual(parsedDate.getTime(), new Date(dateString).getTime())
+        })
+
+        it('ignores strings that are not ISO strings', () => {
+            assert.strictEqual(
+                JSON5.parse("'not a date'", {dates: true}),
+                'not a date'
+            )
+        })
+    })
+
+    describe('#parse(text, {dates, reviver})', () => {
+        it('revives dates before calling reviver', () => {
+            const dateString = '2017-09-23T16:54:48.028Z'
+            assert.deepStrictEqual(
+                JSON5.parse(
+                    `{a:{b:'${dateString}'}}`,
+                    {
+                        dates: true,
+                        reviver: function (k, v) {
+                            return (k === 'b' && this.b instanceof Date) ? 'revived' : v
+                        },
+                    }
+                ),
+                {a: {b: 'revived'}}
+            )
+        })
+    })
 })

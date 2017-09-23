@@ -221,6 +221,13 @@ describe('JSON5', () => {
                 '{a:2,b:2}'
             )
         })
+
+        it('sets `this` to the parent value', () => {
+            assert.strictEqual(
+                JSON5.stringify({a: {b: 1}}, function (k, v) { return (k === 'b' && this.b) ? 2 : v }),
+                '{a:{b:2}}'
+            )
+        })
     })
 
     describe('#stringify(value, options)', () => {

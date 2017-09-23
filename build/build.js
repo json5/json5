@@ -56,7 +56,7 @@ function buildUnicode () {
 
     const es6 = Object.keys(data).map(key => `export const ${key} = /${data[key]}/\n`).join('')
 
-    const es5 = transform(es6, {presets: ['env']}).code
+    const es5 = transform(es6, {filename: 'unicode.js'}).code
 
     fs.writeFileSync(outPath, es5)
 }

@@ -160,7 +160,7 @@ describe('JSON5', () => {
         })
     })
 
-    describe('#stringify(space)', () => {
+    describe('#stringify(value, null, space)', () => {
         it('does not indent when no value is provided', () => {
             assert.strictEqual(JSON5.stringify([1]), '[1]')
         })
@@ -206,7 +206,7 @@ describe('JSON5', () => {
         })
     })
 
-    describe('#stringify(replacer)', () => {
+    describe('#stringify(value, replacer)', () => {
         it('filters keys when an array is provided', () => {
             assert.strictEqual(JSON5.stringify({a: 1, b: 2, 3: 3}, ['a', 3]), "{a:1,'3':3}")
         })
@@ -223,7 +223,7 @@ describe('JSON5', () => {
         })
     })
 
-    describe('#stringify(options)', () => {
+    describe('#stringify(value, options)', () => {
         it('accepts replacer as an option', () => {
             assert.strictEqual(JSON5.stringify({a: 1, b: 2, 3: 3}, {replacer: ['a', 3]}), "{a:1,'3':3}")
         })
@@ -233,7 +233,7 @@ describe('JSON5', () => {
         })
     })
 
-    describe('#stringify({quote})', () => {
+    describe('#stringify(value, {quote})', () => {
         it('uses double quotes if provided', () => {
             assert.strictEqual(JSON5.stringify({'a"': '1"'}, {quote: '"'}), '{"a\\"":"1\\""}')
         })

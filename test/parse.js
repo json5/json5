@@ -215,4 +215,13 @@ describe('JSON5', () => {
             )
         })
     })
+
+    describe('#parse(text, options)', () => {
+        it('accepts reviver as an option', () => {
+            assert.deepStrictEqual(
+                JSON5.parse('{a:1,b:2}', {reviver: (k, v) => (k === 'a') ? 'revived' : v}),
+                {a: 'revived', b: 2}
+            )
+        })
+    })
 })

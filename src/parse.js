@@ -32,6 +32,10 @@ export default function parse (text, reviver) {
         parseStates[parseState]()
     } while (token.type !== 'eof')
 
+    if (reviver != null && typeof reviver === 'object') {
+        reviver = reviver.reviver
+    }
+
     if (typeof reviver === 'function') {
         return internalize({'': root}, '', reviver)
     }

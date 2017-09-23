@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import minimist from 'minimist'
 
-import packageJSON from '../package.json'
+import pkg from '../package.json'
 import JSON5 from './'
 
 const argv = minimist(process.argv.slice(2), {
@@ -90,7 +90,7 @@ if (argv.version) {
 }
 
 function version () {
-    console.log(packageJSON.version)
+    console.log(pkg.version)
 }
 
 function usage () {

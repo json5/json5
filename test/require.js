@@ -1,4 +1,5 @@
 import assert from 'assert'
+import sinon from 'sinon'
 
 describe('require(*.json5)', () => {
     it('parses a JSON5 document', () => {
@@ -6,9 +7,12 @@ describe('require(*.json5)', () => {
         assert.deepStrictEqual({a: 1, b: 2}, require('./test.json5'))
     })
 
-    it('is backward compatible with v0.5.1', () => {
+    it('is backward compatible with v0.5.1, but gives a deprecation warning', () => {
+        const mock = sinon.mock(console)
+        mock.expects('warn').once().withExactArgs("'json5/require' is deprecated. Please use 'json5/register' instead.")
         require('../lib/require')
         assert.deepStrictEqual({a: 1, b: 2}, require('./test.json5'))
+        mock.verify()
     })
 
     it('throws on invalid JSON5', () => {

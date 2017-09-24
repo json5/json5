@@ -1,6 +1,6 @@
 {
   "name": "json5",
-  "version": "0.5.1",
+  "version": "1.0.0-regexps",
   "description": "JSON for humans.",
   "main": "lib/index.js",
   "bin": "lib/cli.js",

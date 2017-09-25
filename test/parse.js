@@ -148,7 +148,7 @@ describe('JSON5', () => {
             })
 
             it('parses multi-line comments', () => {
-                assert.deepStrictEqual(JSON5.parse('{/*comment\n* */}'), {})
+                assert.deepStrictEqual(JSON5.parse('{/*comment\n** */}'), {})
             })
         })
 

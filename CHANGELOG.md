@@ -31,6 +31,10 @@ This release includes major internal changes and public API enhancements.
   quotes inside the string. (i.e. `stringify('Stay here.')` outputs
   `'Stay here.'` while `stringify('Let\'s go.')` outputs `"Let's go."`)
 
+- New: `stringify` checks for a `toJSON5` method on objects and, if it exists,
+  stringifies its return value instead of the object. `toJSON5` overrides
+  `toJSON` if they both exist.
+
 - New: To `require` or `import` JSON5 files, use `require('json5/lib/register')`
   or `import 'json5/lib/register'`. Previous versions used `json5/lib/require`,
   which still exists for backward compatibility but is deprecated and will give

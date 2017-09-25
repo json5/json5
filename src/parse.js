@@ -175,12 +175,23 @@ const lexStates = {
     },
 
     multiLineCommentAsterisk () {
-        if (c === undefined) {
+        switch (c) {
+        case '*':
+            break
+
+        case '/':
+            lexState = 'default'
+            break
+
+        default:
+            lexState = 'multiLineComment'
+            break
+
+        case undefined:
             throw invalidChar(read())
         }
 
         read()
-        lexState = (c === '/') ? 'default' : 'multiLineComment'
     },
 
     singleLineComment () {

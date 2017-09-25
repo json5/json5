@@ -18,6 +18,20 @@ describe('JSON5', () => {
                 })
             })
 
+            it('throws on documents with only comments', () => {
+                assert.throws(() => {
+                    JSON5.parse('//a')
+                },
+                err => {
+                    return (
+                        err instanceof SyntaxError &&
+                        /^JSON5: invalid end of input/.test(err.message) &&
+                        err.lineNumber === 1 &&
+                        err.columnNumber === 4
+                    )
+                })
+            })
+
             it('throws on incomplete single line comments', () => {
                 assert.throws(() => {
                     JSON5.parse('/a')

@@ -129,6 +129,7 @@ const lexStates = {
             return
 
         case undefined:
+            read()
             return newToken('eof')
         }
 
@@ -794,6 +795,10 @@ function unicodeEscape () {
 
 const parseStates = {
     start () {
+        if (token.type === 'eof') {
+            throw invalidEOF()
+        }
+
         push()
     },
 
@@ -975,6 +980,10 @@ function invalidChar (c) {
     }
 
     return syntaxError(`JSON5: invalid character '${formatChar(c)}' at ${line}:${column}`)
+}
+
+function invalidEOF () {
+    return syntaxError(`JSON5: invalid end of input at ${line}:${column}`)
 }
 
 // This code is unreachable.

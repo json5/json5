@@ -63,14 +63,6 @@ describe('JSON5', () => {
             assert.strictEqual(JSON5.stringify(null), 'null')
         })
 
-        it('stringifies true', () => {
-            assert.strictEqual(JSON5.stringify(true), 'true')
-        })
-
-        it('stringifies false', () => {
-            assert.strictEqual(JSON5.stringify(false), 'false')
-        })
-
         it('returns undefined for functions', () => {
             assert.strictEqual(JSON5.stringify(() => {}), undefined)
         })
@@ -83,6 +75,26 @@ describe('JSON5', () => {
             assert.strictEqual(JSON5.stringify([() => {}]), '[null]')
         })
 
+        describe('Booleans', () => {
+            it('stringifies true', () => {
+                assert.strictEqual(JSON5.stringify(true), 'true')
+            })
+
+            it('stringifies false', () => {
+                assert.strictEqual(JSON5.stringify(false), 'false')
+            })
+
+            it('stringifies true Boolean objects', () => {
+                // eslint-disable-next-line no-new-wrappers
+                assert.strictEqual(JSON5.stringify(new Boolean(true)), 'true')
+            })
+
+            it('stringifies false Boolean objects', () => {
+                // eslint-disable-next-line no-new-wrappers
+                assert.strictEqual(JSON5.stringify(new Boolean(false)), 'false')
+            })
+        })
+
         describe('numbers', () => {
             it('stringifies numbers', () => {
                 assert.strictEqual(JSON5.stringify(-1.2), '-1.2')
@@ -90,6 +102,11 @@ describe('JSON5', () => {
 
             it('stringifies non-finite numbers', () => {
                 assert.strictEqual(JSON5.stringify([Infinity, -Infinity, NaN]), '[Infinity,-Infinity,NaN]')
+            })
+
+            it('stringifies Number objects', () => {
+                // eslint-disable-next-line no-new-wrappers
+                assert.strictEqual(JSON5.stringify(new Number(-1.2)), '-1.2')
             })
         })
 
@@ -116,6 +133,11 @@ describe('JSON5', () => {
 
             it('stringifies escaped line and paragraph separators', () => {
                 assert.strictEqual(JSON5.stringify('\u2028\u2029'), "'\\u2028\\u2029'")
+            })
+
+            it('stringifies String objects', () => {
+                // eslint-disable-next-line no-new-wrappers
+                assert.strictEqual(JSON5.stringify(new String('abc')), "'abc'")
             })
         })
 
@@ -204,6 +226,16 @@ describe('JSON5', () => {
         it('indents in nested objects', () => {
             assert.strictEqual(JSON5.stringify({a: {b: 2}}, null, 2), '{\n  a: {\n    b: 2,\n  },\n}')
         })
+
+        it('accepts Number objects', () => {
+            // eslint-disable-next-line no-new-wrappers
+            assert.strictEqual(JSON5.stringify([1], null, new Number(2)), '[\n  1,\n]')
+        })
+
+        it('accepts String objects', () => {
+            // eslint-disable-next-line no-new-wrappers
+            assert.strictEqual(JSON5.stringify([1], null, new String('\t')), '[\n\t1,\n]')
+        })
     })
 
     describe('#stringify(value, replacer)', () => {
@@ -213,6 +245,11 @@ describe('JSON5', () => {
 
         it('only filters string and number keys when an array is provided', () => {
             assert.strictEqual(JSON5.stringify({a: 1, b: 2, 3: 3, false: 4}, ['a', 3, false]), "{a:1,'3':3}")
+        })
+
+        it('accepts String and Number objects when an array is provided', () => {
+            // eslint-disable-next-line no-new-wrappers
+            assert.strictEqual(JSON5.stringify({a: 1, b: 2, 3: 3}, [new String('a'), new Number(3)]), "{a:1,'3':3}")
         })
 
         it('replaces values when a function is provided', () => {

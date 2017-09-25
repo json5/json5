@@ -165,8 +165,9 @@ const lexStates = {
     multiLineComment () {
         switch (c) {
         case '*':
+            read()
             lexState = 'multiLineCommentAsterisk'
-            break
+            return
 
         case undefined:
             throw invalidChar(read())
@@ -178,21 +179,20 @@ const lexStates = {
     multiLineCommentAsterisk () {
         switch (c) {
         case '*':
-            break
+            read()
+            return
 
         case '/':
+            read()
             lexState = 'default'
-            break
-
-        default:
-            lexState = 'multiLineComment'
-            break
+            return
 
         case undefined:
             throw invalidChar(read())
         }
 
         read()
+        lexState = 'multiLineComment'
     },
 
     singleLineComment () {
@@ -201,8 +201,9 @@ const lexStates = {
         case '\r':
         case '\u2028':
         case '\u2029':
+            read()
             lexState = 'default'
-            break
+            return
 
         case undefined:
             read()

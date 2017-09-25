@@ -33,7 +33,11 @@ export default function stringify (value, replacer, space) {
 
             if (typeof v === 'string') {
                 item = v
-            } else if (typeof v === 'number') {
+            } else if (
+                typeof v === 'number' ||
+                v instanceof String ||
+                v instanceof Number
+            ) {
                 item = String(v)
             }
 
@@ -41,6 +45,12 @@ export default function stringify (value, replacer, space) {
                 propertyList.push(item)
             }
         }
+    }
+
+    if (space instanceof Number) {
+        space = Number(space)
+    } else if (space instanceof String) {
+        space = String(space)
     }
 
     if (typeof space === 'number') {
@@ -67,6 +77,14 @@ function serializeProperty (key, holder) {
 
     if (replacerFunc) {
         value = replacerFunc.call(holder, key, value)
+    }
+
+    if (value instanceof Number) {
+        value = Number(value)
+    } else if (value instanceof String) {
+        value = String(value)
+    } else if (value instanceof Boolean) {
+        value = value.valueOf()
     }
 
     switch (value) {

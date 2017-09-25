@@ -20,6 +20,10 @@ describe('JSON5', () => {
                 assert.strictEqual(JSON5.stringify({"a'": 1}), `{"a'":1}`)
             })
 
+            it('stringifies empty string property names', () => {
+                assert.strictEqual(JSON5.stringify({'': 1}), "{'':1}")
+            })
+
             it('stringifies special character property names', () => {
                 assert.strictEqual(JSON5.stringify({$_: 1, _$: 2, 'a\u200C': 3}), '{$_:1,_$:2,a\u200C:3}')
             })

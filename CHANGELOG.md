@@ -1,3 +1,53 @@
+### v1.0.0-beta [[code][c1.0.0-beta], [diff][d1.0.0-beta]]
+
+[c1.0.0-beta]: https://github.com/json5/json5/tree/v1.0.0-beta
+[d1.0.0-beta]: https://github.com/json5/json5/compare/v0.5.1...v1.0.0-beta
+
+This release includes major internal changes and public API enhancements.
+
+- **Major** JSON5 officially supports Node.js v4 and later. Support for Node.js
+  v0.10 and v0.12 have been dropped.
+
+- New: Unicode property names are supported. ([#1])
+
+- New: `stringify` outputs trailing commas in objects and arrays when a `space`
+  option is provided. ([#66])
+
+- New: JSON5 allows line and paragraph separator characters (U+2028 and U+2029)
+  in strings in order to be compatible with JSON. However, ES5 does not allow
+  these characters in strings, so JSON5 gives a warning when they are parsed and
+  escapes them when they are stringified. ([#70])
+
+- New: `stringify` accepts an options object as its second argument. The
+  supported options are `replacer`, `space`, and a new `quote` option that
+  specifies the quote character used in strings. ([#71])
+
+- New: The CLI supports STDIN and STDOUT and adds `--out-file`, `--space`, and
+  `--validate` options. See `json5 --help` for more information. ([#72], [#84],
+  and [#108])
+
+- New: `stringify` outputs strings with single quotes by default but
+  intelligently uses double quotes if there are more single quotes than double
+  quotes inside the string. (i.e. `stringify('Stay here.')` outputs
+  `'Stay here.'` while `stringify('Let\'s go.')` outputs `"Let's go."`)
+
+- New: To `require` or `import` JSON5 files, use `require('json5/lib/register')`
+  or `import 'json5/lib/register'`. Previous versions used `json5/lib/require`,
+  which still exists for backward compatibility but is deprecated and will give
+  a warning.
+
+- New: To use JSON5 in browsers, use the file at `dist/index.js` or
+  `https://unpkg.com/json5@beta/dist/index.js`.
+
+- Fix: `stringify` properly outputs `Infinity` and `NaN`. ([#67])
+
+- Fix: `isWord` no longer becomes a property of `JSON5` after calling
+  `stringify`. ([#68] and [#89])
+
+- Fix: `stringify` no longer throws when an object does not have a `prototype`.
+  ([#154])
+
+
 ### v0.5.1 [[code][c0.5.1], [diff][d0.5.1]]
 
 [c0.5.1]: https://github.com/json5/json5/tree/v0.5.1
@@ -156,6 +206,7 @@ parser for the regular JSON format.
 [@jordanbtucker]: https://github.com/jordanbtucker
 [@amb26]: https://github.com/amb26
 
+[#1]: https://github.com/json5/json5/issues/1
 [#16]: https://github.com/json5/json5/issues/16
 [#24]: https://github.com/json5/json5/issues/24
 [#30]: https://github.com/json5/json5/issues/30
@@ -165,6 +216,16 @@ parser for the regular JSON format.
 [#58]: https://github.com/json5/json5/pull/58
 [#60]: https://github.com/json5/json5/pull/60
 [#63]: https://github.com/json5/json5/pull/63
+[#66]: https://github.com/json5/json5/issues/66
+[#67]: https://github.com/json5/json5/issues/67
+[#68]: https://github.com/json5/json5/issues/68
+[#70]: https://github.com/json5/json5/issues/70
+[#71]: https://github.com/json5/json5/issues/71
+[#72]: https://github.com/json5/json5/issues/72
+[#84]: https://github.com/json5/json5/pull/84
+[#89]: https://github.com/json5/json5/pull/89
 [#97]: https://github.com/json5/json5/pull/97
 [#101]: https://github.com/json5/json5/pull/101
+[#108]: https://github.com/json5/json5/pull/108
 [#134]: https://github.com/json5/json5/pull/134
+[#154]: https://github.com/json5/json5/issues/154

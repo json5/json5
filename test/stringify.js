@@ -278,6 +278,24 @@ describe('JSON5', () => {
                 '{a:{b:2}}'
             )
         })
+
+        it('is called after toJSON', () => {
+            function C () {}
+            Object.assign(C.prototype, {toJSON () { return {a: 1, b: 2} }})
+            assert.strictEqual(
+                JSON5.stringify(new C(), (key, value) => (key === 'a') ? 2 : value),
+                '{a:2,b:2}'
+            )
+        })
+
+        it('is called after toJSON5', () => {
+            function C () {}
+            Object.assign(C.prototype, {toJSON5 () { return {a: 1, b: 2} }})
+            assert.strictEqual(
+                JSON5.stringify(new C(), (key, value) => (key === 'a') ? 2 : value),
+                '{a:2,b:2}'
+            )
+        })
     })
 
     describe('#stringify(value, options)', () => {

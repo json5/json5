@@ -206,6 +206,10 @@ function serializeObject (value) {
 }
 
 function serializeKey (key) {
+    if (key.length === 0) {
+        return quoteString(key, true)
+    }
+
     const firstChar = String.fromCodePoint(key.codePointAt(0))
     if (!util.isIdStartChar(firstChar)) {
         return quoteString(key, true)

@@ -4,7 +4,7 @@ import JSON5 from '../lib'
 describe('JSON5', () => {
     describe('#parse()', () => {
         describe('errors', () => {
-            it('throws on invalid characters in comments', () => {
+            it('throws on incomplete single line comments', () => {
                 assert.throws(() => {
                     JSON5.parse('/a')
                 },

@@ -1011,6 +1011,7 @@ function formatChar (c) {
     const replacements = {
         "'": "\\'",
         '"': '\\"',
+        '\\': '\\\\',
         '\b': '\\b',
         '\f': '\\f',
         '\n': '\\n',

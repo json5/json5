@@ -99,6 +99,7 @@ function quoteString (value) {
     const replacements = {
         "'": "\\'",
         '"': '\\"',
+        '\\': '\\\\',
         '\b': '\\b',
         '\f': '\\f',
         '\n': '\\n',

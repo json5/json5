@@ -29,7 +29,7 @@ describe('JSON5', () => {
             })
 
             it('stringifies escaped property names', () => {
-                assert.strictEqual(JSON5.stringify({'\b\f\n\r\t\v\0\x01': 1}), "{'\\b\\f\\n\\r\\t\\v\\0\\x01':1}")
+                assert.strictEqual(JSON5.stringify({'\\\b\f\n\r\t\v\0\x01': 1}), "{'\\\\\\b\\f\\n\\r\\t\\v\\0\\x01':1}")
             })
 
             it('stringifies multiple properties', () => {
@@ -103,7 +103,7 @@ describe('JSON5', () => {
             })
 
             it('stringifies escaped characters', () => {
-                assert.strictEqual(JSON5.stringify('\b\f\n\r\t\v\0\x0f'), "'\\b\\f\\n\\r\\t\\v\\0\\x0f'")
+                assert.strictEqual(JSON5.stringify('\\\b\f\n\r\t\v\0\x0f'), "'\\\\\\b\\f\\n\\r\\t\\v\\0\\x0f'")
             })
 
             it('stringifies escaped single quotes', () => {

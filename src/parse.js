@@ -205,6 +205,7 @@ const lexStates = {
             break
 
         case undefined:
+            read()
             return newToken('eof')
         }
 

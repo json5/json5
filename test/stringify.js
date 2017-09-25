@@ -173,6 +173,15 @@ describe('JSON5', () => {
             assert.strictEqual(JSON5.stringify({a: new C(), b: new C()}), '{a:1,b:2}')
         })
 
+        it('calls toJSON5 instead of toJSON if both are defined', () => {
+            function C () {}
+            Object.assign(C.prototype, {
+                toJSON () { return {a: 1, b: 2} },
+                toJSON5 () { return {a: 2, b: 2} },
+            })
+            assert.strictEqual(JSON5.stringify(new C()), '{a:2,b:2}')
+        })
+
         it('throws on circular objects', () => {
             let a = {}
             a.a = a

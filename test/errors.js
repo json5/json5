@@ -330,6 +330,18 @@ describe('JSON5', () => {
                 }
             })
 
+            it('throws on octal escapes', () => {
+                assert.throws(() => {
+                    JSON5.parse("'\\01'")
+                },
+                err => (
+                    err instanceof SyntaxError &&
+                    /^JSON5: invalid character '1'/.test(err.message) &&
+                    err.lineNumber === 1 &&
+                    err.columnNumber === 4
+                ))
+            })
+
             it('throws on multiple values', () => {
                 assert.throws(() => {
                     JSON5.parse('1 2')

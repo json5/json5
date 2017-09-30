@@ -368,6 +368,21 @@ describe('JSON5', () => {
                 })
             })
 
+            it('throws on escaped digits other than 0', () => {
+                for (let i = 1; i <= 9; i++) {
+                    assert.throws(() => {
+                        JSON5.parse(`'\\${i}'`)
+                    }, err => {
+                        return (
+                            err instanceof SyntaxError &&
+                            /^JSON5: invalid character '\d'/.test(err.message) &&
+                            err.lineNumber === 1 &&
+                            err.columnNumber === 3
+                        )
+                    })
+                }
+            })
+
             it('throws on multiple values', () => {
                 assert.throws(() => {
                     JSON5.parse('1 2')

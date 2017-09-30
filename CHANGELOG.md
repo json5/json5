@@ -1,14 +1,15 @@
-### v1.0.0-beta [[code][c1.0.0-beta], [diff][d1.0.0-beta]]
+### v1.0.0-beta-2 [[code][c1.0.0-beta-2], [diff][d1.0.0-beta-2]]
 
-[c1.0.0-beta]: https://github.com/json5/json5/tree/v1.0.0-beta
-[d1.0.0-beta]: https://github.com/json5/json5/compare/v0.5.1...v1.0.0-beta
+[c1.0.0-beta-2]: https://github.com/json5/json5/tree/v1.0.0-beta-2
+[d1.0.0-beta-2]: https://github.com/json5/json5/compare/v0.5.1...v1.0.0-beta-2
 
 This release includes major internal changes and public API enhancements.
 
 - **Major** JSON5 officially supports Node.js v4 and later. Support for Node.js
   v0.10 and v0.12 have been dropped.
 
-- New: Unicode property names are supported. ([#1])
+- New: Unicode property names and Unicode escapes in property names are
+  supported. ([#1])
 
 - New: `stringify` outputs trailing commas in objects and arrays when a `space`
   option is provided. ([#66])
@@ -26,10 +27,24 @@ This release includes major internal changes and public API enhancements.
   `--validate` options. See `json5 --help` for more information. ([#72], [#84],
   and [#108])
 
+- New: In addition to the white space characters space `\t`, `\v`, `\f`, `\n`,
+  `\r`, and `\xA0`, the additional white space characters `\u2028`, `\u2029`,
+  and all other characters in the Space Separator Unicode category are allowed.
+
+- New: In addition to the character escapes `\'`, `\"`, `\\`, `\b`, `\f`, `\n`,
+  `\r`, and `\t`, the additional character escapes `\v` and `\0`, hexadecimal
+  escapes like `\x0F`, and unnecessary escapes like `\a` are allowed in string
+  values and string property names.
+
 - New: `stringify` outputs strings with single quotes by default but
   intelligently uses double quotes if there are more single quotes than double
   quotes inside the string. (i.e. `stringify('Stay here.')` outputs
   `'Stay here.'` while `stringify('Let\'s go.')` outputs `"Let's go."`)
+
+- New: When a character is not allowed in a string, `stringify` outputs a
+  character escape like `\t` when available, a hexadecimal escape like `\x0F`
+  when the Unicode code point is less than 256, or a Unicode character escape
+  like `\u01FF`, in that order.
 
 - New: `stringify` checks for a `toJSON5` method on objects and, if it exists,
   stringifies its return value instead of the object. `toJSON5` overrides
@@ -50,6 +65,17 @@ This release includes major internal changes and public API enhancements.
 
 - Fix: `stringify` no longer throws when an object does not have a `prototype`.
   ([#154])
+
+- Fix: `stringify` properly handles the `key` argument of `toJSON(key)` methods.
+  `toJSON5(key)` follows this pattern.
+
+- Fix: `stringify` accepts `Number` and `String` objects as its `space`
+  argument.
+
+- Fix: In addition to a function, `stringify` also accepts an array of keys to
+  include in the output as its `replacer` argument. Numbers, `Number` objects,
+  and `String` objects will be converted to a string if they are given as array
+  values.
 
 
 ### v0.5.1 [[code][c0.5.1], [diff][d0.5.1]]

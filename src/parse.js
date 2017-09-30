@@ -728,6 +728,10 @@ function escape () {
 
     case '0':
         read()
+        if (util.isDigit(peek())) {
+            throw invalidChar(read())
+        }
+
         return '\0'
 
     case 'x':

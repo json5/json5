@@ -1,18 +1,12 @@
 import * as util from './util'
 
-let stack
-let indent
-let propertyList
-let replacerFunc
-let gap
-let quote
-
 export default function stringify (value, replacer, space) {
-    stack = []
-    indent = ''
-    propertyList = undefined
-    replacerFunc = undefined
-    gap = ''
+    const stack = []
+    let indent = ''
+    let propertyList
+    let replacerFunc
+    let gap = ''
+    let quote
 
     if (
         replacer != null &&
@@ -63,198 +57,198 @@ export default function stringify (value, replacer, space) {
     }
 
     return serializeProperty('', {'': value})
-}
 
-function serializeProperty (key, holder) {
-    let value = holder[key]
-    if (value != null) {
-        if (typeof value.toJSON5 === 'function') {
-            value = value.toJSON5(key)
-        } else if (typeof value.toJSON === 'function') {
-            value = value.toJSON(key)
-        }
-    }
-
-    if (replacerFunc) {
-        value = replacerFunc.call(holder, key, value)
-    }
-
-    if (value instanceof Number) {
-        value = Number(value)
-    } else if (value instanceof String) {
-        value = String(value)
-    } else if (value instanceof Boolean) {
-        value = value.valueOf()
-    }
-
-    switch (value) {
-    case null: return 'null'
-    case true: return 'true'
-    case false: return 'false'
-    }
-
-    if (typeof value === 'string') {
-        return quoteString(value, false)
-    }
-
-    if (typeof value === 'number') {
-        return String(value)
-    }
-
-    if (typeof value === 'object') {
-        return Array.isArray(value) ? serializeArray(value) : serializeObject(value)
-    }
-
-    return undefined
-}
-
-function quoteString (value) {
-    const quotes = {
-        "'": 0.1,
-        '"': 0.2,
-    }
-
-    const replacements = {
-        "'": "\\'",
-        '"': '\\"',
-        '\\': '\\\\',
-        '\b': '\\b',
-        '\f': '\\f',
-        '\n': '\\n',
-        '\r': '\\r',
-        '\t': '\\t',
-        '\v': '\\v',
-        '\0': '\\0',
-        '\u2028': '\\u2028',
-        '\u2029': '\\u2029',
-    }
-
-    let product = ''
-
-    for (const c of value) {
-        switch (c) {
-        case "'":
-        case '"':
-            quotes[c]++
-            product += c
-            continue
-        }
-
-        if (replacements[c]) {
-            product += replacements[c]
-            continue
-        }
-
-        if (c < ' ') {
-            let hexString = c.charCodeAt(0).toString(16)
-            product += '\\x' + ('00' + hexString).substring(hexString.length)
-            continue
-        }
-
-        product += c
-    }
-
-    const quoteChar = quote || Object.keys(quotes).reduce((a, b) => (quotes[a] < quotes[b]) ? a : b)
-
-    product = product.replace(new RegExp(quoteChar, 'g'), replacements[quoteChar])
-
-    return quoteChar + product + quoteChar
-}
-
-function serializeObject (value) {
-    if (stack.indexOf(value) >= 0) {
-        throw TypeError('Converting circular structure to JSON5')
-    }
-
-    stack.push(value)
-
-    let stepback = indent
-    indent = indent + gap
-
-    let keys = propertyList || Object.keys(value)
-    let partial = []
-    for (const key of keys) {
-        const propertyString = serializeProperty(key, value)
-        if (propertyString !== undefined) {
-            let member = serializeKey(key) + ':'
-            if (gap !== '') {
-                member += ' '
+    function serializeProperty (key, holder) {
+        let value = holder[key]
+        if (value != null) {
+            if (typeof value.toJSON5 === 'function') {
+                value = value.toJSON5(key)
+            } else if (typeof value.toJSON === 'function') {
+                value = value.toJSON(key)
             }
-            member += propertyString
-            partial.push(member)
         }
+
+        if (replacerFunc) {
+            value = replacerFunc.call(holder, key, value)
+        }
+
+        if (value instanceof Number) {
+            value = Number(value)
+        } else if (value instanceof String) {
+            value = String(value)
+        } else if (value instanceof Boolean) {
+            value = value.valueOf()
+        }
+
+        switch (value) {
+        case null: return 'null'
+        case true: return 'true'
+        case false: return 'false'
+        }
+
+        if (typeof value === 'string') {
+            return quoteString(value, false)
+        }
+
+        if (typeof value === 'number') {
+            return String(value)
+        }
+
+        if (typeof value === 'object') {
+            return Array.isArray(value) ? serializeArray(value) : serializeObject(value)
+        }
+
+        return undefined
     }
 
-    let final
-    if (partial.length === 0) {
-        final = '{}'
-    } else {
-        let properties
-        if (gap === '') {
-            properties = partial.join(',')
-            final = '{' + properties + '}'
+    function quoteString (value) {
+        const quotes = {
+            "'": 0.1,
+            '"': 0.2,
+        }
+
+        const replacements = {
+            "'": "\\'",
+            '"': '\\"',
+            '\\': '\\\\',
+            '\b': '\\b',
+            '\f': '\\f',
+            '\n': '\\n',
+            '\r': '\\r',
+            '\t': '\\t',
+            '\v': '\\v',
+            '\0': '\\0',
+            '\u2028': '\\u2028',
+            '\u2029': '\\u2029',
+        }
+
+        let product = ''
+
+        for (const c of value) {
+            switch (c) {
+            case "'":
+            case '"':
+                quotes[c]++
+                product += c
+                continue
+            }
+
+            if (replacements[c]) {
+                product += replacements[c]
+                continue
+            }
+
+            if (c < ' ') {
+                let hexString = c.charCodeAt(0).toString(16)
+                product += '\\x' + ('00' + hexString).substring(hexString.length)
+                continue
+            }
+
+            product += c
+        }
+
+        const quoteChar = quote || Object.keys(quotes).reduce((a, b) => (quotes[a] < quotes[b]) ? a : b)
+
+        product = product.replace(new RegExp(quoteChar, 'g'), replacements[quoteChar])
+
+        return quoteChar + product + quoteChar
+    }
+
+    function serializeObject (value) {
+        if (stack.indexOf(value) >= 0) {
+            throw TypeError('Converting circular structure to JSON5')
+        }
+
+        stack.push(value)
+
+        let stepback = indent
+        indent = indent + gap
+
+        let keys = propertyList || Object.keys(value)
+        let partial = []
+        for (const key of keys) {
+            const propertyString = serializeProperty(key, value)
+            if (propertyString !== undefined) {
+                let member = serializeKey(key) + ':'
+                if (gap !== '') {
+                    member += ' '
+                }
+                member += propertyString
+                partial.push(member)
+            }
+        }
+
+        let final
+        if (partial.length === 0) {
+            final = '{}'
         } else {
-            let separator = ',\n' + indent
-            properties = partial.join(separator)
-            final = '{\n' + indent + properties + ',\n' + stepback + '}'
+            let properties
+            if (gap === '') {
+                properties = partial.join(',')
+                final = '{' + properties + '}'
+            } else {
+                let separator = ',\n' + indent
+                properties = partial.join(separator)
+                final = '{\n' + indent + properties + ',\n' + stepback + '}'
+            }
         }
+
+        stack.pop()
+        indent = stepback
+        return final
     }
 
-    stack.pop()
-    indent = stepback
-    return final
-}
-
-function serializeKey (key) {
-    if (key.length === 0) {
-        return quoteString(key, true)
-    }
-
-    const firstChar = String.fromCodePoint(key.codePointAt(0))
-    if (!util.isIdStartChar(firstChar)) {
-        return quoteString(key, true)
-    }
-
-    for (let i = firstChar.length; i < key.length; i++) {
-        if (!util.isIdContinueChar(String.fromCodePoint(key.codePointAt(i)))) {
+    function serializeKey (key) {
+        if (key.length === 0) {
             return quoteString(key, true)
         }
-    }
 
-    return key
-}
-
-function serializeArray (value) {
-    if (stack.indexOf(value) >= 0) {
-        throw TypeError('Converting circular structure to JSON5')
-    }
-
-    stack.push(value)
-
-    let stepback = indent
-    indent = indent + gap
-
-    let partial = []
-    for (let i = 0; i < value.length; i++) {
-        const propertyString = serializeProperty(String(i), value)
-        partial.push((propertyString !== undefined) ? propertyString : 'null')
-    }
-
-    let final
-    if (partial.length === 0) {
-        final = '[]'
-    } else {
-        if (gap === '') {
-            let properties = partial.join(',')
-            final = '[' + properties + ']'
-        } else {
-            let separator = ',\n' + indent
-            let properties = partial.join(separator)
-            final = '[\n' + indent + properties + ',\n' + stepback + ']'
+        const firstChar = String.fromCodePoint(key.codePointAt(0))
+        if (!util.isIdStartChar(firstChar)) {
+            return quoteString(key, true)
         }
+
+        for (let i = firstChar.length; i < key.length; i++) {
+            if (!util.isIdContinueChar(String.fromCodePoint(key.codePointAt(i)))) {
+                return quoteString(key, true)
+            }
+        }
+
+        return key
     }
 
-    stack.pop()
-    indent = stepback
-    return final
+    function serializeArray (value) {
+        if (stack.indexOf(value) >= 0) {
+            throw TypeError('Converting circular structure to JSON5')
+        }
+
+        stack.push(value)
+
+        let stepback = indent
+        indent = indent + gap
+
+        let partial = []
+        for (let i = 0; i < value.length; i++) {
+            const propertyString = serializeProperty(String(i), value)
+            partial.push((propertyString !== undefined) ? propertyString : 'null')
+        }
+
+        let final
+        if (partial.length === 0) {
+            final = '[]'
+        } else {
+            if (gap === '') {
+                let properties = partial.join(',')
+                final = '[' + properties + ']'
+            } else {
+                let separator = ',\n' + indent
+                let properties = partial.join(separator)
+                final = '[\n' + indent + properties + ',\n' + stepback + ']'
+            }
+        }
+
+        stack.pop()
+        indent = stepback
+        return final
+    }
 }

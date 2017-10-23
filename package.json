@@ -23,11 +23,13 @@
         "gulp-jshint": "^2.0.1",
         "jshint": "^2.9.3",
         "jshint-stylish": "^2.2.1",
-        "mocha": "^3.1.0"
+        "mocha": "^3.1.0",
+        "jest": "^21.2.1"
     },
     "scripts": {
         "build": "node ./lib/cli.js -c package.json5",
-        "test": "mocha --ui exports --reporter spec"
+        "test": "mocha --ui exports --reporter spec",
+        "jest": "jest"
     },
     "homepage": "http://json5.org/",
     "license": "MIT",

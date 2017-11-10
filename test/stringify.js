@@ -297,7 +297,7 @@ describe('JSON5', () => {
             )
         })
 
-        it.only('does not affect space when calls are nested', () => {
+        it('does not affect space when calls are nested', () => {
             assert.strictEqual(
                 JSON5.stringify({a: 1}, (key, value) => {
                     JSON5.stringify({}, null, 4)

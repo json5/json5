@@ -82,7 +82,7 @@ describe('JSON5', () => {
             })
 
             it('parses signed numbers', () => {
-                assert.deepStrictEqual(JSON5.parse('[-1,+2,-.1,-0,-Infinity]'), [-1, +2, -0.1, -0, -Infinity])
+                assert.deepStrictEqual(JSON5.parse('[-1,+2,-.1,-0]'), [-1, +2, -0.1, -0])
             })
 
             it('parses leading decimal points', () => {
@@ -101,12 +101,13 @@ describe('JSON5', () => {
                 assert.deepStrictEqual(JSON5.parse('[0x1,0x10,0xff,0xFF]'), [1, 16, 255, 255])
             })
 
-            it('parses Infinity', () => {
-                assert.strictEqual(JSON5.parse('Infinity'), Infinity)
+            it('parses signed and unsiged Infinity', () => {
+                assert.deepStrictEqual(JSON5.parse('[Infinity,-Infinity]'), [Infinity, -Infinity])
             })
 
-            it('parses NaN', () => {
+            it('parses signed and unsigned NaN', () => {
                 assert(isNaN(JSON5.parse('NaN')))
+                assert(isNaN(JSON5.parse('-NaN')))
             })
         })
 

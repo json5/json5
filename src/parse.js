@@ -389,6 +389,11 @@ const lexStates = {
             read()
             literal('nfinity')
             return newToken('numeric', sign * Infinity)
+
+        case 'N':
+            read()
+            literal('aN')
+            return newToken('numeric', NaN)
         }
 
         throw invalidChar(read())
@@ -414,7 +419,7 @@ const lexStates = {
             return
         }
 
-        return newToken('numeric', 0)
+        return newToken('numeric', sign * 0)
     },
 
     decimalInteger () {

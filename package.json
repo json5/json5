@@ -1,6 +1,6 @@
 {
   "name": "json5",
-  "version": "1.0.0-beta-2",
+  "version": "1.0.0-beta.4",
   "description": "JSON for humans.",
   "main": "lib/index.js",
   "bin": "lib/cli.js",

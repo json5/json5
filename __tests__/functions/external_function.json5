@@ -1,0 +1,14 @@
+{
+    helo: function(a, b   ) {console.log(a, b);
+      console.log(a, b);
+      return a * b;
+    },
+
+    world: (a, b, c) => {
+      return a + b + c;
+    },
+
+    nesting_parentheses: function( a, b) {
+      return { a: b}
+    }
+}

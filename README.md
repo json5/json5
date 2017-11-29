@@ -53,7 +53,7 @@ JSON5. **All of these are optional**, and **all of these come from ES5**.
 
   *(TODO: Unicode characters and escape sequences aren’t yet supported in this
   implementation.)*
-  
+
 - Object keys can also be single-quoted.
 
 - Objects can have trailing commas.
@@ -243,6 +243,7 @@ json5 -c path/to/foo.json5    # generates path/to/foo.json
 git clone https://github.com/json5/json5
 cd json5
 npm install
+git submodule update --init
 npm test
 ```
 

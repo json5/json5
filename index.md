@@ -1,6 +1,6 @@
-# JSON5 – Modern JSON
+# JSON5 – JSON for Humans
 
-[![Build Status](https://travis-ci.org/aseemk/json5.png)](https://travis-ci.org/aseemk/json5)
+[![Build Status](https://travis-ci.org/json5/json5.svg)](https://travis-ci.org/json5/json5)
 
 JSON is an excellent data format, but we think it can be better.
 
@@ -53,6 +53,8 @@ JSON5. **All of these are optional**, and **all of these come from ES5**.
 
   *(TODO: Unicode characters and escape sequences aren’t yet supported in this
   implementation.)*
+  
+- Object keys can also be single-quoted.
 
 - Objects can have trailing commas.
 
@@ -116,7 +118,7 @@ multi-line string',
 }
 ```
 
-This implementation’s own [package.json5](package.json5) is more realistic:
+This implementation’s own [package.json5](https://github.com/json5/json5/blob/master/package.json5) is more realistic:
 
 ```js
 // This file is written in JSON5 syntax, naturally, but npm needs a regular
@@ -130,7 +132,7 @@ This implementation’s own [package.json5](package.json5) is more realistic:
     author: 'Aseem Kishore <aseem.kishore@gmail.com>',
     contributors: [
         // TODO: Should we remove this section in favor of GitHub's list?
-        // https://github.com/aseemk/json5/contributors
+        // https://github.com/json5/json5/contributors
         'Max Nanasy <max.nanasy@gmail.com>',
         'Andrew Eisenberg <andrew@eisenberg.as>',
         'Jordan Tucker <jordanbtucker@gmail.com>',
@@ -155,7 +157,7 @@ This implementation’s own [package.json5](package.json5) is more realistic:
     license: 'MIT',
     repository: {
         type: 'git',
-        url: 'https://github.com/aseemk/json5.git',
+        url: 'https://github.com/json5/json5',
     },
 }
 ```
@@ -167,10 +169,10 @@ Join the [Google Group](http://groups.google.com/group/json5) if you’re
 interested in JSON5 news, updates, and general discussion.
 Don’t worry, it’s very low-traffic.
 
-The [GitHub wiki](https://github.com/aseemk/json5/wiki) is a good place to track
+The [GitHub wiki](https://github.com/json5/json5/wiki) is a good place to track
 JSON5 support and usage. Contribute freely there!
 
-[GitHub Issues](https://github.com/aseemk/json5/issues) is the place to
+[GitHub Issues](https://github.com/json5/json5/issues) is the place to
 formally propose feature requests and report bugs. Questions and general
 feedback are better directed at the Google Group.
 
@@ -238,7 +240,7 @@ json5 -c path/to/foo.json5    # generates path/to/foo.json
 ## Development
 
 ```sh
-git clone git://github.com/aseemk/json5.git
+git clone https://github.com/json5/json5
 cd json5
 npm install
 npm test
@@ -247,19 +249,22 @@ npm test
 As the `package.json5` file states, be sure to run `npm run build` on changes
 to `package.json5`, since npm requires `package.json`.
 
-Feel free to [file issues](https://github.com/aseemk/json5/issues) and submit
-[pull requests](https://github.com/aseemk/json5/pulls) — contributions are
+Feel free to [file issues](https://github.com/json5/json5/issues) and submit
+[pull requests](https://github.com/json5/json5/pulls) — contributions are
 welcome. If you do submit a pull request, please be sure to add or update the
 tests, and ensure that `npm test` continues to pass.
 
 
 ## License
 
-MIT License © 2012-2016 Aseem Kishore, and [others](
-https://github.com/aseemk/json5/contributors).
+MIT. See [LICENSE.md](./LICENSE.md) for details.
 
 
 ## Credits
+
+[Aseem Kishore](https://github.com/aseemk) started this project.
+He got a [lot of flak](https://news.ycombinator.com/item?id=4031699) for it
+(including [this gem](https://web.archive.org/web/20150714105148/https://github.com/mitchellh/html7)).
 
 [Michael Bolin](http://bolinfest.com/) independently arrived at and published
 some of these same ideas with awesome explanations and detail.

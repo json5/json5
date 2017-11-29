@@ -118,7 +118,7 @@ multi-line string',
 }
 ```
 
-This implementation’s own [package.json5](package.json5) is more realistic:
+This implementation’s own [package.json5](https://github.com/json5/json5/blob/master/package.json5) is more realistic:
 
 ```js
 // This file is written in JSON5 syntax, naturally, but npm needs a regular

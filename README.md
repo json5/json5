@@ -53,7 +53,7 @@ JSON5. **All of these are optional**, and **all of these come from ES5**.
 
   *(TODO: Unicode characters and escape sequences aren’t yet supported in this
   implementation.)*
-  
+
 - Object keys can also be single-quoted.
 
 - Objects can have trailing commas.
@@ -211,9 +211,15 @@ Unicode*), as well as the native [`reviver` argument][json-parse].
 [json-parse]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
 
 `JSON5.stringify` mainly avoids quoting keys where possible, but we hope to
-keep expanding it in the future (e.g. to also output trailing commas).
+keep expanding it in the future (e.g. to also output comments).
 It supports the native [`replacer` and `space` arguments][json-stringify],
 as well. *(TODO: Any implemented `toJSON` methods aren’t used today.)*
+It also supports the output of trailing commas with a 4th `boolean` argument:
+```js
+var obj = JSON5.parse('{trailing:'comma',}');
+var str = JSON5.stringify(obj, null, 0, true)
+console.log(str) // => {trailing:"comma",}
+```
 
 [json-stringify]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
 

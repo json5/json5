@@ -183,7 +183,7 @@ If `<file>` is not provided, then STDIN is used.
 - `-h`, `--help`: Output usage information
 
 ## Contibuting
-## Development
+### Development
 ```sh
 git clone https://github.com/json5/json5
 cd json5
@@ -194,7 +194,7 @@ When contributing code, please write relevant tests and run `npm test` and `npm
 run lint` before submitting pull requests. Please use an editor that supports
 [EditorConfig](http://editorconfig.org/).
 
-## Issues
+### Issues
 To report bugs or request features regarding the JSON5 data format, please
 submit an issue to the [official specification
 repository](https://github.com/json5/json5-spec).

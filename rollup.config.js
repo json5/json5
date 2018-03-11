@@ -16,8 +16,8 @@ export default [
         output: {
             file: pkg.browser,
             format: 'umd',
+            name: 'JSON5',
         },
-        name: 'JSON5',
         plugins: [
             resolve(),
             commonjs(),

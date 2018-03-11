@@ -1,7 +1,7 @@
-### v1.0.0-beta-2 [[code][c1.0.0-beta-2], [diff][d1.0.0-beta-2]]
+### v1.0.0 [[code][c1.0.0], [diff][d1.0.0]]
 
-[c1.0.0-beta-2]: https://github.com/json5/json5/tree/v1.0.0-beta-2
-[d1.0.0-beta-2]: https://github.com/json5/json5/compare/v0.5.1...v1.0.0-beta-2
+[c1.0.0]: https://github.com/json5/json5/tree/v1.0.0
+[d1.0.0]: https://github.com/json5/json5/compare/v0.5.1...v1.0.0
 
 This release includes major internal changes and public API enhancements.
 
@@ -56,7 +56,7 @@ This release includes major internal changes and public API enhancements.
   a warning.
 
 - New: To use JSON5 in browsers, use the file at `dist/index.js` or
-  `https://unpkg.com/json5@beta/dist/index.js`.
+  `https://unpkg.com/json5@^1.0.0`.
 
 - Fix: `stringify` properly outputs `Infinity` and `NaN`. ([#67])
 

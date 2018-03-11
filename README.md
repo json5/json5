@@ -208,10 +208,6 @@ MIT. See [LICENSE.md](./LICENSE.md) for details.
 ## Credits
 [Assem Kishore](https://github.com/aseemk) founded this project.
 
-[Aseem Kishore](https://github.com/aseemk) started this project.
-He got a [lot of flak](https://news.ycombinator.com/item?id=4031699) for it
-(including [this gem](https://web.archive.org/web/20150714105148/https://github.com/mitchellh/html7)).
-
 [Michael Bolin](http://bolinfest.com/) independently arrived at and published
 some of these same ideas with awesome explanations and detail. Recommended
 reading: [Suggested Improvements to JSON](http://bolinfest.com/essays/json.html)

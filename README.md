@@ -214,10 +214,10 @@ reading: [Suggested Improvements to JSON](http://bolinfest.com/essays/json.html)
 
 [Douglas Crockford](http://www.crockford.com/) of course designed and built
 JSON, but his state machine diagrams on the [JSON website](http://json.org/), as
-cheesy as it may sound, gave me motivation and confidence that building a new
-parser to implement these ideas this was within my reach! The original
+cheesy as it may sound, gave us motivation and confidence that building a new
+parser to implement these ideas was within reach! The original
 implementation of JSON5 was also modeled directly off of Doug’s open-source
-[json_parse.js] parser. I’m super grateful for that clean and well-documented
+[json_parse.js] parser. We’re grateful for that clean and well-documented
 code.
 
 [json_parse.js]:

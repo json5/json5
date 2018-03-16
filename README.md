@@ -136,7 +136,7 @@ properties if a replacer array is specified.
   space. If this parameter is not provided (or is null), no white space is used.
   If white space is used, trailing commas will be used in objects and arrays.
 - `options`: An object with the following properties:
-  - `replacer`: Same as the `replacer` paramter.
+  - `replacer`: Same as the `replacer` parameter.
   - `space`: Same as the `space` parameter.
   - `quote`: A String representing the quote character to use when serializing
     strings.

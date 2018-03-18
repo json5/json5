@@ -9,6 +9,9 @@
     "lib/",
     "dist/"
   ],
+  "engines": {
+    "node": ">=4.8.7"
+  },
   "scripts": {
     "build": "babel-node build/build.js && babel src -d lib && rollup -c",
     "coverage": "nyc report --reporter=text-lcov | coveralls",

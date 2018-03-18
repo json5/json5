@@ -839,6 +839,10 @@ const parseStates = {
             // }
 
             pop()
+            return
+
+        case 'eof':
+            throw invalidEOF()
         }
 
         // This code is unreachable since it's handled by the lexState.
@@ -851,14 +855,26 @@ const parseStates = {
         //     throw invalidToken()
         // }
 
+        if (token.type === 'eof') {
+            throw invalidEOF()
+        }
+
         parseState = 'beforePropertyValue'
     },
 
     beforePropertyValue () {
+        if (token.type === 'eof') {
+            throw invalidEOF()
+        }
+
         push()
     },
 
     beforeArrayValue () {
+        if (token.type === 'eof') {
+            throw invalidEOF()
+        }
+
         if (token.type === 'punctuator' && token.value === ']') {
             pop()
             return
@@ -872,6 +888,10 @@ const parseStates = {
         // if (token.type !== 'punctuator') {
         //     throw invalidToken()
         // }
+
+        if (token.type === 'eof') {
+            throw invalidEOF()
+        }
 
         switch (token.value) {
         case ',':
@@ -891,6 +911,10 @@ const parseStates = {
         // if (token.type !== 'punctuator') {
         //     throw invalidToken()
         // }
+
+        if (token.type === 'eof') {
+            throw invalidEOF()
+        }
 
         switch (token.value) {
         case ',':

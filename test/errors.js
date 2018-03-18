@@ -365,6 +365,78 @@ describe('JSON5', () => {
                     err.columnNumber === 1
                 ))
             })
+
+            it('throws on unclosed objects before property names', () => {
+                assert.throws(() => {
+                    JSON5.parse('{')
+                },
+                err => (
+                    err instanceof SyntaxError &&
+                    /^JSON5: invalid end of input/.test(err.message) &&
+                    err.lineNumber === 1 &&
+                    err.columnNumber === 2
+                ))
+            })
+
+            it('throws on unclosed objects after property names', () => {
+                assert.throws(() => {
+                    JSON5.parse('{a')
+                },
+                err => (
+                    err instanceof SyntaxError &&
+                    /^JSON5: invalid end of input/.test(err.message) &&
+                    err.lineNumber === 1 &&
+                    err.columnNumber === 3
+                ))
+            })
+
+            it('throws on unclosed objects before property values', () => {
+                assert.throws(() => {
+                    JSON5.parse('{a:')
+                },
+                err => (
+                    err instanceof SyntaxError &&
+                    /^JSON5: invalid end of input/.test(err.message) &&
+                    err.lineNumber === 1 &&
+                    err.columnNumber === 4
+                ))
+            })
+
+            it('throws on unclosed objects after property values', () => {
+                assert.throws(() => {
+                    JSON5.parse('{a:1')
+                },
+                err => (
+                    err instanceof SyntaxError &&
+                    /^JSON5: invalid end of input/.test(err.message) &&
+                    err.lineNumber === 1 &&
+                    err.columnNumber === 5
+                ))
+            })
+
+            it('throws on unclosed arrays before values', () => {
+                assert.throws(() => {
+                    JSON5.parse('[')
+                },
+                err => (
+                    err instanceof SyntaxError &&
+                    /^JSON5: invalid end of input/.test(err.message) &&
+                    err.lineNumber === 1 &&
+                    err.columnNumber === 2
+                ))
+            })
+
+            it('throws on unclosed arrays after values', () => {
+                assert.throws(() => {
+                    JSON5.parse('[1')
+                },
+                err => (
+                    err instanceof SyntaxError &&
+                    /^JSON5: invalid end of input/.test(err.message) &&
+                    err.lineNumber === 1 &&
+                    err.columnNumber === 3
+                ))
+            })
         })
     })
 })

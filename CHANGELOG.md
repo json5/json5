@@ -1,3 +1,16 @@
+### v1.0.1 [[code][c1.0.1], [diff][d1.0.1]]
+
+[c1.0.1]: https://github.com/json5/json5/tree/v1.0.1
+[d1.0.1]: https://github.com/json5/json5/compare/v1.0.0...v1.0.1
+
+This release includes a bug fix and minor change.
+
+- Fix: `parse` throws on unclosed objects and arrays.
+
+- New: `package.json5` has been removed until an easier way to keep it in sync
+  with `package.json` is found.
+
+
 ### v1.0.0 [[code][c1.0.0], [diff][d1.0.0]]
 
 [c1.0.0]: https://github.com/json5/json5/tree/v1.0.0

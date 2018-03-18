@@ -1,8 +1,8 @@
 language: node_js
 node_js:
-    - "9"
-    - "8"
-    - "6"
-    - "4"
+  - "9"
+  - "8"
+  - "6"
+  - "4"
 
 after_success: npm run coverage

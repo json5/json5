@@ -1,9 +1,9 @@
-import fs from 'fs'
-import path from 'path'
+const fs = require('fs')
+const path = require('path')
 
-import JSON5 from '../lib'
+const JSON5 = require('../lib')
 
-import pkg from '../package.json'
+const pkg = require('../package.json')
 
 let pkg5 = '// This is a generated file. Do not edit.\n'
 pkg5 += pkg5 = JSON5.stringify(pkg, null, 2)

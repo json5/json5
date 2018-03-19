@@ -1,9 +1,8 @@
-import assert from 'assert'
-import child from 'child_process'
-import fs from 'fs'
-import path from 'path'
-
-import pkg from '../package.json'
+const assert = require('assert')
+const child = require('child_process')
+const fs = require('fs')
+const path = require('path')
+const pkg = require('../package.json')
 
 const cliPath = path.resolve(__dirname, '../lib/cli.js')
 

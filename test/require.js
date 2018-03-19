@@ -1,5 +1,5 @@
-import assert from 'assert'
-import sinon from 'sinon'
+const assert = require('assert')
+const sinon = require('sinon')
 
 describe('require(*.json5)', () => {
     it('parses a JSON5 document', () => {

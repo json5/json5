@@ -10,8 +10,7 @@
     ],
     "extends": [
         "standard",
-        "plugin:node/recommended",
-        "plugin:import/recommended"
+        "plugin:node/recommended"
     ],
     "rules": {
         "array-bracket-spacing": [
@@ -34,8 +33,6 @@
         "object-curly-spacing": [
             "error",
             "never"
-        ],
-        "node/no-unsupported-features": "off",
-        "node/shebang": "off"
+        ]
     }
 }

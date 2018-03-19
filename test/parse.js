@@ -1,6 +1,6 @@
-import assert from 'assert'
-import sinon from 'sinon'
-import JSON5 from '../lib'
+const assert = require('assert')
+const sinon = require('sinon')
+const JSON5 = require('../lib')
 
 describe('JSON5', () => {
     describe('#parse()', () => {

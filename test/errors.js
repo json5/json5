@@ -1,6 +1,8 @@
 const assert = require('assert')
 const JSON5 = require('../lib')
 
+require('tap').mochaGlobals()
+
 describe('JSON5', () => {
     describe('#parse()', () => {
         describe('errors', () => {

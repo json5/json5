@@ -1,6 +1,8 @@
 const assert = require('assert')
 const sinon = require('sinon')
 
+require('tap').mochaGlobals()
+
 describe('require(*.json5)', () => {
     it('parses a JSON5 document', () => {
         require('../lib/register')

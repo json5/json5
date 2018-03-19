@@ -2,14 +2,13 @@ const assert = require('assert')
 const child = require('child_process')
 const fs = require('fs')
 const path = require('path')
+const tap = require('tap')
 const pkg = require('../package.json')
 
 const cliPath = path.resolve(__dirname, '../lib/cli.js')
 
-describe('CLI', function () {
-    this.timeout(10000)
-
-    it('converts JSON5 to JSON from stdin to stdout', done => {
+tap.test('CLI', t => {
+    t.test('converts JSON5 to JSON from stdin to stdout', t => {
         const proc = child.spawn(process.execPath, [cliPath])
         let output = ''
         proc.stdout.on('data', data => {
@@ -18,13 +17,13 @@ describe('CLI', function () {
 
         proc.stdout.on('end', () => {
             assert.strictEqual(output, '{"a":1,"b":2}')
-            done()
+            t.end()
         })
 
         fs.createReadStream(path.resolve(__dirname, 'test.json5')).pipe(proc.stdin)
     })
 
-    it('reads from the specified file', done => {
+    t.test('reads from the specified file', t => {
         const proc = child.spawn(
             process.execPath,
             [
@@ -40,11 +39,11 @@ describe('CLI', function () {
 
         proc.stdout.on('end', () => {
             assert.strictEqual(output, '{"a":1,"b":2}')
-            done()
+            t.end()
         })
     })
 
-    it('indents output with the number of spaces specified', done => {
+    t.test('indents output with the number of spaces specified', t => {
         const proc = child.spawn(
             process.execPath,
             [
@@ -62,11 +61,11 @@ describe('CLI', function () {
 
         proc.stdout.on('end', () => {
             assert.strictEqual(output, '{\n    "a": 1,\n    "b": 2\n}')
-            done()
+            t.end()
         })
     })
 
-    it('indents output with tabs when specified', done => {
+    t.test('indents output with tabs when specified', t => {
         const proc = child.spawn(
             process.execPath,
             [
@@ -84,11 +83,11 @@ describe('CLI', function () {
 
         proc.stdout.on('end', () => {
             assert.strictEqual(output, '{\n\t"a": 1,\n\t"b": 2\n}')
-            done()
+            t.end()
         })
     })
 
-    it('outputs to the specified file', done => {
+    t.test('outputs to the specified file', t => {
         const proc = child.spawn(
             process.execPath,
             [
@@ -107,17 +106,17 @@ describe('CLI', function () {
                 ),
                 '{"a":1,"b":2}'
             )
-            done()
+            t.end()
         })
 
-        after(() => {
+        t.tearDown(() => {
             try {
                 fs.unlinkSync(path.resolve(__dirname, 'output.json'))
             } catch (err) {}
         })
     })
 
-    it('validates valid JSON5 files', done => {
+    t.test('validates valid JSON5 files', t => {
         const proc = child.spawn(
             process.execPath,
             [
@@ -129,11 +128,11 @@ describe('CLI', function () {
 
         proc.on('exit', code => {
             assert.strictEqual(code, 0)
-            done()
+            t.end()
         })
     })
 
-    it('validates invalid JSON5 files', done => {
+    t.test('validates invalid JSON5 files', t => {
         const proc = child.spawn(
             process.execPath,
             [
@@ -154,11 +153,11 @@ describe('CLI', function () {
 
         proc.on('exit', code => {
             assert.strictEqual(code, 1)
-            done()
+            t.end()
         })
     })
 
-    it('outputs the version number when specified', done => {
+    t.test('outputs the version number when specified', t => {
         const proc = child.spawn(process.execPath, [cliPath, '-V'])
 
         let output = ''
@@ -168,11 +167,11 @@ describe('CLI', function () {
 
         proc.stdout.on('end', () => {
             assert.strictEqual(output, pkg.version + '\n')
-            done()
+            t.end()
         })
     })
 
-    it('outputs usage information when specified', done => {
+    t.test('outputs usage information when specified', t => {
         const proc = child.spawn(process.execPath, [cliPath, '-h'])
 
         let output = ''
@@ -182,11 +181,11 @@ describe('CLI', function () {
 
         proc.stdout.on('end', () => {
             assert(/Usage/.test(output))
-            done()
+            t.end()
         })
     })
 
-    it('is backward compatible with v0.5.1', done => {
+    t.test('is backward compatible with v0.5.1', t => {
         const proc = child.spawn(
             process.execPath,
             [
@@ -204,13 +203,15 @@ describe('CLI', function () {
                 ),
                 '{"a":1,"b":2}'
             )
-            done()
+            t.end()
         })
 
-        after(() => {
+        t.tearDown(() => {
             try {
                 fs.unlinkSync(path.resolve(__dirname, 'test.json'))
             } catch (err) {}
         })
     })
+
+    t.end()
 })

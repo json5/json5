@@ -1048,7 +1048,7 @@ function invalidIdentifier () {
 }
 
 function separatorChar (c) {
-    console.warn(`JSON5: '${c}' is not valid ECMAScript; consider escaping`)
+    console.warn(`JSON5: '${formatChar(c)}' in strings is not valid ECMAScript; consider escaping`)
 }
 
 function formatChar (c) {

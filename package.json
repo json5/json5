@@ -20,7 +20,8 @@
     "pretest": "cross-env NODE_ENV=test npm run build",
     "preversion": "npm run lint && npm test && npm run production",
     "production": "cross-env NODE_ENV=production npm run build",
-    "test": "nyc --reporter=html --reporter=text mocha"
+    "test": "nyc --reporter=html --reporter=text mocha",
+    "version": "node build/package.js && git add package.json5"
   },
   "repository": {
     "type": "git",

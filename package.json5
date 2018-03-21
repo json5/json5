@@ -15,6 +15,7 @@
   },
   scripts: {
     build: 'babel-node build/build.js && babel src -d lib && rollup -c',
+    'build-package': 'babel-node build/package.js',
     coverage: 'nyc report --reporter=text-lcov | coveralls',
     lint: 'eslint --fix build src',
     prepublishOnly: 'npm run lint && npm test && npm run production',
@@ -22,7 +23,7 @@
     preversion: 'npm run lint && npm test && npm run production',
     production: 'cross-env NODE_ENV=production npm run build',
     test: 'nyc --reporter=html --reporter=text mocha',
-    version: 'node build/package.js && git add package.json5',
+    version: 'npm run build-package && git add package.json5',
   },
   repository: {
     type: 'git',

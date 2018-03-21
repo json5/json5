@@ -65,6 +65,6 @@
     "rollup-plugin-node-resolve": "^3.2.0",
     "rollup-plugin-uglify": "^3.0.0",
     "sinon": "^4.4.2",
-    "unicode-9.0.0": "^0.7.5"
+    "unicode-10.0.0": "^0.7.5"
   }
 }

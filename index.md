@@ -14,7 +14,7 @@ parsing and serialization libraries.
 
 [Coverage Status]: https://coveralls.io/github/json5/json5
 
-[JSON]: https://tools.ietf.org/html/rfc7159
+[JSON]: https://tools.ietf.org/html/rfc8259
 
 [ECMAScript 5.1]: https://www.ecma-international.org/ecma-262/5.1/
 

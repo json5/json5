@@ -1,3 +1,19 @@
+### v2.0.0 [[code][c2.0.0], [diff][d2.0.0]]
+
+[c2.0.0]: https://github.com/json5/json5/tree/v2.0.0
+[d2.0.0]: https://github.com/json5/json5/compare/v1.0.1...v2.0.0
+
+- **Major**: JSON5 officially supports Node.js v6 and later. Support for Node.js
+  v4 has been dropped. Since Node.js v6 supports ES5 features, the code has been
+  rewritten in native ES5, and the dependence on Babel has been eliminated.
+- New: Support for Unicode 10 has been added.
+- New: The test framework has been migrated from Mocha to Tap.
+- Fix: The warning has been made clearer when line and paragraph separators are
+  used in strings.
+- Fix: `package.json5` has been restored, and it is automatically generated and
+  committed when the version is bumped. A new `build-package` NPM script has
+  been added to facilitate this.
+
 ### v1.0.1 [[code][c1.0.1], [diff][d1.0.1]]
 
 [c1.0.1]: https://github.com/json5/json5/tree/v1.0.1
@@ -18,7 +34,7 @@ This release includes a bug fix and minor change.
 
 This release includes major internal changes and public API enhancements.
 
-- **Major** JSON5 officially supports Node.js v4 and later. Support for Node.js
+- **Major**: JSON5 officially supports Node.js v4 and later. Support for Node.js
   v0.10 and v0.12 have been dropped.
 
 - New: Unicode property names and Unicode escapes in property names are

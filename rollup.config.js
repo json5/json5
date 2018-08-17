@@ -1,6 +1,6 @@
 const resolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
-const uglify = require('rollup-plugin-uglify')
+const terser = require('rollup-plugin-terser').terser
 const pkg = require('./package.json')
 
 module.exports = [
@@ -28,7 +28,7 @@ module.exports = [
         plugins: [
             resolve(),
             commonjs(),
-            uglify(),
+            terser(),
         ],
     },
 ]

@@ -182,7 +182,7 @@ If `<file>` is not provided, then STDIN is used.
 - `-V`, `--version`: Output the version number
 - `-h`, `--help`: Output usage information
 
-## Contibuting
+## Contributing
 ### Development
 ```sh
 git clone https://github.com/json5/json5

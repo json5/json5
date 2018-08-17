@@ -8,6 +8,8 @@
   rewritten in native ES5, and the dependence on Babel has been eliminated.
 - New: Support for Unicode 10 has been added.
 - New: The test framework has been migrated from Mocha to Tap.
+- New: The browser build at `dist/index.js` is no longer minified by default. A
+  minified version is available at `dist/index.min.js`. ([#181])
 - Fix: The warning has been made clearer when line and paragraph separators are
   used in strings.
 - Fix: `package.json5` has been restored, and it is automatically generated and
@@ -288,3 +290,4 @@ parser for the regular JSON format.
 [#108]: https://github.com/json5/json5/pull/108
 [#134]: https://github.com/json5/json5/pull/134
 [#154]: https://github.com/json5/json5/issues/154
+[#181]: https://github.com/json5/json5/issues/181

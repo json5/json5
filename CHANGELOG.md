@@ -1,3 +1,10 @@
+### v2.0.1 [[code][c2.0.1], [diff][d2.0.1]]
+
+[c2.0.1]: https://github.com/json5/json5/tree/v2.0.1
+[d2.0.1]: https://github.com/json5/json5/compare/v2.0.0...v2.0.1
+
+- Fix: The browser builds in the `dist` directory support ES5. ([#182])
+
 ### v2.0.0 [[code][c2.0.0], [diff][d2.0.0]]
 
 [c2.0.0]: https://github.com/json5/json5/tree/v2.0.0
@@ -296,3 +303,4 @@ parser for the regular JSON format.
 [#134]: https://github.com/json5/json5/pull/134
 [#154]: https://github.com/json5/json5/issues/154
 [#181]: https://github.com/json5/json5/issues/181
+[#182]: https://github.com/json5/json5/issues/182

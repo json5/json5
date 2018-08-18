@@ -1,12 +1,13 @@
 const resolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
+const buble = require('rollup-plugin-buble')
 const terser = require('rollup-plugin-terser').terser
 const pkg = require('./package.json')
 
 module.exports = [
     // Non-minified
     {
-        input: 'lib/index.js',
+        input: 'build/es5.js',
         output: {
             file: pkg.browser,
             format: 'umd',
@@ -15,11 +16,12 @@ module.exports = [
         plugins: [
             resolve(),
             commonjs(),
+            buble({transforms: {dangerousForOf: true}}),
         ],
     },
     // Minified
     {
-        input: 'lib/index.js',
+        input: 'build/es5.js',
         output: {
             file: pkg.browser.replace(/\.js$/, '.min.js'),
             format: 'umd',
@@ -28,6 +30,7 @@ module.exports = [
         plugins: [
             resolve(),
             commonjs(),
+            buble({transforms: {dangerousForOf: true}}),
             terser(),
         ],
     },

@@ -14,7 +14,7 @@ parsing and serialization libraries.
 
 [Coverage Status]: https://coveralls.io/github/json5/json5
 
-[JSON]: https://tools.ietf.org/html/rfc8259
+[JSON]: https://tools.ietf.org/html/rfc7159
 
 [ECMAScript 5.1]: https://www.ecma-international.org/ecma-262/5.1/
 
@@ -82,7 +82,7 @@ const JSON5 = require('json5')
 
 ### Browsers
 ```html
-<script src="https://unpkg.com/json5@^1.0.0"></script>
+<script src="https://unpkg.com/json5@^2.0.0/dist/index.min.js"></script>
 ```
 
 This will create a global `JSON5` variable.
@@ -90,7 +90,8 @@ This will create a global `JSON5` variable.
 ## API
 The JSON5 API is compatible with the [JSON API].
 
-[JSON API]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON
+[JSON API]:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON
 
 ### JSON5.parse()
 Parses a JSON5 string, constructing the JavaScript value or object described by
@@ -179,7 +180,7 @@ If `<file>` is not provided, then STDIN is used.
 - `-V`, `--version`: Output the version number
 - `-h`, `--help`: Output usage information
 
-## Contibuting
+## Contributing
 ### Development
 ```sh
 git clone https://github.com/json5/json5
@@ -200,7 +201,7 @@ To report bugs or request features regarding the JavaScript implentation of
 JSON5, please submit an issue to this repository.
 
 ## License
-MIT. See [LICENSE.md](https://github.com/json5/json5/blob/master/LICENSE.md) for details.
+MIT. See [LICENSE.md](./LICENSE.md) for details.
 
 ## Credits
 [Assem Kishore](https://github.com/aseemk) founded this project.
@@ -217,7 +218,8 @@ implementation of JSON5 was also modeled directly off of Doug’s open-source
 [json_parse.js] parser. We’re grateful for that clean and well-documented
 code.
 
-[json_parse.js]: https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js
+[json_parse.js]:
+https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js
 
 [Max Nanasy](https://github.com/MaxNanasy) has been an early and prolific
 supporter, contributing multiple patches and ideas.

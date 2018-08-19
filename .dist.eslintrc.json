@@ -1,0 +1,9 @@
+{
+    "root": true,
+    "parserOptions": {
+        "ecmaVersion": 5
+    },
+    "env": {
+        "browser": true
+    }
+}

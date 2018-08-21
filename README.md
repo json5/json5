@@ -202,7 +202,7 @@ To report bugs or request features regarding the JavaScript implentation of
 JSON5, please submit an issue to this repository.
 
 ## License
-MIT. See [LICENSE.md](./LICENSE.md) for details.
+MIT. See [LICENSE.md](https://github.com/json5/json5/blob/master/LICENSE.md) for details.
 
 ## Credits
 [Assem Kishore](https://github.com/aseemk) founded this project.

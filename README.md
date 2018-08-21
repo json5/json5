@@ -92,7 +92,8 @@ This will create a global `JSON5` variable.
 ## API
 The JSON5 API is compatible with the [JSON API].
 
-[JSON API]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON
+[JSON API]:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON
 
 ### JSON5.parse()
 Parses a JSON5 string, constructing the JavaScript value or object described by

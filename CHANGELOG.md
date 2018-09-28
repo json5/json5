@@ -1,3 +1,11 @@
+### v2.1.0 [[code][c2.1.0], [diff][d2.1.0]]
+
+[c2.1.0]: https://github.com/json5/json5/tree/v2.1.0
+[d2.1.0]: https://github.com/json5/json5/compare/v2.0.1...v2.1.0
+
+- New: The `index.mjs` and `index.min.mjs` browser builds in the `dist`
+  directory support ES6 modules. ([#187])
+
 ### v2.0.1 [[code][c2.0.1], [diff][d2.0.1]]
 
 [c2.0.1]: https://github.com/json5/json5/tree/v2.0.1
@@ -304,3 +312,4 @@ parser for the regular JSON format.
 [#154]: https://github.com/json5/json5/issues/154
 [#181]: https://github.com/json5/json5/issues/181
 [#182]: https://github.com/json5/json5/issues/182
+[#187]: https://github.com/json5/json5/issues/187

@@ -1,13 +1,5 @@
 {
     "root": true,
-    "env": {
-        "node": true,
-        "es6": true
-    },
-    "plugins": [
-        "node",
-        "standard"
-    ],
     "extends": [
         "standard",
         "plugin:node/recommended"

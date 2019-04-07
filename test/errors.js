@@ -441,4 +441,17 @@ describe('JSON5', () => {
             })
         })
     })
+    describe('#findPointer()', () => {
+        describe('errors', () => {
+            it('throws when path is not found', () => {
+                assert.throws(() => {
+                    JSON5.findPointer('{a:{b:2}}', 'b')
+                },
+                err => (
+                    err instanceof Error &&
+                    /^JSON5: path\(b\) not found/.test(err.message)
+                ))
+            })
+        })
+    })
 })

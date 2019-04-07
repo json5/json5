@@ -312,3 +312,42 @@ t.test('parse(text, reviver)', t => {
 
     t.end()
 })
+
+t.test('findPointer(text, text)', t => {
+    t.equal(
+        JSON5.findPointer('{a:{b:2}}', '/a/b').column,
+        7,
+        'finds pointer column through properties'
+    )
+
+    t.equal(
+        JSON5.findPointer('{a:{b:2}}', '/a/b').line,
+        1,
+        'finds pointer line for single line'
+    )
+
+    t.equal(
+        JSON5.findPointer('{\na:\n{b:2}}', '/a/b').line,
+        3,
+        'finds pointer line for multiline'
+    )
+
+    t.equal(
+        JSON5.findPointer('{a:[1,{b:2}]}', '/a/1').column,
+        7,
+        'finds pointer through arrays'
+    )
+
+    t.equal(
+        JSON5.findPointer('{"a/b":{c:2}}', '/a~1b/c').column,
+        11,
+        'finds pointer and properly escapes slashes'
+    )
+
+    t.equal(
+        JSON5.findPointer('{"a~b":{c:2}}', '/a~0b/c').column,
+        11,
+        'finds pointer and properly escapes tildas'
+    )
+    t.end()
+})

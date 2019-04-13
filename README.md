@@ -199,7 +199,7 @@ To report bugs or request features regarding the JSON5 data format, please
 submit an issue to the [official specification
 repository](https://github.com/json5/json5-spec).
 
-To report bugs or request features regarding the JavaScript implentation of
+To report bugs or request features regarding the JavaScript implementation of
 JSON5, please submit an issue to this repository.
 
 ## License

@@ -174,7 +174,7 @@ describe('JSON5', () => {
                 ))
             })
 
-            it('throws on invalid characters following a hexidecimal indicator', () => {
+            it('throws on invalid characters following a hexadecimal indicator', () => {
                 assert.throws(() => {
                     JSON5.parse('0xg')
                 },

@@ -3,7 +3,9 @@ const child = require('child_process')
 const fs = require('fs')
 const path = require('path')
 const tap = require('tap')
-const pkg = require('../package.json')
+const JSON5 = require('../lib')
+
+const pkg = JSON5.parse(fs.readFileSync(path.join(__dirname, '../package.json5'), 'utf8'))
 
 const cliPath = path.resolve(__dirname, '../lib/cli.js')
 

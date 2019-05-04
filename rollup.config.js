@@ -1,8 +1,12 @@
+const fs = require('fs')
+const path = require('path')
 const resolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
 const buble = require('rollup-plugin-buble')
 const terser = require('rollup-plugin-terser').terser
-const pkg = require('./package.json')
+const JSON5 = require('./lib')
+
+const pkg = JSON5.parse(fs.readFileSync(path.join(__dirname, 'package.json5'), 'utf8'))
 
 module.exports = [
     // ES5 Non-minified

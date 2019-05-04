@@ -1,4 +1,3 @@
-// This is a generated file. Do not edit.
 {
   name: 'json5',
   version: '2.1.0',
@@ -15,15 +14,13 @@
   },
   scripts: {
     build: 'rollup -c',
-    'build-package': 'node build/package.js',
     'build-unicode': 'node build/unicode.js',
     coverage: 'tap --coverage-report html test',
     lint: 'eslint --fix .',
-    prepublishOnly: 'npm run production',
-    preversion: 'npm run production',
-    production: 'npm run lint && npm test && npm run build',
+    prepublishOnly: 'pnpm run production',
+    preversion: 'pnpm run production',
+    production: 'pnpm run lint && pnpm test && pnpm run build',
     test: 'tap -Rspec --100 test',
-    version: 'npm run build-package && git add package.json5',
   },
   repository: {
     type: 'git',

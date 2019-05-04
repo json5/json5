@@ -187,10 +187,10 @@ If `<file>` is not provided, then STDIN is used.
 ```sh
 git clone https://github.com/json5/json5
 cd json5
-npm install
+pnpm install
 ```
 
-When contributing code, please write relevant tests and run `npm test` and `npm
+When contributing code, please write relevant tests and run `pnpm test` and `pnpm
 run lint` before submitting pull requests. Please use an editor that supports
 [EditorConfig](http://editorconfig.org/).
 

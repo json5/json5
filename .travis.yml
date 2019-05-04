@@ -3,4 +3,9 @@ node_js:
   - "11"
   - "10"
   - "8"
-  - "6"
+before_install:
+  - curl -L https://unpkg.com/@pnpm/self-installer | PNPM_VERSION=next node
+install:
+  - pnpm install
+script:
+  - pnpm test

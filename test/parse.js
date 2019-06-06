@@ -39,6 +39,12 @@ t.test('parse(text)', t => {
     )
 
     t.strictSame(
+      JSON5.parse('{"__proto__":1}').__proto__,
+      1,
+      'preserves __proto__ property names',
+    )
+
+    t.strictSame(
       JSON5.parse('{abc:1,def:2}'),
       {abc: 1, def: 2},
       'parses multiple properties',

@@ -31,6 +31,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   Unicode 10 to 14.
 - `package.json5` is included in the npm package.
 
+### Fixes
+
+- Properties with the name `__proto__` are added to objects and arrays. ([#199])
+
 ## v2.2.1 - 2022-03-21
 
 ### Fixes
@@ -328,6 +332,7 @@ parser for the regular JSON format.
 [#182]: https://github.com/json5/json5/issues/182
 [#187]: https://github.com/json5/json5/issues/187
 [#196]: https://github.com/json5/json5/issues/196
+[#199]: https://github.com/json5/json5/issues/199
 [#208]: https://github.com/json5/json5/issues/208
 [#210]: https://github.com/json5/json5/issues/210
 [#222]: https://github.com/json5/json5/issues/222

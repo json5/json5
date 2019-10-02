@@ -1,3 +1,14 @@
+### v2.1.1 [[code][c2.1.1], [diff][d2.1.1]]
+
+[c2.1.1]: https://github.com/json5/json5/tree/v2.1.1
+[d2.1.1]: https://github.com/json5/json5/compare/v2.0.1...v2.1.1
+
+- New: `package.json` and `package.json5` include a `module` property so
+  bundlers like webpack, rollup and parcel can take advantage of the ES Module
+  build. ([#208])
+- Fix: `stringify` outputs `\0` as `\\x00` when followed by a digit. ([#210])
+- Fix: Spelling mistakes have been fixed. ([#196])
+
 ### v2.1.0 [[code][c2.1.0], [diff][d2.1.0]]
 
 [c2.1.0]: https://github.com/json5/json5/tree/v2.1.0
@@ -313,3 +324,6 @@ parser for the regular JSON format.
 [#181]: https://github.com/json5/json5/issues/181
 [#182]: https://github.com/json5/json5/issues/182
 [#187]: https://github.com/json5/json5/issues/187
+[#196]: https://github.com/json5/json5/issues/196
+[#208]: https://github.com/json5/json5/issues/208
+[#210]: https://github.com/json5/json5/issues/210

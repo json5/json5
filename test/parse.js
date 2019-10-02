@@ -202,7 +202,7 @@ t.test('parse(text)', t => {
         t.equal(
             JSON5.parse(`'\\b\\f\\n\\r\\t\\v\\0\\x0f\\u01fF\\\n\\\r\n\\\r\\\u2028\\\u2029\\a\\'\\"'`),
             `\b\f\n\r\t\v\0\x0f\u01FF\a'"`, // eslint-disable-line no-useless-escape
-            'parses escpaed characters'
+            'parses escaped characters'
         )
 
         t.test('parses line and paragraph separators with a warning', t => {

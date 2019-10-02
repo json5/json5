@@ -4,6 +4,7 @@
   version: '2.1.0',
   description: 'JSON for humans.',
   main: 'lib/index.js',
+  module: 'dist/index.mjs',
   bin: 'lib/cli.js',
   browser: 'dist/index.js',
   files: [

@@ -221,7 +221,7 @@ implementation of JSON5 was also modeled directly off of Doug’s open-source
 code.
 
 [json_parse.js]:
-https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js
+https://github.com/douglascrockford/JSON-js/blob/03157639c7a7cddd2e9f032537f346f1a87c0f6d/json_parse.js
 
 [Max Nanasy](https://github.com/MaxNanasy) has been an early and prolific
 supporter, contributing multiple patches and ideas.

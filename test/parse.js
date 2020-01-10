@@ -312,3 +312,27 @@ t.test('parse(text, reviver)', t => {
 
     t.end()
 })
+
+t.test('parse(text, opts)', t => {
+    t.test('duplicate keys throw option', t => {
+        t.throws(() => {
+            JSON5.parse(
+                '{ a: true, a: false }',
+                {throwOnDuplicateKeys: true}
+            )
+        })
+
+        t.strictSame(
+            JSON5.parse(
+                '{ a: true, a: false }',
+                {throwOnDuplicateKeys: false}
+            ),
+            {a: false},
+            'uses last key if option is false'
+        )
+
+        t.end()
+    })
+
+    t.end()
+})

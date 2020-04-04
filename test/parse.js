@@ -178,6 +178,30 @@ t.test('parse(text)', t => {
             'parses signed NaN'
         )
 
+        t.strictSame(
+            JSON5.parse('1'),
+            1,
+            'parses 1'
+        )
+
+        t.strictSame(
+            JSON5.parse('+1.23e100'),
+            1.23e100,
+            'parses +1.23e100'
+        )
+
+        t.strictSame(
+            JSON5.parse('0x1'),
+            0x1,
+            'parses bare hexadecimal number'
+        )
+
+        t.strictSame(
+            JSON5.parse('-0x0123456789abcdefABCDEF'),
+            -0x0123456789abcdefABCDEF,
+            'parses bare long hexadecimal number'
+        )
+
         t.end()
     })
 

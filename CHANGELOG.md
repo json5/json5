@@ -1,3 +1,11 @@
+### v2.1.3 [[code][c2.1.3], [diff][d2.1.3]]
+
+[c2.1.3]: https://github.com/json5/json5/tree/v2.1.3
+[d2.1.3]: https://github.com/json5/json5/compare/v2.1.2...v2.1.3
+
+- Fix: An out of memory bug when parsing numbers has been fixed. ([#228],
+  [#229])
+
 ### v2.1.2 [[code][c2.1.2], [diff][d2.1.2]]
 
 [c2.1.2]: https://github.com/json5/json5/tree/v2.1.2

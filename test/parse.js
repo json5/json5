@@ -218,9 +218,21 @@ t.test('parse(text)', t => {
             'parses single quoted strings'
         )
 
+        t.equal(
+            JSON5.parse('`abc`'),
+            'abc',
+            'parses backtick quoted strings'
+        )
+
+        t.equal(
+            JSON5.parse('`abc\ndef\r\nghi`'),
+            'abc\ndef\r\nghi',
+            'parses backtick quoted multiline strings'
+        )
+
         t.strictSame(
-            JSON5.parse(`['"',"'"]`),
-            ['"', "'"],
+            JSON5.parse(`['"','\`',"'","\`",\`'\`,\`"\`]`),
+            ['"', '`', "'", '`', `'`, '"'],
             'parses quotes in strings')
 
         t.equal(

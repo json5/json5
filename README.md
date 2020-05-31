@@ -36,6 +36,8 @@ been extended to JSON5.
 ### Strings
 - Strings may be single quoted.
 - Strings may span multiple lines by escaping new line characters.
+- Strings may be backtick (`) quoted.
+- Backtick quoted strings may span multiple lines without explicit new line characters.
 - Strings may include character escapes.
 
 ### Numbers

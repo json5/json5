@@ -254,6 +254,12 @@ t.test('parse(text)', t => {
         )
 
         t.equal(
+            JSON5.parse("'" + '\\t'.repeat(10 * 1000) + "'"),
+            '\t'.repeat(10 * 1000),
+            'parse long escaped json string (20KB)'
+        )
+
+        t.equal(
             JSON5.parse("'" + 'a'.repeat(100 * 1000 * 1000) + "'"),
             'a'.repeat(100 * 1000 * 1000),
             'parse very long json string (100MB)'

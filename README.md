@@ -79,7 +79,12 @@ npm install json5
 ```
 
 ```js
+// commonjs usage
+const { stringify, parse } = require('json5')
 const JSON5 = require('json5')
+// es modules usage
+import { stringify, parse } from 'json5'
+import * as JSON5 from 'json5'
 ```
 
 ### Browsers

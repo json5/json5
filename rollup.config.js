@@ -36,7 +36,7 @@ module.exports = [
     },
     // ES6 Modules Non-minified
     {
-        input: 'lib/index.js',
+        input: 'lib/esm.js',
         output: {
             file: pkg.browser.replace(/\.js$/, '.mjs'),
             format: 'esm',
@@ -48,7 +48,7 @@ module.exports = [
     },
     // ES6 Modules Minified
     {
-        input: 'lib/index.js',
+        input: 'lib/esm.js',
         output: {
             file: pkg.browser.replace(/\.js$/, '.min.mjs'),
             format: 'esm',

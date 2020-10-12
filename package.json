@@ -18,7 +18,7 @@
     "dist/"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=6"
   },
   "scripts": {
     "build": "rollup -c",

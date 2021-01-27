@@ -6,7 +6,7 @@
   "module": "dist/index.mjs",
   "bin": "lib/cli.js",
   "browser": "dist/index.js",
-  "types": "lib/types.d.ts",
+  "types": "lib/index.d.ts",
   "files": [
     "lib/",
     "dist/"

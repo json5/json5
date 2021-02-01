@@ -1,7 +1,12 @@
 ### Unreleased [[code][c-unreleased], [diff][d-unreleased]]
 
 [c-unreleased]: https://github.com/json5/json5/tree/master
-[d-unreleased]: https://github.com/json5/json5/compare/v2.1.3...HEAD
+[d-unreleased]: https://github.com/json5/json5/compare/v2.2.0...HEAD
+
+### v2.2.0 [[code][c2.2.0], [diff][d2.2.0]]
+
+[c2.2.0]: https://github.com/json5/json5/tree/v2.2.0
+[d2.2.0]: https://github.com/json5/json5/compare/v2.1.3...v2.2.0
 
 - New: Accurate and documented TypeScript declarations are now included. There
   is no need to install `@types/json5`. ([#236], [#244])

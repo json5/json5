@@ -350,5 +350,8 @@ parser for the regular JSON format.
 [#196]: https://github.com/json5/json5/issues/196
 [#208]: https://github.com/json5/json5/issues/208
 [#210]: https://github.com/json5/json5/issues/210
+[#222]: https://github.com/json5/json5/issues/222
+[#228]: https://github.com/json5/json5/issues/228
+[#229]: https://github.com/json5/json5/issues/229
 [#236]: https://github.com/json5/json5/issues/236
 [#244]: https://github.com/json5/json5/issues/244

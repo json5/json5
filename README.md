@@ -75,7 +75,14 @@ specification](https://json5.github.io/json5-spec/).
 ## Installation
 ### Node.js
 ```sh
+# If using NPM
 npm install json5
+
+# If using Yarn
+yarn add json5
+
+# If using PNPM.
+pnpm add json5
 ```
 
 ```js
@@ -165,7 +172,14 @@ converting JSON5 to JSON and for validating the syntax of JSON5 documents.
 
 ### Installation
 ```sh
+# If using NPM
 npm install --global json5
+
+# If using Yarn
+yarn global add json5
+
+# If using PNPM
+pnpm add -g json5
 ```
 
 ### Usage

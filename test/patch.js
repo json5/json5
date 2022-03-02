@@ -56,4 +56,21 @@ describe('patch(text, object)', () => {
 
         assert.deepStrictEqual(patched.split('\n')[3], '// this is a comment')
     })
+
+    it('keeps a comment on array element', () => {
+        const obj = {a: 1, b: [1, 2, 3, 4], d: 5}
+        const patched = JSON5.patch(`
+{
+    a: 1,
+    b: [
+        1,
+        2, // this is a comment
+        3
+    ],
+    d: 4 }
+`, obj)
+
+        assert.deepStrictEqual(JSON5.parse(patched), obj)
+        assert.deepStrictEqual(patched.split('\n')[5], '        2, // this is a comment')
+    })
 })

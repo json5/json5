@@ -141,6 +141,17 @@ properties if a replacer array is specified.
   - `quote`: A String representing the quote character to use when serializing
     strings.
 
+### JSON5.patch()
+
+Receives a JSON5 string and the new JS object that it needs to reppresent, while preserving existing comments.
+
+#### Syntax
+    JSON5.patch(json5Text, jsObject)
+
+#### Parameters
+- `json5Text`: A string containing valid JSON5 content
+- `jsObject`: The object that needs to reflected by the returned JSON5 string
+
 #### Return value
 A JSON5 string representing the value.
 

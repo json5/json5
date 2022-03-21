@@ -1,9 +1,14 @@
 ### Unreleased [[code][c-unreleased], [diff][d-unreleased]]
 
-- Fix: Remove dependence on minimist to patch CVE-2021-44906. ([#266])
-
 [c-unreleased]: https://github.com/json5/json5/tree/master
 [d-unreleased]: https://github.com/json5/json5/compare/v2.2.0...HEAD
+
+### v2.2.1 [[code][c2.2.1], [diff][d2.2.1]]
+
+[c2.2.1]: https://github.com/json5/json5/tree/v2.2.1
+[d2.2.1]: https://github.com/json5/json5/compare/v2.2.0...v2.2.1
+
+- Fix: Removed dependence on minimist to patch CVE-2021-44906. ([#266])
 
 ### v2.2.0 [[code][c2.2.0], [diff][d2.2.0]]
 

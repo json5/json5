@@ -1,5 +1,7 @@
 ### Unreleased [[code][c-unreleased], [diff][d-unreleased]]
 
+- Fix: Remove dependence on minimist to patch CVE-2021-44906. ([#266])
+
 [c-unreleased]: https://github.com/json5/json5/tree/master
 [d-unreleased]: https://github.com/json5/json5/compare/v2.2.0...HEAD
 
@@ -360,3 +362,4 @@ parser for the regular JSON format.
 [#229]: https://github.com/json5/json5/issues/229
 [#236]: https://github.com/json5/json5/issues/236
 [#244]: https://github.com/json5/json5/issues/244
+[#266]: https://github.com/json5/json5/issues/266

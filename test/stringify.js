@@ -129,6 +129,14 @@ t.test('JSON5', t => {
     t.test('numbers', t => {
       t.strictSame(JSON5.stringify(-1.2), '-1.2', 'stringifies numbers')
 
+      t.throws(
+        () => {
+          JSON5.stringify(BigInt(1))
+        },
+        /BigInt/,
+        'throws on bigints',
+      )
+
       t.strictSame(
         JSON5.stringify([Infinity, -Infinity, NaN]),
         '[Infinity,-Infinity,NaN]',

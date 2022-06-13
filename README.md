@@ -1,6 +1,6 @@
 # JSON5 – JSON for Humans
 
-[![Build Status](https://travis-ci.com/json5/json5.svg)][Build Status]
+[![Build Status](https://api.travis-ci.com/json5/json5.svg?branch=master)][Build Status]
 [![Coverage
 Status](https://coveralls.io/repos/github/json5/json5/badge.svg)][Coverage
 Status]

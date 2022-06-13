@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/json5/json5.svg)][Build Status]
-[![Coverage
-Status](https://coveralls.io/repos/github/json5/json5/badge.svg)][Coverage
-Status]
+# JSON5 – JSON for Humans
+
+[![Build Status](https://github.com/json5/json5/actions/workflows/ci.yml/badge.svg)][Build Status]
+[![Coverage Status](https://coveralls.io/repos/github/json5/json5/badge.svg)][Coverage Status]
 
 The JSON5 Data Interchange Format (JSON5) is a superset of [JSON] that aims to
 alleviate some of the limitations of JSON by expanding its syntax to include
@@ -10,7 +10,7 @@ some productions from [ECMAScript 5.1].
 This JavaScript library is the official reference implementation for JSON5
 parsing and serialization libraries.
 
-[Build Status]: https://travis-ci.org/json5/json5
+[Build Status]: https://github.com/json5/json5/actions/workflows/ci.yml
 
 [Coverage Status]: https://coveralls.io/github/json5/json5
 
@@ -197,7 +197,7 @@ To report bugs or request features regarding the JSON5 data format, please
 submit an issue to the [official specification
 repository](https://github.com/json5/json5-spec).
 
-To report bugs or request features regarding the JavaScript implentation of
+To report bugs or request features regarding the JavaScript implementation of
 JSON5, please submit an issue to this repository.
 
 ## License
@@ -219,7 +219,7 @@ implementation of JSON5 was also modeled directly off of Doug’s open-source
 code.
 
 [json_parse.js]:
-https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js
+https://github.com/douglascrockford/JSON-js/blob/03157639c7a7cddd2e9f032537f346f1a87c0f6d/json_parse.js
 
 [Max Nanasy](https://github.com/MaxNanasy) has been an early and prolific
 supporter, contributing multiple patches and ideas.

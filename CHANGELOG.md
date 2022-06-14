@@ -1,6 +1,6 @@
 ### Unreleased [[code][c-unreleased], [diff][d-unreleased]]
 
-[c-unreleased]: https://github.com/json5/json5/tree/master
+[c-unreleased]: https://github.com/json5/json5/tree/main
 [d-unreleased]: https://github.com/json5/json5/compare/v2.2.0...HEAD
 
 ### v2.2.1 [[code][c2.2.1], [diff][d2.2.1]]

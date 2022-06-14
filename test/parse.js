@@ -227,6 +227,12 @@ t.test('parse(text)', t => {
             'parses escaped characters'
         )
 
+        t.equal(
+            JSON5.parse(`"😍"`),
+            '\ud83d\ude0d',
+            'parses double-length codepoints'
+        )
+
         t.test('parses line and paragraph separators with a warning', t => {
             const mock = sinon.mock(console)
             mock
@@ -271,8 +277,15 @@ t.test('parse(text)', t => {
     })
 
     t.test('whitespace', t => {
+
         t.strictSame(
             JSON5.parse('{\t\v\f \u00A0\uFEFF\n\r\u2028\u2029\u2003}'),
+            {},
+            'parses whitespace'
+        )
+
+        t.strictSame(
+            JSON5.parse('{\u0020\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000}'),
             {},
             'parses whitespace'
         )

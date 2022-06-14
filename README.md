@@ -1,7 +1,9 @@
 # JSON5 – JSON for Humans
 
-[![Build Status](https://github.com/json5/json5/actions/workflows/ci.yml/badge.svg)][Build Status]
-[![Coverage Status](https://coveralls.io/repos/github/json5/json5/badge.svg)][Coverage Status]
+[![Build Status](https://travis-ci.com/json5/json5.svg)][Build Status]
+[![Coverage
+Status](https://coveralls.io/repos/github/json5/json5/badge.svg)][Coverage
+Status]
 
 The JSON5 Data Interchange Format (JSON5) is a superset of [JSON] that aims to
 alleviate some of the limitations of JSON by expanding its syntax to include
@@ -10,7 +12,7 @@ some productions from [ECMAScript 5.1].
 This JavaScript library is the official reference implementation for JSON5
 parsing and serialization libraries.
 
-[Build Status]: https://github.com/json5/json5/actions/workflows/ci.yml
+[Build Status]: https://travis-ci.com/json5/json5
 
 [Coverage Status]: https://coveralls.io/github/json5/json5
 

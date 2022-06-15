@@ -277,7 +277,6 @@ t.test('parse(text)', t => {
     })
 
     t.test('whitespace', t => {
-
         t.strictSame(
             JSON5.parse('{\t\v\f \u00A0\uFEFF\n\r\u2028\u2029\u2003}'),
             {},

@@ -20,10 +20,12 @@
     "build-unicode": "node build/unicode.js",
     "coverage": "tap --coverage-report html test",
     "lint": "eslint --fix .",
+    "lint-report": "eslint .",
     "prepublishOnly": "npm run production",
     "preversion": "npm run production",
-    "production": "run-s lint test build",
-    "test": "tap -Rspec --100 test",
+    "production": "run-s test build",
+    "tap": "tap -Rspec --100 test",
+    "test": "run-s lint-report tap",
     "version": "npm run build-package && git add package.json5"
   },
   "repository": {

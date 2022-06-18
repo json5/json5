@@ -9,6 +9,7 @@ const base = {
     file: pkg.browser,
     format: 'umd',
     name: 'JSON5',
+    sourcemap: true,
   },
   plugins: [nodeResolve(), commonjs()],
 }

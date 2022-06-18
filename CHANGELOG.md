@@ -32,6 +32,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - A wider range of unquoted property names are supported due to upgrading from
   Unicode 10 to 14.
 - `package.json5` is included in the npm package.
+- The browser builds in `dist` include source maps. ([#284])
 
 ### Fixes
 
@@ -343,3 +344,4 @@ parser for the regular JSON format.
 [#236]: https://github.com/json5/json5/issues/236
 [#244]: https://github.com/json5/json5/issues/244
 [#266]: https://github.com/json5/json5/issues/266
+[#284]: https://github.com/json5/json5/issues/284

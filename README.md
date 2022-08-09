@@ -78,12 +78,12 @@ specification](https://json5.github.io/json5-spec/).
 npm install json5
 ```
 
-CJS:
+### CommonJS
 ```js
 const JSON5 = require('json5')
 ```
 
-ESM:
+### Modules
 ```js
 import JSON5 from 'json5'
 ```

@@ -90,7 +90,7 @@ import JSON5 from 'json5'
 
 ### Browsers
 ```html
-<script src="https://unpkg.com/json5@^2.0.0/dist/index.min.js"></script>
+<script src="https://unpkg.com/json5@2/dist/index.min.js"></script>
 ```
 
 This will create a global `JSON5` variable.

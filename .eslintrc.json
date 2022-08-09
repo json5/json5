@@ -2,7 +2,7 @@
     "root": true,
     "extends": [
         "standard",
-        "plugin:node/recommended"
+        "plugin:n/recommended"
     ],
     "rules": {
         "array-bracket-spacing": [

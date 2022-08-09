@@ -19,7 +19,7 @@ describe('JSON5', () => {
             })
 
             it('stringifies double quoted string property names', () => {
-                assert.strictEqual(JSON5.stringify({"a'": 1}), `{"a'":1}`)
+                assert.strictEqual(JSON5.stringify({"a'": 1}), '{"a\'":1}')
             })
 
             it('stringifies empty string property names', () => {
@@ -27,11 +27,12 @@ describe('JSON5', () => {
             })
 
             it('stringifies special character property names', () => {
+                // eslint-disable-next-line quote-props
                 assert.strictEqual(JSON5.stringify({$_: 1, _$: 2, 'a\u200C': 3}), '{$_:1,_$:2,a\u200C:3}')
             })
 
             it('stringifies unicode property names', () => {
-                assert.strictEqual(JSON5.stringify({'ùńîċõďë': 9}), '{ùńîċõďë:9}')
+                assert.strictEqual(JSON5.stringify({ùńîċõďë: 9}), '{ùńîċõďë:9}')
             })
 
             it('stringifies escaped property names', () => {
@@ -126,7 +127,7 @@ describe('JSON5', () => {
             })
 
             it('stringifies double quoted strings', () => {
-                assert.strictEqual(JSON5.stringify("abc'"), `"abc'"`)
+                assert.strictEqual(JSON5.stringify("abc'"), '"abc\'"')
             })
 
             it('stringifies escaped characters', () => {
@@ -138,11 +139,11 @@ describe('JSON5', () => {
             })
 
             it('stringifies escaped single quotes', () => {
-                assert.strictEqual(JSON5.stringify(`'"`), `'\\'"'`)
+                assert.strictEqual(JSON5.stringify('\'"'), '\'\\\'"\'')
             })
 
             it('stringifies escaped double quotes', () => {
-                assert.strictEqual(JSON5.stringify(`''"`), `"''\\""`)
+                assert.strictEqual(JSON5.stringify('\'\'"'), '"\'\'\\""')
             })
 
             it('stringifies escaped line and paragraph separators', () => {
@@ -193,13 +194,13 @@ describe('JSON5', () => {
         })
 
         it('throws on circular objects', () => {
-            let a = {}
+            const a = {}
             a.a = a
             assert.throws(() => { JSON5.stringify(a) }, TypeError, 'Converting circular structure to JSON5')
         })
 
         it('throws on circular arrays', () => {
-            let a = []
+            const a = []
             a[0] = a
             assert.throws(() => { JSON5.stringify(a) }, TypeError, 'Converting circular structure to JSON5')
         })
@@ -278,14 +279,14 @@ describe('JSON5', () => {
         it('replaces values when a function is provided', () => {
             assert.strictEqual(
                 JSON5.stringify({a: 1, b: 2}, (key, value) => (key === 'a') ? 2 : value),
-                '{a:2,b:2}'
+                '{a:2,b:2}',
             )
         })
 
         it('sets `this` to the parent value', () => {
             assert.strictEqual(
                 JSON5.stringify({a: {b: 1}}, function (k, v) { return (k === 'b' && this.b) ? 2 : v }),
-                '{a:{b:2}}'
+                '{a:{b:2}}',
             )
         })
 
@@ -294,7 +295,7 @@ describe('JSON5', () => {
             Object.assign(C.prototype, {toJSON () { return {a: 1, b: 2} }})
             assert.strictEqual(
                 JSON5.stringify(new C(), (key, value) => (key === 'a') ? 2 : value),
-                '{a:2,b:2}'
+                '{a:2,b:2}',
             )
         })
 
@@ -303,7 +304,7 @@ describe('JSON5', () => {
             Object.assign(C.prototype, {toJSON5 () { return {a: 1, b: 2} }})
             assert.strictEqual(
                 JSON5.stringify(new C(), (key, value) => (key === 'a') ? 2 : value),
-                '{a:2,b:2}'
+                '{a:2,b:2}',
             )
         })
 
@@ -313,7 +314,7 @@ describe('JSON5', () => {
                     JSON5.stringify({}, null, 4)
                     return value
                 }, 2),
-                '{\n  a: 1,\n}'
+                '{\n  a: 1,\n}',
             )
         })
     })

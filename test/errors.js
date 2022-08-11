@@ -1,444 +1,377 @@
-const assert = require('assert')
 const JSON5 = require('../lib')
 
-require('tap').mochaGlobals()
+const t = require('tap')
 
-describe('JSON5', () => {
-    describe('#parse()', () => {
-        describe('errors', () => {
-            it('throws on empty documents', () => {
-                assert.throws(() => {
-                    JSON5.parse('')
+t.test('JSON5', t => {
+    t.test('#parse()', t => {
+        t.test('errors', t => {
+            t.throws(
+                () => { JSON5.parse('') },
+                {
+                    message: /^JSON5: invalid end of input/,
+                    lineNumber: 1,
+                    columnNumber: 1,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid end of input/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 1
-                ))
-            })
+                'throws on empty documents'
+            )
 
-            it('throws on documents with only comments', () => {
-                assert.throws(() => {
-                    JSON5.parse('//a')
+            t.throws(
+                () => { JSON5.parse('//a') },
+                {
+                    message: /^JSON5: invalid end of input/,
+                    lineNumber: 1,
+                    columnNumber: 4,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid end of input/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 4
-                ))
-            })
+                'throws on documents with only comments'
+            )
 
-            it('throws on incomplete single line comments', () => {
-                assert.throws(() => {
-                    JSON5.parse('/a')
+            t.throws(
+                () => { JSON5.parse('/a') },
+                {
+                    message: /^JSON5: invalid character 'a'/,
+                    lineNumber: 1,
+                    columnNumber: 2,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character 'a'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 2
-                ))
-            })
+                'throws on incomplete single line comments'
+            )
 
-            it('throws on unterminated multiline comments', () => {
-                assert.throws(() => {
-                    JSON5.parse('/*')
+            t.throws(
+                () => { JSON5.parse('/*') },
+                {
+                    message: /^JSON5: invalid end of input/,
+                    lineNumber: 1,
+                    columnNumber: 3,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid end of input/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 3
-                ))
-            })
+                'throws on unterminated multiline comments'
+            )
 
-            it('throws on unterminated multiline comment closings', () => {
-                assert.throws(() => {
-                    JSON5.parse('/**')
+            t.throws(
+                () => { JSON5.parse('/**') },
+                {
+                    message: /^JSON5: invalid end of input/,
+                    lineNumber: 1,
+                    columnNumber: 4,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid end of input/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 4
-                ))
-            })
+                'throws on unterminated multiline comment closings'
+            )
 
-            it('throws on invalid characters in values', () => {
-                assert.throws(() => {
-                    JSON5.parse('a')
+            t.throws(
+                () => { JSON5.parse('a') },
+                {
+                    message: /^JSON5: invalid character 'a'/,
+                    lineNumber: 1,
+                    columnNumber: 1,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character 'a'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 1
-                ))
-            })
+                'throws on invalid characters in values'
+            )
 
-            it('throws on invalid characters in identifier start escapes', () => {
-                assert.throws(() => {
-                    JSON5.parse('{\\a:1}')
+            t.throws(
+                () => { JSON5.parse('{\\a:1}') },
+                {
+                    message: /^JSON5: invalid character 'a'/,
+                    lineNumber: 1,
+                    columnNumber: 3,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character 'a'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 3
-                ))
-            })
+                'throws on invalid characters in identifier start escapes'
+            )
 
-            it('throws on invalid identifier start characters', () => {
-                assert.throws(() => {
-                    JSON5.parse('{\\u0021:1}')
+            t.throws(
+                () => { JSON5.parse('{\\u0021:1}') },
+                {
+                    message: /^JSON5: invalid identifier character/,
+                    lineNumber: 1,
+                    columnNumber: 2,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid identifier character/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 2
-                ))
-            })
+                'throws on invalid identifier start characters'
+            )
 
-            it('throws on invalid characters in identifier continue escapes', () => {
-                assert.throws(() => {
-                    JSON5.parse('{a\\a:1}')
+            t.throws(
+                () => { JSON5.parse('{a\\a:1}') },
+                {
+                    message: /^JSON5: invalid character 'a'/,
+                    lineNumber: 1,
+                    columnNumber: 4,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character 'a'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 4
-                ))
-            })
+                'throws on invalid characters in identifier continue escapes'
+            )
 
-            it('throws on invalid identifier continue characters', () => {
-                assert.throws(() => {
-                    JSON5.parse('{a\\u0021:1}')
+            t.throws(
+                () => { JSON5.parse('{a\\u0021:1}') },
+                {
+                    message: /^JSON5: invalid identifier character/,
+                    lineNumber: 1,
+                    columnNumber: 3,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid identifier character/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 3
-                ))
-            })
+                'throws on invalid identifier continue characters'
+            )
 
-            it('throws on invalid characters following a sign', () => {
-                assert.throws(() => {
-                    JSON5.parse('-a')
+            t.throws(
+                () => { JSON5.parse('-a') },
+                {
+                    message: /^JSON5: invalid character 'a'/,
+                    lineNumber: 1,
+                    columnNumber: 2,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character 'a'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 2
-                ))
-            })
+                'throws on invalid characters following a sign'
+            )
 
-            it('throws on invalid characters following a leading decimal point', () => {
-                assert.throws(() => {
-                    JSON5.parse('.a')
+            t.throws(
+                () => { JSON5.parse('.a') },
+                {
+                    message: /^JSON5: invalid character 'a'/,
+                    lineNumber: 1,
+                    columnNumber: 2,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character 'a'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 2
-                ))
-            })
+                'throws on invalid characters following a leading decimal point'
+            )
 
-            it('throws on invalid characters following an exponent indicator', () => {
-                assert.throws(() => {
-                    JSON5.parse('1ea')
+            t.throws(
+                () => { JSON5.parse('1ea') },
+                {
+                    message: /^JSON5: invalid character 'a'/,
+                    lineNumber: 1,
+                    columnNumber: 3,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character 'a'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 3
-                ))
-            })
+                'throws on invalid characters following an exponent indicator'
+            )
 
-            it('throws on invalid characters following an exponent sign', () => {
-                assert.throws(() => {
-                    JSON5.parse('1e-a')
+            t.throws(
+                () => { JSON5.parse('1e-a') },
+                {
+                    message: /^JSON5: invalid character 'a'/,
+                    lineNumber: 1,
+                    columnNumber: 4,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character 'a'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 4
-                ))
-            })
+                'throws on invalid characters following an exponent sign'
+            )
 
-            it('throws on invalid characters following a hexadecimal indicator', () => {
-                assert.throws(() => {
-                    JSON5.parse('0xg')
+            t.throws(
+                () => { JSON5.parse('0xg') },
+                {
+                    message: /^JSON5: invalid character 'g'/,
+                    lineNumber: 1,
+                    columnNumber: 3,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character 'g'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 3
-                ))
-            })
+                'throws on invalid characters following a hexadecimal indicator'
+            )
 
-            it('throws on invalid new lines in strings', () => {
-                assert.throws(() => {
-                    JSON5.parse('"\n"')
+            t.throws(
+                () => { JSON5.parse('"\n"') },
+                {
+                    message: /^JSON5: invalid character '\\n'/,
+                    lineNumber: 2,
+                    columnNumber: 0,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character '\\n'/.test(err.message) &&
-                    err.lineNumber === 2 &&
-                    err.columnNumber === 0
-                ))
-            })
+                'throws on invalid new lines in strings'
+            )
 
-            it('throws on unterminated strings', () => {
-                assert.throws(() => {
-                    JSON5.parse('"')
+            t.throws(
+                () => { JSON5.parse('"') },
+                {
+                    message: /^JSON5: invalid end of input/,
+                    lineNumber: 1,
+                    columnNumber: 2,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid end of input/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 2
-                ))
-            })
+                'throws on unterminated strings'
+            )
 
-            it('throws on invalid identifier start characters in property names', () => {
-                assert.throws(() => {
-                    JSON5.parse('{!:1}')
+            t.throws(
+                () => { JSON5.parse('{!:1}') },
+                {
+                    message: /^JSON5: invalid character '!'/,
+                    lineNumber: 1,
+                    columnNumber: 2,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character '!'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 2
-                ))
-            })
+                'throws on invalid identifier start characters in property names'
+            )
 
-            it('throws on invalid characters following a property name', () => {
-                assert.throws(() => {
-                    JSON5.parse('{a!1}')
+            t.throws(
+                () => { JSON5.parse('{a!1}') },
+                {
+                    message: /^JSON5: invalid character '!'/,
+                    lineNumber: 1,
+                    columnNumber: 3,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character '!'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 3
-                ))
-            })
+                'throws on invalid characters following a property name'
+            )
 
-            it('throws on invalid characters following a property value', () => {
-                assert.throws(() => {
-                    JSON5.parse('{a:1!}')
+            t.throws(
+                () => { JSON5.parse('{a:1!}') },
+                {
+                    message: /^JSON5: invalid character '!'/,
+                    lineNumber: 1,
+                    columnNumber: 5,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character '!'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 5
-                ))
-            })
+                'throws on invalid characters following a property value'
+            )
 
-            it('throws on invalid characters following an array value', () => {
-                assert.throws(() => {
-                    JSON5.parse('[1!]')
+            t.throws(
+                () => { JSON5.parse('[1!]') },
+                {
+                    message: /^JSON5: invalid character '!'/,
+                    lineNumber: 1,
+                    columnNumber: 3,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character '!'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 3
-                ))
-            })
+                'throws on invalid characters following an array value'
+            )
 
-            it('throws on invalid characters in literals', () => {
-                assert.throws(() => {
-                    JSON5.parse('tru!')
+            t.throws(
+                () => { JSON5.parse('tru!') },
+                {
+                    message: /^JSON5: invalid character '!'/,
+                    lineNumber: 1,
+                    columnNumber: 4,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character '!'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 4
-                ))
-            })
+                'throws on invalid characters in literals'
+            )
 
-            it('throws on unterminated escapes', () => {
-                assert.throws(() => {
-                    JSON5.parse('"\\')
+            t.throws(
+                () => { JSON5.parse('"\\') },
+                {
+                    message: /^JSON5: invalid end of input/,
+                    lineNumber: 1,
+                    columnNumber: 3,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid end of input/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 3
-                ))
-            })
+                'throws on unterminated escapes'
+            )
 
-            it('throws on invalid first digits in hexadecimal escapes', () => {
-                assert.throws(() => {
-                    JSON5.parse('"\\xg"')
+            t.throws(
+                () => { JSON5.parse('"\\xg"') },
+                {
+                    message: /^JSON5: invalid character 'g'/,
+                    lineNumber: 1,
+                    columnNumber: 4,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character 'g'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 4
-                ))
-            })
+                'throws on invalid first digits in hexadecimal escapes'
+            )
 
-            it('throws on invalid second digits in hexadecimal escapes', () => {
-                assert.throws(() => {
-                    JSON5.parse('"\\x0g"')
+            t.throws(
+                () => { JSON5.parse('"\\x0g"') },
+                {
+                    message: /^JSON5: invalid character 'g'/,
+                    lineNumber: 1,
+                    columnNumber: 5,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character 'g'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 5
-                ))
-            })
+                'throws on invalid second digits in hexadecimal escapes'
+            )
 
-            it('throws on invalid unicode escapes', () => {
-                assert.throws(() => {
-                    JSON5.parse('"\\u000g"')
+            t.throws(
+                () => { JSON5.parse('"\\u000g"') },
+                {
+                    message: /^JSON5: invalid character 'g'/,
+                    lineNumber: 1,
+                    columnNumber: 7,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character 'g'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 7
-                ))
-            })
+                'throws on invalid unicode escapes'
+            )
 
-            it('throws on escaped digits other than 0', () => {
-                for (let i = 1; i <= 9; i++) {
-                    assert.throws(() => {
-                        JSON5.parse(`'\\${i}'`)
+            for (let i = 1; i <= 9; i++) {
+                t.throws(
+                    () => { JSON5.parse(`'\\${i}'`) },
+                    {
+                        message: /^JSON5: invalid character '\d'/,
+                        lineNumber: 1,
+                        columnNumber: 3,
                     },
-                    err => (
-                        err instanceof SyntaxError &&
-                        /^JSON5: invalid character '\d'/.test(err.message) &&
-                        err.lineNumber === 1 &&
-                        err.columnNumber === 3
-                    ))
-                }
-            })
+                    `throws on escaped digit ${i}`
+                )
+            }
 
-            it('throws on octal escapes', () => {
-                assert.throws(() => {
-                    JSON5.parse("'\\01'")
+            t.throws(
+                () => { JSON5.parse("'\\01'") },
+                {
+                    message: /^JSON5: invalid character '1'/,
+                    lineNumber: 1,
+                    columnNumber: 4,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character '1'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 4
-                ))
-            })
+                'throws on octal escapes'
+            )
 
-            it('throws on multiple values', () => {
-                assert.throws(() => {
-                    JSON5.parse('1 2')
+            t.throws(
+                () => { JSON5.parse('1 2') },
+                {
+                    message: /^JSON5: invalid character '2'/,
+                    lineNumber: 1,
+                    columnNumber: 3,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character '2'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 3
-                ))
-            })
+                'throws on multiple values'
+            )
 
-            it('throws with control characters escaped in the message', () => {
-                assert.throws(() => {
-                    JSON5.parse('\x01')
+            t.throws(
+                () => { JSON5.parse('\x01') },
+                {
+                    message: /^JSON5: invalid character '\\x01'/,
+                    lineNumber: 1,
+                    columnNumber: 1,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid character '\\x01'/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 1
-                ))
-            })
+                'throws with control characters escaped in the message'
+            )
 
-            it('throws on unclosed objects before property names', () => {
-                assert.throws(() => {
-                    JSON5.parse('{')
+            t.throws(
+                () => { JSON5.parse('{') },
+                {
+                    message: /^JSON5: invalid end of input/,
+                    lineNumber: 1,
+                    columnNumber: 2,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid end of input/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 2
-                ))
-            })
+                'throws on unclosed objects before property names'
+            )
 
-            it('throws on unclosed objects after property names', () => {
-                assert.throws(() => {
-                    JSON5.parse('{a')
+            t.throws(
+                () => { JSON5.parse('{a') },
+                {
+                    message: /^JSON5: invalid end of input/,
+                    lineNumber: 1,
+                    columnNumber: 3,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid end of input/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 3
-                ))
-            })
+                'throws on unclosed objects after property names'
+            )
 
-            it('throws on unclosed objects before property values', () => {
-                assert.throws(() => {
-                    JSON5.parse('{a:')
+            t.throws(
+                () => { JSON5.parse('{a:') },
+                {
+                    message: /^JSON5: invalid end of input/,
+                    lineNumber: 1,
+                    columnNumber: 4,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid end of input/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 4
-                ))
-            })
+                'throws on unclosed objects before property values'
+            )
 
-            it('throws on unclosed objects after property values', () => {
-                assert.throws(() => {
-                    JSON5.parse('{a:1')
+            t.throws(
+                () => { JSON5.parse('{a:1') },
+                {
+                    message: /^JSON5: invalid end of input/,
+                    lineNumber: 1,
+                    columnNumber: 5,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid end of input/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 5
-                ))
-            })
+                'throws on unclosed objects after property values'
+            )
 
-            it('throws on unclosed arrays before values', () => {
-                assert.throws(() => {
-                    JSON5.parse('[')
+            t.throws(
+                () => { JSON5.parse('[') },
+                {
+                    message: /^JSON5: invalid end of input/,
+                    lineNumber: 1,
+                    columnNumber: 2,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid end of input/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 2
-                ))
-            })
+                'throws on unclosed arrays before values'
+            )
 
-            it('throws on unclosed arrays after values', () => {
-                assert.throws(() => {
-                    JSON5.parse('[1')
+            t.throws(
+                () => { JSON5.parse('[1') },
+                {
+                    message: /^JSON5: invalid end of input/,
+                    lineNumber: 1,
+                    columnNumber: 3,
                 },
-                err => (
-                    err instanceof SyntaxError &&
-                    /^JSON5: invalid end of input/.test(err.message) &&
-                    err.lineNumber === 1 &&
-                    err.columnNumber === 3
-                ))
-            })
+                'throws on unclosed arrays after values'
+            )
+
+            t.end()
         })
+
+        t.end()
     })
+
+    t.end()
 })

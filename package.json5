@@ -17,7 +17,9 @@
     node: '>=6',
   },
   scripts: {
-    build: 'rollup -c',
+    build: 'run-s build-clean build-bundles',
+    'build-bundles': 'rollup -c',
+    'build-clean': 'rimraf dist/*',
     'build-package': 'node build/package.js',
     'build-unicode': 'node build/unicode.js',
     coverage: 'tap --coverage-report html test',
@@ -62,6 +64,7 @@
     'eslint-plugin-standard': '^4.0.0',
     'npm-run-all': '^4.1.5',
     regenerate: '^1.4.0',
+    rimraf: '^3.0.2',
     rollup: '^0.64.1',
     'rollup-plugin-buble': '^0.19.6',
     'rollup-plugin-commonjs': '^9.2.1',

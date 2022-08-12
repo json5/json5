@@ -1,6 +1,6 @@
 const assert = require('assert')
 const sinon = require('sinon')
-const JSON5 = require('../lib')
+const JSON5 = require('..')
 
 require('tap').mochaGlobals()
 

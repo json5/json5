@@ -1,2 +1,3 @@
-coverage/
-dist/
+/coverage
+/dist
+/lib/unicode.js

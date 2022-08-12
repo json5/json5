@@ -3,6 +3,14 @@
 [c-unreleased]: https://github.com/json5/json5/tree/main
 [d-unreleased]: https://github.com/json5/json5/compare/v2.2.1...HEAD
 
+- New: `parse` and `stringify` can now be imported as named exports when using
+  JavaScript modules. ([#243])
+- New: Browser bundles use more descriptive names (e.g. `dist/json5.umd.js` and
+  `dist/json5.esm.js`). Legacy `dist/index.*` names are deprecated, and will be
+  removed in the next major version. ([#243])
+- Fix: CommonJS and module exports in Node.js refer to the same instance.
+  ([#243])
+
 ### v2.2.1 [[code][c2.2.1], [diff][d2.2.1]]
 
 [c2.2.1]: https://github.com/json5/json5/tree/v2.2.1
@@ -366,5 +374,6 @@ parser for the regular JSON format.
 [#228]: https://github.com/json5/json5/issues/228
 [#229]: https://github.com/json5/json5/issues/229
 [#236]: https://github.com/json5/json5/issues/236
+[#243]: https://github.com/json5/json5/issues/243
 [#244]: https://github.com/json5/json5/issues/244
 [#266]: https://github.com/json5/json5/issues/266

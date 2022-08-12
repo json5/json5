@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const JSON5 = require('../lib')
+const JSON5 = require('../lib/index.js')
 
 const pkg = require('../package.json')
 

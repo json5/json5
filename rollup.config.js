@@ -8,11 +8,19 @@ module.exports = [
     // ES5 Non-minified
     {
         input: 'build/es5.js',
-        output: {
-            file: pkg.browser,
-            format: 'umd',
-            name: 'JSON5',
-        },
+        output: [
+            {
+                file: pkg.browser,
+                format: 'umd',
+                name: 'JSON5',
+            },
+            {
+                // Legacy path
+                file: 'dist/index.js',
+                format: 'umd',
+                name: 'JSON5',
+            },
+        ],
         plugins: [
             resolve(),
             commonjs(),
@@ -22,11 +30,19 @@ module.exports = [
     // ES5 Minified
     {
         input: 'build/es5.js',
-        output: {
-            file: pkg.browser.replace(/\.js$/, '.min.js'),
-            format: 'umd',
-            name: 'JSON5',
-        },
+        output: [
+            {
+                file: pkg.browser.replace(/\.js$/, '.min.js'),
+                format: 'umd',
+                name: 'JSON5',
+            },
+            {
+                // Legacy path
+                file: 'dist/index.min.js',
+                format: 'umd',
+                name: 'JSON5',
+            },
+        ],
         plugins: [
             resolve(),
             commonjs(),
@@ -36,11 +52,18 @@ module.exports = [
     },
     // ES6 Modules Non-minified
     {
-        input: 'lib/index.js',
-        output: {
-            file: pkg.browser.replace(/\.js$/, '.mjs'),
-            format: 'esm',
-        },
+        input: 'lib/index.mjs',
+        output: [
+            {
+                file: pkg.browser.replace(/\.umd\.js$/, '.esm.js'),
+                format: 'esm',
+            },
+            {
+                // Legacy path
+                file: 'dist/index.mjs',
+                format: 'esm',
+            },
+        ],
         plugins: [
             resolve(),
             commonjs(),
@@ -48,11 +71,18 @@ module.exports = [
     },
     // ES6 Modules Minified
     {
-        input: 'lib/index.js',
-        output: {
-            file: pkg.browser.replace(/\.js$/, '.min.mjs'),
-            format: 'esm',
-        },
+        input: 'lib/index.mjs',
+        output: [
+            {
+                file: pkg.browser.replace(/\.umd\.js$/, '.esm.min.mjs'),
+                format: 'esm',
+            },
+            {
+                // Legacy path
+                file: 'dist/index.min.mjs',
+                format: 'esm',
+            },
+        ],
         plugins: [
             resolve(),
             commonjs(),

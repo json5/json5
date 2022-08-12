@@ -78,22 +78,29 @@ specification](https://json5.github.io/json5-spec/).
 npm install json5
 ```
 
-### CommonJS
+#### CommonJS
 ```js
 const JSON5 = require('json5')
 ```
 
-### Modules
+#### Modules
 ```js
 import JSON5 from 'json5'
 ```
 
 ### Browsers
+#### UMD
 ```html
+<!-- This will create a global `JSON5` variable. -->
 <script src="https://unpkg.com/json5@2/dist/index.min.js"></script>
 ```
 
-This will create a global `JSON5` variable.
+#### Modules
+```html
+<script type="module">
+  import JSON5 from 'https://unpkg.com/json5@2/dist/index.min.mjs'
+</script>
+```
 
 ## API
 The JSON5 API is compatible with the [JSON API].

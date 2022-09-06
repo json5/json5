@@ -219,7 +219,7 @@ JSON5, please submit an issue to this repository.
 MIT. See [LICENSE.md](./LICENSE.md) for details.
 
 ## Credits
-[Assem Kishore](https://github.com/aseemk) founded this project.
+[Aseem Kishore](https://github.com/aseemk) founded this project.
 
 [Michael Bolin](http://bolinfest.com/) independently arrived at and published
 some of these same ideas with awesome explanations and detail. Recommended

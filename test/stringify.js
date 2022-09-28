@@ -9,67 +9,67 @@ t.test('JSON5', t => {
             t.strictSame(
                 JSON5.stringify({}),
                 '{}',
-                'stringifies empty objects'
+                'stringifies empty objects',
             )
 
             t.strictSame(
                 JSON5.stringify({a: 1}),
                 '{a:1}',
-                'stringifies unquoted property names'
+                'stringifies unquoted property names',
             )
 
             t.strictSame(
                 JSON5.stringify({'a-b': 1}),
                 "{'a-b':1}",
-                'stringifies single quoted string property names'
+                'stringifies single quoted string property names',
             )
 
             t.strictSame(
                 JSON5.stringify({"a'": 1}),
-                `{"a'":1}`,
-                'stringifies double quoted string property names'
+                '{"a\'":1}',
+                'stringifies double quoted string property names',
             )
 
             t.strictSame(
                 JSON5.stringify({'': 1}),
                 "{'':1}",
-                'stringifies empty string property names'
+                'stringifies empty string property names',
             )
 
             t.strictSame(
-                JSON5.stringify({$_: 1, _$: 2, 'a\u200C': 3}),
+                JSON5.stringify({$_: 1, _$: 2, a‌: 3}),
                 '{$_:1,_$:2,a\u200C:3}',
-                'stringifies special character property names'
+                'stringifies special character property names',
             )
 
             t.strictSame(
-                JSON5.stringify({'ùńîċõďë': 9}),
+                JSON5.stringify({ùńîċõďë: 9}),
                 '{ùńîċõďë:9}',
-                'stringifies unicode property names'
+                'stringifies unicode property names',
             )
 
             t.strictSame(
                 JSON5.stringify({'\\\b\f\n\r\t\v\0\x01': 1}),
                 "{'\\\\\\b\\f\\n\\r\\t\\v\\0\\x01':1}",
-                'stringifies escaped property names'
+                'stringifies escaped property names',
             )
 
             t.strictSame(
                 JSON5.stringify({'\0\x001': 1}),
                 "{'\\0\\x001':1}",
-                'stringifies escaped null character property names'
+                'stringifies escaped null character property names',
             )
 
             t.strictSame(
                 JSON5.stringify({abc: 1, def: 2}),
                 '{abc:1,def:2}',
-                'stringifies multiple properties'
+                'stringifies multiple properties',
             )
 
             t.strictSame(
                 JSON5.stringify({a: {b: 2}}),
                 '{a:{b:2}}',
-                'stringifies nested objects'
+                'stringifies nested objects',
             )
 
             t.end()
@@ -79,25 +79,25 @@ t.test('JSON5', t => {
             t.strictSame(
                 JSON5.stringify([]),
                 '[]',
-                'stringifies empty arrays'
+                'stringifies empty arrays',
             )
 
             t.strictSame(
                 JSON5.stringify([1]),
                 '[1]',
-                'stringifies array values'
+                'stringifies array values',
             )
 
             t.strictSame(
                 JSON5.stringify([1, 2]),
                 '[1,2]',
-                'stringifies multiple array values'
+                'stringifies multiple array values',
             )
 
             t.strictSame(
                 JSON5.stringify([1, [2, 3]]),
                 '[1,[2,3]]',
-                'stringifies nested arrays'
+                'stringifies nested arrays',
             )
 
             t.end()
@@ -106,52 +106,52 @@ t.test('JSON5', t => {
         t.strictSame(
             JSON5.stringify(null),
             'null',
-            'stringifies nulls'
+            'stringifies nulls',
         )
 
         t.strictSame(
             JSON5.stringify(() => {}),
             undefined,
-            'returns undefined for functions'
+            'returns undefined for functions',
         )
 
         t.strictSame(
             JSON5.stringify({a () {}}),
             '{}',
-            'ignores function properties'
+            'ignores function properties',
         )
 
         t.strictSame(
             JSON5.stringify([() => {}]),
             '[null]',
-            'returns null for functions in arrays'
+            'returns null for functions in arrays',
         )
 
         t.test('Booleans', t => {
             t.strictSame(
                 JSON5.stringify(true),
                 'true',
-                'stringifies true'
+                'stringifies true',
             )
 
             t.strictSame(
                 JSON5.stringify(false),
                 'false',
-                'stringifies false'
+                'stringifies false',
             )
 
             t.strictSame(
                 // eslint-disable-next-line no-new-wrappers
                 JSON5.stringify(new Boolean(true)),
                 'true',
-                'stringifies true Boolean objects'
+                'stringifies true Boolean objects',
             )
 
             t.strictSame(
                 // eslint-disable-next-line no-new-wrappers
                 JSON5.stringify(new Boolean(false)),
                 'false',
-                'stringifies false Boolean objects'
+                'stringifies false Boolean objects',
             )
 
             t.end()
@@ -161,20 +161,20 @@ t.test('JSON5', t => {
             t.strictSame(
                 JSON5.stringify(-1.2),
                 '-1.2',
-                'stringifies numbers'
+                'stringifies numbers',
             )
 
             t.strictSame(
                 JSON5.stringify([Infinity, -Infinity, NaN]),
                 '[Infinity,-Infinity,NaN]',
-                'stringifies non-finite numbers'
+                'stringifies non-finite numbers',
             )
 
             t.strictSame(
                 // eslint-disable-next-line no-new-wrappers
                 JSON5.stringify(new Number(-1.2)),
                 '-1.2',
-                'stringifies Number objects'
+                'stringifies Number objects',
             )
 
             t.end()
@@ -184,50 +184,50 @@ t.test('JSON5', t => {
             t.strictSame(
                 JSON5.stringify('abc'),
                 "'abc'",
-                'stringifies single quoted strings'
+                'stringifies single quoted strings',
             )
 
             t.strictSame(
                 JSON5.stringify("abc'"),
-                `"abc'"`,
-                'stringifies double quoted strings'
+                '"abc\'"',
+                'stringifies double quoted strings',
             )
 
             t.strictSame(
                 JSON5.stringify('\\\b\f\n\r\t\v\0\x0f'),
                 "'\\\\\\b\\f\\n\\r\\t\\v\\0\\x0f'",
-                'stringifies escaped characters'
+                'stringifies escaped characters',
             )
 
             t.strictSame(
                 JSON5.stringify('\0\x001'),
                 "'\\0\\x001'",
-                'stringifies escaped null characters'
+                'stringifies escaped null characters',
             )
 
             t.strictSame(
-                JSON5.stringify(`'"`),
-                `'\\'"'`,
-                'stringifies escaped single quotes'
+                JSON5.stringify('\'"'),
+                '\'\\\'"\'',
+                'stringifies escaped single quotes',
             )
 
             t.strictSame(
-                JSON5.stringify(`''"`),
-                `"''\\""`,
-                'stringifies escaped double quotes'
+                JSON5.stringify('\'\'"'),
+                '"\'\'\\""',
+                'stringifies escaped double quotes',
             )
 
             t.strictSame(
                 JSON5.stringify('\u2028\u2029'),
                 "'\\u2028\\u2029'",
-                'stringifies escaped line and paragraph separators'
+                'stringifies escaped line and paragraph separators',
             )
 
             t.strictSame(
                 // eslint-disable-next-line no-new-wrappers
                 JSON5.stringify(new String('abc')),
                 "'abc'",
-                'stringifies String objects'
+                'stringifies String objects',
             )
 
             t.end()
@@ -236,7 +236,7 @@ t.test('JSON5', t => {
         t.strictSame(
             JSON5.stringify(new Date('2016-01-01T00:00:00.000Z')),
             "'2016-01-01T00:00:00.000Z'",
-            'stringifies using built-in toJSON methods'
+            'stringifies using built-in toJSON methods',
         )
 
         t.test('stringifies using user defined toJSON methods', t => {
@@ -278,14 +278,14 @@ t.test('JSON5', t => {
         })
 
         t.test('throws on circular objects', t => {
-            let a = {}
+            const a = {}
             a.a = a
             assert.throws(() => { JSON5.stringify(a) }, TypeError, 'Converting circular structure to JSON5')
             t.end()
         })
 
         t.test('throws on circular arrays', t => {
-            let a = []
+            const a = []
             a[0] = a
             assert.throws(() => { JSON5.stringify(a) }, TypeError, 'Converting circular structure to JSON5')
             t.end()
@@ -298,81 +298,81 @@ t.test('JSON5', t => {
         t.strictSame(
             JSON5.stringify([1]),
             '[1]',
-            'does not indent when no value is provided'
+            'does not indent when no value is provided',
         )
 
         t.strictSame(
             JSON5.stringify([1], null, 0),
             '[1]',
-            'does not indent when 0 is provided'
+            'does not indent when 0 is provided',
         )
 
         t.strictSame(
             JSON5.stringify([1], null, ''),
             '[1]',
-            'does not indent when an empty string is provided'
+            'does not indent when an empty string is provided',
         )
 
         t.strictSame(
             JSON5.stringify([1], null, 2),
             '[\n  1,\n]',
-            'indents n spaces when a number is provided'
+            'indents n spaces when a number is provided',
         )
 
         t.strictSame(
             JSON5.stringify([1], null, 11),
             '[\n          1,\n]',
-            'does not indent more than 10 spaces when a number is provided'
+            'does not indent more than 10 spaces when a number is provided',
         )
 
         t.strictSame(
             JSON5.stringify([1], null, '\t'),
             '[\n\t1,\n]',
-            'indents with the string provided'
+            'indents with the string provided',
         )
 
         t.strictSame(
             JSON5.stringify([1], null, '           '),
             '[\n          1,\n]',
-            'does not indent more than 10 characters of the string provided'
+            'does not indent more than 10 characters of the string provided',
         )
 
         t.strictSame(
             JSON5.stringify([1], null, 2),
             '[\n  1,\n]',
-            'indents in arrays'
+            'indents in arrays',
         )
 
         t.strictSame(
             JSON5.stringify([1, [2], 3], null, 2),
             '[\n  1,\n  [\n    2,\n  ],\n  3,\n]',
-            'indents in nested arrays'
+            'indents in nested arrays',
         )
 
         t.strictSame(
             JSON5.stringify({a: 1}, null, 2),
             '{\n  a: 1,\n}',
-            'indents in objects'
+            'indents in objects',
         )
 
         t.strictSame(
             JSON5.stringify({a: {b: 2}}, null, 2),
             '{\n  a: {\n    b: 2,\n  },\n}',
-            'indents in nested objects'
+            'indents in nested objects',
         )
 
         t.strictSame(
             // eslint-disable-next-line no-new-wrappers
             JSON5.stringify([1], null, new Number(2)),
             '[\n  1,\n]',
-            'accepts Number objects'
+            'accepts Number objects',
         )
 
         t.strictSame(
             // eslint-disable-next-line no-new-wrappers
             JSON5.stringify([1], null, new String('\t')),
             '[\n\t1,\n]',
-            'accepts String objects'
+            'accepts String objects',
         )
 
         t.end()
@@ -382,32 +382,32 @@ t.test('JSON5', t => {
         t.strictSame(
             JSON5.stringify({a: 1, b: 2, 3: 3}, ['a', 3]),
             "{a:1,'3':3}",
-            'filters keys when an array is provided'
+            'filters keys when an array is provided',
         )
 
         t.strictSame(
             JSON5.stringify({a: 1, b: 2, 3: 3, false: 4}, ['a', 3, false]),
             "{a:1,'3':3}",
-            'only filters string and number keys when an array is provided'
+            'only filters string and number keys when an array is provided',
         )
 
         t.strictSame(
             // eslint-disable-next-line no-new-wrappers
             JSON5.stringify({a: 1, b: 2, 3: 3}, [new String('a'), new Number(3)]),
             "{a:1,'3':3}",
-            'accepts String and Number objects when an array is provided'
+            'accepts String and Number objects when an array is provided',
         )
 
         t.strictSame(
             JSON5.stringify({a: 1, b: 2}, (key, value) => (key === 'a') ? 2 : value),
             '{a:2,b:2}',
-            'replaces values when a function is provided'
+            'replaces values when a function is provided',
         )
 
         t.strictSame(
             JSON5.stringify({a: {b: 1}}, function (k, v) { return (k === 'b' && this.b) ? 2 : v }),
             '{a:{b:2}}',
-            'sets `this` to the parent value'
+            'sets `this` to the parent value',
         )
 
         t.test('is called after toJSON', t => {
@@ -415,7 +415,7 @@ t.test('JSON5', t => {
             Object.assign(C.prototype, {toJSON () { return {a: 1, b: 2} }})
             assert.strictEqual(
                 JSON5.stringify(new C(), (key, value) => (key === 'a') ? 2 : value),
-                '{a:2,b:2}'
+                '{a:2,b:2}',
             )
             t.end()
         })
@@ -425,7 +425,7 @@ t.test('JSON5', t => {
             Object.assign(C.prototype, {toJSON5 () { return {a: 1, b: 2} }})
             assert.strictEqual(
                 JSON5.stringify(new C(), (key, value) => (key === 'a') ? 2 : value),
-                '{a:2,b:2}'
+                '{a:2,b:2}',
             )
             t.end()
         })
@@ -437,10 +437,10 @@ t.test('JSON5', t => {
                     JSON5.stringify({}, null, 4)
                     return value
                 },
-                2
+                2,
             ),
             '{\n  a: 1,\n}',
-            'does not affect space when calls are nested'
+            'does not affect space when calls are nested',
         )
 
         t.end()
@@ -450,13 +450,13 @@ t.test('JSON5', t => {
         t.strictSame(
             JSON5.stringify({a: 1, b: 2, 3: 3}, {replacer: ['a', 3]}),
             "{a:1,'3':3}",
-            'accepts replacer as an option'
+            'accepts replacer as an option',
         )
 
         t.strictSame(
             JSON5.stringify([1], {space: 2}),
             '[\n  1,\n]',
-            'accepts space as an option'
+            'accepts space as an option',
         )
 
         t.end()
@@ -466,13 +466,13 @@ t.test('JSON5', t => {
         t.strictSame(
             JSON5.stringify({'a"': '1"'}, {quote: '"'}),
             '{"a\\"":"1\\""}',
-            'uses double quotes if provided'
+            'uses double quotes if provided',
         )
 
         t.strictSame(
             JSON5.stringify({"a'": "1'"}, {quote: "'"}),
             "{'a\\'':'1\\''}",
-            'uses single quotes if provided'
+            'uses single quotes if provided',
         )
 
         t.end()

@@ -30,7 +30,7 @@ t.test('CLI', t => {
             [
                 cliPath,
                 path.resolve(__dirname, 'test.json5'),
-            ]
+            ],
         )
 
         let output = ''
@@ -52,7 +52,7 @@ t.test('CLI', t => {
                 path.resolve(__dirname, 'test.json5'),
                 '-s',
                 '4',
-            ]
+            ],
         )
 
         let output = ''
@@ -74,7 +74,7 @@ t.test('CLI', t => {
                 path.resolve(__dirname, 'test.json5'),
                 '--space',
                 '4',
-            ]
+            ],
         )
 
         let output = ''
@@ -96,7 +96,7 @@ t.test('CLI', t => {
                 path.resolve(__dirname, 'test.json5'),
                 '-s',
                 't',
-            ]
+            ],
         )
 
         let output = ''
@@ -118,21 +118,21 @@ t.test('CLI', t => {
                 path.resolve(__dirname, 'test.json5'),
                 '-o',
                 path.resolve(__dirname, 'output.json'),
-            ]
+            ],
         )
 
         proc.on('exit', () => {
             assert.strictEqual(
                 fs.readFileSync(
                     path.resolve(__dirname, 'output.json'),
-                    'utf8'
+                    'utf8',
                 ),
-                '{"a":1,"b":2}'
+                '{"a":1,"b":2}',
             )
             t.end()
         })
 
-        t.tearDown(() => {
+        t.teardown(() => {
             try {
                 fs.unlinkSync(path.resolve(__dirname, 'output.json'))
             } catch (err) {}
@@ -147,21 +147,21 @@ t.test('CLI', t => {
                 path.resolve(__dirname, 'test.json5'),
                 '--out-file',
                 path.resolve(__dirname, 'output.json'),
-            ]
+            ],
         )
 
         proc.on('exit', () => {
             assert.strictEqual(
                 fs.readFileSync(
                     path.resolve(__dirname, 'output.json'),
-                    'utf8'
+                    'utf8',
                 ),
-                '{"a":1,"b":2}'
+                '{"a":1,"b":2}',
             )
             t.end()
         })
 
-        t.tearDown(() => {
+        t.teardown(() => {
             try {
                 fs.unlinkSync(path.resolve(__dirname, 'output.json'))
             } catch (err) {}
@@ -175,7 +175,7 @@ t.test('CLI', t => {
                 cliPath,
                 path.resolve(__dirname, 'test.json5'),
                 '-v',
-            ]
+            ],
         )
 
         proc.on('exit', code => {
@@ -191,7 +191,7 @@ t.test('CLI', t => {
                 cliPath,
                 path.resolve(__dirname, 'test.json5'),
                 '--validate',
-            ]
+            ],
         )
 
         proc.on('exit', code => {
@@ -207,7 +207,7 @@ t.test('CLI', t => {
                 cliPath,
                 path.resolve(__dirname, 'invalid.json5'),
                 '-v',
-            ]
+            ],
         )
 
         let error = ''
@@ -288,21 +288,21 @@ t.test('CLI', t => {
                 cliPath,
                 '-c',
                 path.resolve(__dirname, 'test.json5'),
-            ]
+            ],
         )
 
         proc.on('exit', () => {
             assert.strictEqual(
                 fs.readFileSync(
                     path.resolve(__dirname, 'test.json'),
-                    'utf8'
+                    'utf8',
                 ),
-                '{"a":1,"b":2}'
+                '{"a":1,"b":2}',
             )
             t.end()
         })
 
-        t.tearDown(() => {
+        t.teardown(() => {
             try {
                 fs.unlinkSync(path.resolve(__dirname, 'test.json'))
             } catch (err) {}
@@ -316,21 +316,21 @@ t.test('CLI', t => {
                 cliPath,
                 '--convert',
                 path.resolve(__dirname, 'test.json5'),
-            ]
+            ],
         )
 
         proc.on('exit', () => {
             assert.strictEqual(
                 fs.readFileSync(
                     path.resolve(__dirname, 'test.json'),
-                    'utf8'
+                    'utf8',
                 ),
-                '{"a":1,"b":2}'
+                '{"a":1,"b":2}',
             )
             t.end()
         })
 
-        t.tearDown(() => {
+        t.teardown(() => {
             try {
                 fs.unlinkSync(path.resolve(__dirname, 'test.json'))
             } catch (err) {}

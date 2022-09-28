@@ -1,2 +1,3 @@
 coverage/
 dist/
+lib/unicode.js

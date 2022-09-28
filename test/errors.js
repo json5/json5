@@ -12,7 +12,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 1,
                 },
-                'throws on empty documents'
+                'throws on empty documents',
             )
 
             t.throws(
@@ -22,7 +22,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 4,
                 },
-                'throws on documents with only comments'
+                'throws on documents with only comments',
             )
 
             t.throws(
@@ -32,7 +32,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 2,
                 },
-                'throws on incomplete single line comments'
+                'throws on incomplete single line comments',
             )
 
             t.throws(
@@ -42,7 +42,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 3,
                 },
-                'throws on unterminated multiline comments'
+                'throws on unterminated multiline comments',
             )
 
             t.throws(
@@ -52,7 +52,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 4,
                 },
-                'throws on unterminated multiline comment closings'
+                'throws on unterminated multiline comment closings',
             )
 
             t.throws(
@@ -62,7 +62,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 1,
                 },
-                'throws on invalid characters in values'
+                'throws on invalid characters in values',
             )
 
             t.throws(
@@ -72,7 +72,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 3,
                 },
-                'throws on invalid characters in identifier start escapes'
+                'throws on invalid characters in identifier start escapes',
             )
 
             t.throws(
@@ -82,7 +82,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 2,
                 },
-                'throws on invalid identifier start characters'
+                'throws on invalid identifier start characters',
             )
 
             t.throws(
@@ -92,7 +92,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 4,
                 },
-                'throws on invalid characters in identifier continue escapes'
+                'throws on invalid characters in identifier continue escapes',
             )
 
             t.throws(
@@ -102,7 +102,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 3,
                 },
-                'throws on invalid identifier continue characters'
+                'throws on invalid identifier continue characters',
             )
 
             t.throws(
@@ -112,7 +112,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 2,
                 },
-                'throws on invalid characters following a sign'
+                'throws on invalid characters following a sign',
             )
 
             t.throws(
@@ -122,7 +122,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 2,
                 },
-                'throws on invalid characters following a leading decimal point'
+                'throws on invalid characters following a leading decimal point',
             )
 
             t.throws(
@@ -132,7 +132,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 3,
                 },
-                'throws on invalid characters following an exponent indicator'
+                'throws on invalid characters following an exponent indicator',
             )
 
             t.throws(
@@ -142,7 +142,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 4,
                 },
-                'throws on invalid characters following an exponent sign'
+                'throws on invalid characters following an exponent sign',
             )
 
             t.throws(
@@ -152,7 +152,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 3,
                 },
-                'throws on invalid characters following a hexadecimal indicator'
+                'throws on invalid characters following a hexadecimal indicator',
             )
 
             t.throws(
@@ -162,7 +162,7 @@ t.test('JSON5', t => {
                     lineNumber: 2,
                     columnNumber: 0,
                 },
-                'throws on invalid new lines in strings'
+                'throws on invalid new lines in strings',
             )
 
             t.throws(
@@ -172,7 +172,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 2,
                 },
-                'throws on unterminated strings'
+                'throws on unterminated strings',
             )
 
             t.throws(
@@ -182,7 +182,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 2,
                 },
-                'throws on invalid identifier start characters in property names'
+                'throws on invalid identifier start characters in property names',
             )
 
             t.throws(
@@ -192,7 +192,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 3,
                 },
-                'throws on invalid characters following a property name'
+                'throws on invalid characters following a property name',
             )
 
             t.throws(
@@ -202,7 +202,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 5,
                 },
-                'throws on invalid characters following a property value'
+                'throws on invalid characters following a property value',
             )
 
             t.throws(
@@ -212,7 +212,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 3,
                 },
-                'throws on invalid characters following an array value'
+                'throws on invalid characters following an array value',
             )
 
             t.throws(
@@ -222,7 +222,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 4,
                 },
-                'throws on invalid characters in literals'
+                'throws on invalid characters in literals',
             )
 
             t.throws(
@@ -232,7 +232,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 3,
                 },
-                'throws on unterminated escapes'
+                'throws on unterminated escapes',
             )
 
             t.throws(
@@ -242,7 +242,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 4,
                 },
-                'throws on invalid first digits in hexadecimal escapes'
+                'throws on invalid first digits in hexadecimal escapes',
             )
 
             t.throws(
@@ -252,7 +252,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 5,
                 },
-                'throws on invalid second digits in hexadecimal escapes'
+                'throws on invalid second digits in hexadecimal escapes',
             )
 
             t.throws(
@@ -262,7 +262,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 7,
                 },
-                'throws on invalid unicode escapes'
+                'throws on invalid unicode escapes',
             )
 
             for (let i = 1; i <= 9; i++) {
@@ -273,7 +273,7 @@ t.test('JSON5', t => {
                         lineNumber: 1,
                         columnNumber: 3,
                     },
-                    `throws on escaped digit ${i}`
+                    `throws on escaped digit ${i}`,
                 )
             }
 
@@ -284,7 +284,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 4,
                 },
-                'throws on octal escapes'
+                'throws on octal escapes',
             )
 
             t.throws(
@@ -294,7 +294,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 3,
                 },
-                'throws on multiple values'
+                'throws on multiple values',
             )
 
             t.throws(
@@ -304,7 +304,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 1,
                 },
-                'throws with control characters escaped in the message'
+                'throws with control characters escaped in the message',
             )
 
             t.throws(
@@ -314,7 +314,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 2,
                 },
-                'throws on unclosed objects before property names'
+                'throws on unclosed objects before property names',
             )
 
             t.throws(
@@ -324,7 +324,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 3,
                 },
-                'throws on unclosed objects after property names'
+                'throws on unclosed objects after property names',
             )
 
             t.throws(
@@ -334,7 +334,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 4,
                 },
-                'throws on unclosed objects before property values'
+                'throws on unclosed objects before property values',
             )
 
             t.throws(
@@ -344,7 +344,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 5,
                 },
-                'throws on unclosed objects after property values'
+                'throws on unclosed objects after property values',
             )
 
             t.throws(
@@ -354,7 +354,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 2,
                 },
-                'throws on unclosed arrays before values'
+                'throws on unclosed arrays before values',
             )
 
             t.throws(
@@ -364,7 +364,7 @@ t.test('JSON5', t => {
                     lineNumber: 1,
                     columnNumber: 3,
                 },
-                'throws on unclosed arrays after values'
+                'throws on unclosed arrays after values',
             )
 
             t.end()

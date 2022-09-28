@@ -109,7 +109,19 @@ t.test('parse(text)', t => {
         )
 
         t.equal(
+            JSON5.parse('True'),
+            true,
+            'parses true',
+        )
+
+        t.equal(
             JSON5.parse('false'),
+            false,
+            'parses false',
+        )
+
+        t.equal(
+            JSON5.parse('False'),
             false,
             'parses false',
         )

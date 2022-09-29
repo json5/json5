@@ -8,8 +8,8 @@
  * @returns The JavaScript value converted from the JSON5 string.
  */
 declare function parse<T = any>(
-    text: string,
-    reviver?: ((this: any, key: string, value: any) => any) | null,
+  text: string,
+  reviver?: ((this: any, key: string, value: any) => any) | null,
 ): T
 
 export = parse

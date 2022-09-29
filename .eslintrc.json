@@ -1,30 +1,30 @@
 {
-    "root": true,
-    "extends": [
-        "standard",
-        "plugin:node/recommended"
+  "root": true,
+  "extends": [
+    "standard",
+    "plugin:node/recommended"
+  ],
+  "rules": {
+    "array-bracket-spacing": [
+      "error",
+      "never"
     ],
-    "rules": {
-        "array-bracket-spacing": [
-            "error",
-            "never"
-        ],
-        "arrow-parens": [
-            "error",
-            "as-needed"
-        ],
-        "comma-dangle": [
-            "error",
-            "always-multiline"
-        ],
-        "indent": [
-            "error",
-            4
-        ],
-        "no-process-exit": "off",
-        "object-curly-spacing": [
-            "error",
-            "never"
-        ]
-    }
+    "arrow-parens": [
+      "error",
+      "as-needed"
+    ],
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "indent": [
+      "error",
+      2
+    ],
+    "no-process-exit": "off",
+    "object-curly-spacing": [
+      "error",
+      "never"
+    ]
+  }
 }

@@ -103,7 +103,7 @@ from the Chromium/Blink project.
 ## Specification
 
 For a detailed explanation of the JSON5 format, please read the
-[official specification](https://json5.github.io/json5-spec/).
+[official specification](https://spec.json5.org/).
 
 ## Installation and Usage
 

@@ -16,7 +16,7 @@ instead.
 > An example of this is adding first class support for `Date` or `RegExp`
 > objects to the JSON5 format. This is outside the scope of this project.
 
-[spec]: https://json5.github.io/json5-spec/
+[spec]: https://spec.json5.org/
 
 Thank you for your cooperation. You may delete this message and the instructions
 above.

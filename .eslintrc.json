@@ -6,5 +6,13 @@
     "plugin:promise/recommended",
     "plugin:n/recommended",
     "prettier"
+  ],
+  "overrides": [
+    {
+      "files": ["scripts/**"],
+      "rules": {
+        "n/shebang": "off"
+      }
+    }
   ]
 }

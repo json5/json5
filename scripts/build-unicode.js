@@ -1,15 +1,24 @@
 #!/usr/bin/env node
 
+/**
+ * @file Generates RegExp objects for matching certain tokens and writes them to
+ * `lib/unicode.js`.
+ */
+
 const fs = require('fs')
 const path = require('path')
 const regenerate = require('regenerate')
 
 const libDir = 'lib'
 
+// Get all characters in the Unicode category Zs, excluding characters parsed
+// directly.
 const Space_Separator = regenerate()
   .add(require('unicode-10.0.0/General_Category/Space_Separator/code-points'))
   .remove('\t', '\v', '\f', ' ', '\u00A0', '\uFEFF')
 
+// Get all characters in the Unicode categories Lu, Ll, Lt, Lm, Lo, and Nl,
+// excluding characters parsed directly.
 const ID_Start = regenerate()
   .add(require('unicode-10.0.0/General_Category/Uppercase_Letter/code-points'))
   .add(require('unicode-10.0.0/General_Category/Lowercase_Letter/code-points'))
@@ -21,6 +30,8 @@ const ID_Start = regenerate()
   .removeRange('A', 'Z')
   .removeRange('a', 'z')
 
+// Get all characters in the Unicode categories Lu, Ll, Lt, Lm, Lo, Nl, Mn, Mc,
+// Nd, and Pc, excluding characters parsed directly.
 const ID_Continue = regenerate()
   .add(ID_Start)
   .add(require('unicode-10.0.0/General_Category/Nonspacing_Mark/code-points'))

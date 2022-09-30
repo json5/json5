@@ -7,7 +7,7 @@ const pkg = require('./package.json')
 module.exports = [
   // ES5 Non-minified
   {
-    input: 'build/es5.js',
+    input: 'scripts/es5.js',
     output: {
       file: pkg.browser,
       format: 'umd',
@@ -21,7 +21,7 @@ module.exports = [
   },
   // ES5 Minified
   {
-    input: 'build/es5.js',
+    input: 'scripts/es5.js',
     output: {
       file: pkg.browser.replace(/\.js$/, '.min.js'),
       format: 'umd',

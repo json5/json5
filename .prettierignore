@@ -1,7 +1,9 @@
-.nyc_output/
-coverage/
-dist/
-lib/unicode.js
-package.json
-package.json5
-test/invalid.json5
+/.nyc_output
+/coverage
+/dist
+/lib/unicode.js
+/package.json
+/package.json5
+/test/invalid.json5
+/test/output.json
+/test/test.json

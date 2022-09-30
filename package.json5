@@ -9,8 +9,8 @@
   browser: 'dist/index.js',
   types: 'lib/index.d.ts',
   files: [
-    'lib/',
-    'dist/',
+    'lib',
+    'dist',
   ],
   engines: {
     node: '^14 || ^16 || >=18',

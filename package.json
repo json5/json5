@@ -20,6 +20,7 @@
     "build:package": "node build/package.js",
     "build:unicode": "node build/unicode.js",
     "coverage": "run-s -c tap tap:coverage",
+    "dependencies": "npm run build:package",
     "eslint": "eslint --fix .",
     "lint": "run-s eslint prettier",
     "lint-report": "eslint .",

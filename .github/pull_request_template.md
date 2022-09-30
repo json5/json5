@@ -8,7 +8,7 @@ with the [official JSON5 specification][spec], please continue.
 > user to chose which quote character is used.
 
 If you are submitting a feature request or code improvement that is
-*incompatible* with the [official JSON5 specification][spec], please open a pull
+_incompatible_ with the [official JSON5 specification][spec], please open a pull
 request on the [specification repository](https://github.com/json5/json5-spec)
 instead.
 

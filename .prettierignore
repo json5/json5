@@ -1,0 +1,7 @@
+.nyc_output/
+coverage/
+dist/
+lib/unicode.js
+package.json
+package.json5
+test/invalid.json5

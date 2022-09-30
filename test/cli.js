@@ -25,13 +25,10 @@ t.test('CLI', t => {
   })
 
   t.test('reads from the specified file', t => {
-    const proc = child.spawn(
-      process.execPath,
-      [
-        cliPath,
-        path.resolve(__dirname, 'test.json5'),
-      ]
-    )
+    const proc = child.spawn(process.execPath, [
+      cliPath,
+      path.resolve(__dirname, 'test.json5'),
+    ])
 
     let output = ''
     proc.stdout.on('data', data => {
@@ -45,15 +42,12 @@ t.test('CLI', t => {
   })
 
   t.test('indents output with the number of spaces specified with -s', t => {
-    const proc = child.spawn(
-      process.execPath,
-      [
-        cliPath,
-        path.resolve(__dirname, 'test.json5'),
-        '-s',
-        '4',
-      ]
-    )
+    const proc = child.spawn(process.execPath, [
+      cliPath,
+      path.resolve(__dirname, 'test.json5'),
+      '-s',
+      '4',
+    ])
 
     let output = ''
     proc.stdout.on('data', data => {
@@ -66,38 +60,35 @@ t.test('CLI', t => {
     })
   })
 
-  t.test('indents output with the number of spaces specified with --space', t => {
-    const proc = child.spawn(
-      process.execPath,
-      [
+  t.test(
+    'indents output with the number of spaces specified with --space',
+    t => {
+      const proc = child.spawn(process.execPath, [
         cliPath,
         path.resolve(__dirname, 'test.json5'),
         '--space',
         '4',
-      ]
-    )
+      ])
 
-    let output = ''
-    proc.stdout.on('data', data => {
-      output += data
-    })
+      let output = ''
+      proc.stdout.on('data', data => {
+        output += data
+      })
 
-    proc.stdout.on('end', () => {
-      assert.strictEqual(output, '{\n    "a": 1,\n    "b": 2\n}')
-      t.end()
-    })
-  })
+      proc.stdout.on('end', () => {
+        assert.strictEqual(output, '{\n    "a": 1,\n    "b": 2\n}')
+        t.end()
+      })
+    },
+  )
 
   t.test('indents output with tabs when specified with -s', t => {
-    const proc = child.spawn(
-      process.execPath,
-      [
-        cliPath,
-        path.resolve(__dirname, 'test.json5'),
-        '-s',
-        't',
-      ]
-    )
+    const proc = child.spawn(process.execPath, [
+      cliPath,
+      path.resolve(__dirname, 'test.json5'),
+      '-s',
+      't',
+    ])
 
     let output = ''
     proc.stdout.on('data', data => {
@@ -111,23 +102,17 @@ t.test('CLI', t => {
   })
 
   t.test('outputs to the specified file with -o', t => {
-    const proc = child.spawn(
-      process.execPath,
-      [
-        cliPath,
-        path.resolve(__dirname, 'test.json5'),
-        '-o',
-        path.resolve(__dirname, 'output.json'),
-      ]
-    )
+    const proc = child.spawn(process.execPath, [
+      cliPath,
+      path.resolve(__dirname, 'test.json5'),
+      '-o',
+      path.resolve(__dirname, 'output.json'),
+    ])
 
     proc.on('exit', () => {
       assert.strictEqual(
-        fs.readFileSync(
-          path.resolve(__dirname, 'output.json'),
-          'utf8'
-        ),
-        '{"a":1,"b":2}'
+        fs.readFileSync(path.resolve(__dirname, 'output.json'), 'utf8'),
+        '{"a":1,"b":2}',
       )
       t.end()
     })
@@ -135,28 +120,24 @@ t.test('CLI', t => {
     t.tearDown(() => {
       try {
         fs.unlinkSync(path.resolve(__dirname, 'output.json'))
-      } catch (err) {}
+      } catch (err) {
+        // no-op
+      }
     })
   })
 
   t.test('outputs to the specified file with --out-file', t => {
-    const proc = child.spawn(
-      process.execPath,
-      [
-        cliPath,
-        path.resolve(__dirname, 'test.json5'),
-        '--out-file',
-        path.resolve(__dirname, 'output.json'),
-      ]
-    )
+    const proc = child.spawn(process.execPath, [
+      cliPath,
+      path.resolve(__dirname, 'test.json5'),
+      '--out-file',
+      path.resolve(__dirname, 'output.json'),
+    ])
 
     proc.on('exit', () => {
       assert.strictEqual(
-        fs.readFileSync(
-          path.resolve(__dirname, 'output.json'),
-          'utf8'
-        ),
-        '{"a":1,"b":2}'
+        fs.readFileSync(path.resolve(__dirname, 'output.json'), 'utf8'),
+        '{"a":1,"b":2}',
       )
       t.end()
     })
@@ -164,19 +145,18 @@ t.test('CLI', t => {
     t.tearDown(() => {
       try {
         fs.unlinkSync(path.resolve(__dirname, 'output.json'))
-      } catch (err) {}
+      } catch (err) {
+        // no-op
+      }
     })
   })
 
   t.test('validates valid JSON5 files with -v', t => {
-    const proc = child.spawn(
-      process.execPath,
-      [
-        cliPath,
-        path.resolve(__dirname, 'test.json5'),
-        '-v',
-      ]
-    )
+    const proc = child.spawn(process.execPath, [
+      cliPath,
+      path.resolve(__dirname, 'test.json5'),
+      '-v',
+    ])
 
     proc.on('exit', code => {
       assert.strictEqual(code, 0)
@@ -185,14 +165,11 @@ t.test('CLI', t => {
   })
 
   t.test('validates valid JSON5 files with --validate', t => {
-    const proc = child.spawn(
-      process.execPath,
-      [
-        cliPath,
-        path.resolve(__dirname, 'test.json5'),
-        '--validate',
-      ]
-    )
+    const proc = child.spawn(process.execPath, [
+      cliPath,
+      path.resolve(__dirname, 'test.json5'),
+      '--validate',
+    ])
 
     proc.on('exit', code => {
       assert.strictEqual(code, 0)
@@ -201,14 +178,11 @@ t.test('CLI', t => {
   })
 
   t.test('validates invalid JSON5 files with -v', t => {
-    const proc = child.spawn(
-      process.execPath,
-      [
-        cliPath,
-        path.resolve(__dirname, 'invalid.json5'),
-        '-v',
-      ]
-    )
+    const proc = child.spawn(process.execPath, [
+      cliPath,
+      path.resolve(__dirname, 'invalid.json5'),
+      '-v',
+    ])
 
     let error = ''
     proc.stderr.on('data', data => {
@@ -282,22 +256,16 @@ t.test('CLI', t => {
   })
 
   t.test('is backward compatible with v0.5.1 with -c', t => {
-    const proc = child.spawn(
-      process.execPath,
-      [
-        cliPath,
-        '-c',
-        path.resolve(__dirname, 'test.json5'),
-      ]
-    )
+    const proc = child.spawn(process.execPath, [
+      cliPath,
+      '-c',
+      path.resolve(__dirname, 'test.json5'),
+    ])
 
     proc.on('exit', () => {
       assert.strictEqual(
-        fs.readFileSync(
-          path.resolve(__dirname, 'test.json'),
-          'utf8'
-        ),
-        '{"a":1,"b":2}'
+        fs.readFileSync(path.resolve(__dirname, 'test.json'), 'utf8'),
+        '{"a":1,"b":2}',
       )
       t.end()
     })
@@ -305,27 +273,23 @@ t.test('CLI', t => {
     t.tearDown(() => {
       try {
         fs.unlinkSync(path.resolve(__dirname, 'test.json'))
-      } catch (err) {}
+      } catch (err) {
+        // no-op
+      }
     })
   })
 
   t.test('is backward compatible with v0.5.1 with --convert', t => {
-    const proc = child.spawn(
-      process.execPath,
-      [
-        cliPath,
-        '--convert',
-        path.resolve(__dirname, 'test.json5'),
-      ]
-    )
+    const proc = child.spawn(process.execPath, [
+      cliPath,
+      '--convert',
+      path.resolve(__dirname, 'test.json5'),
+    ])
 
     proc.on('exit', () => {
       assert.strictEqual(
-        fs.readFileSync(
-          path.resolve(__dirname, 'test.json'),
-          'utf8'
-        ),
-        '{"a":1,"b":2}'
+        fs.readFileSync(path.resolve(__dirname, 'test.json'), 'utf8'),
+        '{"a":1,"b":2}',
       )
       t.end()
     })
@@ -333,7 +297,9 @@ t.test('CLI', t => {
     t.tearDown(() => {
       try {
         fs.unlinkSync(path.resolve(__dirname, 'test.json'))
-      } catch (err) {}
+      } catch (err) {
+        // no-op
+      }
     })
   })
 

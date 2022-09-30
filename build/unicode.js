@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 const fs = require('fs')
 const path = require('path')
 const regenerate = require('regenerate')
@@ -26,7 +24,9 @@ const ID_Continue = regenerate()
   .add(require('unicode-10.0.0/General_Category/Nonspacing_Mark/code-points'))
   .add(require('unicode-10.0.0/General_Category/Spacing_Mark/code-points'))
   .add(require('unicode-10.0.0/General_Category/Decimal_Number/code-points'))
-  .add(require('unicode-10.0.0/General_Category/Connector_Punctuation/code-points'))
+  .add(
+    require('unicode-10.0.0/General_Category/Connector_Punctuation/code-points'),
+  )
   .remove('$', '_')
   .removeRange('0', '9')
   .removeRange('A', 'Z')
@@ -46,6 +46,8 @@ const data = {
 }
 
 let es6 = '// This is a generated file. Do not edit.\n'
-es6 += Object.keys(data).map(key => `module.exports.${key} = /${data[key]}/\n`).join('')
+es6 += Object.keys(data)
+  .map(key => `module.exports.${key} = /${data[key]}/\n`)
+  .join('')
 
 fs.writeFileSync(outPath, es6)

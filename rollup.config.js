@@ -41,10 +41,7 @@ module.exports = [
       file: pkg.browser.replace(/\.js$/, '.mjs'),
       format: 'esm',
     },
-    plugins: [
-      resolve(),
-      commonjs(),
-    ],
+    plugins: [resolve(), commonjs()],
   },
   // ES6 Modules Minified
   {
@@ -53,10 +50,6 @@ module.exports = [
       file: pkg.browser.replace(/\.js$/, '.min.mjs'),
       format: 'esm',
     },
-    plugins: [
-      resolve(),
-      commonjs(),
-      terser(),
-    ],
+    plugins: [resolve(), commonjs(), terser()],
   },
 ]

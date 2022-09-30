@@ -36,7 +36,7 @@
     tap: 'tap -R spec test',
     'tap:coverage': 'tap --coverage-report html',
     test: 'run-s lint tap',
-    'unicode:build': 'node scripts/build-unicode.js',
+    'unicode:update': 'node scripts/update-unicode.js',
     version: 'npm run package:build && git add package.json5',
   },
   repository: {

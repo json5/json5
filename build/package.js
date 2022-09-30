@@ -1,8 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-
-const JSON5 = require('../lib')
-
+const JSON5 = require('..')
 const pkg = require('../package.json')
 
 let pkg5 = '// This is a generated file. Do not edit.\n'

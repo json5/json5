@@ -1,6 +1,5 @@
-const JSON5 = require('../lib')
-
 const t = require('tap')
+const JSON5 = require('..')
 
 t.test('JSON5', t => {
   t.test('#parse()', t => {

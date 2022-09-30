@@ -2,11 +2,10 @@ const assert = require('assert')
 const child = require('child_process')
 const fs = require('fs')
 const path = require('path')
+const t = require('tap')
 const pkg = require('../package.json')
 
 const cliPath = path.resolve(__dirname, '../lib/cli.js')
-
-const t = require('tap')
 
 t.test('CLI', t => {
   t.test('converts JSON5 to JSON from stdin to stdout', t => {

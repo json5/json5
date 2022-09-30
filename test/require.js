@@ -1,6 +1,5 @@
 const assert = require('assert')
 const sinon = require('sinon')
-
 const t = require('tap')
 
 t.test('require(*.json5)', t => {

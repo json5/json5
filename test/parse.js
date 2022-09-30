@@ -1,8 +1,7 @@
 const assert = require('assert')
 const sinon = require('sinon')
-const JSON5 = require('../lib')
-
 const t = require('tap')
+const JSON5 = require('..')
 
 t.test('parse(text)', t => {
   t.test('objects', t => {

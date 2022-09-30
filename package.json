@@ -18,14 +18,13 @@
   },
   "scripts": {
     "build": "run-s clean rollup",
-    "build:package": "node scripts/build-package.js",
-    "build:unicode": "node scripts/build-unicode.js",
-    "check:package": "node scripts/check-package.js",
     "clean": "rimraf dist/*",
     "coverage": "run-s -c tap tap:coverage",
-    "dependencies": "npm run build:package",
+    "dependencies": "npm run package:build",
     "eslint": "eslint --fix .",
     "lint": "run-s eslint prettier",
+    "package:build": "node scripts/build-package.js",
+    "package:check": "node scripts/check-package.js",
     "prepublishOnly": "npm run production",
     "prepare": "husky install",
     "prettier": "prettier --loglevel warn -w .",
@@ -35,7 +34,8 @@
     "tap": "tap -R spec test",
     "tap:coverage": "tap --coverage-report html",
     "test": "run-s lint tap",
-    "version": "npm run build:package && git add package.json5"
+    "unicode:build": "node scripts/build-unicode.js",
+    "version": "npm run package:build && git add package.json5"
   },
   "repository": {
     "type": "git",

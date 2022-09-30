@@ -27,7 +27,6 @@
     dependencies: 'npm run build:package',
     eslint: 'eslint --fix .',
     lint: 'run-s eslint prettier',
-    'lint-report': 'eslint .',
     prepublishOnly: 'npm run production',
     prepare: 'husky install',
     prettier: 'prettier --loglevel warn -w .',
@@ -36,7 +35,7 @@
     rollup: 'rollup -c',
     tap: 'tap -R spec test',
     'tap:coverage': 'tap --coverage-report html',
-    test: 'run-s lint-report tap',
+    test: 'run-s lint tap',
     version: 'npm run build:package && git add package.json5',
   },
   repository: {

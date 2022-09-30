@@ -1,0 +1,10 @@
+{
+  "extends": "@tsconfig/node14/tsconfig.json",
+  "compilerOptions": {
+    "resolveJsonModule": true
+  },
+  "typeAcquisition": {
+    "enable": true,
+    "include": ["node"]
+  }
+}

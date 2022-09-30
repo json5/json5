@@ -58,6 +58,7 @@
     "@rollup/plugin-buble": "^0.21.3",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^14.1.0",
+    "@tsconfig/node14": "^1.0.3",
     "core-js": "^3.25.3",
     "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",

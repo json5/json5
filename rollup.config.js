@@ -1,6 +1,6 @@
-const resolve = require('rollup-plugin-node-resolve')
-const commonjs = require('rollup-plugin-commonjs')
-const buble = require('rollup-plugin-buble')
+const {nodeResolve} = require('@rollup/plugin-node-resolve')
+const commonjs = require('@rollup/plugin-commonjs')
+const buble = require('@rollup/plugin-buble')
 const terser = require('rollup-plugin-terser').terser
 const pkg = require('./package.json')
 
@@ -14,7 +14,7 @@ module.exports = [
       name: 'JSON5',
     },
     plugins: [
-      resolve(),
+      nodeResolve(),
       commonjs(),
       buble({transforms: {dangerousForOf: true}}),
     ],
@@ -28,7 +28,7 @@ module.exports = [
       name: 'JSON5',
     },
     plugins: [
-      resolve(),
+      nodeResolve(),
       commonjs(),
       buble({transforms: {dangerousForOf: true}}),
       terser(),
@@ -41,7 +41,7 @@ module.exports = [
       file: pkg.browser.replace(/\.js$/, '.mjs'),
       format: 'esm',
     },
-    plugins: [resolve(), commonjs()],
+    plugins: [nodeResolve(), commonjs()],
   },
   // ES6 Modules Minified
   {
@@ -50,6 +50,6 @@ module.exports = [
       file: pkg.browser.replace(/\.js$/, '.min.mjs'),
       format: 'esm',
     },
-    plugins: [resolve(), commonjs(), terser()],
+    plugins: [nodeResolve(), commonjs(), terser()],
   },
 ]

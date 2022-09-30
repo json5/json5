@@ -18,7 +18,7 @@
 
 const assert = require('assert')
 const fs = require('fs')
-const JSON5 = require('../lib')
+const JSON5 = require('..')
 
 if (process.argv.length === 2) {
   check(require.resolve('../package.json'), require.resolve('../package.json5'))
@@ -42,7 +42,7 @@ function check(firstPkgFilename, secondPkgFilename) {
     assert.deepStrictEqual(
       secondPkg,
       firstPkg,
-      'package.json5 does not match package.json.\nPlease run `npm run package:build` to fix.',
+      'package.json5 does not match package.json.\nPlease run `npm run package:update` to fix.',
     )
   } catch (err) {
     console.error(err.message)

@@ -3,6 +3,8 @@
 [c-unreleased]: https://github.com/json5/json5/tree/main
 [d-unreleased]: https://github.com/json5/json5/compare/v2.2.1...HEAD
 
+- New: `package.json5` is included in the npm package.
+
 ### v2.2.1 [[code][c2.2.1], [diff][d2.2.1]]
 
 [c2.2.1]: https://github.com/json5/json5/tree/v2.2.1

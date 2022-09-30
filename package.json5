@@ -11,6 +11,7 @@
   files: [
     'lib',
     'dist',
+    'package.json5',
   ],
   engines: {
     node: '^14 || ^16 || >=18',

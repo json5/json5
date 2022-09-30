@@ -17,8 +17,8 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "build-package": "node build/package.js",
-    "build-unicode": "node build/unicode.js",
+    "build:package": "node build/package.js",
+    "build:unicode": "node build/unicode.js",
     "coverage": "run-s -c tap tap:coverage",
     "eslint": "eslint --fix .",
     "lint": "run-s eslint prettier",
@@ -30,7 +30,7 @@
     "tap": "tap -R spec test",
     "tap:coverage": "tap --coverage-report html",
     "test": "run-s lint-report tap",
-    "version": "npm run build-package && git add package.json5"
+    "version": "npm run build:package && git add package.json5"
   },
   "repository": {
     "type": "git",

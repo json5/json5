@@ -19,6 +19,7 @@
     "build": "rollup -c",
     "build:package": "node scripts/build-package.js",
     "build:unicode": "node scripts/build-unicode.js",
+    "check:package": "node scripts/check-package.js",
     "coverage": "run-s -c tap tap:coverage",
     "dependencies": "npm run build:package",
     "eslint": "eslint --fix .",

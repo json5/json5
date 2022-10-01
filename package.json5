@@ -26,6 +26,7 @@
     dependencies: 'npm run package:update',
     eslint: 'eslint --fix .',
     lint: 'run-s eslint prettier',
+    'package:add': 'git add package.json',
     'package:check': 'node scripts/check-package.js',
     'package:update': 'node scripts/update-package.js',
     prepack: 'npm run build',
@@ -37,7 +38,7 @@
     'tap:coverage': 'tap --coverage-report html',
     test: 'run-s lint tap',
     'unicode:update': 'node scripts/update-unicode.js',
-    version: 'run-s "changelog:update -- --add" package:update',
+    version: 'run-s "changelog:update -- --add" package:add package:update',
   },
   repository: {
     type: 'git',

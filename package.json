@@ -26,7 +26,6 @@
     "eslint": "eslint --fix .",
     "lint": "run-s -s eslint prettier",
     "package:add": "git add package.json",
-    "package:check": "node scripts/package/check.js",
     "package:update": "node scripts/package/update.js",
     "prepack": "npm run -s build",
     "prepare": "husky install",

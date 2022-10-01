@@ -2,3 +2,4 @@
 . "$(dirname "$0")/_/husky.sh"
 
 npx --no -- lint-staged -q
+npm run -s package:update

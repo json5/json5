@@ -1,5 +1,4 @@
 {
   "**/*.js": "eslint",
-  "**/*": "prettier -c --loglevel warn",
-  "package.{json,json5}": "npm run package:check --"
+  "**/*": "prettier -c --loglevel warn"
 }

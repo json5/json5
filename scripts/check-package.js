@@ -48,7 +48,8 @@ function check(firstPkgFilename, secondPkgFilename) {
     assert.deepStrictEqual(
       secondPkg,
       firstPkg,
-      'package.json5 does not match package.json.\nPlease run `npm run package:update` to fix.',
+      'package.json5 does not match package.json.\n' +
+        'Please run `npm run package:update` to fix.',
     )
   } catch (err) {
     console.error(err.message)

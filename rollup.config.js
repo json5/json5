@@ -1,37 +1,28 @@
-const buble = require('@rollup/plugin-buble')
 const commonjs = require('@rollup/plugin-commonjs')
 const {nodeResolve} = require('@rollup/plugin-node-resolve')
 const {terser} = require('rollup-plugin-terser')
 const pkg = require('./package.json')
 
-module.exports = [
-  // ES5 Non-minified
-  {
-    input: 'scripts/es5.js',
-    output: {
-      file: pkg.browser,
-      format: 'umd',
-      name: 'JSON5',
-    },
-    plugins: [
-      nodeResolve(),
-      commonjs(),
-      buble({transforms: {dangerousForOf: true}}),
-    ],
+const base = {
+  input: pkg.main,
+  output: {
+    file: pkg.browser,
+    format: 'umd',
+    name: 'JSON5',
   },
-  // ES5 Minified
+  plugins: [nodeResolve(), commonjs()],
+}
+
+module.exports = [
+  // UMD
+  base,
+  // UMD Minified
   {
-    input: 'scripts/es5.js',
+    ...base,
     output: {
-      file: pkg.browser.replace(/\.js$/, '.min.js'),
-      format: 'umd',
-      name: 'JSON5',
+      ...base.output,
+      file: base.output.file.replace(/\.js$/, '.min.js'),
     },
-    plugins: [
-      nodeResolve(),
-      commonjs(),
-      buble({transforms: {dangerousForOf: true}}),
-      terser(),
-    ],
+    plugins: [...base.plugins, terser()],
   },
 ]

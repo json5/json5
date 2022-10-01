@@ -8,7 +8,7 @@
 
 const fs = require('fs')
 const {simpleGit} = require('simple-git')
-const JSON5 = require('..')
+const JSON5 = require('../..')
 
 async function main() {
   let pkg
@@ -20,13 +20,13 @@ async function main() {
     pkg = JSON5.parse(pkgJSON)
     isStaged = true
   } else {
-    pkg = require('../package.json')
+    pkg = require('../../package.json')
   }
 
   const pkg5JSON5 =
     '// This is a generated file. Do not edit.\n' +
     JSON5.stringify(pkg, null, 2)
-  fs.writeFileSync(require.resolve('../package.json5'), pkg5JSON5)
+  fs.writeFileSync(require.resolve('../../package.json5'), pkg5JSON5)
 
   if (isStaged) {
     await git.add(['package.json5'])

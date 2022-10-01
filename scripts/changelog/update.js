@@ -9,7 +9,7 @@
  */
 
 const fs = require('fs')
-const pkg = require('../package.json')
+const pkg = require('../../package.json')
 const {simpleGit} = require('simple-git')
 
 async function main() {

@@ -18,13 +18,13 @@
 
 const assert = require('assert')
 const fs = require('fs')
-const JSON5 = require('..')
+const JSON5 = require('../..')
 
 async function main() {
   if (process.argv.length === 2) {
     check(
-      require.resolve('../package.json'),
-      require.resolve('../package.json5'),
+      require.resolve('../../package.json'),
+      require.resolve('../../package.json5'),
     )
   } else if (process.argv.length === 3) {
     console.error('Please stage both package.json and package.json5.')

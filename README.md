@@ -36,7 +36,7 @@ many other platforms.
 
 [build status]: https://app.travis-ci.com/json5/json5
 [coverage status]: https://coveralls.io/github/json5/json5
-[json]: https://tools.ietf.org/html/rfc7159
+[json]: https://www.rfc-editor.org/rfc/rfc8259.html
 [ecmascript 5.1]: https://www.ecma-international.org/ecma-262/5.1/
 
 ## Summary of Features

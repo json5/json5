@@ -12,6 +12,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Node.js v14 and later is supported. Support for older versions of Node.js has
   been dropped.
+- The browser bundles in `dist` no longer contain any polyfills since modern
+  browsers support ES6.
 - The ES modules bundles in `dist` have been removed until a better solution is
   found.
 - `lib/register.js` and `lib/require.js` have been removed since they rely on

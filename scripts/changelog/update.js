@@ -4,8 +4,8 @@
  * @file Renames the Unreleased section of `CHANGELOG.md` with the current
  * version and date, then creates a new Unreleased section.
  *
- * If the first command-line argument is `-a` or `--add`, then CHANGELOG.md will
- * be staged.
+ * If the first command-line argument is `-a` or `--add`, then `CHANGELOG.md`
+ * will be staged.
  */
 
 const fs = require('fs')

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * @file Ensures that the Unreleased section of CHANGELOG.md has been updated
+ * @file Ensures that the Unreleased section of `CHANGELOG.md` has been updated
  * for features, fixes, and breaking changes, and exits with a non-zero exit
  * code otherwise.
  *

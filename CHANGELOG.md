@@ -15,6 +15,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Features
 
+- A wider range of unquoted property names are supported due to upgrading from
+  Unicode 10 to 14.
 - `package.json5` is included in the npm package.
 
 ### Fixes

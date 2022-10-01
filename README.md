@@ -73,7 +73,9 @@ been extended to JSON5.
 
 [IEEE 754]: http://ieeexplore.ieee.org/servlet/opac?punumber=4610933
 
-## Short Example
+## Example
+Kitchen-sink example:
+
 ```js
 {
   // comments
@@ -88,6 +90,9 @@ No \\n's!",
   "backwardsCompatible": "with JSON",
 }
 ```
+
+A more real-world example is [this config file](https://github.com/chromium/chromium/blob/feb3c9f670515edf9a88f185301cbd7794ee3e52/third_party/blink/renderer/platform/runtime_enabled_features.json5)
+from the Chromium/Blink project.
 
 ## Specification
 For a detailed explanation of the JSON5 format, please read the [official

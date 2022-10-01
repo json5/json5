@@ -5,12 +5,33 @@ Status] [![Coverage
 Status](https://coveralls.io/repos/github/json5/json5/badge.svg)][Coverage
 Status]
 
-The JSON5 Data Interchange Format (JSON5) is a superset of [JSON] that aims to
-alleviate some of the limitations of JSON by expanding its syntax to include
-some productions from [ECMAScript 5.1].
+JSON5 is an extension to the popular [JSON] file format that aims to be
+easier to **write and maintain _by hand_ (e.g. for config files)**.
+It is _not intended_ to be used for machine-to-machine communication.
+(Keep using JSON or other file formats for that. 🙂)
 
-This JavaScript library is the official reference implementation for JSON5
-parsing and serialization libraries.
+JSON5 was started in 2012, and as of 2022, now gets **[>65M downloads/week](https://www.npmjs.com/package/json5)**,
+ranks in the **[top 0.1%](https://gist.github.com/anvaka/8e8fa57c7ee1350e3491)** of the most depended-upon packages on npm,
+and has been adopted by major projects like
+**[Chromium](https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/platform/runtime_enabled_features.json5;drc=5de823b36e68fd99009a29281b17bc3a1d6b329c),
+[Next.js](https://github.com/vercel/next.js/blob/b88f20c90bf4659b8ad5cb2a27956005eac2c7e8/packages/next/lib/find-config.ts#L43-L46),
+[Babel](https://babeljs.io/docs/en/config-files#supported-file-extensions),
+[Retool](https://community.retool.com/t/i-am-attempting-to-append-several-text-fields-to-a-google-sheet-but-receiving-a-json5-invalid-character-error/7626),
+[WebStorm](https://www.jetbrains.com/help/webstorm/json.html),
+and [more](https://github.com/json5/json5/wiki/In-the-Wild)**.
+It's also natively supported on **[Apple platforms](https://developer.apple.com/documentation/foundation/jsondecoder/3766916-allowsjson5)**
+like **MacOS** and **iOS**.
+
+Formally, the **[JSON5 Data Interchange Format](https://spec.json5.org/)** is a superset of JSON
+(so valid JSON files will always be valid JSON5 files)
+that expands its syntax to include some productions from [ECMAScript 5.1] (ES5).
+It's also a strict _subset_ of ES5, so valid JSON5 files will always be valid ES5.
+
+This JavaScript library is a reference implementation for JSON5 parsing and serialization,
+and is directly used in many of the popular projects mentioned above
+(where e.g. extreme performance isn't necessary for config file use cases),
+but others have created [many other libraries](https://github.com/json5/json5/wiki/In-the-Wild)
+across many other platforms.
 
 [Build Status]: https://app.travis-ci.com/json5/json5
 
@@ -52,7 +73,9 @@ been extended to JSON5.
 
 [IEEE 754]: http://ieeexplore.ieee.org/servlet/opac?punumber=4610933
 
-## Short Example
+## Example
+Kitchen-sink example:
+
 ```js
 {
   // comments
@@ -67,6 +90,9 @@ No \\n's!",
   "backwardsCompatible": "with JSON",
 }
 ```
+
+A more real-world example is [this config file](https://github.com/chromium/chromium/blob/feb3c9f670515edf9a88f185301cbd7794ee3e52/third_party/blink/renderer/platform/runtime_enabled_features.json5)
+from the Chromium/Blink project.
 
 ## Specification
 For a detailed explanation of the JSON5 format, please read the [official
@@ -208,18 +234,23 @@ run lint` before submitting pull requests. Please use an editor that supports
 [EditorConfig](http://editorconfig.org/).
 
 ### Issues
-To report bugs or request features regarding the JSON5 data format, please
-submit an issue to the [official specification
-repository](https://github.com/json5/json5-spec).
+To report bugs or request features regarding the JSON5 **data format**,
+please submit an issue to the official
+**[_specification_ repository](https://github.com/json5/json5-spec)**.
 
-To report bugs or request features regarding the JavaScript implementation of
-JSON5, please submit an issue to this repository.
+Note that we will never add any features that make JSON5 incompatible with ES5;
+that compatibility is a fundamental premise of JSON5.
+
+To report bugs or request features regarding this **JavaScript implementation**
+of JSON5, please submit an issue to **_this_ repository**.
 
 ## License
 MIT. See [LICENSE.md](./LICENSE.md) for details.
 
 ## Credits
-[Assem Kishore](https://github.com/aseemk) founded this project.
+[Aseem Kishore](https://github.com/aseemk) founded this project.
+He wrote a [blog post](https://aseemk.substack.com/p/ignore-the-f-ing-haters-json5)
+about the journey and lessons learned 10 years in.
 
 [Michael Bolin](http://bolinfest.com/) independently arrived at and published
 some of these same ideas with awesome explanations and detail. Recommended

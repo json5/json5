@@ -12,6 +12,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Node.js v14 and later is supported. Support for older versions of Node.js has
   been dropped.
+- The ES modules bundles in `dist` have been removed until a better solution is
+  found.
 - `lib/register.js` and `lib/require.js` have been removed since they rely on
   deprecated Node.js APIs. Instead of using `require` to load a `.json5` file,
   read it into a string and parse it.
@@ -23,10 +25,6 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - A wider range of unquoted property names are supported due to upgrading from
   Unicode 10 to 14.
 - `package.json5` is included in the npm package.
-
-### Fixes
-
-- The ESM bundles in `dist` use named exports.
 
 ## v2.2.1 - 2022-03-21
 

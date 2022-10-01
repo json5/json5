@@ -119,12 +119,6 @@ npm install json5
 const JSON5 = require('json5')
 ```
 
-#### Modules
-
-```js
-import JSON5 from 'json5'
-```
-
 ### Browsers
 
 #### UMD
@@ -132,14 +126,6 @@ import JSON5 from 'json5'
 ```html
 <!-- This will create a global `JSON5` variable. -->
 <script src="https://unpkg.com/json5@2/dist/index.min.js"></script>
-```
-
-#### Modules
-
-```html
-<script type="module">
-  import JSON5 from 'https://unpkg.com/json5@2/dist/index.min.mjs'
-</script>
 ```
 
 ## API

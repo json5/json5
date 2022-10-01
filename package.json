@@ -3,7 +3,6 @@
   "version": "2.2.1",
   "description": "JSON for Humans",
   "main": "lib/index.js",
-  "module": "dist/index.mjs",
   "bin": "lib/cli.js",
   "browser": "dist/index.js",
   "types": "lib/index.d.ts",

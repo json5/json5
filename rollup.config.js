@@ -34,22 +34,4 @@ module.exports = [
       terser(),
     ],
   },
-  // ES6 Modules Non-minified
-  {
-    input: 'lib/index.js',
-    output: {
-      file: pkg.browser.replace(/\.js$/, '.mjs'),
-      format: 'esm',
-    },
-    plugins: [nodeResolve(), commonjs()],
-  },
-  // ES6 Modules Minified
-  {
-    input: 'lib/index.js',
-    output: {
-      file: pkg.browser.replace(/\.js$/, '.min.mjs'),
-      format: 'esm',
-    },
-    plugins: [nodeResolve(), commonjs(), terser()],
-  },
 ]

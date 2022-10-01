@@ -38,13 +38,15 @@ async function main() {
     if (!/^CHANGELOG\.md$/m.test(stagedFiles)) {
       console.error(errorMessage)
       process.exitCode = 1
-    } else {
-      const headChangelog = await git.show(['HEAD:CHANGELOG.md'])
-      const stagedChangelog = await git.show([':CHANGELOG.md'])
-      if (getUnreleased(headChangelog) === getUnreleased(stagedChangelog)) {
-        console.error(errorMessage)
-        process.exitCode = 1
-      }
+      return
+    }
+
+    const headChangelog = await git.show(['HEAD:CHANGELOG.md'])
+    const stagedChangelog = await git.show([':CHANGELOG.md'])
+    if (getUnreleased(headChangelog) === getUnreleased(stagedChangelog)) {
+      console.error(errorMessage)
+      process.exitCode = 1
+      return
     }
   }
 }

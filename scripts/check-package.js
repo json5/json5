@@ -29,6 +29,7 @@ async function main() {
   } else if (process.argv.length === 3) {
     console.error('Please stage both package.json and package.json5.')
     process.exitCode = 1
+    return
   } else {
     check(process.argv[2], process.argv[3])
   }
@@ -52,6 +53,7 @@ function check(firstPkgFilename, secondPkgFilename) {
   } catch (err) {
     console.error(err.message)
     process.exitCode = 1
+    return
   }
 }
 

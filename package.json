@@ -3,7 +3,6 @@
   "version": "2.2.1",
   "description": "JSON for Humans",
   "main": "lib/index.js",
-  "bin": "lib/cli.js",
   "browser": "dist/json5.umd.js",
   "types": "lib/index.d.ts",
   "files": [

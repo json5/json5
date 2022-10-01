@@ -29,7 +29,7 @@ It's also a strict _subset_ of ES5, so valid JSON5 files will always be valid ES
 
 This JavaScript library is a reference implementation for JSON5 parsing and serialization,
 and is directly used in many of the popular projects mentioned above
-(where e.g. extreme performance isn't necessary for config file use cases),
+(where e.g. extreme performance isn't necessary),
 but others have created [many other libraries](https://github.com/json5/json5/wiki/In-the-Wild)
 across many other platforms.
 

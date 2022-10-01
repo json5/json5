@@ -1,5 +1,4 @@
 const assert = require('assert')
-const sinon = require('sinon')
 const t = require('tap')
 const JSON5 = require('..')
 
@@ -159,15 +158,8 @@ t.test('parse(text)', t => {
       'parses escaped characters',
     )
 
-    t.test('parses line and paragraph separators with a warning', t => {
-      const mock = sinon.mock(console)
-      mock.expects('warn').twice().calledWithMatch('not valid ECMAScript')
-
+    t.test('parses line and paragraph separators', t => {
       assert.deepStrictEqual(JSON5.parse("'\u2028\u2029'"), '\u2028\u2029')
-
-      mock.verify()
-      mock.restore()
-
       t.end()
     })
 

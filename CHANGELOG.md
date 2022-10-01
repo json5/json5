@@ -15,6 +15,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `lib/register.js` and `lib/require.js` have been removed since they rely on
   deprecated Node.js APIs. Instead of using `require` to load a `.json5` file,
   read it into a string and parse it.
+- Warnings for when `U+2028` and `U+2029` characters are parsed in strings have
+  been removed since libraries should not log to console.
 
 ### Features
 

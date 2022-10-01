@@ -12,6 +12,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Node.js v14 and later is supported. Support for older versions of Node.js has
   been dropped.
+- The CLI has been removed from this library.
 - The browser bundles in `dist` have been renamed from `index.js` and
   `index.min.js` to `json5.umd.js` and `json5.umd.min.js`.
 - The browser bundles in `dist` no longer contain any polyfills since modern

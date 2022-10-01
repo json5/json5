@@ -20,13 +20,18 @@ const assert = require('assert')
 const fs = require('fs')
 const JSON5 = require('..')
 
-if (process.argv.length === 2) {
-  check(require.resolve('../package.json'), require.resolve('../package.json5'))
-} else if (process.argv.length === 3) {
-  console.error('Please stage both package.json and package.json5.')
-  process.exitCode = 1
-} else {
-  check(process.argv[2], process.argv[3])
+async function main() {
+  if (process.argv.length === 2) {
+    check(
+      require.resolve('../package.json'),
+      require.resolve('../package.json5'),
+    )
+  } else if (process.argv.length === 3) {
+    console.error('Please stage both package.json and package.json5.')
+    process.exitCode = 1
+  } else {
+    check(process.argv[2], process.argv[3])
+  }
 }
 
 /**
@@ -49,3 +54,8 @@ function check(firstPkgFilename, secondPkgFilename) {
     process.exitCode = 1
   }
 }
+
+main().catch(err => {
+  console.error(err)
+  process.exitCode = 1
+})

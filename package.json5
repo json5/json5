@@ -5,7 +5,7 @@
   description: 'JSON for Humans',
   main: 'lib/index.js',
   bin: 'lib/cli.js',
-  browser: 'dist/index.js',
+  browser: 'dist/json5.umd.js',
   types: 'lib/index.d.ts',
   files: [
     'lib',

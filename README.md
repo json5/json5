@@ -125,7 +125,7 @@ const JSON5 = require('json5')
 
 ```html
 <!-- This will create a global `JSON5` variable. -->
-<script src="https://unpkg.com/json5@2/dist/index.min.js"></script>
+<script src="https://unpkg.com/json5@2/dist/json5.umd.min.js"></script>
 ```
 
 ## API

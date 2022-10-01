@@ -1,5 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+export FORCE_COLOR=1
 npx --no -- lint-staged -q
 npm run -s package:update

@@ -1,5 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+export FORCE_COLOR=1
 npx --no -- commitlint -e "$1"
 npm run -s changelog:check -- "$1"

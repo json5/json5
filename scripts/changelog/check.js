@@ -13,6 +13,7 @@ const fs = require('fs')
 const {default: parse} = require('@commitlint/parse')
 const config = require('conventional-changelog-conventionalcommits')
 const {simpleGit} = require('simple-git')
+const {color} = require('../util')
 
 async function main() {
   const {parserOpts} = await config()
@@ -28,12 +29,18 @@ async function main() {
     type === 'fix' ||
     notes.some(({title}) => /^BREAKING[- ]CHANGE$/.test(title))
   ) {
-    const git = simpleGit()
-
+    const c = await color()
     const errorMessage =
-      `The Unreleased section of CHANGELOG.md must be updated and staged for features, fixes, and breaking changes.\n` +
-      'Please update CHANGELOG.md, then run `git add CHANGELOG.md`.'
+      `${c.error('✖')} The Unreleased section of ${c.filename(
+        'CHANGELOG.md',
+      )} must be updated and staged for ${c.keyword('features')}, ${c.keyword(
+        'fixes',
+      )}, and ${c.keyword('breaking changes')}.\n` +
+      `  Please update ${c.filename('CHANGELOG.md')}, run ${c.command(
+        'git add CHANGELOG.md',
+      )}, then try committing again.`
 
+    const git = simpleGit()
     const stagedFiles = await git.diff(['--cached', '--name-only'])
     if (!/^CHANGELOG\.md$/m.test(stagedFiles)) {
       console.error(errorMessage)

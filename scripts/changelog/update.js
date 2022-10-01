@@ -11,14 +11,18 @@
 const fs = require('fs')
 const pkg = require('../../package.json')
 const {simpleGit} = require('simple-git')
+const {color} = require('../util')
 
 async function main() {
   const git = simpleGit()
   const stagedFiles = await git.diff(['--cached', '--name-only'])
+  const c = await color()
   if (/^CHANGELOG\.md$/m.test(stagedFiles)) {
     console.error(
-      'CHANGELOG.md cannot be staged.\n' +
-        'Please run `git reset -- CHANGELOG.md` to fix.',
+      `${c.error('✖')} ${c.filename('CHANGELOG.md')} is already staged.\n` +
+        `  Please run ${c.command(
+          'git reset -- CHANGELOG.md',
+        )} to fix, then try again.`,
     )
     process.exitCode = 1
     return
@@ -28,7 +32,9 @@ async function main() {
   let changelog = fs.readFileSync('CHANGELOG.md', 'utf8')
   if (versionRegExp.test(changelog)) {
     console.error(
-      `CHANGELOG.md already contains a section for v${pkg.version}.`,
+      `${c.error('✖')} ${c.filename(
+        'CHANGELOG.md',
+      )} already contains a section for ${c.keyword(`v${pkg.version}`)}.`,
     )
     process.exitCode = 1
     return

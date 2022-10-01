@@ -68,6 +68,7 @@
     '@rollup/plugin-commonjs': '^22.0.2',
     '@rollup/plugin-node-resolve': '^14.1.0',
     '@tsconfig/node14': '^1.0.3',
+    chalk: '^5.0.1',
     'conventional-changelog-conventionalcommits': '^5.0.0',
     'core-js': '^3.25.3',
     eslint: '^8.24.0',

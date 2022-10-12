@@ -81,7 +81,8 @@ been extended to JSON5.
 
 Kitchen-sink example:
 
-```js
+<!-- prettier-ignore -->
+```json5
 {
   // comments
   unquoted: 'and you can quote me on that',

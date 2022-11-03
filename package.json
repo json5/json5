@@ -1,7 +1,7 @@
 {
   "name": "json5",
   "version": "2.2.1",
-  "description": "JSON for humans.",
+  "description": "JSON for Humans",
   "main": "lib/index.js",
   "module": "dist/index.mjs",
   "bin": "lib/cli.js",

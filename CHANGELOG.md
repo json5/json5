@@ -1,10 +1,16 @@
 ### Unreleased [[code][c-unreleased], [diff][d-unreleased]]
 
 [c-unreleased]: https://github.com/json5/json5/tree/main
-[d-unreleased]: https://github.com/json5/json5/compare/v2.2.1...HEAD
+[d-unreleased]: https://github.com/json5/json5/compare/v2.2.2...HEAD
+
+### v2.2.2 [[code][c2.2.2], [diff][d2.2.2]]
+
+[c2.2.2]: https://github.com/json5/json5/tree/v2.2.2
+[d2.2.2]: https://github.com/json5/json5/compare/v2.2.1...v2.2.2
 
 - Fix: Properties with the name `__proto__` are added to objects and arrays.
-  ([#199])
+  ([#199]) This also fixes a prototype pollution vulnerability reported by
+  Jonathan Gregson! ([#295]).
 
 ### v2.2.1 [[code][c2.2.1], [diff][d2.2.1]]
 
@@ -372,3 +378,4 @@ parser for the regular JSON format.
 [#236]: https://github.com/json5/json5/issues/236
 [#244]: https://github.com/json5/json5/issues/244
 [#266]: https://github.com/json5/json5/issues/266
+[#295]: https://github.com/json5/json5/issues/295

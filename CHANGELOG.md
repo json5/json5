@@ -1,3 +1,14 @@
+### v1.0.2 [[code][c1.0.2], [diff][d1.0.2]]
+
+[c1.0.2]: https://github.com/json5/json5/tree/v1.0.2
+[d1.0.2]: https://github.com/json5/json5/compare/v1.0.1...v1.0.2
+
+This release backports a fix for CVE-2022-46175.
+
+- Fix: Properties with the name `__proto__` are added to objects and arrays.
+  ([#199])
+
+
 ### v1.0.1 [[code][c1.0.1], [diff][d1.0.1]]
 
 [c1.0.1]: https://github.com/json5/json5/tree/v1.0.1
@@ -272,3 +283,4 @@ parser for the regular JSON format.
 [#108]: https://github.com/json5/json5/pull/108
 [#134]: https://github.com/json5/json5/pull/134
 [#154]: https://github.com/json5/json5/issues/154
+[#199]: https://github.com/json5/json5/issues/199

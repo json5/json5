@@ -3,6 +3,9 @@
 [c-unreleased]: https://github.com/json5/json5/tree/main
 [d-unreleased]: https://github.com/json5/json5/compare/v2.2.1...HEAD
 
+- Fix: Properties with the name `__proto__` are added to objects and arrays.
+  ([#199])
+
 ### v2.2.1 [[code][c2.2.1], [diff][d2.2.1]]
 
 [c2.2.1]: https://github.com/json5/json5/tree/v2.2.1
@@ -360,6 +363,7 @@ parser for the regular JSON format.
 [#182]: https://github.com/json5/json5/issues/182
 [#187]: https://github.com/json5/json5/issues/187
 [#196]: https://github.com/json5/json5/issues/196
+[#199]: https://github.com/json5/json5/issues/199
 [#208]: https://github.com/json5/json5/issues/208
 [#210]: https://github.com/json5/json5/issues/210
 [#222]: https://github.com/json5/json5/issues/222

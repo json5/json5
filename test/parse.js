@@ -33,6 +33,11 @@ describe('JSON5', () => {
                 assert.deepStrictEqual(JSON5.parse('{\\u0061\\u0062:1,\\u0024\\u005F:2,\\u005F\\u0024:3}'), {ab: 1, $_: 2, _$: 3})
             })
 
+            it('preserves __proto__ property names', () => {
+                // eslint-disable-next-line no-proto
+                assert.strictEqual(JSON5.parse('{"__proto__":1}').__proto__, 1)
+            })
+
             it('parses multiple properties', () => {
                 assert.deepStrictEqual(JSON5.parse('{abc:1,def:2}'), {abc: 1, def: 2})
             })

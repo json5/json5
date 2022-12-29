@@ -1,9 +1,7 @@
-### v1.0.2 [[code][c1.0.2], [diff][d1.0.2]]
+### Unreleased [[code][c-unreleased], [diff][d-unreleased]]
 
-[c1.0.2]: https://github.com/json5/json5/tree/v1.0.2
-[d1.0.2]: https://github.com/json5/json5/compare/v1.0.1...v1.0.2
-
-This release backports a fix for CVE-2022-46175.
+[c-unreleased]: https://github.com/json5/json5/tree/v1
+[d-unreleased]: https://github.com/json5/json5/compare/v1.0.1...v1
 
 - Fix: Properties with the name `__proto__` are added to objects and arrays.
   ([#199])

@@ -244,6 +244,10 @@ that compatibility is a fundamental premise of JSON5.
 To report bugs or request features regarding this **JavaScript implementation**
 of JSON5, please submit an issue to **_this_ repository**.
 
+### Security Vulnerabilities and Disclosures
+To report a security vulnerability, please follow the follow the guidelines
+described in our [security policy](./SECURITY.md).
+
 ## License
 MIT. See [LICENSE.md](./LICENSE.md) for details.
 

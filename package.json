@@ -1,6 +1,6 @@
 {
   "name": "json5",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "JSON for Humans",
   "main": "lib/index.js",
   "module": "dist/index.mjs",

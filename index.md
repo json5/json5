@@ -25,7 +25,7 @@ like **MacOS** and **iOS**.
 Formally, the **[JSON5 Data Interchange Format](https://spec.json5.org/)** is a superset of JSON
 (so valid JSON files will always be valid JSON5 files)
 that expands its syntax to include some productions from [ECMAScript 5.1] (ES5).
-It's also a strict _subset_ of ES5, so valid JSON5 files will always be valid ES5.
+It's also a _subset_ of ES5, so valid JSON5 files will always be valid ES5.[*](#ecmascript-compatibility)
 
 This JavaScript library is a reference implementation for JSON5 parsing and serialization,
 and is directly used in many of the popular projects mentioned above
@@ -239,7 +239,7 @@ please submit an issue to the official
 **[_specification_ repository](https://github.com/json5/json5-spec)**.
 
 Note that we will never add any features that make JSON5 incompatible with ES5;
-that compatibility is a fundamental premise of JSON5.
+that compatibility is a fundamental premise of JSON5.[*](#ecmascript-compatibility)
 
 To report bugs or request features regarding this **JavaScript implementation**
 of JSON5, please submit an issue to **_this_ repository**.
@@ -247,6 +247,14 @@ of JSON5, please submit an issue to **_this_ repository**.
 ### Security Vulnerabilities and Disclosures
 To report a security vulnerability, please follow the follow the guidelines
 described in our [security policy](./SECURITY.md).
+
+## ECMAScript Compatibility
+While JSON5 aims to be fully compatible with ES5, there is one exception where
+both JSON and JSON5 are not. Both JSON and JSON5 allow unescaped line and
+paragraph separator characters (U+2028 and U+2029) in strings, however ES5 does
+not. A [proposal](https://github.com/tc39/proposal-json-superset) to allow these
+characters in strings was adopted into ES2019, making JSON and JSON5 fully
+compatible with ES2019.
 
 ## License
 MIT. See [LICENSE.md](./LICENSE.md) for details.

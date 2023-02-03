@@ -1,3 +1,7 @@
+If you are patching a security vulnerability, please do not submit a pull
+request. Instead, follow the guidelines described in our
+[security policy](../blob/main/SECURITY.md).
+
 If you are submitting a bug fix for an an error or fixing an incompatibility
 with the [official JSON5 specification][spec], please continue.
 

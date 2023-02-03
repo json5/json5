@@ -1,7 +1,24 @@
 ### Unreleased [[code][c-unreleased], [diff][d-unreleased]]
 
 [c-unreleased]: https://github.com/json5/json5/tree/main
-[d-unreleased]: https://github.com/json5/json5/compare/v2.2.1...HEAD
+[d-unreleased]: https://github.com/json5/json5/compare/v2.2.3...HEAD
+
+### v2.2.3 [[code][c2.2.3], [diff][d2.2.3]]
+
+[c2.2.3]: https://github.com/json5/json5/tree/v2.2.3
+[d2.2.3]: https://github.com/json5/json5/compare/v2.2.2...v2.2.3
+
+- Fix: json5@2.2.3 is now the 'latest' release according to npm instead of
+  v1.0.2. ([#299])
+
+### v2.2.2 [[code][c2.2.2], [diff][d2.2.2]]
+
+[c2.2.2]: https://github.com/json5/json5/tree/v2.2.2
+[d2.2.2]: https://github.com/json5/json5/compare/v2.2.1...v2.2.2
+
+- Fix: Properties with the name `__proto__` are added to objects and arrays.
+  ([#199]) This also fixes a prototype pollution vulnerability reported by
+  Jonathan Gregson! ([#295]).
 
 ### v2.2.1 [[code][c2.2.1], [diff][d2.2.1]]
 
@@ -360,6 +377,7 @@ parser for the regular JSON format.
 [#182]: https://github.com/json5/json5/issues/182
 [#187]: https://github.com/json5/json5/issues/187
 [#196]: https://github.com/json5/json5/issues/196
+[#199]: https://github.com/json5/json5/issues/199
 [#208]: https://github.com/json5/json5/issues/208
 [#210]: https://github.com/json5/json5/issues/210
 [#222]: https://github.com/json5/json5/issues/222
@@ -368,3 +386,5 @@ parser for the regular JSON format.
 [#236]: https://github.com/json5/json5/issues/236
 [#244]: https://github.com/json5/json5/issues/244
 [#266]: https://github.com/json5/json5/issues/266
+[#295]: https://github.com/json5/json5/issues/295
+[#299]: https://github.com/json5/json5/issues/299

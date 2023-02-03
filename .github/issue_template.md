@@ -1,6 +1,10 @@
-If you are submitting a bug because you are receiving an error or because this
-project is incompatible with the [official JSON5
-specification][spec], please continue.
+If you are reporting a security vulnerability, please do not submit an issue.
+Instead, follow the guidelines described in our
+[security policy](../blob/main/SECURITY.md).
+
+If you are submitting a bug report because you are receiving an error or because
+this project is incompatible with the [official JSON5 specification][spec],
+please continue.
 
 If you are submitting a feature request or code improvement that is compatible
 with the [official JSON5 specification][spec], please continue.

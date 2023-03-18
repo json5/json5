@@ -42,7 +42,7 @@
   },
   "homepage": "http://json5.org/",
   "dependencies": {
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

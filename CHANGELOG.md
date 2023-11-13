@@ -388,3 +388,4 @@ parser for the regular JSON format.
 [#266]: https://github.com/json5/json5/issues/266
 [#295]: https://github.com/json5/json5/issues/295
 [#299]: https://github.com/json5/json5/issues/299
+Erdem3536

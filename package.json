@@ -1,6 +1,6 @@
 {
   "name": "json5",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "JSON for Humans",
   "main": "lib/index.js",
   "module": "dist/index.mjs",
@@ -51,7 +51,7 @@
   },
   "homepage": "http://json5.org/",
   "devDependencies": {
-    "core-js": "^2.6.5",
+    "core-js": "^3.37.1",
     "eslint": "^5.15.3",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.16.0",

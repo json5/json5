@@ -322,7 +322,7 @@ This release tightens JSON5 support and adds helpful utility features:
 This was the first implementation of this JSON5 parser.
 
 - Support unquoted object keys, including reserved words. Unicode characters
-  and escape sequences sequences aren't yet supported.
+  and escape sequences aren't yet supported.
 
 - Support single-quoted strings.
 

@@ -20,7 +20,7 @@ and has been adopted by major projects like
 [WebStorm](https://www.jetbrains.com/help/webstorm/json.html),
 and [more](https://github.com/json5/json5/wiki/In-the-Wild)**.
 It's also natively supported on **[Apple platforms](https://developer.apple.com/documentation/foundation/jsondecoder/3766916-allowsjson5)**
-like **MacOS** and **iOS**.
+like **macOS** and **iOS**.
 
 Formally, the **[JSON5 Data Interchange Format](https://spec.json5.org/)** is a superset of JSON
 (so valid JSON files will always be valid JSON5 files)

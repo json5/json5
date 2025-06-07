@@ -95,8 +95,10 @@ A more real-world example is [this config file](https://github.com/chromium/chro
 from the Chromium/Blink project.
 
 ## Specification
+<!-- TODO: hosting needed for grammar docs -->
 For a detailed explanation of the JSON5 format, please read the [official
-specification](https://json5.github.io/json5-spec/).
+specification](https://json5.github.io/json5-spec/). You can also view
+[a diagram of the grammar](docs/grammar.html).
 
 ## Installation and Usage
 ### Node.js
@@ -146,6 +148,18 @@ transformation on the resulting object before it is returned.
 - `text`: The string to parse as JSON5.
 - `reviver`: If a function, this prescribes how the value originally produced by
   parsing is transformed, before being returned.
+  <br><br>
+  The `reviver` function supports a third argument, after `key` and `value`, called
+`context`, which is provided when `value` has been parsed as a primitive (string, number,
+boolean, or `null`). The source text for the primitive is provided by`context.source`
+allowing, for example, processing numbers with greater precision than native JavaScript
+numbers can handle.<br><br>
+
+  <a id="rv-context"></a>(This is in accordance with a
+[proposal](https://github.com/tc39/proposal-json-parse-with-source), documented
+[here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse#reviver),
+which is not yet part of the official ECMAScript standard, but is nevertheless
+widely supported at present.)
 
 #### Return value
 The object corresponding to the given JSON5 text.
@@ -288,3 +302,9 @@ supporter, contributing multiple patches and ideas.
 [Jordan Tucker](https://github.com/jordanbtucker) has aligned JSON5 more closely
 with ES5, wrote the official JSON5 specification, completely rewrote the
 codebase from the ground up, and is actively maintaining this project.
+
+[Kerry Shetline](https://github.com/kshetline) as updated the callbacks to
+reviver functions [as described here](#rv-context). He has also updated the unit testing and build process, and consolidated and updated the work of two other
+contributors, [@romgrk](https://github.com/romgrk) and
+[@jlguardi](https://github.com/jlguardi), for faster general parsing and faster
+long string parsing, respectively.

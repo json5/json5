@@ -41,3 +41,4 @@ dist/
 
 test/output.json
 test/test.json
+/.idea/

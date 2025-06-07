@@ -2,8 +2,14 @@
     "root": true,
     "extends": [
         "standard",
-        "plugin:node/recommended"
+        "plugin:n/recommended"
     ],
+    "plugins": ["chai-friendly"],
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2023
+    },
+    "ignorePatterns": ["unicode.js", "*.d.ts"],
     "rules": {
         "array-bracket-spacing": [
             "error",
@@ -13,6 +19,10 @@
             "error",
             "as-needed"
         ],
+        "camelcase": [
+            "error",
+            { "allow": ["^LOWER_[a-z]", "^_\\$"] }
+        ],
         "comma-dangle": [
             "error",
             "always-multiline"
@@ -21,10 +31,19 @@
             "error",
             4
         ],
-        "no-process-exit": "off",
+        "no-unused-expressions": "off",
+        "chai-friendly/no-unused-expressions": "error",
+        "n/no-process-exit": "off",
+        "n/no-unsupported-features/es-syntax": "off",
+        "n/no-unsupported-features/node-builtins": "off",
         "object-curly-spacing": [
             "error",
             "never"
+        ],
+        "yoda": [
+            "error",
+            "never",
+            { "exceptRange": true }
         ]
     }
 }

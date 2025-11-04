@@ -45,6 +45,7 @@ module.exports = [
             resolve(),
             commonjs(),
         ],
+        footer: "export { parse, stringify };"
     },
     // ES6 Modules Minified
     {
@@ -58,5 +59,6 @@ module.exports = [
             commonjs(),
             terser(),
         ],
+        footer: "export{parse,stringify};"
     },
 ]

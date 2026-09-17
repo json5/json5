@@ -9,7 +9,7 @@ npm install
 ```
 
 When contributing code, please write relevant tests and run `npm test` and `npm
-run lint` before submitting pull requests. Please use an editor that supports
+run test-types` before submitting pull requests. Please use an editor that supports
 [EditorConfig](http://editorconfig.org/).
 
 ## Issues

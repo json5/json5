@@ -107,24 +107,35 @@ npm install json5
 #### CommonJS
 ```js
 const JSON5 = require('json5')
+// or
+const {parse, stringify} = require('json5')
 ```
 
 #### Modules
 ```js
 import JSON5 from 'json5'
+// or
+import {parse, stringify} from 'json5'
 ```
+
+The `require` and `import` entry points expose the same shape: a default
+export with `parse` and `stringify`, plus `parse` and `stringify` as named
+exports.
+
+#### TypeScript
+Type declarations are bundled; no `@types` package is needed.
 
 ### Browsers
 #### UMD
 ```html
 <!-- This will create a global `JSON5` variable. -->
-<script src="https://unpkg.com/json5@2/dist/index.min.js"></script>
+<script src="https://unpkg.com/json5@3/dist/index.min.js"></script>
 ```
 
 #### Modules
 ```html
 <script type="module">
-  import JSON5 from 'https://unpkg.com/json5@2/dist/index.min.mjs'
+  import JSON5 from 'https://unpkg.com/json5@3/dist/index.min.mjs'
 </script>
 ```
 
@@ -188,7 +199,7 @@ When using Node.js, you can `require()` JSON5 files by adding the following
 statement.
 
 ```js
-require('json5/lib/register')
+require('json5/register')
 ```
 
 Then you can load a JSON5 file with a Node.js `require()` statement. For
@@ -230,7 +241,7 @@ npm install
 ```
 
 When contributing code, please write relevant tests and run `npm test` and `npm
-run lint` before submitting pull requests. Please use an editor that supports
+run test-types` before submitting pull requests. Please use an editor that supports
 [EditorConfig](http://editorconfig.org/).
 
 ### Issues

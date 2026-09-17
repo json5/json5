@@ -1,14 +1,15 @@
 /* eslint-disable camelcase */
 
-const fs = require('fs')
-const path = require('path')
-const regenerate = require('regenerate')
+import fs from 'node:fs'
+import {createRequire} from 'node:module'
+import {fileURLToPath} from 'node:url'
+import regenerate from 'regenerate'
 
-const libDir = 'lib'
+const require = createRequire(import.meta.url)
 
 const Space_Separator = regenerate()
     .add(require('unicode-10.0.0/General_Category/Space_Separator/code-points'))
-    .remove('\t', '\v', '\f', ' ', '\u00A0', '\uFEFF')
+    .remove('\t', '\v', '\f', ' ', ' ', '﻿')
 
 const ID_Start = regenerate()
     .add(require('unicode-10.0.0/General_Category/Uppercase_Letter/code-points'))
@@ -32,12 +33,7 @@ const ID_Continue = regenerate()
     .removeRange('A', 'Z')
     .removeRange('a', 'z')
 
-const outDir = libDir
-const outPath = path.join(outDir, 'unicode.js')
-
-if (!fs.existsSync(outDir)) {
-    fs.mkdirSync(outDir)
-}
+const outPath = fileURLToPath(new URL('../lib/unicode.js', import.meta.url))
 
 const data = {
     Space_Separator,
@@ -45,7 +41,7 @@ const data = {
     ID_Continue,
 }
 
-let es6 = '// This is a generated file. Do not edit.\n'
-es6 += Object.keys(data).map(key => `module.exports.${key} = /${data[key]}/\n`).join('')
+let source = '// This is a generated file. Do not edit.\n'
+source += Object.keys(data).map(key => `export const ${key} = /${data[key]}/\n`).join('')
 
-fs.writeFileSync(outPath, es6)
+fs.writeFileSync(outPath, source)

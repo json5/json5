@@ -3,6 +3,24 @@
 [c-unreleased]: https://github.com/json5/json5/tree/main
 [d-unreleased]: https://github.com/json5/json5/compare/v2.2.3...HEAD
 
+- **Breaking:** The package is now ES modules first. `lib/` contains ES module
+  sources, `package.json` has `"type": "module"` and an `exports` map, and the
+  CommonJS entry (`dist/index.cjs`) is generated from the sources. Deep imports
+  other than `json5/register` (and its aliases `json5/lib/register` and
+  `json5/require`) are no longer available.
+- **Breaking:** Node.js 18 or later is required. The browser bundles target
+  ES2015 instead of ES5.
+- Fix: `import {parse, stringify} from 'json5'` works, and the `import` and
+  `require` entry points expose the same shape. ([#240], [#348])
+- Fix: Type declarations are bundled as a single `lib/index.d.ts` matching the
+  ESM and CJS entries, including the `stringify(value, options)` overload.
+- Build: rollup + buble + core-js are replaced by a single esbuild step; tap and
+  sinon are replaced by `node:test`. The package has no runtime dependencies.
+- CI: tests run on GitHub Actions against Node.js 18, 20 and 22.
+
+[#240]: https://github.com/json5/json5/issues/240
+[#348]: https://github.com/json5/json5/issues/348
+
 ### v2.2.3 [[code][c2.2.3], [diff][d2.2.3]]
 
 [c2.2.3]: https://github.com/json5/json5/tree/v2.2.3

@@ -5,13 +5,14 @@
   description: 'JSON for Humans',
   type: 'module',
   main: './dist/index.cjs',
-  module: './lib/index.js',
+  module: './dist/index.mjs',
   browser: './dist/index.min.js',
   types: './lib/index.d.ts',
   exports: {
     '.': {
       types: './lib/index.d.ts',
-      import: './lib/index.js',
+      'module-sync': './dist/index.mjs',
+      import: './dist/index.mjs',
       require: './dist/index.cjs',
     },
     './register': './lib/register.cjs',
@@ -63,7 +64,7 @@
   homepage: 'http://json5.org/',
   devDependencies: {
     '@types/node': '^20.14.0',
-    esbuild: '^0.23.0',
+    esbuild: '^0.28.2',
     regenerate: '^1.4.0',
     typescript: '^5.5.0',
     'unicode-10.0.0': '^0.7.5',

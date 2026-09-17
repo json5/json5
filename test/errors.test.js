@@ -1,6 +1,6 @@
 import {test} from 'node:test'
 import assert from 'node:assert'
-import JSON5 from '../lib/index.js'
+import * as JSON5 from '../lib/index.js'
 
 function throwsWith (fn, {message, lineNumber, columnNumber}) {
     assert.throws(fn, err => {

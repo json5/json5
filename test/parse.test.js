@@ -1,6 +1,6 @@
 import {test} from 'node:test'
 import assert from 'node:assert'
-import JSON5 from '../lib/index.js'
+import * as JSON5 from '../lib/index.js'
 
 test('parse: parses empty objects', () => {
     assert.deepStrictEqual(JSON5.parse('{}'), {})

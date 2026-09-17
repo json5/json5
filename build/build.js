@@ -1,21 +1,44 @@
 // Builds the distributable entries from the ES module sources in lib/ with
-// esbuild: the CommonJS entry served by the `require` export condition, a
-// minified ESM bundle, and the minified UMD-style browser global.
+// esbuild. The sources only have named exports; the default export (the
+// `JSON5` object) and the `'module.exports'` interop export are added here.
 import {build} from 'esbuild'
 import {mkdirSync} from 'node:fs'
 import {fileURLToPath} from 'node:url'
 
-const root = new URL('../', import.meta.url)
-const entry = fileURLToPath(new URL('lib/index.js', root))
-const out = file => fileURLToPath(new URL(`dist/${file}`, root))
+const root = fileURLToPath(new URL('../', import.meta.url))
+const out = file => `${root}dist/${file}`
 
-mkdirSync(new URL('dist/', root), {recursive: true})
+mkdirSync(out(''), {recursive: true})
 
-// The named exports (parse, stringify) stay on module.exports so that
-// `require('json5')` and `import {parse} from 'json5'` resolve to the same
-// shape (#240).
+const entry = ({interop}) => ({
+    contents: [
+        "import {parse, stringify} from './lib/index.js'",
+        'const JSON5 = {parse, stringify}',
+        interop
+            ? "export {parse, stringify, JSON5 as default, JSON5 as 'module.exports'}"
+            : 'export {parse, stringify, JSON5 as default}',
+        '',
+    ].join('\n'),
+    resolveDir: root,
+    sourcefile: 'index.js',
+})
+
+// Node.js entry for the `module-sync` and `import` conditions. The
+// `'module.exports'` export lets require() return the JSON5 object directly.
 await build({
-    entryPoints: [entry],
+    stdin: entry({interop: true}),
+    bundle: true,
+    format: 'esm',
+    platform: 'node',
+    target: 'node22',
+    outfile: out('index.mjs'),
+})
+
+// CommonJS entry for the `require` condition on runtimes without require(esm).
+// The default export stays so that transpiled `import JSON5 from 'json5'`
+// (esModuleInterop, babel) resolves to the JSON5 object.
+await build({
+    stdin: entry({interop: false}),
     bundle: true,
     format: 'cjs',
     platform: 'node',
@@ -24,25 +47,22 @@ await build({
 })
 
 await build({
-    entryPoints: [entry],
+    stdin: entry({interop: false}),
     bundle: true,
     format: 'esm',
-    target: 'es2022',
+    target: 'es2015',
     minify: true,
     outfile: out('index.min.mjs'),
 })
 
-// esbuild emits the iife as `var JSON5 = (() => {…})()` with the default
-// export on JSON5.default; expose it as the global directly.
 await build({
-    entryPoints: [entry],
+    entryPoints: [`${root}lib/index.js`],
     bundle: true,
     format: 'iife',
     globalName: 'JSON5',
-    target: 'es2022',
+    target: 'es2015',
     minify: true,
     outfile: out('index.min.js'),
-    footer: {js: 'if(typeof JSON5!=="undefined"&&JSON5.default)JSON5=JSON5.default;'},
 })
 
-console.log('build: dist/index.cjs + dist/index.min.mjs + dist/index.min.js')
+console.log('build: dist/index.mjs + dist/index.cjs + dist/index.min.mjs + dist/index.min.js')

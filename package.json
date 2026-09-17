@@ -4,14 +4,14 @@
   "description": "JSON for Humans",
   "type": "module",
   "main": "./dist/index.cjs",
-  "module": "./lib/index.js",
+  "module": "./dist/index.mjs",
   "browser": "./dist/index.min.js",
   "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "module-sync": "./lib/index.js",
-      "import": "./lib/index.js",
+      "module-sync": "./dist/index.mjs",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./register": "./lib/register.cjs",

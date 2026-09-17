@@ -4,12 +4,13 @@
 [d-unreleased]: https://github.com/json5/json5/compare/v2.2.3...HEAD
 
 - **Breaking:** The package is now ES modules first. `lib/` contains ES module
-  sources, `package.json` has `"type": "module"` and an `exports` map, and the
-  CommonJS entry (`dist/index.cjs`) is generated from the sources. Deep imports
+  sources with named exports, `package.json` has `"type": "module"` and an
+  `exports` map, and the ESM (`dist/index.mjs`) and CommonJS (`dist/index.cjs`)
+  entries are generated from the sources. Deep imports
   other than `json5/register` (and its aliases `json5/lib/register` and
   `json5/require`) are no longer available.
 - **Breaking:** Node.js 22 or later is required. The browser bundles target
-  ES2022 instead of ES5.
+  ES2015 instead of ES5.
 - Fix: `import {parse, stringify} from 'json5'` works, and the `import` and
   `require` entry points expose the same shape. ([#240], [#348])
 - New: a `module-sync` export condition and a `'module.exports'` export let

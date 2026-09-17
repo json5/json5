@@ -1,6 +1,6 @@
 import {test} from 'node:test'
 import assert from 'node:assert'
-import JSON5 from '../lib/index.js'
+import * as JSON5 from '../lib/index.js'
 
 test('stringify: stringifies empty objects', () => {
     assert.strictEqual(JSON5.stringify({}), '{}')

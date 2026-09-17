@@ -27,7 +27,7 @@ await build({
     entryPoints: [entry],
     bundle: true,
     format: 'esm',
-    target: 'es2015',
+    target: 'es2022',
     minify: true,
     outfile: out('index.min.mjs'),
 })
@@ -39,7 +39,7 @@ await build({
     bundle: true,
     format: 'iife',
     globalName: 'JSON5',
-    target: 'es2015',
+    target: 'es2022',
     minify: true,
     outfile: out('index.min.js'),
     footer: {js: 'if(typeof JSON5!=="undefined"&&JSON5.default)JSON5=JSON5.default;'},

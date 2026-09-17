@@ -9,9 +9,11 @@
   other than `json5/register` (and its aliases `json5/lib/register` and
   `json5/require`) are no longer available.
 - **Breaking:** Node.js 22 or later is required. The browser bundles target
-  ES2015 instead of ES5.
+  ES2022 instead of ES5.
 - Fix: `import {parse, stringify} from 'json5'` works, and the `import` and
   `require` entry points expose the same shape. ([#240], [#348])
+- New: a `module-sync` export condition and a `'module.exports'` export let
+  Node.js 22.12+ load the ES module entry for both `import` and `require()`.
 - Fix: Type declarations are bundled as a single `lib/index.d.ts` matching the
   ESM and CJS entries, including the `stringify(value, options)` overload.
 - Build: rollup + buble + core-js are replaced by a single esbuild step; tap and

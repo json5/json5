@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import {fileURLToPath} from 'node:url'
-import JSON5 from '../lib/index.js'
+import * as JSON5 from '../lib/index.js'
 
 const root = new URL('../', import.meta.url)
 const pkg = JSON.parse(fs.readFileSync(new URL('package.json', root), 'utf8'))

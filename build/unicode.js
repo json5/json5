@@ -9,7 +9,7 @@ const require = createRequire(import.meta.url)
 
 const Space_Separator = regenerate()
     .add(require('unicode-10.0.0/General_Category/Space_Separator/code-points'))
-    .remove('\t', '\v', '\f', ' ', ' ', '﻿')
+    .remove('\t', '\v', '\f', ' ', '\u00A0', '\uFEFF')
 
 const ID_Start = regenerate()
     .add(require('unicode-10.0.0/General_Category/Uppercase_Letter/code-points'))

@@ -19,7 +19,7 @@ await build({
     bundle: true,
     format: 'cjs',
     platform: 'node',
-    target: 'node18',
+    target: 'node22',
     outfile: out('index.cjs'),
 })
 

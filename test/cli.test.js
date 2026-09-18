@@ -3,10 +3,7 @@ import assert from 'node:assert'
 import {spawnSync} from 'node:child_process'
 import fs from 'node:fs'
 import {fileURLToPath} from 'node:url'
-import {createRequire} from 'node:module'
-
-const require = createRequire(import.meta.url)
-const pkg = require('../package.json')
+import pkg from '../package.json' with {type: 'json'}
 
 const cliPath = fileURLToPath(new URL('../lib/cli.js', import.meta.url))
 const testJson5 = fileURLToPath(new URL('./test.json5', import.meta.url))

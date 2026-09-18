@@ -21,10 +21,10 @@ test('exports: require() of the ES module entry returns the default export', () 
     assert.strictEqual(require('../dist/index.mjs'), JSON5)
 })
 
-test('exports: the CommonJS entry exposes parse, stringify and default', () => {
+test('exports: the CommonJS entry is a plain {parse, stringify} object', () => {
     const cjs = require('../dist/index.cjs')
-    assert.deepStrictEqual(Object.keys(cjs).sort(), ['default', 'parse', 'stringify'])
-    assert.strictEqual(cjs.default.parse, cjs.parse)
+    assert.deepStrictEqual(Object.getOwnPropertyNames(cjs).sort(), ['parse', 'stringify'])
+    assert.strictEqual(cjs.__esModule, undefined)
     assert.deepStrictEqual(cjs.parse('{a:1}'), {a: 1})
     assert.strictEqual(cjs.stringify({a: 1}), '{a:1}')
 })

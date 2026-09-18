@@ -2,12 +2,13 @@
 // esbuild. The sources only have named exports; the default export (the
 // `JSON5` object) and the `'module.exports'` interop export are added here.
 import {build} from 'esbuild'
-import {mkdirSync} from 'node:fs'
+import {mkdirSync, rmSync} from 'node:fs'
 import {fileURLToPath} from 'node:url'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 const out = file => `${root}dist/${file}`
 
+rmSync(out(''), {recursive: true, force: true})
 mkdirSync(out(''), {recursive: true})
 
 const entry = ({interop}) => ({
@@ -35,10 +36,15 @@ await build({
 })
 
 // CommonJS entry for the `require` condition on runtimes without require(esm).
-// The default export stays so that transpiled `import JSON5 from 'json5'`
-// (esModuleInterop, babel) resolves to the JSON5 object.
+// Built from a CommonJS entry so that module.exports is a plain object without
+// an `__esModule` marker: `require('json5')` gives `{parse, stringify}`, and
+// transpiled default imports (esModuleInterop, Babel) wrap it as expected.
 await build({
-    stdin: entry({interop: false}),
+    stdin: {
+        contents: "const {parse, stringify} = require('./lib/index.js')\nmodule.exports = {parse, stringify}\n",
+        resolveDir: root,
+        sourcefile: 'index.cjs',
+    },
     bundle: true,
     format: 'cjs',
     platform: 'node',

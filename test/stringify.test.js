@@ -96,12 +96,10 @@ test('stringify: stringifies false', () => {
 })
 
 test('stringify: stringifies true Boolean objects', () => {
-    // eslint-disable-next-line no-new-wrappers
     assert.strictEqual(JSON5.stringify(new Boolean(true)), 'true')
 })
 
 test('stringify: stringifies false Boolean objects', () => {
-    // eslint-disable-next-line no-new-wrappers
     assert.strictEqual(JSON5.stringify(new Boolean(false)), 'false')
 })
 
@@ -114,7 +112,6 @@ test('stringify: stringifies non-finite numbers', () => {
 })
 
 test('stringify: stringifies Number objects', () => {
-    // eslint-disable-next-line no-new-wrappers
     assert.strictEqual(JSON5.stringify(new Number(-1.2)), '-1.2')
 })
 
@@ -150,7 +147,6 @@ test('stringify: stringifies escaped line and paragraph separators', () => {
 })
 
 test('stringify: stringifies String objects', () => {
-    // eslint-disable-next-line no-new-wrappers
     assert.strictEqual(JSON5.stringify(new String('abc')), "'abc'")
 })
 
@@ -257,12 +253,10 @@ test('stringify(value, null, space): indents in nested objects', () => {
 })
 
 test('stringify(value, null, space): accepts Number objects', () => {
-    // eslint-disable-next-line no-new-wrappers
     assert.strictEqual(JSON5.stringify([1], null, new Number(2)), '[\n  1,\n]')
 })
 
 test('stringify(value, null, space): accepts String objects', () => {
-    // eslint-disable-next-line no-new-wrappers
     assert.strictEqual(JSON5.stringify([1], null, new String('\t')), '[\n\t1,\n]')
 })
 
@@ -282,7 +276,6 @@ test('stringify(value, replacer): only filters string and number keys when an ar
 
 test('stringify(value, replacer): accepts String and Number objects when an array is provided', () => {
     assert.strictEqual(
-        // eslint-disable-next-line no-new-wrappers
         JSON5.stringify({a: 1, b: 2, 3: 3}, [new String('a'), new Number(3)]),
         "{a:1,'3':3}"
     )
@@ -338,7 +331,7 @@ test('stringify(value, replacer): does not affect space when calls are nested', 
     assert.strictEqual(
         JSON5.stringify(
             {a: 1},
-            (key, value) => {
+            (_key, value) => {
                 JSON5.stringify({}, null, 4)
                 return value
             },

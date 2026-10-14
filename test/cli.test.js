@@ -21,7 +21,9 @@ function run (args, input) {
 function cleanup (file) {
     try {
         fs.unlinkSync(file)
-    } catch (err) {}
+    } catch (_err) {
+        return;
+    }
 }
 
 test('CLI: converts JSON5 to JSON from stdin to stdout', () => {

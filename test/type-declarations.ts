@@ -1,6 +1,6 @@
-// Compile-only check of the bundled type declarations (tsc --noEmit --strict).
-import JSON5, {parse, stringify} from '../lib/index.js'
-import type {StringifyOptions} from '../lib/index.js'
+// Compile-only check of the ESM type declarations (tsc --noEmit --strict --module node16).
+import JSON5, {parse, stringify} from 'json5'
+import type {StringifyOptions} from 'json5'
 
 // default export carries parse/stringify
 const a: number = JSON5.parse<{x: number}>('{x:1}').x

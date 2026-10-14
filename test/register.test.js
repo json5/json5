@@ -14,7 +14,7 @@ test('require(*.json5): is backward compatible with v0.5.1, but gives a deprecat
     const originalWarn = console.warn
     console.warn = (...args) => { warnings.push(args) }
     try {
-        require('../lib/require.cjs')
+        require('json5/lib/require')
     } finally {
         console.warn = originalWarn
     }

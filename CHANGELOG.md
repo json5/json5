@@ -6,17 +6,20 @@
 - **Breaking:** The package is now ES modules first. `lib/` contains ES module
   sources with named exports, `package.json` has `"type": "module"` and an
   `exports` map, and the ESM (`dist/index.mjs`) and CommonJS (`dist/index.cjs`)
-  entries are generated from the sources. Deep imports
-  other than `json5/register` (and its aliases `json5/lib/register` and
-  `json5/require`) are no longer available.
+  entries are generated from the sources. Deep imports other than
+  `json5/register` (and its aliases `json5/lib/register` and
+  `json5/lib/require`) are no longer available.
 - **Breaking:** Node.js 22 or later is required. The browser bundles target
   ES2015 instead of ES5.
-- Fix: `import {parse, stringify} from 'json5'` works, and the `import` and
-  `require` entry points expose the same shape. ([#240], [#348])
+- **Breaking:** The browser build is no longer UMD. `dist/index.min.js` only
+  sets a `JSON5` global, and the unminified `dist/index.js` is removed.
+- Fix: `import {parse, stringify} from 'json5'` works, and `import JSON5 from
+  'json5'` and `require('json5')` both give `{parse, stringify}`. ([#240], [#348])
 - New: a `module-sync` export condition and a `'module.exports'` export let
   Node.js 22.12+ load the ES module entry for both `import` and `require()`.
-- Fix: Type declarations are bundled as a single `lib/index.d.ts` matching the
-  ESM and CJS entries, including the `stringify(value, options)` overload.
+- Fix: Type declarations are bundled, with `lib/index.d.ts` for the ESM entry and
+  `lib/index.d.cts` for the CJS entry, including the `stringify(value, options)`
+  overload.
 - Build: rollup + buble + core-js are replaced by a single esbuild step; tap and
   sinon are replaced by `node:test`. The package has no runtime dependencies.
 - CI: tests run on GitHub Actions against Node.js 22, 24 and 26.

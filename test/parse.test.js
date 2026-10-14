@@ -20,8 +20,8 @@ test('parse: parses unquoted property names', () => {
 
 test('parse: parses special character property names', () => {
     assert.deepStrictEqual(
-        JSON5.parse('{$_:1,_$:2,a‌:3}'),
-        {$_: 1, _$: 2, 'a‌': 3}
+        JSON5.parse('{$_:1,_$:2,a\u200C:3}'),
+        {$_: 1, _$: 2, 'a\u200C': 3}
     )
 })
 
@@ -138,7 +138,7 @@ test('parse: parses bare hexadecimal number', () => {
 test('parse: parses bare long hexadecimal number', () => {
     assert.deepStrictEqual(
         JSON5.parse('-0x0123456789abcdefABCDEF'),
-        -0x0123456789abcdefABCDEF
+        -0x0123456789abcdefABCDEF // eslint-disable-line no-loss-of-precision
     )
 })
 
@@ -171,7 +171,7 @@ test('parse: parses line and paragraph separators with a warning', () => {
     const originalWarn = console.warn
     console.warn = (...args) => { warnings.push(args) }
     try {
-        assert.deepStrictEqual(JSON5.parse("'  '"), '  ')
+        assert.deepStrictEqual(JSON5.parse("'\u2028\u2029'"), '\u2028\u2029')
     } finally {
         console.warn = originalWarn
     }
@@ -195,7 +195,7 @@ test('parse: parses multi-line comments', () => {
 
 test('parse: parses whitespace', () => {
     assert.deepStrictEqual(
-        JSON5.parse('{\t\v\f  ﻿\n\r   }'),
+        JSON5.parse('{\t\v\f \u00A0\uFEFF\n\r\u2028\u2029\u2003}'),
         {}
     )
 })

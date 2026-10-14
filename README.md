@@ -118,15 +118,15 @@ import JSON5 from 'json5'
 import {parse, stringify} from 'json5'
 ```
 
-The `require` and `import` entry points expose the same shape: a default
-export with `parse` and `stringify`, plus `parse` and `stringify` as named
-exports.
+`require('json5')` returns an object with `parse` and `stringify`. The ES module
+entry has `parse` and `stringify` as named exports, and the same object as its
+default export.
 
 #### TypeScript
 Type declarations are bundled; no `@types` package is needed.
 
 ### Browsers
-#### UMD
+#### Global object
 ```html
 <!-- This will create a global `JSON5` variable. -->
 <script src="https://unpkg.com/json5@3/dist/index.min.js"></script>

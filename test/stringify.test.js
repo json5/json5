@@ -24,8 +24,8 @@ test('stringify: stringifies empty string property names', () => {
 
 test('stringify: stringifies special character property names', () => {
     assert.strictEqual(
-        JSON5.stringify({$_: 1, _$: 2, 'a‌': 3}),
-        '{$_:1,_$:2,a‌:3}'
+        JSON5.stringify({$_: 1, _$: 2, 'a\u200C': 3}),
+        '{$_:1,_$:2,a\u200C:3}'
     )
 })
 
@@ -281,8 +281,8 @@ test('stringify(value, replacer): only filters string and number keys when an ar
 })
 
 test('stringify(value, replacer): accepts String and Number objects when an array is provided', () => {
-    // eslint-disable-next-line no-new-wrappers
     assert.strictEqual(
+        // eslint-disable-next-line no-new-wrappers
         JSON5.stringify({a: 1, b: 2, 3: 3}, [new String('a'), new Number(3)]),
         "{a:1,'3':3}"
     )

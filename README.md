@@ -113,8 +113,6 @@ const {parse, stringify} = require('json5')
 
 #### Modules
 ```js
-import JSON5 from 'json5'
-// or
 import {parse, stringify} from 'json5'
 ```
 
@@ -126,16 +124,11 @@ default export.
 Type declarations are bundled; no `@types` package is needed.
 
 ### Browsers
-#### Global object
-```html
-<!-- This will create a global `JSON5` variable. -->
-<script src="https://unpkg.com/json5@3/dist/index.min.js"></script>
-```
 
 #### Modules
 ```html
 <script type="module">
-  import JSON5 from 'https://unpkg.com/json5@3/dist/index.min.mjs'
+  import * as JSON5 from 'https://unpkg.com/json5@2/lib/index.js'
 </script>
 ```
 

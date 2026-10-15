@@ -15,6 +15,8 @@
   sets a `JSON5` global, and the unminified `dist/index.js` is removed.
 - Fix: `import {parse, stringify} from 'json5'` works, and `import JSON5 from
   'json5'` and `require('json5')` both give `{parse, stringify}`. ([#240], [#348])
+- **Breaking:** A wider range of unquoted property names are supported due to
+  upgrading from Unicode 10 to 18.
 - **Breaking:** Warnings for when `U+2028` and `U+2029` characters are parsed in
   strings have been removed since libraries should not log to console.
 - New: a `module-sync` export condition and a `'module.exports'` export let

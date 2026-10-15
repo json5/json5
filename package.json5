@@ -72,9 +72,9 @@
   homepage: 'http://json5.org/',
   devDependencies: {
     '@types/node': '^20.14.0',
+    '@unicode/unicode-18.0.0': '^2.0.7',
     esbuild: '^0.28.2',
     regenerate: '^1.4.0',
     typescript: '^5.5.0',
-    'unicode-10.0.0': '^0.7.5',
   },
 }

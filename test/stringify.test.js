@@ -25,26 +25,23 @@ test('stringify: stringifies empty string property names', () => {
 test('stringify: stringifies special character property names', () => {
     assert.strictEqual(
         JSON5.stringify({$_: 1, _$: 2, 'a\u200C': 3}),
-        '{$_:1,_$:2,a\u200C:3}'
+        '{$_:1,_$:2,a\u200C:3}',
     )
 })
 
 test('stringify: stringifies unicode property names', () => {
-    assert.strictEqual(JSON5.stringify({'ùńîċõďë': 9}), '{ùńîċõďë:9}')
+    assert.strictEqual(JSON5.stringify({ùńîċõďë: 9}), '{ùńîċõďë:9}')
 })
 
 test('stringify: stringifies escaped property names', () => {
     assert.strictEqual(
         JSON5.stringify({'\\\b\f\n\r\t\v\0\x01': 1}),
-        "{'\\\\\\b\\f\\n\\r\\t\\v\\0\\x01':1}"
+        "{'\\\\\\b\\f\\n\\r\\t\\v\\0\\x01':1}",
     )
 })
 
 test('stringify: stringifies escaped null character property names', () => {
-    assert.strictEqual(
-        JSON5.stringify({'\0\x001': 1}),
-        "{'\\0\\x001':1}"
-    )
+    assert.strictEqual(JSON5.stringify({'\0\x001': 1}), "{'\\0\\x001':1}")
 })
 
 test('stringify: stringifies multiple properties', () => {
@@ -76,11 +73,14 @@ test('stringify: stringifies nulls', () => {
 })
 
 test('stringify: returns undefined for functions', () => {
-    assert.strictEqual(JSON5.stringify(() => {}), undefined)
+    assert.strictEqual(
+        JSON5.stringify(() => {}),
+        undefined,
+    )
 })
 
 test('stringify: ignores function properties', () => {
-    assert.strictEqual(JSON5.stringify({a () {}}), '{}')
+    assert.strictEqual(JSON5.stringify({a() {}}), '{}')
 })
 
 test('stringify: returns null for functions in arrays', () => {
@@ -96,12 +96,10 @@ test('stringify: stringifies false', () => {
 })
 
 test('stringify: stringifies true Boolean objects', () => {
-    // eslint-disable-next-line no-new-wrappers
     assert.strictEqual(JSON5.stringify(new Boolean(true)), 'true')
 })
 
 test('stringify: stringifies false Boolean objects', () => {
-    // eslint-disable-next-line no-new-wrappers
     assert.strictEqual(JSON5.stringify(new Boolean(false)), 'false')
 })
 
@@ -110,11 +108,13 @@ test('stringify: stringifies numbers', () => {
 })
 
 test('stringify: stringifies non-finite numbers', () => {
-    assert.strictEqual(JSON5.stringify([Infinity, -Infinity, NaN]), '[Infinity,-Infinity,NaN]')
+    assert.strictEqual(
+        JSON5.stringify([Infinity, -Infinity, NaN]),
+        '[Infinity,-Infinity,NaN]',
+    )
 })
 
 test('stringify: stringifies Number objects', () => {
-    // eslint-disable-next-line no-new-wrappers
     assert.strictEqual(JSON5.stringify(new Number(-1.2)), '-1.2')
 })
 
@@ -129,7 +129,7 @@ test('stringify: stringifies double quoted strings', () => {
 test('stringify: stringifies escaped characters', () => {
     assert.strictEqual(
         JSON5.stringify('\\\b\f\n\r\t\v\0\x0f'),
-        "'\\\\\\b\\f\\n\\r\\t\\v\\0\\x0f'"
+        "'\\\\\\b\\f\\n\\r\\t\\v\\0\\x0f'",
     )
 })
 
@@ -150,46 +150,65 @@ test('stringify: stringifies escaped line and paragraph separators', () => {
 })
 
 test('stringify: stringifies String objects', () => {
-    // eslint-disable-next-line no-new-wrappers
     assert.strictEqual(JSON5.stringify(new String('abc')), "'abc'")
 })
 
 test('stringify: stringifies using built-in toJSON methods', () => {
     assert.strictEqual(
         JSON5.stringify(new Date('2016-01-01T00:00:00.000Z')),
-        "'2016-01-01T00:00:00.000Z'"
+        "'2016-01-01T00:00:00.000Z'",
     )
 })
 
 test('stringify: stringifies using user defined toJSON methods', () => {
-    function C () {}
-    Object.assign(C.prototype, {toJSON () { return {a: 1, b: 2} }})
+    function C() {}
+    Object.assign(C.prototype, {
+        toJSON() {
+            return {a: 1, b: 2}
+        },
+    })
     assert.strictEqual(JSON5.stringify(new C()), '{a:1,b:2}')
 })
 
 test('stringify: stringifies using user defined toJSON(key) methods', () => {
-    function C () {}
-    Object.assign(C.prototype, {toJSON (key) { return (key === 'a') ? 1 : 2 }})
+    function C() {}
+    Object.assign(C.prototype, {
+        toJSON(key) {
+            return key === 'a' ? 1 : 2
+        },
+    })
     assert.strictEqual(JSON5.stringify({a: new C(), b: new C()}), '{a:1,b:2}')
 })
 
 test('stringify: stringifies using toJSON5 methods', () => {
-    function C () {}
-    Object.assign(C.prototype, {toJSON5 () { return {a: 1, b: 2} }})
+    function C() {}
+    Object.assign(C.prototype, {
+        toJSON5() {
+            return {a: 1, b: 2}
+        },
+    })
     assert.strictEqual(JSON5.stringify(new C()), '{a:1,b:2}')
 })
 
 test('stringify: stringifies using toJSON5(key) methods', () => {
-    function C () {}
-    Object.assign(C.prototype, {toJSON5 (key) { return (key === 'a') ? 1 : 2 }})
+    function C() {}
+    Object.assign(C.prototype, {
+        toJSON5(key) {
+            return key === 'a' ? 1 : 2
+        },
+    })
     assert.strictEqual(JSON5.stringify({a: new C(), b: new C()}), '{a:1,b:2}')
 })
 
 test('stringify: calls toJSON5 instead of toJSON if both are defined', () => {
-    function C () {}
+    function C() {}
     Object.assign(C.prototype, {
-        toJSON () { return {a: 1, b: 2} },
-        toJSON5 () { return {a: 2, b: 2} },
+        toJSON() {
+            return {a: 1, b: 2}
+        },
+        toJSON5() {
+            return {a: 2, b: 2}
+        },
     })
     assert.strictEqual(JSON5.stringify(new C()), '{a:2,b:2}')
 })
@@ -197,13 +216,25 @@ test('stringify: calls toJSON5 instead of toJSON if both are defined', () => {
 test('stringify: throws on circular objects', () => {
     let a = {}
     a.a = a
-    assert.throws(() => { JSON5.stringify(a) }, TypeError, 'Converting circular structure to JSON5')
+    assert.throws(
+        () => {
+            JSON5.stringify(a)
+        },
+        TypeError,
+        'Converting circular structure to JSON5',
+    )
 })
 
 test('stringify: throws on circular arrays', () => {
     let a = []
     a[0] = a
-    assert.throws(() => { JSON5.stringify(a) }, TypeError, 'Converting circular structure to JSON5')
+    assert.throws(
+        () => {
+            JSON5.stringify(a)
+        },
+        TypeError,
+        'Converting circular structure to JSON5',
+    )
 })
 
 test('stringify(value, null, space): does not indent when no value is provided', () => {
@@ -231,7 +262,10 @@ test('stringify(value, null, space): indents with the string provided', () => {
 })
 
 test('stringify(value, null, space): does not indent more than 10 characters of the string provided', () => {
-    assert.strictEqual(JSON5.stringify([1], null, '           '), '[\n          1,\n]')
+    assert.strictEqual(
+        JSON5.stringify([1], null, '           '),
+        '[\n          1,\n]',
+    )
 })
 
 test('stringify(value, null, space): indents in arrays', () => {
@@ -241,7 +275,7 @@ test('stringify(value, null, space): indents in arrays', () => {
 test('stringify(value, null, space): indents in nested arrays', () => {
     assert.strictEqual(
         JSON5.stringify([1, [2], 3], null, 2),
-        '[\n  1,\n  [\n    2,\n  ],\n  3,\n]'
+        '[\n  1,\n  [\n    2,\n  ],\n  3,\n]',
     )
 })
 
@@ -252,85 +286,107 @@ test('stringify(value, null, space): indents in objects', () => {
 test('stringify(value, null, space): indents in nested objects', () => {
     assert.strictEqual(
         JSON5.stringify({a: {b: 2}}, null, 2),
-        '{\n  a: {\n    b: 2,\n  },\n}'
+        '{\n  a: {\n    b: 2,\n  },\n}',
     )
 })
 
 test('stringify(value, null, space): accepts Number objects', () => {
-    // eslint-disable-next-line no-new-wrappers
     assert.strictEqual(JSON5.stringify([1], null, new Number(2)), '[\n  1,\n]')
 })
 
 test('stringify(value, null, space): accepts String objects', () => {
-    // eslint-disable-next-line no-new-wrappers
-    assert.strictEqual(JSON5.stringify([1], null, new String('\t')), '[\n\t1,\n]')
+    assert.strictEqual(
+        JSON5.stringify([1], null, new String('\t')),
+        '[\n\t1,\n]',
+    )
 })
 
 test('stringify(value, replacer): filters keys when an array is provided', () => {
     assert.strictEqual(
         JSON5.stringify({a: 1, b: 2, 3: 3}, ['a', 3]),
-        "{a:1,'3':3}"
+        "{a:1,'3':3}",
     )
 })
 
 test('stringify(value, replacer): only filters string and number keys when an array is provided', () => {
     assert.strictEqual(
         JSON5.stringify({a: 1, b: 2, 3: 3, false: 4}, ['a', 3, false]),
-        "{a:1,'3':3}"
+        "{a:1,'3':3}",
     )
 })
 
 test('stringify(value, replacer): accepts String and Number objects when an array is provided', () => {
     assert.strictEqual(
-        // eslint-disable-next-line no-new-wrappers
         JSON5.stringify({a: 1, b: 2, 3: 3}, [new String('a'), new Number(3)]),
-        "{a:1,'3':3}"
+        "{a:1,'3':3}",
     )
 })
 
 test('stringify(value, replacer): replaces values when a function is provided', () => {
     assert.strictEqual(
-        JSON5.stringify({a: 1, b: 2}, (key, value) => (key === 'a') ? 2 : value),
-        '{a:2,b:2}'
+        JSON5.stringify({a: 1, b: 2}, (key, value) =>
+            key === 'a' ? 2 : value,
+        ),
+        '{a:2,b:2}',
     )
 })
 
 test('stringify(value, replacer): ignores array elements appended by the replacer', () => {
     assert.strictEqual(
-        JSON5.stringify([1], function (key, value) { if (key === '0') { this.push(2) } return value }),
-        '[1]'
+        JSON5.stringify([1], function (key, value) {
+            if (key === '0') {
+                this.push(2)
+            }
+            return value
+        }),
+        '[1]',
     )
 })
 
 test('stringify(value, replacer): serializes removed array elements as null when the replacer truncates the array', () => {
     assert.strictEqual(
-        JSON5.stringify([1, 2], function (key, value) { if (key === '0') { this.length = 1 } return value }),
-        '[1,null]'
+        JSON5.stringify([1, 2], function (key, value) {
+            if (key === '0') {
+                this.length = 1
+            }
+            return value
+        }),
+        '[1,null]',
     )
 })
 
 test('stringify(value, replacer): sets `this` to the parent value', () => {
     assert.strictEqual(
-        JSON5.stringify({a: {b: 1}}, function (k, v) { return (k === 'b' && this.b) ? 2 : v }),
-        '{a:{b:2}}'
+        JSON5.stringify({a: {b: 1}}, function (k, v) {
+            return k === 'b' && this.b ? 2 : v
+        }),
+        '{a:{b:2}}',
     )
 })
 
 test('stringify(value, replacer): is called after toJSON', () => {
-    function C () {}
-    Object.assign(C.prototype, {toJSON () { return {a: 1, b: 2} }})
+    function C() {}
+    Object.assign(C.prototype, {
+        toJSON() {
+            return {a: 1, b: 2}
+        },
+    })
     assert.strictEqual(
-        JSON5.stringify(new C(), (key, value) => (key === 'a') ? 2 : value),
-        '{a:2,b:2}'
+        JSON5.stringify(new C(), (key, value) => (key === 'a' ? 2 : value)),
+        '{a:2,b:2}',
     )
 })
 
 test('stringify(value, replacer): is called after toJSON5', () => {
-    function C () {}
-    Object.assign(C.prototype, {toJSON5 () { return {a: 1, b: 2} }})
+    function C() {}
+    Object.assign(C.prototype, {
+        toJSON5() {
+            return {a: 1, b: 2}
+        },
+    })
     assert.strictEqual(
-        JSON5.stringify(new C(), (key, value) => (key === 'a') ? 2 : value),
-        '{a:2,b:2}'
+        JSON5.stringify(new C(), (key, value) => (key === 'a' ? 2 : value)),
+        '{a:2,b:2}',
     )
 })
 
@@ -338,20 +394,20 @@ test('stringify(value, replacer): does not affect space when calls are nested', 
     assert.strictEqual(
         JSON5.stringify(
             {a: 1},
-            (key, value) => {
+            (_key, value) => {
                 JSON5.stringify({}, null, 4)
                 return value
             },
-            2
+            2,
         ),
-        '{\n  a: 1,\n}'
+        '{\n  a: 1,\n}',
     )
 })
 
 test('stringify(value, options): accepts replacer as an option', () => {
     assert.strictEqual(
         JSON5.stringify({a: 1, b: 2, 3: 3}, {replacer: ['a', 3]}),
-        "{a:1,'3':3}"
+        "{a:1,'3':3}",
     )
 })
 
@@ -362,14 +418,14 @@ test('stringify(value, options): accepts space as an option', () => {
 test('stringify(value, {quote}): uses double quotes if provided', () => {
     assert.strictEqual(
         JSON5.stringify({'a"': '1"'}, {quote: '"'}),
-        '{"a\\"":"1\\""}'
+        '{"a\\"":"1\\""}',
     )
 })
 
 test('stringify(value, {quote}): uses single quotes if provided', () => {
     assert.strictEqual(
         JSON5.stringify({"a'": "1'"}, {quote: "'"}),
-        "{'a\\'':'1\\''}"
+        "{'a\\'':'1\\''}",
     )
 })
 

@@ -2,9 +2,12 @@ import {test} from 'node:test'
 import assert from 'node:assert'
 import * as JSON5 from '../lib/index.js'
 
-function throwsWith (fn, {message, lineNumber, columnNumber}) {
-    assert.throws(fn, err => {
-        assert.ok(message.test(err.message), `message ${JSON.stringify(err.message)} does not match ${message}`)
+function throwsWith(fn, {message, lineNumber, columnNumber}) {
+    assert.throws(fn, (err) => {
+        assert.ok(
+            message.test(err.message),
+            `message ${JSON.stringify(err.message)} does not match ${message}`,
+        )
         assert.strictEqual(err.lineNumber, lineNumber, 'lineNumber')
         assert.strictEqual(err.columnNumber, columnNumber, 'columnNumber')
         return true

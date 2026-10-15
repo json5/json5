@@ -19,17 +19,15 @@ test('parse: parses unquoted property names', () => {
 })
 
 test('parse: parses special character property names', () => {
-    assert.deepStrictEqual(
-        JSON5.parse('{$_:1,_$:2,a\u200C:3}'),
-        {$_: 1, _$: 2, 'a\u200C': 3}
-    )
+    assert.deepStrictEqual(JSON5.parse('{$_:1,_$:2,a\u200C:3}'), {
+        $_: 1,
+        _$: 2,
+        'a\u200C': 3,
+    })
 })
 
 test('parse: parses unicode property names', () => {
-    assert.deepStrictEqual(
-        JSON5.parse('{ùńîċõďë:9}'),
-        {'ùńîċõďë': 9}
-    )
+    assert.deepStrictEqual(JSON5.parse('{ùńîċõďë:9}'), {ùńîċõďë: 9})
 })
 
 test('parse: parses property names with characters added in Unicode 18', () => {
@@ -39,12 +37,11 @@ test('parse: parses property names with characters added in Unicode 18', () => {
 test('parse: parses escaped property names', () => {
     assert.deepStrictEqual(
         JSON5.parse('{\\u0061\\u0062:1,\\u0024\\u005F:2,\\u005F\\u0024:3}'),
-        {ab: 1, $_: 2, _$: 3}
+        {ab: 1, $_: 2, _$: 3},
     )
 })
 
 test('parse: preserves __proto__ property names', () => {
-    // eslint-disable-next-line no-proto
     assert.deepStrictEqual(JSON5.parse('{"__proto__":1}').__proto__, 1)
 })
 
@@ -107,16 +104,22 @@ test('parse: parses fractional numbers', () => {
 test('parse: parses exponents', () => {
     assert.deepStrictEqual(
         JSON5.parse('[1e0,1e1,1e01,1.e0,1.1e0,1e-1,1e+1]'),
-        [1, 10, 10, 1, 1.1, 0.1, 10]
+        [1, 10, 10, 1, 1.1, 0.1, 10],
     )
 })
 
 test('parse: parses hexadecimal numbers', () => {
-    assert.deepStrictEqual(JSON5.parse('[0x1,0x10,0xff,0xFF]'), [1, 16, 255, 255])
+    assert.deepStrictEqual(
+        JSON5.parse('[0x1,0x10,0xff,0xFF]'),
+        [1, 16, 255, 255],
+    )
 })
 
 test('parse: parses signed and unsigned Infinity', () => {
-    assert.deepStrictEqual(JSON5.parse('[Infinity,-Infinity]'), [Infinity, -Infinity])
+    assert.deepStrictEqual(JSON5.parse('[Infinity,-Infinity]'), [
+        Infinity,
+        -Infinity,
+    ])
 })
 
 test('parse: parses NaN', () => {
@@ -142,7 +145,7 @@ test('parse: parses bare hexadecimal number', () => {
 test('parse: parses bare long hexadecimal number', () => {
     assert.deepStrictEqual(
         JSON5.parse('-0x0123456789abcdefABCDEF'),
-        -0x0123456789abcdefABCDEF // eslint-disable-line no-loss-of-precision
+        -0x0123456789abcdefabcdef, // eslint-disable-line no-loss-of-precision
     )
 })
 
@@ -159,15 +162,17 @@ test('parse: parses quotes in strings', () => {
 })
 
 test('parse: parses escaped characters', () => {
-    const input = "'" +
+    const input =
+        "'" +
         '\\b\\f\\n\\r\\t\\v\\0\\x0f\\u01fF' +
-        '\\\n' + '\\\r\n' + '\\\r' +
-        '\\\u2028' + '\\\u2029' +
-        "\\a\\'\\\"" + "'"
-    assert.strictEqual(
-        JSON5.parse(input),
-        '\b\f\n\r\t\v\0\x0f\u01FF' + "a'\""
-    )
+        '\\\n' +
+        '\\\r\n' +
+        '\\\r' +
+        '\\\u2028' +
+        '\\\u2029' +
+        '\\a\\\'\\"' +
+        "'"
+    assert.strictEqual(JSON5.parse(input), '\b\f\n\r\t\v\0\x0f\u01FF' + 'a\'"')
 })
 
 test('parse: parses line and paragraph separators', () => {
@@ -189,62 +194,64 @@ test('parse: parses multi-line comments', () => {
 test('parse: parses whitespace', () => {
     assert.deepStrictEqual(
         JSON5.parse('{\t\v\f \u00A0\uFEFF\n\r\u2028\u2029\u2003}'),
-        {}
+        {},
     )
 })
 
 test('parse(text, reviver): modifies property values', () => {
     assert.deepStrictEqual(
-        JSON5.parse('{a:1,b:2}', (k, v) => (k === 'a') ? 'revived' : v),
-        {a: 'revived', b: 2}
+        JSON5.parse('{a:1,b:2}', (k, v) => (k === 'a' ? 'revived' : v)),
+        {a: 'revived', b: 2},
     )
 })
 
 test('parse(text, reviver): modifies nested object property values', () => {
     assert.deepStrictEqual(
-        JSON5.parse('{a:{b:2}}', (k, v) => (k === 'b') ? 'revived' : v),
-        {a: {b: 'revived'}}
+        JSON5.parse('{a:{b:2}}', (k, v) => (k === 'b' ? 'revived' : v)),
+        {a: {b: 'revived'}},
     )
 })
 
 test('parse(text, reviver): deletes property values', () => {
     assert.deepStrictEqual(
-        JSON5.parse('{a:1,b:2}', (k, v) => (k === 'a') ? undefined : v),
-        {b: 2}
+        JSON5.parse('{a:1,b:2}', (k, v) => (k === 'a' ? undefined : v)),
+        {b: 2},
     )
 })
 
 test('parse(text, reviver): modifies array values', () => {
     assert.deepStrictEqual(
-        JSON5.parse('[0,1,2]', (k, v) => (k === '1') ? 'revived' : v),
-        [0, 'revived', 2]
+        JSON5.parse('[0,1,2]', (k, v) => (k === '1' ? 'revived' : v)),
+        [0, 'revived', 2],
     )
 })
 
 test('parse(text, reviver): modifies nested array values', () => {
     assert.deepStrictEqual(
-        JSON5.parse('[0,[1,2,3]]', (k, v) => (k === '2') ? 'revived' : v),
-        [0, [1, 2, 'revived']]
+        JSON5.parse('[0,[1,2,3]]', (k, v) => (k === '2' ? 'revived' : v)),
+        [0, [1, 2, 'revived']],
     )
 })
 
 test('parse(text, reviver): deletes array values', () => {
     assert.deepStrictEqual(
-        JSON5.parse('[0,1,2]', (k, v) => (k === '1') ? undefined : v),
-        [0, , 2] // eslint-disable-line no-sparse-arrays
+        JSON5.parse('[0,1,2]', (k, v) => (k === '1' ? undefined : v)),
+        [0, , 2], // eslint-disable-line no-sparse-arrays
     )
 })
 
 test('parse(text, reviver): modifies the root value', () => {
     assert.strictEqual(
-        JSON5.parse('1', (k, v) => (k === '') ? 'revived' : v),
-        'revived'
+        JSON5.parse('1', (k, v) => (k === '' ? 'revived' : v)),
+        'revived',
     )
 })
 
 test('parse(text, reviver): sets `this` to the parent value', () => {
     assert.deepStrictEqual(
-        JSON5.parse('{a:{b:2}}', function (k, v) { return (k === 'b' && this.b) ? 'revived' : v }),
-        {a: {b: 'revived'}}
+        JSON5.parse('{a:{b:2}}', function (k, v) {
+            return k === 'b' && this.b ? 'revived' : v
+        }),
+        {a: {b: 'revived'}},
     )
 })

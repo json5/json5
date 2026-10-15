@@ -1,0 +1,5 @@
+/test/*.json5
+/test/*.json
+/lib/unicode.js
+/package-lock.json
+/package.json5

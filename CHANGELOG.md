@@ -23,6 +23,8 @@
 - **Breaking:** `stringify` throws a `TypeError` if the `quote` option is not
   `'` or `"`. Other values were used as a regular expression pattern and
   produced invalid output.
+- **Breaking:** `stringify` throws an error when serializing a BigInt instead of
+  silently dropping it.
 - Fix: Type declarations are bundled in `lib/index.d.ts`, including the
   `stringify(value, options)` overload.
 - Fix: `stringify` escapes lone surrogates as `\uXXXX`, matching

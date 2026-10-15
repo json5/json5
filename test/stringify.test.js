@@ -149,6 +149,22 @@ test('stringify: stringifies escaped line and paragraph separators', () => {
     assert.strictEqual(JSON5.stringify('\u2028\u2029'), "'\\u2028\\u2029'")
 })
 
+test('stringify: stringifies escaped lone surrogates', () => {
+    assert.strictEqual(JSON5.stringify('\uD800'), "'\\ud800'")
+    assert.strictEqual(JSON5.stringify('\uDEAD'), "'\\udead'")
+    assert.strictEqual(JSON5.stringify('a\uDBFFb\uDC00c'), "'a\\udbffb\\udc00c'")
+    assert.strictEqual(JSON5.stringify('\uDC00\uD800'), "'\\udc00\\ud800'")
+    assert.strictEqual(JSON5.stringify('😀\uD83D'), "'😀\\ud83d'")
+})
+
+test('stringify: stringifies surrogate pairs', () => {
+    assert.strictEqual(JSON5.stringify('😀'), "'😀'")
+})
+
+test('stringify: stringifies escaped lone surrogate property names', () => {
+    assert.strictEqual(JSON5.stringify({'\uDEAD': 1}), "{'\\udead':1}")
+})
+
 test('stringify: stringifies String objects', () => {
     // eslint-disable-next-line no-new-wrappers
     assert.strictEqual(JSON5.stringify(new String('abc')), "'abc'")

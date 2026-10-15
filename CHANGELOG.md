@@ -27,10 +27,14 @@
 - Fix: Type declarations are bundled, with `lib/index.d.ts` for the ESM entry and
   `lib/index.d.cts` for the CJS entry, including the `stringify(value, options)`
   overload.
+- Fix: `stringify` escapes lone surrogates as `\uXXXX`, matching
+  `JSON.stringify`, instead of producing a string that is not well-formed
+  Unicode. ([#192])
 - Build: rollup + buble + core-js are replaced by a single esbuild step; tap and
   sinon are replaced by `node:test`. The package has no runtime dependencies.
 - CI: tests run on GitHub Actions against Node.js 22, 24 and 26.
 
+[#192]: https://github.com/json5/json5/issues/192
 [#240]: https://github.com/json5/json5/issues/240
 [#348]: https://github.com/json5/json5/issues/348
 

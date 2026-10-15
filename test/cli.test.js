@@ -34,6 +34,11 @@ test('CLI: reads from the specified file', () => {
     assert.strictEqual(stdout, '{"a":1,"b":2}')
 })
 
+test('CLI: escapes lone surrogates in the output', () => {
+    const {stdout} = run([], '"\\uDEAD"')
+    assert.strictEqual(stdout, '"\\udead"')
+})
+
 test('CLI: indents output with the number of spaces specified with -s', () => {
     const {stdout} = run([testJson5, '-s', '4'])
     assert.strictEqual(stdout, '{\n    "a": 1,\n    "b": 2\n}')

@@ -19,6 +19,9 @@
   upgrading from Unicode 10 to 18.
 - **Breaking:** Warnings for when `U+2028` and `U+2029` characters are parsed in
   strings have been removed since libraries should not log to console.
+- **Breaking:** `stringify` throws a `TypeError` if the `quote` option is not
+  `'` or `"`. Other values were used as a regular expression pattern and
+  produced invalid output.
 - New: a `module-sync` export condition and a `'module.exports'` export let
   Node.js 22.12+ load the ES module entry for both `import` and `require()`.
 - Fix: Type declarations are bundled, with `lib/index.d.ts` for the ESM entry and

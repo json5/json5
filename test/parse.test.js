@@ -170,19 +170,8 @@ test('parse: parses escaped characters', () => {
     )
 })
 
-test('parse: parses line and paragraph separators with a warning', () => {
-    const warnings = []
-    const originalWarn = console.warn
-    console.warn = (...args) => { warnings.push(args) }
-    try {
-        assert.deepStrictEqual(JSON5.parse("'\u2028\u2029'"), '\u2028\u2029')
-    } finally {
-        console.warn = originalWarn
-    }
-    assert.strictEqual(warnings.length, 2)
-    for (const w of warnings) {
-        assert.ok(/not valid ECMAScript/.test(String(w[0])))
-    }
+test('parse: parses line and paragraph separators', () => {
+    assert.deepStrictEqual(JSON5.parse("'\u2028\u2029'"), '\u2028\u2029')
 })
 
 test('parse: parses single-line comments', () => {

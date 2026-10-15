@@ -109,6 +109,14 @@ test('stringify: stringifies numbers', () => {
     assert.strictEqual(JSON5.stringify(-1.2), '-1.2')
 })
 
+test('stringify: throws on bigints', () => {
+    assert.throws(() => JSON5.stringify(BigInt(1)), /BigInt/)
+})
+
+test('stringify: throws on BigInt objects', () => {
+    assert.throws(() => JSON5.stringify(Object(BigInt(1))), /BigInt/)
+})
+
 test('stringify: stringifies non-finite numbers', () => {
     assert.strictEqual(JSON5.stringify([Infinity, -Infinity, NaN]), '[Infinity,-Infinity,NaN]')
 })

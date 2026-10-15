@@ -32,6 +32,10 @@ test('parse: parses unicode property names', () => {
     )
 })
 
+test('parse: parses property names with characters added in Unicode 18', () => {
+    assert.deepStrictEqual(JSON5.parse('{\uA7DD:1}'), {'\uA7DD': 1})
+})
+
 test('parse: parses escaped property names', () => {
     assert.deepStrictEqual(
         JSON5.parse('{\\u0061\\u0062:1,\\u0024\\u005F:2,\\u005F\\u0024:3}'),

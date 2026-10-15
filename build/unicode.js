@@ -1,33 +1,37 @@
 /* eslint-disable camelcase */
 
 import fs from 'node:fs'
-import {createRequire} from 'node:module'
 import {fileURLToPath} from 'node:url'
 import regenerate from 'regenerate'
 
-const require = createRequire(import.meta.url)
+const unicodeVersion = '18.0.0'
+
+async function codePoints (category) {
+    const module = await import(`@unicode/unicode-${unicodeVersion}/General_Category/${category}/code-points.mjs`)
+    return module.default
+}
 
 const Space_Separator = regenerate()
-    .add(require('unicode-10.0.0/General_Category/Space_Separator/code-points'))
+    .add(await codePoints('Space_Separator'))
     .remove('\t', '\v', '\f', ' ', '\u00A0', '\uFEFF')
 
 const ID_Start = regenerate()
-    .add(require('unicode-10.0.0/General_Category/Uppercase_Letter/code-points'))
-    .add(require('unicode-10.0.0/General_Category/Lowercase_Letter/code-points'))
-    .add(require('unicode-10.0.0/General_Category/Titlecase_Letter/code-points'))
-    .add(require('unicode-10.0.0/General_Category/Modifier_Letter/code-points'))
-    .add(require('unicode-10.0.0/General_Category/Other_Letter/code-points'))
-    .add(require('unicode-10.0.0/General_Category/Letter_Number/code-points'))
+    .add(await codePoints('Uppercase_Letter'))
+    .add(await codePoints('Lowercase_Letter'))
+    .add(await codePoints('Titlecase_Letter'))
+    .add(await codePoints('Modifier_Letter'))
+    .add(await codePoints('Other_Letter'))
+    .add(await codePoints('Letter_Number'))
     .remove('$', '_')
     .removeRange('A', 'Z')
     .removeRange('a', 'z')
 
 const ID_Continue = regenerate()
     .add(ID_Start)
-    .add(require('unicode-10.0.0/General_Category/Nonspacing_Mark/code-points'))
-    .add(require('unicode-10.0.0/General_Category/Spacing_Mark/code-points'))
-    .add(require('unicode-10.0.0/General_Category/Decimal_Number/code-points'))
-    .add(require('unicode-10.0.0/General_Category/Connector_Punctuation/code-points'))
+    .add(await codePoints('Nonspacing_Mark'))
+    .add(await codePoints('Spacing_Mark'))
+    .add(await codePoints('Decimal_Number'))
+    .add(await codePoints('Connector_Punctuation'))
     .remove('$', '_')
     .removeRange('0', '9')
     .removeRange('A', 'Z')

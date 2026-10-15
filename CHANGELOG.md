@@ -15,6 +15,8 @@
   sets a `JSON5` global, and the unminified `dist/index.js` is removed.
 - Fix: `import {parse, stringify} from 'json5'` works, and `import JSON5 from
   'json5'` and `require('json5')` both give `{parse, stringify}`. ([#240], [#348])
+- **Breaking:** A wider range of unquoted property names are supported due to
+  upgrading from Unicode 10 to 18.
 - New: a `module-sync` export condition and a `'module.exports'` export let
   Node.js 22.12+ load the ES module entry for both `import` and `require()`.
 - Fix: Type declarations are bundled, with `lib/index.d.ts` for the ESM entry and

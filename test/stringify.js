@@ -405,6 +405,28 @@ t.test('JSON5', t => {
         )
 
         t.strictSame(
+            JSON5.stringify([1], function (key, value) {
+                if (key === '0') {
+                    this.push(2)
+                }
+                return value
+            }),
+            '[1]',
+            'ignores array elements appended by the replacer'
+        )
+
+        t.strictSame(
+            JSON5.stringify([1, 2], function (key, value) {
+                if (key === '0') {
+                    this.length = 1
+                }
+                return value
+            }),
+            '[1,null]',
+            'serializes removed array elements as null when the replacer truncates the array'
+        )
+
+        t.strictSame(
             JSON5.stringify({a: {b: 1}}, function (k, v) { return (k === 'b' && this.b) ? 2 : v }),
             '{a:{b:2}}',
             'sets `this` to the parent value'

@@ -1,6 +1,6 @@
-import {defineConfig} from 'eslint/config';
-import js from '@eslint/js';
-import nodePlugin from 'eslint-plugin-n';
+import {defineConfig} from 'eslint/config'
+import js from '@eslint/js'
+import nodePlugin from 'eslint-plugin-n'
 
 export default defineConfig([
     {
@@ -20,17 +20,20 @@ export default defineConfig([
     nodePlugin.configs['flat/recommended'],
     {
         rules: {
-            'no-unused-vars': ['error', {
-                caughtErrorsIgnorePattern: '^_',
-            }]
-        }
+            'no-unused-vars': [
+                'error',
+                {
+                    caughtErrorsIgnorePattern: '^_',
+                },
+            ],
+        },
     },
     {
         files: ['**/*.cjs'],
         languageOptions: {
             globals: {
                 require: 'readonly',
-            }
-        }
-    }
-]);
+            },
+        },
+    },
+])

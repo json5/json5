@@ -16,7 +16,10 @@ test('exports: the ES module entry has named exports', () => {
 })
 
 test('exports: require() of the ES module entry returns the named exports', () => {
-    const {parse: parseCJS, stringify: stringifyCJS} = require('../lib/index.js')
+    const {
+        parse: parseCJS,
+        stringify: stringifyCJS,
+    } = require('../lib/index.js')
     assert.strictEqual(parseCJS, parse)
     assert.strictEqual(stringifyCJS, stringify)
 })

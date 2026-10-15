@@ -4,8 +4,10 @@ import regenerate from 'regenerate'
 
 const unicodeVersion = '18.0.0'
 
-async function codePoints (category) {
-    const module = await import(`@unicode/unicode-${unicodeVersion}/General_Category/${category}/code-points.mjs`)
+async function codePoints(category) {
+    const module = await import(
+        `@unicode/unicode-${unicodeVersion}/General_Category/${category}/code-points.mjs`
+    )
     return module.default
 }
 
@@ -44,6 +46,8 @@ const data = {
 }
 
 let source = '// This is a generated file. Do not edit.\n'
-source += Object.keys(data).map(key => `export const ${key} = /${data[key]}/\n`).join('')
+source += Object.keys(data)
+    .map((key) => `export const ${key} = /${data[key]}/\n`)
+    .join('')
 
 fs.writeFileSync(outPath, source)

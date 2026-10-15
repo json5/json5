@@ -11,18 +11,18 @@ const invalidJson5 = fileURLToPath(new URL('./invalid.json5', import.meta.url))
 const outputJson = fileURLToPath(new URL('./output.json', import.meta.url))
 const testJson = fileURLToPath(new URL('./test.json', import.meta.url))
 
-function run (args, input) {
+function run(args, input) {
     return spawnSync(process.execPath, [cliPath, ...args], {
         input: input !== undefined ? input : undefined,
         encoding: 'utf8',
     })
 }
 
-function cleanup (file) {
+function cleanup(file) {
     try {
         fs.unlinkSync(file)
     } catch (_err) {
-        return;
+        return
     }
 }
 

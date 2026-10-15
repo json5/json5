@@ -1,7 +1,9 @@
 # Contributing to JSON5
+
 We're glad you're interested in contributing to JSON5.
 
 ## Development
+
 ```sh
 git clone https://github.com/json5/json5
 cd json5
@@ -13,6 +15,7 @@ run test-types` before submitting pull requests. Please use an editor that suppo
 [EditorConfig](http://editorconfig.org/).
 
 ## Issues
+
 To report bugs or request features regarding the JSON5 data format, please
 submit an issue to the [official specification
 repository](https://github.com/json5/json5-spec).

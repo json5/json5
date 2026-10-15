@@ -14,7 +14,7 @@
 - **Breaking:** The browser build is no longer UMD. `dist/index.min.js` only
   sets a `JSON5` global, and the unminified `dist/index.js` is removed.
 - Fix: `import {parse, stringify} from 'json5'` works, and `import JSON5 from
-  'json5'` and `require('json5')` both give `{parse, stringify}`. ([#240], [#348])
+'json5'` and `require('json5')` both give `{parse, stringify}`. ([#240], [#348])
 - **Breaking:** A wider range of unquoted property names are supported due to
   upgrading from Unicode 10 to 18.
 - **Breaking:** Warnings for when `U+2028` and `U+2029` characters are parsed in
@@ -142,7 +142,6 @@ This release includes a bug fix and minor change.
 - New: `package.json5` has been removed until an easier way to keep it in sync
   with `package.json` is found.
 
-
 ### v1.0.0 [[code][c1.0.0], [diff][d1.0.0]]
 
 [c1.0.0]: https://github.com/json5/json5/tree/v1.0.0
@@ -222,7 +221,6 @@ This release includes major internal changes and public API enhancements.
   and `String` objects will be converted to a string if they are given as array
   values.
 
-
 ### v0.5.1 [[code][c0.5.1], [diff][d0.5.1]]
 
 [c0.5.1]: https://github.com/json5/json5/tree/v0.5.1
@@ -232,7 +230,6 @@ This release includes a minor fix for indentations when stringifying empty
 arrays.
 
 - Fix: Indents no longer appear in empty arrays when stringified. ([#134])
-
 
 ### v0.5.0 [[code][c0.5.0], [diff][d0.5.0]]
 
@@ -249,7 +246,6 @@ This release includes major internal changes and public API enhancements.
 
 - New: `parse` and the CLI provide line and column numbers when displaying error
   messages. ([#101]; awesome work by [@amb26].)
-
 
 ### v0.4.0 [[code][c0.4.0], [diff][d0.4.0]]
 
@@ -280,9 +276,8 @@ This is a massive release that adds `stringify` support, among other things.
 
 - New: Negative hexadecimal numbers (e.g. `-0xC8`) are allowed again.
   (They were disallowed in v0.2.0; see below.)
-  It turns out they *are* valid in ES5, so JSON5 supports them now too.
+  It turns out they _are_ valid in ES5, so JSON5 supports them now too.
   ([#36]; thanks [@jordanbtucker]!)
-
 
 ### v0.2.0 [[code][c0.2.0], [diff][d0.2.0]]
 
@@ -311,7 +306,6 @@ express data more easily:
 
 - Fix: unescaped newlines in strings are rejected now.
   ([#24]; thanks [@Midar].)
-
 
 ### v0.1.0 [[code][c0.1.0], [diff][d0.1.0]]
 
@@ -344,7 +338,6 @@ This release tightens JSON5 support and adds helpful utility features:
 
 - New: Add Node.js `json5` executable to compile JSON5 files to JSON.
 
-
 ### v0.0.1 [[code][c0.0.1], [diff][d0.0.1]]
 
 [c0.0.1]: https://github.com/json5/json5/tree/v0.0.1
@@ -363,16 +356,13 @@ This was the first implementation of this JSON5 parser.
 
 - Support comments, both inline and block.
 
-
 ### v0.0.0 [[code](https://github.com/json5/json5/tree/v0.0.0)]
 
 Let's consider this to be Douglas Crockford's original [json_parse.js] — a
 parser for the regular JSON format.
 
-
 [json_parse.js]: https://github.com/douglascrockford/JSON-js/blob/master/json_parse.js
 [v8-hex-fix]: http://code.google.com/p/v8/issues/detail?id=2240
-
 [@MaxNanasy]: https://github.com/MaxNanasy
 [@Midar]: https://github.com/Midar
 [@pepkin88]: https://github.com/pepkin88
@@ -380,7 +370,6 @@ parser for the regular JSON format.
 [@aeisenberg]: https://github.com/aeisenberg
 [@jordanbtucker]: https://github.com/jordanbtucker
 [@amb26]: https://github.com/amb26
-
 [#1]: https://github.com/json5/json5/issues/1
 [#16]: https://github.com/json5/json5/issues/16
 [#24]: https://github.com/json5/json5/issues/24

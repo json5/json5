@@ -36,10 +36,7 @@ We appreciate your cooperation in helping keep our users safe by following this
 policy.
 
 [github security advisories]: https://github.com/json5/json5/security/advisories
-[new security advisory on github]:
-  https://github.com/json5/json5/security/advisories/new
-[privately reporting a security vulnerability]:
-  https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability
+[new security advisory on github]: https://github.com/json5/json5/security/advisories/new
+[privately reporting a security vulnerability]: https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability
 [security@json5.org]: mailto:security@json5.org
-[temporary private fork]:
-  https://docs.github.com/en/code-security/security-advisories/repository-security-advisories/collaborating-in-a-temporary-private-fork-to-resolve-a-repository-security-vulnerability
+[temporary private fork]: https://docs.github.com/en/code-security/security-advisories/repository-security-advisories/collaborating-in-a-temporary-private-fork-to-resolve-a-repository-security-vulnerability

@@ -339,5 +339,18 @@ t.test('parse(text, reviver)', t => {
         'sets `this` to the parent value'
     )
 
+    t.strictSame(
+        JSON5.parse('{a:1234567890123456789001234567890,b:"x"}', function (k, v, context) {
+            if (typeof v === 'number') {
+                return BigInt(context.source)
+            } else if (typeof v === 'string') {
+                return context.source.replace(/"/g, '@')
+            }
+            return v
+        }),
+        {a: 1234567890123456789001234567890n, b: '@x@'},
+        'make sure content of primitive values is accessible'
+    )
+
     t.end()
 })

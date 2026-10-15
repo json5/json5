@@ -9,7 +9,7 @@
  */
 declare function parse<T = any>(
     text: string,
-    reviver?: ((this: any, key: string, value: any) => any) | null,
+    reviver?: ((this: any, key: string, value: any, context?: {source: string}) => any) | null,
 ): T
 
 export = parse

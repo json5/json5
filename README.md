@@ -146,6 +146,18 @@ transformation on the resulting object before it is returned.
 - `text`: The string to parse as JSON5.
 - `reviver`: If a function, this prescribes how the value originally produced by
   parsing is transformed, before being returned.
+  <br><br>
+  The `reviver` function supports a third argument, after `key` and `value`, called
+`context`, which is provided when `value` has been parsed as a primitive (string, number,
+boolean, or `null`). The source text for the primitive is provided by`context.source`
+allowing, for example, processing numbers with greater precision than native JavaScript
+numbers can handle.<br><br>
+
+  (This is in accordance with a
+[proposal](https://github.com/tc39/proposal-json-parse-with-source), documented
+[here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse#reviver),
+which is not yet part of the official ECMAScript standard, but is nevertheless
+widely supported at present.)
 
 #### Return value
 The object corresponding to the given JSON5 text.

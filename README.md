@@ -192,8 +192,9 @@ JSON5.stringify(value[, options])
 - `options`: An object with the following properties:
   - `replacer`: Same as the `replacer` parameter.
   - `space`: Same as the `space` parameter.
-  - `quote`: A String representing the quote character to use when serializing
-    strings.
+  - `quote`: The quote character to use when serializing strings, either `'` or
+    `"`. Any other value throws a `TypeError`. If not provided, the quote
+    character that requires the least escaping is used.
 
 #### Return value
 A JSON5 string representing the value.

@@ -5,7 +5,7 @@ declare namespace JSON5 {
             | (string | number)[]
             | null
         space?: string | number | null
-        quote?: string | null
+        quote?: "'" | '"' | null
     }
 
     /**

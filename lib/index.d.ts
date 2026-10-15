@@ -17,7 +17,7 @@ export type StringifyOptions = {
         | (string | number)[]
         | null
     space?: string | number | null
-    quote?: string | null
+    quote?: "'" | '"' | null
 }
 
 /**

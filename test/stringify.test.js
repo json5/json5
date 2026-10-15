@@ -372,3 +372,8 @@ test('stringify(value, {quote}): uses single quotes if provided', () => {
         "{'a\\'':'1\\''}"
     )
 })
+
+test('stringify(value, {quote}): throws on invalid quote characters', () => {
+    assert.throws(() => JSON5.stringify('a', {quote: '`'}), TypeError)
+    assert.throws(() => JSON5.stringify('a', {quote: '(a+)+$'}), TypeError)
+})

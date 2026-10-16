@@ -199,21 +199,6 @@ JSON5.stringify(value[, options])
 #### Return value
 A JSON5 string representing the value.
 
-### Node.js `require()` JSON5 files
-When using Node.js, you can `require()` JSON5 files by adding the following
-statement.
-
-```js
-require('json5/register')
-```
-
-Then you can load a JSON5 file with a Node.js `require()` statement. For
-example:
-
-```js
-const config = require('./config.json5')
-```
-
 ## CLI
 Since JSON is more widely used than JSON5, this package includes a CLI for
 converting JSON5 to JSON and for validating the syntax of JSON5 documents.

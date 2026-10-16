@@ -251,3 +251,61 @@ test('parse(text, reviver): sets `this` to the parent value', () => {
         {a: {b: 'revived'}}
     )
 })
+
+test('parse(text, reviver): passes the source text of primitive values', () => {
+    const contexts = {}
+    JSON5.parse('{a:1}', (k, v, context) => { contexts[k] = context; return v })
+    assert.deepStrictEqual(contexts, {'': {}, a: {source: '1'}})
+})
+
+test('parse(text, reviver): omits the source text of objects and arrays', () => {
+    const contexts = {}
+    JSON5.parse('{a:[]}', (k, v, context) => { contexts[k] = context; return v })
+    assert.deepStrictEqual(contexts, {'': {}, a: {}})
+})
+
+test('parse(text, reviver): excludes whitespace and comments from the source text', () => {
+    let source
+    JSON5.parse('/* a */ 1 // b', (k, v, context) => { source = context.source; return v })
+    assert.strictEqual(source, '1')
+})
+
+test('parse(text, reviver): passes the source text of the last duplicate key', () => {
+    const calls = []
+    JSON5.parse('{a:1,a:2}', (k, v, context) => { calls.push([k, context]); return v })
+    assert.deepStrictEqual(calls, [['a', {source: '2'}], ['', {}]])
+})
+
+test('parse(text, reviver): omits the source text of modified values', () => {
+    const contexts = {}
+    JSON5.parse('{a:1,b:2,c:{d:3},e:[4]}', function (k, v, context) {
+        if (k === 'a') {
+            this.b = 5
+            this.c = {d: 3}
+            this.e.push(6)
+        }
+
+        contexts[k] = context
+        return v
+    })
+    assert.deepStrictEqual(contexts, {
+        '': {},
+        a: {source: '1'},
+        b: {},
+        c: {},
+        d: {},
+        e: {},
+        0: {source: '4'},
+        1: {},
+    })
+})
+
+test('parse(text, reviver): supports nested parsing with a reviver', () => {
+    const sources = []
+    const result = JSON5.parse("{a:'[1]',b:2}", (k, v, context) => {
+        sources.push(context.source)
+        return (k === 'a') ? JSON5.parse(v, (k, v) => v) : v
+    })
+    assert.deepStrictEqual(result, {a: [1], b: 2})
+    assert.deepStrictEqual(sources, ["'[1]'", '2', undefined])
+})

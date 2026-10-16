@@ -1,4 +1,8 @@
 declare namespace JSON5 {
+    interface ReviverContext {
+        source?: string;
+    }
+
     type StringifyOptions = {
         replacer?:
             | ((this: any, key: string, value: any) => any)
@@ -18,7 +22,7 @@ declare namespace JSON5 {
      */
     function parse<T = any>(
         text: string,
-        reviver?: ((this: any, key: string, value: any) => any) | null,
+        reviver?: ((this: any, key: string, value: any, context: ReviverContext) => any) | null,
     ): T
 
     /**

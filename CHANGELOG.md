@@ -30,6 +30,8 @@
   Unicode. ([#192])
 - Perf: The parser compares code points instead of strings.
 - Perf: The parser no longer allocates an object for each token.
+- Perf: The lexer dispatches on its state with a `switch` instead of an object
+  lookup.
 - Build: rollup + buble + core-js are removed, and the package is published from
   its sources without a build step. tap and sinon are replaced by `node:test`.
   The package has no runtime dependencies.

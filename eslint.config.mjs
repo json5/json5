@@ -6,7 +6,6 @@ export default defineConfig([
     {
         ignores: [
             'node_modules/**',
-            'dist/**',
             'coverage/**',
             'lib/unicode.js',
             'eslint.config.mjs',

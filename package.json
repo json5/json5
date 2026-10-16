@@ -1,45 +1,29 @@
 {
   "name": "json5",
   "version": "2.2.3",
-  "description": "JSON for Humans",
   "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "browser": "./dist/index.min.js",
-  "types": "./lib/index.d.cts",
+  "description": "JSON for Humans",
+  "main": "./lib/index.js",
   "exports": {
     ".": {
-      "module-sync": {
-        "types": "./lib/index.d.ts",
-        "default": "./dist/index.mjs"
-      },
-      "import": {
-        "types": "./lib/index.d.ts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./lib/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
     },
     "./package.json": "./package.json"
   },
-  "bin": "./lib/cli.js",
+  "bin": "lib/cli.js",
   "files": [
-    "lib/",
-    "dist/"
+    "lib/"
   ],
   "engines": {
-    "node": ">=22"
+    "node": ">=22.12"
   },
   "scripts": {
-    "build": "node build/build.js",
     "build-package": "node build/package.js",
     "build-unicode": "node build/unicode.js",
     "lint": "eslint .",
-    "pretest": "npm run build",
     "test": "node --test --experimental-test-coverage --test-coverage-include='lib/**' --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100 test/*.test.js",
-    "test-types": "tsc --noEmit --strict --module node16 --moduleResolution node16 test/type-declarations.ts test/type-declarations.cts",
+    "test-types": "tsc --noEmit --strict --module node20 test/type-declarations.ts test/type-declarations.cts",
     "production": "npm test && npm run test-types",
     "prepublishOnly": "npm run production",
     "preversion": "npm run production",
@@ -71,7 +55,6 @@
     "@eslint/js": "^10.0.1",
     "@types/node": "^20.14.0",
     "@unicode/unicode-18.0.0": "^2.0.7",
-    "esbuild": "^0.28.2",
     "eslint": "^10.12.0",
     "eslint-plugin-n": "^18.4.1",
     "regenerate": "^1.4.0",

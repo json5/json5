@@ -44,7 +44,6 @@ test('parse: parses escaped property names', () => {
 })
 
 test('parse: preserves __proto__ property names', () => {
-    // eslint-disable-next-line no-proto
     assert.deepStrictEqual(JSON5.parse('{"__proto__":1}').__proto__, 1)
 })
 

@@ -30,6 +30,7 @@
 - Build: rollup + buble + core-js are replaced by a single esbuild step; tap and
   sinon are replaced by `node:test`. The package has no runtime dependencies.
 - CI: tests run on GitHub Actions against Node.js 22, 24 and 26.
+- Build: ESLint is set up with a flat config (`npm run lint`), and CI runs it.
 
 [#240]: https://github.com/json5/json5/issues/240
 [#348]: https://github.com/json5/json5/issues/348

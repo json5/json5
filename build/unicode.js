@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 import fs from 'node:fs'
 import {fileURLToPath} from 'node:url'
 import regenerate from 'regenerate'

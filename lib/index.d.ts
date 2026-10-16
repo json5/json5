@@ -1,3 +1,7 @@
+export interface ReviverContext {
+    source?: string;
+}
+
 /**
  * Parses a JSON5 string, constructing the JavaScript value or object described
  * by the string.
@@ -8,7 +12,7 @@
  */
 export function parse<T = any>(
     text: string,
-    reviver?: ((this: any, key: string, value: any) => any) | null,
+    reviver?: ((this: any, key: string, value: any, context: ReviverContext) => any) | null,
 ): T
 
 export type StringifyOptions = {

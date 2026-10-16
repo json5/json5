@@ -29,6 +29,7 @@
   `JSON.stringify`, instead of producing a string that is not well-formed
   Unicode. ([#192])
 - Perf: The parser compares code points instead of strings.
+- Perf: The parser no longer allocates an object for each token.
 - Build: rollup + buble + core-js are removed, and the package is published from
   its sources without a build step. tap and sinon are replaced by `node:test`.
   The package has no runtime dependencies.

@@ -1,4 +1,4 @@
-// Compile-only check of the ESM type declarations (tsc --noEmit --strict --module node16).
+// Compile-only check of the ESM type declarations (tsc --noEmit --strict --module node20).
 import JSON5, {parse, stringify} from 'json5'
 import type {StringifyOptions} from 'json5'
 

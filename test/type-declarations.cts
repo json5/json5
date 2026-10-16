@@ -1,4 +1,4 @@
-// Compile-only check of the CommonJS type declarations (tsc --noEmit --strict --module node16).
+// Compile-only check of the CommonJS type declarations (tsc --noEmit --strict --module node20).
 import JSON5 = require('json5')
 
 const a: number = JSON5.parse<{x: number}>('{x:1}').x

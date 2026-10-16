@@ -3,20 +3,19 @@
 [c-unreleased]: https://github.com/json5/json5/tree/main
 [d-unreleased]: https://github.com/json5/json5/compare/v2.2.3...HEAD
 
-- **Breaking:** The package is now ES modules first. `lib/` contains ES module
-  sources with named exports, `package.json` has `"type": "module"` and an
-  `exports` map, and the ESM (`dist/index.mjs`) and CommonJS (`dist/index.cjs`)
-  entries are generated from the sources. Deep imports are no longer available.
+- **Breaking:** The package is now ES modules only. `package.json` has `"type":
+  "module"` and an `exports` map that points to `lib/index.js`. Deep imports are
+  no longer available.
 - **Breaking:** `json5/register` and its aliases `json5/lib/register` and
   `json5/lib/require` have been removed since they rely on deprecated Node.js
   APIs. Instead of using `require` to load a `.json5` file, read it into a
   string and parse it.
-- **Breaking:** Node.js 22 or later is required. The browser bundles target
-  ES2015 instead of ES5.
-- **Breaking:** The browser build is no longer UMD. `dist/index.min.js` only
-  sets a `JSON5` global, and the unminified `dist/index.js` is removed.
+- **Breaking:** Node.js 22.12 or later is required.
+- **Breaking:** The browser builds in `dist/` are removed. Browsers can import
+  `lib/index.js` as an ES module.
 - Fix: `import {parse, stringify} from 'json5'` works, and `import JSON5 from
-  'json5'` and `require('json5')` both give `{parse, stringify}`. ([#240], [#348])
+  'json5'` and `require('json5')` both give `{parse, stringify}`. ([#240],
+  [#348])
 - **Breaking:** A wider range of unquoted property names are supported due to
   upgrading from Unicode 10 to 18.
 - **Breaking:** Warnings for when `U+2028` and `U+2029` characters are parsed in
@@ -24,16 +23,14 @@
 - **Breaking:** `stringify` throws a `TypeError` if the `quote` option is not
   `'` or `"`. Other values were used as a regular expression pattern and
   produced invalid output.
-- New: a `module-sync` export condition and a `'module.exports'` export let
-  Node.js 22.12+ load the ES module entry for both `import` and `require()`.
-- Fix: Type declarations are bundled, with `lib/index.d.ts` for the ESM entry and
-  `lib/index.d.cts` for the CJS entry, including the `stringify(value, options)`
-  overload.
+- Fix: Type declarations are bundled in `lib/index.d.ts`, including the
+  `stringify(value, options)` overload.
 - Fix: `stringify` escapes lone surrogates as `\uXXXX`, matching
   `JSON.stringify`, instead of producing a string that is not well-formed
   Unicode. ([#192])
-- Build: rollup + buble + core-js are replaced by a single esbuild step; tap and
-  sinon are replaced by `node:test`. The package has no runtime dependencies.
+- Build: rollup + buble + core-js are removed, and the package is published from
+  its sources without a build step. tap and sinon are replaced by `node:test`.
+  The package has no runtime dependencies.
 - CI: tests run on GitHub Actions against Node.js 22, 24 and 26.
 - Build: ESLint is set up with a flat config (`npm run lint`), and CI runs it.
 

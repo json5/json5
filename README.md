@@ -113,6 +113,8 @@ const {parse, stringify} = require('json5')
 
 #### Modules
 ```js
+import JSON5 from 'json5'
+// or
 import {parse, stringify} from 'json5'
 ```
 
@@ -128,7 +130,7 @@ Type declarations are bundled; no `@types` package is needed.
 #### Modules
 ```html
 <script type="module">
-  import * as JSON5 from 'https://unpkg.com/json5@2/lib/index.js'
+  import JSON5 from 'https://unpkg.com/json5@3/lib/index.js'
 </script>
 ```
 

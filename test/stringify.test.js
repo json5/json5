@@ -33,6 +33,13 @@ test('stringify: stringifies unicode property names', () => {
     assert.strictEqual(JSON5.stringify({'ùńîċõďë': 9}), '{ùńîċõďë:9}')
 })
 
+test('stringify: stringifies property names with characters outside the BMP', () => {
+    assert.strictEqual(
+        JSON5.stringify({'\u{10000}\u{1D7CE}': 1, 'a\u{10000}b': 2}),
+        '{\u{10000}\u{1D7CE}:1,a\u{10000}b:2}'
+    )
+})
+
 test('stringify: stringifies escaped property names', () => {
     assert.strictEqual(
         JSON5.stringify({'\\\b\f\n\r\t\v\0\x01': 1}),

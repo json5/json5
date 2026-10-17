@@ -28,6 +28,8 @@
 - Fix: `stringify` escapes lone surrogates as `\uXXXX`, matching
   `JSON.stringify`, instead of producing a string that is not well-formed
   Unicode. ([#192])
+- Fix: `stringify` leaves property names unquoted when they contain identifier
+  characters outside the BMP after the first character, such as `{a𐀀b:1}`.
 - Perf: The parser compares code points instead of strings.
 - Perf: The parser no longer allocates an object for each token.
 - Perf: The lexer dispatches on its state with a `switch` instead of an object

@@ -28,6 +28,8 @@
 - Fix: `stringify` escapes lone surrogates as `\uXXXX`, matching
   `JSON.stringify`, instead of producing a string that is not well-formed
   Unicode. ([#192])
+- Fix: `stringify` leaves property names unquoted when they contain identifier
+  characters outside the BMP after the first character, such as `{a𐀀b:1}`.
 - Fix: The CLI decodes its input as a UTF-8 stream. Multibyte characters that
   were split between two read chunks of a large file or of stdin were replaced
   with `U+FFFD`.

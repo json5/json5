@@ -2,6 +2,8 @@ import {test} from 'node:test'
 import assert from 'node:assert'
 import {spawnSync} from 'node:child_process'
 import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 import pkg from '../package.json' with {type: 'json'}
 
@@ -34,6 +36,23 @@ test('CLI: converts JSON5 to JSON from stdin to stdout', () => {
 test('CLI: reads from the specified file', () => {
     const {stdout} = run([testJson5])
     assert.strictEqual(stdout, '{"a":1,"b":2}')
+})
+
+test('CLI: keeps multibyte characters that span read chunks intact', () => {
+    // The leading quote puts every 64 KiB chunk boundary inside a two-byte 'é'.
+    const value = 'é'.repeat(100000)
+    const input = '"' + value + '"'
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'json5-cli-'))
+    const file = path.join(dir, 'multibyte.json5')
+    try {
+        fs.writeFileSync(file, input)
+        for (const {stdout} of [run([file]), run([], input)]) {
+            assert.strictEqual(stdout.includes('\uFFFD'), false)
+            assert.strictEqual(stdout, JSON.stringify(value))
+        }
+    } finally {
+        fs.rmSync(dir, {recursive: true, force: true})
+    }
 })
 
 test('CLI: escapes lone surrogates in the output', () => {

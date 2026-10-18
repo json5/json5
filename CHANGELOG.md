@@ -3,6 +3,8 @@
 [c-unreleased]: https://github.com/json5/json5/tree/main
 [d-unreleased]: https://github.com/json5/json5/compare/v2.2.3...HEAD
 
+- Fix: `parse` visits an array's original indexes when a reviver changes its
+  length, matching `JSON.parse`.
 - **Breaking:** The package is now ES modules only. `package.json` has `"type":
   "module"` and an `exports` map that points to `lib/index.js`. Deep imports are
   no longer available.

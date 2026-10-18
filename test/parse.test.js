@@ -238,6 +238,86 @@ test('parse(text, reviver): deletes array values', () => {
     )
 })
 
+test('parse(text, reviver): does not visit appended array elements', () => {
+    function revive (parse) {
+        const keys = []
+        const value = parse('[2]', function (key, value) {
+            keys.push(key)
+            if (key === '0') this.push(7)
+            return typeof value === 'number' ? value * 3 : value
+        })
+        return {keys, value}
+    }
+
+    const expected = {keys: ['0', ''], value: [6, 7]}
+    assert.deepStrictEqual(revive(JSON.parse), expected)
+    assert.deepStrictEqual(revive(JSON5.parse), expected)
+})
+
+test('parse(text, reviver): visits original indexes after the array shrinks', () => {
+    function revive (parse) {
+        const keys = []
+        const value = parse('[1,2,3]', function (key, value) {
+            keys.push(key)
+            if (key === '0') this.length = 1
+            return key === '1' ? 'restored' : value
+        })
+        return {keys, value}
+    }
+
+    const expected = {keys: ['0', '1', '2', ''], value: [1, 'restored']}
+    assert.deepStrictEqual(revive(JSON.parse), expected)
+    assert.deepStrictEqual(revive(JSON5.parse), expected)
+})
+
+test('parse(text, reviver): visits deleted array elements', () => {
+    function revive (parse) {
+        const keys = []
+        const value = parse('[1,2]', function (key, value) {
+            keys.push(key)
+            if (key === '0') delete this[1]
+            return key === '1' ? 'restored' : value
+        })
+        return {keys, value}
+    }
+
+    const expected = {keys: ['0', '1', ''], value: [1, 'restored']}
+    assert.deepStrictEqual(revive(JSON.parse), expected)
+    assert.deepStrictEqual(revive(JSON5.parse), expected)
+})
+
+test('parse(text, reviver): does not visit indexes added by sparse expansion', () => {
+    function revive (parse) {
+        const keys = []
+        const value = parse('[2]', function (key, value) {
+            keys.push(key)
+            if (key === '0') this[3] = 7
+            return typeof value === 'number' ? value * 3 : value
+        })
+        return {keys, value}
+    }
+
+    const expected = {keys: ['0', ''], value: [6, , , 7]} // eslint-disable-line no-sparse-arrays
+    assert.deepStrictEqual(revive(JSON.parse), expected)
+    assert.deepStrictEqual(revive(JSON5.parse), expected)
+})
+
+test('parse(text, reviver): captures each nested array length before visiting it', () => {
+    function revive (parse) {
+        const keys = []
+        const value = parse('[[2],[3]]', function (key, value) {
+            keys.push(key)
+            if (key === '0') this.push(Array.isArray(value) ? [4] : 7)
+            return typeof value === 'number' ? value * 3 : value
+        })
+        return {keys, value}
+    }
+
+    const expected = {keys: ['0', '0', '0', '1', ''], value: [[6, 7], [9, 7], [4]]}
+    assert.deepStrictEqual(revive(JSON.parse), expected)
+    assert.deepStrictEqual(revive(JSON5.parse), expected)
+})
+
 test('parse(text, reviver): modifies the root value', () => {
     assert.strictEqual(
         JSON5.parse('1', (k, v) => (k === '') ? 'revived' : v),

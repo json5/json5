@@ -110,6 +110,14 @@ test('stringify: stringifies false Boolean objects', () => {
     assert.strictEqual(JSON5.stringify(new Boolean(false)), 'false')
 })
 
+test('stringify: uses the stored Boolean value when valueOf is overridden', () => {
+    for (const primitive of [true, false]) {
+        const value = new Boolean(primitive)
+        value.valueOf = () => !primitive
+        assert.strictEqual(JSON5.stringify(value), String(primitive))
+    }
+})
+
 test('stringify: stringifies numbers', () => {
     assert.strictEqual(JSON5.stringify(-1.2), '-1.2')
 })

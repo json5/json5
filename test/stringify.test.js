@@ -103,6 +103,55 @@ test('stringify: stringifies false Boolean objects', () => {
     assert.strictEqual(JSON5.stringify(new Boolean(false)), 'false')
 })
 
+test('stringify: uses the stored Boolean value when valueOf is overridden', () => {
+    for (const primitive of [true, false]) {
+        const value = new Boolean(primitive)
+        value.valueOf = () => !primitive
+        assert.strictEqual(JSON5.stringify(value), JSON.stringify(value))
+        assert.deepStrictEqual(JSON5.parse(JSON5.stringify({value})), {value: primitive})
+    }
+})
+
+test('stringify: ignores inherited Boolean valueOf overrides', () => {
+    class CustomBoolean extends Boolean {
+        valueOf () {
+            throw new Error('must not be called')
+        }
+    }
+    for (const primitive of [true, false]) {
+        const value = new CustomBoolean(primitive)
+        assert.strictEqual(JSON5.stringify(value), JSON.stringify(value))
+    }
+})
+
+test('stringify: does not read a Boolean valueOf property', () => {
+    for (const primitive of [true, false]) {
+        const value = new Boolean(primitive)
+        value.valueOf = null
+        assert.strictEqual(JSON5.stringify(value), JSON.stringify(value))
+        Object.defineProperty(value, 'valueOf', {
+            get () { throw new Error('must not be read') },
+        })
+        assert.strictEqual(JSON5.stringify([value]), JSON.stringify([value]))
+    }
+})
+
+test('stringify: unboxes Boolean values returned by a replacer', () => {
+    const value = new Boolean(false)
+    value.valueOf = () => true
+    const replacer = (key, item) => key === 'value' ? value : item
+    assert.deepStrictEqual(JSON5.parse(JSON5.stringify({value: null}, replacer)), {value: false})
+})
+
+test('stringify: applies Boolean serialization hooks before unboxing', () => {
+    const value = new Boolean(true)
+    value.valueOf = () => { throw new Error('must not be called') }
+    value.toJSON = () => false
+    assert.strictEqual(JSON5.stringify(value), 'false')
+    value.toJSON5 = () => 'custom'
+    assert.strictEqual(JSON5.stringify(value), "'custom'")
+})
+
 test('stringify: stringifies numbers', () => {
     assert.strictEqual(JSON5.stringify(-1.2), '-1.2')
 })

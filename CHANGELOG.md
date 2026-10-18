@@ -30,6 +30,9 @@
   Unicode. ([#192])
 - Fix: `stringify` leaves property names unquoted when they contain identifier
   characters outside the BMP after the first character, such as `{a𐀀b:1}`.
+- Fix: The CLI decodes its input as a UTF-8 stream. Multibyte characters that
+  were split between two read chunks of a large file or of stdin were replaced
+  with `U+FFFD`.
 - Perf: The parser compares code points instead of strings.
 - Perf: The parser no longer allocates an object for each token.
 - Perf: The lexer dispatches on its state with a `switch` instead of an object

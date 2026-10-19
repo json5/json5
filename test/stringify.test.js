@@ -122,6 +122,21 @@ test('stringify: stringifies numbers', () => {
     assert.strictEqual(JSON5.stringify(-1.2), '-1.2')
 })
 
+test('stringify: throws on bigints', () => {
+    assert.throws(() => JSON5.stringify(BigInt(1)), /BigInt/)
+})
+
+test('stringify: throws on BigInt objects', () => {
+    assert.throws(() => JSON5.stringify(Object(BigInt(1))), /BigInt/)
+})
+
+test('stringify: uses the stored BigInt value when valueOf is overridden', () => {
+    const value = Object(BigInt(1))
+    // Make `valueOf` return a number instead of a bigint
+    value.valueOf = () => 1
+    assert.throws(() => JSON5.stringify(value), /BigInt/)
+})
+
 test('stringify: stringifies non-finite numbers', () => {
     assert.strictEqual(JSON5.stringify([Infinity, -Infinity, NaN]), '[Infinity,-Infinity,NaN]')
 })

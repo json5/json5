@@ -13,8 +13,8 @@
 - **Breaking:** Node.js 22.12 or later is required.
 - **Breaking:** The browser builds in `dist/` are removed. Browsers can import
   `lib/index.js` as an ES module.
-- Fix: `import {parse, stringify} from 'json5'` works, and `import JSON5 from
-  'json5'` and `require('json5')` both give `{parse, stringify}`. ([#240],
+- Fix: `import {parse, stringify} from 'json5'` and `import JSON5 from 'json5'`
+  both work, and `require('json5')` has `parse` and `stringify`. ([#240],
   [#348])
 - **Breaking:** A wider range of unquoted property names are supported due to
   upgrading from Unicode 10 to 18.

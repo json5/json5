@@ -10,7 +10,9 @@ test('exports: the default export carries the named exports', () => {
     assert.strictEqual(JSON5.stringify, stringify)
 })
 
-test('exports: require() returns the default export', () => {
-    assert.strictEqual(require('../lib/index.js'), JSON5)
-    assert.deepStrictEqual(Object.keys(require('../lib/index.js')), ['parse', 'stringify'])
+test('exports: require() returns the named and default exports', () => {
+    const json5 = require('../lib/index.js')
+    assert.strictEqual(json5.parse, parse)
+    assert.strictEqual(json5.stringify, stringify)
+    assert.strictEqual(json5.default, JSON5)
 })

@@ -251,3 +251,73 @@ test('parse(text, reviver): sets `this` to the parent value', () => {
         {a: {b: 'revived'}}
     )
 })
+
+for (const [container, input, key] of [
+    ['object', '{"a":1}', 'a'],
+    ['array', '[1]', '0'],
+]) {
+    for (const [operation, replacement] of [
+        ['replace', 2],
+        ['delete', undefined],
+    ]) {
+        test(`parse(text, reviver): does not throw when a frozen ${container} rejects ${operation}`, () => {
+            function revive (parse) {
+                const keys = []
+                const value = parse(input, function (k, v) {
+                    keys.push(k)
+                    if (k === key) {
+                        Object.freeze(this)
+                        return replacement
+                    }
+
+                    return v
+                })
+                return {keys, value, descriptor: Object.getOwnPropertyDescriptor(value, key)}
+            }
+
+            const expected = revive(JSON.parse)
+            assert.deepStrictEqual(revive(JSON5.parse), expected)
+            assert.deepStrictEqual(expected.keys, [key, ''])
+            assert.strictEqual(expected.value[key], 1)
+            assert.strictEqual(expected.descriptor.configurable, false)
+            assert.strictEqual(expected.descriptor.writable, false)
+        })
+    }
+
+    test(`parse(text, reviver): does not throw when a non-extensible ${container} rejects restoring a property`, () => {
+        function revive (parse) {
+            return parse(input, function (k, v) {
+                if (k === key) {
+                    delete this[k]
+                    Object.preventExtensions(this)
+                    return 2
+                }
+
+                return v
+            })
+        }
+
+        const expected = revive(JSON.parse)
+        const actual = revive(JSON5.parse)
+        assert.deepStrictEqual(actual, expected)
+        assert.strictEqual(Object.hasOwn(actual, key), false)
+        assert.strictEqual(Object.isExtensible(actual), false)
+    })
+}
+
+for (const operation of ['defineProperty', 'deleteProperty']) {
+    test(`parse(text, reviver): propagates errors thrown by a proxy ${operation} trap`, () => {
+        const error = new Error('reviver proxy trap')
+        for (const parse of [JSON.parse, JSON5.parse]) {
+            assert.throws(() => parse('{"a":1,"b":{}}', function (k, v) {
+                if (k === 'a') {
+                    this.b = new Proxy({c: 1}, {
+                        [operation] () { throw error },
+                    })
+                }
+
+                return k === 'c' && operation === 'deleteProperty' ? undefined : v
+            }), e => e === error)
+        }
+    })
+}

@@ -119,8 +119,8 @@ import {parse, stringify} from 'json5'
 ```
 
 `require('json5')` returns an object with `parse` and `stringify`. The ES module
-entry has `parse` and `stringify` as named exports, and the same object as its
-default export.
+entry has `parse` and `stringify` as named exports, and an object with both as
+its default export.
 
 #### TypeScript
 Type declarations are bundled; no `@types` package is needed.

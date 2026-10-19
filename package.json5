@@ -24,7 +24,7 @@
     'build-unicode': 'node build/unicode.js',
     lint: 'eslint .',
     test: "node --test --experimental-test-coverage --test-coverage-include='lib/**' --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100 test/*.test.js",
-    'test-types': 'tsc --noEmit --strict --module node20 test/type-declarations.ts test/type-declarations.cts',
+    'test-types': 'tsc',
     production: 'npm test && npm run test-types',
     prepublishOnly: 'npm run production',
     preversion: 'npm run production',

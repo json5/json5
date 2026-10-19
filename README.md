@@ -194,29 +194,6 @@ JSON5.stringify(value[, options])
 #### Return value
 A JSON5 string representing the value.
 
-## CLI
-Since JSON is more widely used than JSON5, this package includes a CLI for
-converting JSON5 to JSON and for validating the syntax of JSON5 documents.
-
-### Installation
-```sh
-npm install --global json5
-```
-
-### Usage
-```
-json5 [options] <file>
-```
-
-If `<file>` is not provided, then STDIN is used.
-
-#### Options:
-- `-s`, `--space`: The number of spaces to indent or `t` for tabs
-- `-o`, `--out-file [file]`: Output to the specified file, otherwise STDOUT
-- `-v`, `--validate`: Validate JSON5 but do not output JSON
-- `-V`, `--version`: Output the version number
-- `-h`, `--help`: Output usage information
-
 ## Contributing
 ### Development
 ```sh

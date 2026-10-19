@@ -12,7 +12,6 @@
     },
     './package.json': './package.json',
   },
-  bin: 'lib/cli.js',
   files: [
     'lib/',
   ],

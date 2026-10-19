@@ -42,6 +42,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Tests run on GitHub Actions against Node.js 22, 24, and 26. ([#370])
 - ESLint is set up with a flat config (`npm run lint`), and CI runs it. ([#378])
 - `package.json5` is included in the npm package.
+- JSON reviver contexts added in `parse`. Allows retrieving the source
+  of the value being parsed during revival.
 
 ### Fixes
 

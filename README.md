@@ -146,8 +146,9 @@ the string. An optional reviver function can be provided to perform a
 transformation on the resulting object before it is returned.
 
 #### Syntax
-```
-JSON5.parse(text[, reviver])
+```js
+JSON5.parse(text)
+JSON5.parse(text, reviver)
 ```
 
 #### Parameters
@@ -164,9 +165,11 @@ replacer function is specified, or optionally including only the specified
 properties if a replacer array is specified.
 
 #### Syntax
-```
-JSON5.stringify(value[, replacer[, space]])
-JSON5.stringify(value[, options])
+```js
+JSON5.stringify(value)
+JSON5.stringify(value, replacer)
+JSON5.stringify(value, replacer, space)
+JSON5.stringify(value, options)
 ```
 
 #### Parameters

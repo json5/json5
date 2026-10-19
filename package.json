@@ -9,11 +9,13 @@
       "types": "./lib/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./package.json5": "./package.json5"
   },
   "bin": "lib/cli.js",
   "files": [
-    "lib/"
+    "lib/",
+    "package.json5"
   ],
   "engines": {
     "node": ">=22.12"

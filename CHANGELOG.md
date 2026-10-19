@@ -25,6 +25,7 @@
   produced invalid output.
 - **Breaking:** `stringify` throws an error when serializing a BigInt instead of
   silently dropping it.
+- **Breaking:** The CLI has been removed from this library.
 - Fix: Type declarations are bundled in `lib/index.d.ts`, including the
   `stringify(value, options)` overload.
 - Fix: `stringify` escapes lone surrogates as `\uXXXX`, matching

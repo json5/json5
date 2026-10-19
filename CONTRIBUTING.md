@@ -12,6 +12,11 @@ When contributing code, please write relevant tests and run `npm test` and `npm
 run test-types` before submitting pull requests. Please use an editor that supports
 [EditorConfig](http://editorconfig.org/).
 
+If your change affects users, add an entry to the Unreleased section of
+`CHANGELOG.md`. A CI check fails if a pull request doesn't update it. If your
+change doesn't need an entry, like a docs or CI change, a maintainer will add
+the `skip-changelog ⏩` label.
+
 ## Issues
 To report bugs or request features regarding the JSON5 data format, please
 submit an issue to the [official specification

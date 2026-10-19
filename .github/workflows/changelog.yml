@@ -1,0 +1,42 @@
+name: CHANGELOG
+
+# Pull requests must add an entry to the Unreleased section of CHANGELOG.md.
+# Entries are written by hand so the CHANGELOG stays curated. Pull requests
+# that don't need an entry, like docs or CI changes, can skip this check with
+# the "skip-changelog ⏩" label.
+
+on:
+  pull_request:
+    # labeled and unlabeled re-run the check when the skip label changes.
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The full history is needed to find where the pull request branched
+          # off its base.
+          fetch-depth: 0
+      - name: Check that CHANGELOG.md is updated
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          SKIP: ${{ contains(github.event.pull_request.labels.*.name, 'skip-changelog ⏩') }}
+        run: |
+          if [ "$SKIP" = true ]; then
+            echo 'Skipped by the "skip-changelog ⏩" label.'
+            exit 0
+          fi
+
+          # The three-dot diff compares the pull request's head with the commit
+          # it branched from, so changes made on the base branch since then
+          # don't count.
+          if git diff --quiet "$BASE_SHA...$HEAD_SHA" -- CHANGELOG.md; then
+            echo '::error file=CHANGELOG.md::Add an entry to the Unreleased section of CHANGELOG.md. If this pull request does not need one, a maintainer can add the "skip-changelog ⏩" label.'
+            exit 1
+          fi

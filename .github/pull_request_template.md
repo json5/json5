@@ -2,8 +2,8 @@ If you are patching a security vulnerability, please do not submit a pull
 request. Instead, follow the guidelines described in our
 [security policy](../blob/main/SECURITY.md).
 
-If you are submitting a bug fix for an error or fixing an incompatibility
-with the [official JSON5 specification][spec], please continue.
+If you are submitting a bug fix for an error or fixing an incompatibility with
+the [official JSON5 specification][spec], please continue.
 
 If you are submitting a feature request or code improvement that is compatible
 with the [official JSON5 specification][spec], please continue.
@@ -12,7 +12,7 @@ with the [official JSON5 specification][spec], please continue.
 > user to chose which quote character is used.
 
 If you are submitting a feature request or code improvement that is
-*incompatible* with the [official JSON5 specification][spec], please open a pull
+_incompatible_ with the [official JSON5 specification][spec], please open a pull
 request on the [specification repository](https://github.com/json5/json5-spec)
 instead.
 

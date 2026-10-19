@@ -1,8 +1,8 @@
 {
-    "compilerOptions": {
-        "module": "node20",
-        "strict": true,
-        "noEmit": true
-    },
-    "files": ["test/type-declarations.ts", "test/type-declarations.cts"]
+  "compilerOptions": {
+    "module": "node20",
+    "strict": true,
+    "noEmit": true
+  },
+  "files": ["test/type-declarations.ts", "test/type-declarations.cts"]
 }

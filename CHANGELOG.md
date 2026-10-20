@@ -42,6 +42,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Tests run on GitHub Actions against Node.js 22, 24, and 26. ([#370])
 - ESLint is set up with a flat config (`npm run lint`), and CI runs it. ([#378])
 - `package.json5` is included in the npm package.
+- `parse` accepts an options object with a `bigint` option that returns integer
+  literals outside the safe integer range as BigInts. ([#292])
 
 ### Fixes
 
@@ -387,6 +389,7 @@ parser for the regular JSON format.
 [#240]: https://github.com/json5/json5/issues/240
 [#244]: https://github.com/json5/json5/issues/244
 [#266]: https://github.com/json5/json5/issues/266
+[#292]: https://github.com/json5/json5/issues/292
 [#295]: https://github.com/json5/json5/issues/295
 [#299]: https://github.com/json5/json5/issues/299
 [#348]: https://github.com/json5/json5/issues/348

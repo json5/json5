@@ -27,7 +27,9 @@ jobs:
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          SKIP: ${{ contains(github.event.pull_request.labels.*.name, 'skip-changelog ⏩') }}
+          SKIP:
+            ${{ contains(github.event.pull_request.labels.*.name,
+            'skip-changelog ⏩') }}
         run: |
           if [ "$SKIP" = true ]; then
             echo 'Skipped by the "skip-changelog ⏩" label.'

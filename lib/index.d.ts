@@ -7,18 +7,16 @@
  * parsing is transformed before being returned.
  */
 export function parse<T = any>(
-    text: string,
-    reviver?: ((this: any, key: string, value: any) => any) | null,
-): T
+  text: string,
+  reviver?: ((this: any, key: string, value: any) => any) | null,
+): T;
 
 export type StringifyOptions = {
-    replacer?:
-        | ((this: any, key: string, value: any) => any)
-        | (string | number)[]
-        | null
-    space?: string | number | null
-    quote?: "'" | '"' | null
-}
+  replacer?:
+    ((this: any, key: string, value: any) => any) | (string | number)[] | null;
+  space?: string | number | null;
+  quote?: "'" | '"' | null;
+};
 
 /**
  * Converts a JavaScript value to a JSON5 string.
@@ -28,23 +26,21 @@ export type StringifyOptions = {
  * @param space The number of spaces (capped at 10) or the string used to indent.
  */
 export function stringify(
-    value: any,
-    replacer?:
-        | ((this: any, key: string, value: any) => any)
-        | (string | number)[]
-        | null,
-    space?: string | number | null,
-): string
+  value: any,
+  replacer?:
+    ((this: any, key: string, value: any) => any) | (string | number)[] | null,
+  space?: string | number | null,
+): string;
 /**
  * Converts a JavaScript value to a JSON5 string.
  * @param value The value to convert to a JSON5 string.
  * @param options An object with replacer, space, and quote options.
  */
-export function stringify(value: any, options?: StringifyOptions): string
+export function stringify(value: any, options?: StringifyOptions): string;
 
 declare const JSON5: {
-    parse: typeof parse
-    stringify: typeof stringify
-}
+  parse: typeof parse;
+  stringify: typeof stringify;
+};
 
-export default JSON5
+export default JSON5;

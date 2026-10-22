@@ -42,8 +42,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Tests run on GitHub Actions against Node.js 22, 24, and 26. ([#370])
 - ESLint is set up with a flat config (`npm run lint`), and CI runs it. ([#378])
 - `package.json5` is included in the npm package.
-- JSON reviver contexts added in `parse`. Allows retrieving the source
-  of the value being parsed during revival.
+- The reviver passed to `parse` receives a context argument with the source
+  text of primitive values, matching `JSON.parse`. ([#185], [#361], [#386])
 
 ### Fixes
 
@@ -376,6 +376,7 @@ parser for the regular JSON format.
 [#154]: https://github.com/json5/json5/issues/154
 [#181]: https://github.com/json5/json5/issues/181
 [#182]: https://github.com/json5/json5/issues/182
+[#185]: https://github.com/json5/json5/issues/185
 [#187]: https://github.com/json5/json5/issues/187
 [#192]: https://github.com/json5/json5/issues/192
 [#196]: https://github.com/json5/json5/issues/196
@@ -392,6 +393,7 @@ parser for the regular JSON format.
 [#295]: https://github.com/json5/json5/issues/295
 [#299]: https://github.com/json5/json5/issues/299
 [#348]: https://github.com/json5/json5/issues/348
+[#361]: https://github.com/json5/json5/pull/361
 [#370]: https://github.com/json5/json5/pull/370
 [#371]: https://github.com/json5/json5/pull/371
 [#372]: https://github.com/json5/json5/pull/372
@@ -406,6 +408,7 @@ parser for the regular JSON format.
 [#382]: https://github.com/json5/json5/pull/382
 [#383]: https://github.com/json5/json5/pull/383
 [#384]: https://github.com/json5/json5/pull/384
+[#386]: https://github.com/json5/json5/pull/386
 [#387]: https://github.com/json5/json5/pull/387
 [#388]: https://github.com/json5/json5/pull/388
 [#389]: https://github.com/json5/json5/pull/389

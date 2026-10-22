@@ -155,9 +155,10 @@ JSON5.parse(text, reviver)
 #### Parameters
 - `text`: The string to parse as JSON5.
 - `reviver`: If a function, this prescribes how the value originally produced by
-  parsing is transformed, before being returned. The reviver function is called
-  with the following arguments: the key, the value, and the context object.
-  The context object contains the source text of the current value.
+  parsing is transformed, before being returned. The reviver is called with the
+  key, the value, and a context object. For primitive values that the reviver
+  has not modified, `context.source` is the value's source text. Objects and
+  arrays always get an empty context.
 
 #### Return value
 The object corresponding to the given JSON5 text.

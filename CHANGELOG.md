@@ -64,6 +64,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `stringify` serializes an array using its initial length, matching
   `JSON.stringify`, when a replacer function adds or removes elements. ([#371])
 
+### Performance
+
+- Avoid object allocations during stringify (~1.5x faster)
+
 ## v2.2.3 - 2022-12-31
 
 ### Fixes

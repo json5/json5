@@ -17,11 +17,12 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # The full history is needed to find where the pull request branched
           # off its base.
           fetch-depth: 0
+          persist-credentials: false
       - name: Check that CHANGELOG.md is updated
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}

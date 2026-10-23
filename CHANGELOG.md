@@ -45,6 +45,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixes
 
+- Read serialization hooks once before calling them.
+
 - `parse` no longer throws when a reviver makes an object property or array
   element non-configurable or prevents its recreation, matching `JSON.parse`.
 - `import {parse, stringify} from 'json5'` and `import JSON5 from 'json5'` both

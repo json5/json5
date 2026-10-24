@@ -42,11 +42,16 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Tests run on GitHub Actions against Node.js 22, 24, and 26. ([#370])
 - ESLint is set up with a flat config (`npm run lint`), and CI runs it. ([#378])
 - `package.json5` is included in the npm package.
+- `parse` accepts an options object with a `bigint` option that returns integer
+  literals outside the safe integer range as BigInts. ([#292])
 
 ### Fixes
 
-- Read serialization hooks once before calling them.
-
+- `stringify` reads `toJSON5` and `toJSON` once before calling them,
+  matching `JSON.stringify`.
+- `stringify` reads replacer arrays by their initial indexed length instead of
+  using their iterator, matching `JSON.stringify` when getters mutate the array
+  or its iterator is overridden.
 - `parse` no longer throws when a reviver makes an object property or array
   element non-configurable or prevents its recreation, matching `JSON.parse`.
 - `import {parse, stringify} from 'json5'` and `import JSON5 from 'json5'` both
@@ -395,6 +400,7 @@ parser for the regular JSON format.
 [#240]: https://github.com/json5/json5/issues/240
 [#244]: https://github.com/json5/json5/issues/244
 [#266]: https://github.com/json5/json5/issues/266
+[#292]: https://github.com/json5/json5/issues/292
 [#295]: https://github.com/json5/json5/issues/295
 [#299]: https://github.com/json5/json5/issues/299
 [#348]: https://github.com/json5/json5/issues/348

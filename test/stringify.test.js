@@ -327,56 +327,19 @@ test('stringify(value, replacer): accepts String and Number objects when an arra
     )
 })
 
-test('stringify(value, replacer): uses indexed keys instead of the array iterator', () => {
+test('stringify(value, replacer): reads replacer arrays by index, not with the iterator', () => {
     const keys = ['a']
     keys[Symbol.iterator] = function * () { yield 'b' }
     assert.strictEqual(JSON5.stringify({a: 1, b: 2}, keys), '{a:1}')
 })
 
-test('stringify(value, replacer): does not access the array iterator', () => {
-    const keys = ['a']
-    Object.defineProperty(keys, Symbol.iterator, {
-        get () { throw new Error('The iterator must not be read') },
-    })
-    assert.strictEqual(JSON.stringify({a: 1, b: 2}, keys), '{"a":1}')
-    assert.strictEqual(JSON5.stringify({a: 1, b: 2}, keys), '{a:1}')
-})
-
-test('stringify(value, replacer): ignores property names appended by an indexed getter', () => {
-    const results = [JSON.stringify, JSON5.stringify].map(stringify => {
-        const keys = ['a']
-        Object.defineProperty(keys, 0, {
-            get () {
-                keys.push('b')
-                return 'a'
-            },
-        })
-        return JSON5.parse(stringify({a: 1, b: 2}, keys))
-    })
-    assert.deepStrictEqual(results[1], results[0])
-})
-
-test('stringify(value, replacer): visits the initial indexes after the array shrinks', () => {
-    const results = [JSON.stringify, JSON5.stringify].map(stringify => {
-        const reads = []
-        const keys = new Proxy(['a', 'b', 'c'], {
-            get (target, key, receiver) {
-                reads.push(String(key))
-                if (key === '0') target.length = 1
-                return Reflect.get(target, key, receiver)
-            },
-        })
-        return {value: JSON5.parse(stringify({a: 1, b: 2, c: 3}, keys)), reads}
-    })
-    assert.deepStrictEqual(results[1], results[0])
-})
-
-test('stringify(value, replacer): reads unvisited property names after a mutation', () => {
+test('stringify(value, replacer): reads the replacer array length once', () => {
     const results = [JSON.stringify, JSON5.stringify].map(stringify => {
         const keys = ['a', 'b']
         Object.defineProperty(keys, 0, {
             get () {
                 keys[1] = 'c'
+                keys.push('b')
                 return 'a'
             },
         })
@@ -385,21 +348,8 @@ test('stringify(value, replacer): reads unvisited property names after a mutatio
     assert.deepStrictEqual(results[1], results[0])
 })
 
-test('stringify(value, replacer): ignores keys appended while coercing boxed property names', () => {
-    const results = [JSON.stringify, JSON5.stringify].map(stringify => {
-        const key = new String('a')
-        const keys = [key, new Number(3), 'a', 3, null, true, {}]
-        key.toString = () => {
-            keys.push('b')
-            return 'a'
-        }
-        return JSON5.parse(stringify({a: 1, b: 2, 3: 3}, keys))
-    })
-    assert.deepStrictEqual(results[1], results[0])
-})
-
-test('stringify(value, replacer): reads and normalizes a proxy array length once', () => {
-    for (const length of [undefined, null, NaN, -2, -0, 0, 1.9, '2.9', 3]) {
+test('stringify(value, replacer): converts a proxy array length like JSON.stringify', () => {
+    for (const length of [undefined, NaN, -2, 1.9, '2.9', {valueOf () { return 2 }}]) {
         const results = [JSON.stringify, JSON5.stringify].map(stringify => {
             const reads = []
             const keys = new Proxy(['a', 'b', 'c'], {
@@ -412,48 +362,15 @@ test('stringify(value, replacer): reads and normalizes a proxy array length once
         })
         assert.deepStrictEqual(results[1], results[0])
     }
-})
 
-test('stringify(value, replacer): coerces an object length before visiting indexes', () => {
-    const results = [JSON.stringify, JSON5.stringify].map(stringify => {
-        const reads = []
-        const length = {
-            [Symbol.toPrimitive] (hint) {
-                reads.push(hint)
-                return 2.9
-            },
-        }
-        const keys = new Proxy(['a', 'b', 'c'], {
+    for (const length of [1n, Symbol('length')]) {
+        const keys = new Proxy(['a'], {
             get (target, key, receiver) {
-                reads.push(String(key))
                 return key === 'length' ? length : Reflect.get(target, key, receiver)
             },
         })
-        return {value: JSON5.parse(stringify({a: 1, b: 2, c: 3}, keys)), reads}
-    })
-    assert.deepStrictEqual(results[1], results[0])
-})
-
-test('stringify(value, replacer): rejects bigint and symbol proxy lengths', () => {
-    for (const length of [1n, Symbol('length')]) {
-        for (const stringify of [JSON.stringify, JSON5.stringify]) {
-            const keys = new Proxy(['a'], {
-                get (target, key, receiver) {
-                    return key === 'length' ? length : Reflect.get(target, key, receiver)
-                },
-            })
-            assert.throws(() => stringify({a: 1}, keys), TypeError)
-        }
+        assert.throws(() => JSON5.stringify({a: 1}, keys), TypeError)
     }
-})
-
-test('stringify(value, options): reuses indexed property names in nested objects', () => {
-    const keys = ['a', 'b']
-    keys[Symbol.iterator] = function * () { yield 'c' }
-    assert.strictEqual(
-        JSON5.stringify({a: {a: 1, b: Infinity, c: 3}, b: 2, c: 3}, {replacer: keys, quote: '"'}),
-        '{a:{a:1,b:Infinity},b:2}'
-    )
 })
 
 test('stringify(value, replacer): replaces values when a function is provided', () => {

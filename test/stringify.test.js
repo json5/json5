@@ -1,6 +1,7 @@
 import {test} from 'node:test'
 import assert from 'node:assert'
 import * as JSON5 from '../lib/index.js'
+import vm from 'node:vm'
 
 test('stringify: stringifies empty objects', () => {
     assert.strictEqual(JSON5.stringify({}), '{}')
@@ -196,6 +197,24 @@ test('stringify: stringifies String objects', () => {
     assert.strictEqual(JSON5.stringify(new String('abc')), "'abc'")
 })
 
+test('stringify: stringifies primitive wrapper objects from another realm', () => {
+    const context = vm.createContext()
+    assert.strictEqual(JSON5.stringify(vm.runInContext('new Number(1)', context)), '1')
+    assert.strictEqual(JSON5.stringify(vm.runInContext("new String('a')", context)), "'a'")
+    assert.strictEqual(JSON5.stringify(vm.runInContext('new Boolean(false)', context)), 'false')
+    assert.throws(() => JSON5.stringify(vm.runInContext('Object(1n)', context)), /BigInt/)
+})
+
+test('stringify: stringifies objects that inherit from a primitive wrapper prototype as objects', () => {
+    for (const type of [Number, String, Boolean, BigInt]) {
+        // These objects don't have a [[NumberData]], [[StringData]],
+        // [[BooleanData]], or [[BigIntData]] internal slot.
+        const value = [Object.create(type.prototype)]
+        assert.strictEqual(JSON.stringify(value), '[{}]')
+        assert.strictEqual(JSON5.stringify(value), '[{}]')
+    }
+})
+
 test('stringify: stringifies using built-in toJSON methods', () => {
     assert.strictEqual(
         JSON5.stringify(new Date('2016-01-01T00:00:00.000Z')),
@@ -306,6 +325,20 @@ test('stringify(value, null, space): accepts String objects', () => {
     assert.strictEqual(JSON5.stringify([1], null, new String('\t')), '[\n\t1,\n]')
 })
 
+test('stringify(value, null, space): accepts Number and String objects from another realm', () => {
+    const context = vm.createContext()
+    assert.strictEqual(JSON5.stringify([1], null, vm.runInContext('new Number(2)', context)), '[\n  1,\n]')
+    assert.strictEqual(JSON5.stringify([1], null, vm.runInContext("new String('\\t')", context)), '[\n\t1,\n]')
+})
+
+test('stringify(value, null, space): ignores objects that inherit from Number or String prototypes', () => {
+    for (const type of [Number, String]) {
+        const space = Object.create(type.prototype)
+        assert.strictEqual(JSON.stringify([1], null, space), '[1]')
+        assert.strictEqual(JSON5.stringify([1], null, space), '[1]')
+    }
+})
+
 test('stringify(value, replacer): filters keys when an array is provided', () => {
     assert.strictEqual(
         JSON5.stringify({a: 1, b: 2, 3: 3}, ['a', 3]),
@@ -318,6 +351,20 @@ test('stringify(value, replacer): only filters string and number keys when an ar
         JSON5.stringify({a: 1, b: 2, 3: 3, false: 4}, ['a', 3, false]),
         "{a:1,'3':3}"
     )
+})
+
+test('stringify(value, replacer): accepts String and Number objects from another realm when an array is provided', () => {
+    const context = vm.createContext()
+    assert.strictEqual(
+        JSON5.stringify({a: 1, b: 2, 3: 3}, vm.runInContext("[new String('a'), new Number(3)]", context)),
+        "{a:1,'3':3}"
+    )
+})
+
+test('stringify(value, replacer): ignores objects that inherit from String or Number prototypes when an array is provided', () => {
+    const replacer = [Object.create(String.prototype), Object.create(Number.prototype), 'a']
+    assert.strictEqual(JSON.stringify({a: 1, b: 2}, replacer), '{"a":1}')
+    assert.strictEqual(JSON5.stringify({a: 1, b: 2}, replacer), '{a:1}')
 })
 
 test('stringify(value, replacer): accepts String and Number objects when an array is provided', () => {

@@ -1,8 +1,9 @@
 export type ParseOptions = {
     /**
-     * When true, integer literals outside the safe integer range
-     * (`Number.MIN_SAFE_INTEGER` to `Number.MAX_SAFE_INTEGER`) are returned as
-     * BigInts instead of losing precision as numbers. Defaults to false.
+     * When true, integer literals (decimal or hexadecimal, without a fraction or
+     * exponent) outside the safe integer range (`Number.MIN_SAFE_INTEGER` to
+     * `Number.MAX_SAFE_INTEGER`) are returned as `BigInt` values instead of
+     * losing precision as numbers. Defaults to false.
      */
     bigint?: boolean | null
 }

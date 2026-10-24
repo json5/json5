@@ -159,11 +159,13 @@ JSON5.parse(text, options)
 - `reviver`: If a function, this prescribes how the value originally produced by
   parsing is transformed, before being returned.
 - `options`: An object with the following properties:
-  - `bigint`: If `true`, integer literals outside the safe integer range
+  - `bigint`: If `true`, integer literals (decimal or hexadecimal, without a
+    fraction or exponent) outside the safe integer range
     (`Number.MIN_SAFE_INTEGER` to `Number.MAX_SAFE_INTEGER`) are returned as
-    BigInts instead of losing precision as numbers. Safe integers and
-    non-integer literals are still returned as numbers. `stringify` throws on
-    BigInts, so use a replacer to serialize them, for example
+    `BigInt` values instead of losing precision as numbers. All other numeric
+    literals are returned as numbers. If not provided or `null`, defaults to
+    `false`. Any other non-boolean value throws a `TypeError`. `stringify`
+    throws on `BigInt` values, so use a replacer to serialize them, for example
     `(key, value) => typeof value === 'bigint' ? String(value) : value`.
 
 #### Return value

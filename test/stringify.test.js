@@ -462,3 +462,20 @@ test('stringify(value, {quote}): throws on invalid quote characters', () => {
     assert.throws(() => JSON5.stringify('a', {quote: '`'}), TypeError)
     assert.throws(() => JSON5.stringify('a', {quote: '(a+)+$'}), TypeError)
 })
+
+test('stringify: reads each serialization hook once with its receiver and key', () => {
+    for (const method of ['toJSON', 'toJSON5']) {
+        let reads = 0
+        const value = {
+            get [method] () {
+                reads++
+                return Object.assign(function (key) {
+                    assert.strictEqual(this, value)
+                    return key
+                }, {call: undefined})
+            },
+        }
+        assert.strictEqual(JSON5.stringify({item: value}), "{item:'item'}")
+        assert.strictEqual(reads, 1)
+    }
+})

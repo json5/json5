@@ -47,6 +47,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixes
 
+- `stringify` reads `toJSON5` and `toJSON` once before calling them,
+  matching `JSON.stringify`.
 - `stringify` reads replacer arrays by their initial indexed length instead of
   using their iterator, matching `JSON.stringify` when getters mutate the array
   or its iterator is overridden.

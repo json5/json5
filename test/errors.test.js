@@ -134,9 +134,33 @@ test('parse errors: throws on invalid characters following a hexadecimal indicat
 test('parse errors: throws on invalid new lines in strings', () => {
     throwsWith(() => JSON5.parse('"\n"'), {
         message: /^JSON5: invalid character '\\n'/,
-        lineNumber: 2,
-        columnNumber: 0,
+        lineNumber: 1,
+        columnNumber: 2,
     })
+})
+
+test('parse errors: reports invalid line terminators on their own line', () => {
+    throwsWith(() => JSON5.parse('tru\ne'), {
+        message: /^JSON5: invalid character '\\n'/,
+        lineNumber: 1,
+        columnNumber: 4,
+    })
+
+    throwsWith(() => JSON5.parse('"x\r\ny"'), {
+        message: /^JSON5: invalid character '\\r'/,
+        lineNumber: 1,
+        columnNumber: 3,
+    })
+})
+
+test('parse errors: counts every line terminator when reporting positions', () => {
+    for (const newline of ['\n', '\r', '\r\n', '\u2028', '\u2029']) {
+        throwsWith(() => JSON5.parse(`1${newline}${newline}}`), {
+            message: /^JSON5: invalid character '}'/,
+            lineNumber: 3,
+            columnNumber: 1,
+        })
+    }
 })
 
 test('parse errors: throws on unterminated strings', () => {

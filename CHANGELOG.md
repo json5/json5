@@ -68,6 +68,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `U+FFFD`. ([#387])
 - `stringify` serializes an array using its initial length, matching
   `JSON.stringify`, when a replacer function adds or removes elements. ([#371])
+- Parse errors on a line terminator are reported on the line it ends instead of
+  at column 0 of the next line, and `\r`, `U+2028`, and `U+2029` count as line
+  terminators in error positions, with `\r\n` counted once. ([#410], [#411])
 
 ### Performance
 
@@ -417,3 +420,5 @@ parser for the regular JSON format.
 [#388]: https://github.com/json5/json5/pull/388
 [#389]: https://github.com/json5/json5/pull/389
 [#392]: https://github.com/json5/json5/pull/392
+[#410]: https://github.com/json5/json5/issues/410
+[#411]: https://github.com/json5/json5/pull/411

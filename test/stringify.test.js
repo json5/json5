@@ -205,6 +205,17 @@ test('stringify: stringifies primitive wrapper objects from another realm', () =
     assert.throws(() => JSON5.stringify(vm.runInContext('Object(1n)', context)), /BigInt/)
 })
 
+test('stringify: stringifies null-prototype objects as objects', () => {
+    const value = Object.assign(Object.create(null), {a: 1})
+    assert.strictEqual(JSON.stringify(value), '{"a":1}')
+    assert.strictEqual(JSON5.stringify(value), '{a:1}')
+
+    // This object claims to be a String object but has no [[StringData]].
+    value[Symbol.toStringTag] = 'String'
+    assert.strictEqual(JSON.stringify(value), '{"a":1}')
+    assert.strictEqual(JSON5.stringify(value), '{a:1}')
+})
+
 test('stringify: stringifies objects that inherit from a primitive wrapper prototype as objects', () => {
     for (const type of [Number, String, Boolean, BigInt]) {
         // These objects don't have a [[NumberData]], [[StringData]],

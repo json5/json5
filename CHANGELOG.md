@@ -45,6 +45,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixes
 
+- `stringify` reads replacer arrays by their initial indexed length instead of
+  using their iterator, matching `JSON.stringify` when getters mutate the array
+  or its iterator is overridden.
 - `parse` no longer throws when a reviver makes an object property or array
   element non-configurable or prevents its recreation, matching `JSON.parse`.
 - `import {parse, stringify} from 'json5'` and `import JSON5 from 'json5'` both

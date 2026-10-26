@@ -304,6 +304,19 @@ test('parse(text, reviver): deletes property values', () => {
     )
 })
 
+test('parse(text, reviver): visits properties deleted by an earlier reviver call', () => {
+    function revive (parse) {
+        return parse('{"a":1,"b":2}', function (k, v) {
+            if (k === 'a') delete this.b
+            return (k === 'b') ? 'revived' : v
+        })
+    }
+
+    const expected = revive(JSON.parse)
+    assert.deepStrictEqual(revive(JSON5.parse), expected)
+    assert.deepStrictEqual(expected, {a: 1, b: 'revived'})
+})
+
 test('parse(text, reviver): modifies array values', () => {
     assert.deepStrictEqual(
         JSON5.parse('[0,1,2]', (k, v) => (k === '1') ? 'revived' : v),

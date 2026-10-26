@@ -149,6 +149,93 @@ test('parse: parses bare long hexadecimal number', () => {
     )
 })
 
+test('parse: returns unsafe integers as numbers by default', () => {
+    assert.strictEqual(JSON5.parse('12345678901234567890'), 12345678901234567000)
+})
+
+test('parse(text, {bigint: true}): returns unsafe integers as bigints', () => {
+    assert.strictEqual(
+        JSON5.parse('12345678901234567890', {bigint: true}),
+        12345678901234567890n
+    )
+    assert.strictEqual(
+        JSON5.parse('-12345678901234567890', {bigint: true}),
+        -12345678901234567890n
+    )
+    assert.strictEqual(
+        JSON5.parse('+9007199254740992', {bigint: true}),
+        9007199254740992n
+    )
+})
+
+test('parse(text, {bigint: true}): returns unsafe hexadecimal integers as bigints', () => {
+    assert.strictEqual(
+        JSON5.parse('0x0123456789abcdefABCDEF', {bigint: true}),
+        0x0123456789abcdefABCDEFn
+    )
+    assert.strictEqual(
+        JSON5.parse('-0X20000000000000', {bigint: true}),
+        -0x20000000000000n
+    )
+})
+
+test('parse(text, {bigint: true}): returns safe integers as numbers', () => {
+    assert.deepStrictEqual(
+        JSON5.parse('[0, -0, 1, -1, 0x1F, 9007199254740991, -9007199254740991]', {bigint: true}),
+        [0, -0, 1, -1, 0x1F, 9007199254740991, -9007199254740991]
+    )
+})
+
+test('parse(text, {bigint: true}): returns non-integer literals as numbers', () => {
+    assert.deepStrictEqual(
+        JSON5.parse('[1e20, 1.5e30, 12345678901234567890.0, .5, 5., Infinity, -Infinity]', {bigint: true}),
+        [1e20, 1.5e30, 12345678901234567890.0, 0.5, 5, Infinity, -Infinity] // eslint-disable-line no-loss-of-precision
+    )
+    assert.ok(isNaN(JSON5.parse('NaN', {bigint: true})))
+})
+
+test('parse(text, {bigint: true}): returns bigints in objects and arrays', () => {
+    assert.deepStrictEqual(
+        JSON5.parse('{a: 12345678901234567890, b: [1, -0x20000000000000]}', {bigint: true}),
+        {a: 12345678901234567890n, b: [1, -0x20000000000000n]}
+    )
+})
+
+test('parse(text, reviver, {bigint: true}): passes bigints to the reviver', () => {
+    assert.deepStrictEqual(
+        JSON5.parse(
+            '{a: 12345678901234567890}',
+            (k, v) => (typeof v === 'bigint' ? String(v) : v),
+            {bigint: true}
+        ),
+        {a: '12345678901234567890'}
+    )
+})
+
+test('parse(text, options): treats a missing or null bigint option as false', () => {
+    assert.strictEqual(JSON5.parse('12345678901234567890', {}), 12345678901234567000)
+    assert.strictEqual(JSON5.parse('12345678901234567890', {bigint: null}), 12345678901234567000)
+    assert.strictEqual(JSON5.parse('12345678901234567890', {bigint: false}), 12345678901234567000)
+    assert.strictEqual(JSON5.parse('12345678901234567890', null, null), 12345678901234567000)
+})
+
+test('parse(text, options): throws on a non-boolean bigint option', () => {
+    assert.throws(() => JSON5.parse('1', {bigint: 'yes'}), TypeError)
+    assert.throws(() => JSON5.parse('1', null, {bigint: 1}), TypeError)
+})
+
+test('parse(text, reviver, options): does not treat an array reviver as options', () => {
+    assert.strictEqual(
+        JSON5.parse('12345678901234567890', [], {bigint: true}),
+        12345678901234567890n
+    )
+})
+
+test('parse: does not keep the bigint option between calls', () => {
+    JSON5.parse('1', {bigint: true})
+    assert.strictEqual(JSON5.parse('12345678901234567890'), 12345678901234567000)
+})
+
 test('parse: parses double quoted strings', () => {
     assert.strictEqual(JSON5.parse('"abc"'), 'abc')
 })
@@ -251,3 +338,73 @@ test('parse(text, reviver): sets `this` to the parent value', () => {
         {a: {b: 'revived'}}
     )
 })
+
+for (const [container, input, key] of [
+    ['object', '{"a":1}', 'a'],
+    ['array', '[1]', '0'],
+]) {
+    for (const [operation, replacement] of [
+        ['replace', 2],
+        ['delete', undefined],
+    ]) {
+        test(`parse(text, reviver): does not throw when a frozen ${container} rejects ${operation}`, () => {
+            function revive (parse) {
+                const keys = []
+                const value = parse(input, function (k, v) {
+                    keys.push(k)
+                    if (k === key) {
+                        Object.freeze(this)
+                        return replacement
+                    }
+
+                    return v
+                })
+                return {keys, value, descriptor: Object.getOwnPropertyDescriptor(value, key)}
+            }
+
+            const expected = revive(JSON.parse)
+            assert.deepStrictEqual(revive(JSON5.parse), expected)
+            assert.deepStrictEqual(expected.keys, [key, ''])
+            assert.strictEqual(expected.value[key], 1)
+            assert.strictEqual(expected.descriptor.configurable, false)
+            assert.strictEqual(expected.descriptor.writable, false)
+        })
+    }
+
+    test(`parse(text, reviver): does not throw when a non-extensible ${container} rejects restoring a property`, () => {
+        function revive (parse) {
+            return parse(input, function (k, v) {
+                if (k === key) {
+                    delete this[k]
+                    Object.preventExtensions(this)
+                    return 2
+                }
+
+                return v
+            })
+        }
+
+        const expected = revive(JSON.parse)
+        const actual = revive(JSON5.parse)
+        assert.deepStrictEqual(actual, expected)
+        assert.strictEqual(Object.hasOwn(actual, key), false)
+        assert.strictEqual(Object.isExtensible(actual), false)
+    })
+}
+
+for (const operation of ['defineProperty', 'deleteProperty']) {
+    test(`parse(text, reviver): propagates errors thrown by a proxy ${operation} trap`, () => {
+        const error = new Error('reviver proxy trap')
+        for (const parse of [JSON.parse, JSON5.parse]) {
+            assert.throws(() => parse('{"a":1,"b":{}}', function (k, v) {
+                if (k === 'a') {
+                    this.b = new Proxy({c: 1}, {
+                        [operation] () { throw error },
+                    })
+                }
+
+                return k === 'c' && operation === 'deleteProperty' ? undefined : v
+            }), e => e === error)
+        }
+    })
+}

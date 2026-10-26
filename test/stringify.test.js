@@ -327,6 +327,52 @@ test('stringify(value, replacer): accepts String and Number objects when an arra
     )
 })
 
+test('stringify(value, replacer): reads replacer arrays by index, not with the iterator', () => {
+    const keys = ['a']
+    keys[Symbol.iterator] = function * () { yield 'b' }
+    assert.strictEqual(JSON5.stringify({a: 1, b: 2}, keys), '{a:1}')
+})
+
+test('stringify(value, replacer): reads the replacer array length once', () => {
+    const results = [JSON.stringify, JSON5.stringify].map(stringify => {
+        const keys = ['a', 'b']
+        Object.defineProperty(keys, 0, {
+            get () {
+                keys[1] = 'c'
+                keys.push('b')
+                return 'a'
+            },
+        })
+        return JSON5.parse(stringify({a: 1, b: 2, c: 3}, keys))
+    })
+    assert.deepStrictEqual(results[1], results[0])
+})
+
+test('stringify(value, replacer): converts a proxy array length like JSON.stringify', () => {
+    for (const length of [undefined, NaN, -2, 1.9, '2.9', {valueOf () { return 2 }}]) {
+        const results = [JSON.stringify, JSON5.stringify].map(stringify => {
+            const reads = []
+            const keys = new Proxy(['a', 'b', 'c'], {
+                get (target, key, receiver) {
+                    reads.push(String(key))
+                    return key === 'length' ? length : Reflect.get(target, key, receiver)
+                },
+            })
+            return {value: JSON5.parse(stringify({a: 1, b: 2, c: 3}, keys)), reads}
+        })
+        assert.deepStrictEqual(results[1], results[0])
+    }
+
+    for (const length of [1n, Symbol('length')]) {
+        const keys = new Proxy(['a'], {
+            get (target, key, receiver) {
+                return key === 'length' ? length : Reflect.get(target, key, receiver)
+            },
+        })
+        assert.throws(() => JSON5.stringify({a: 1}, keys), TypeError)
+    }
+})
+
 test('stringify(value, replacer): replaces values when a function is provided', () => {
     assert.strictEqual(
         JSON5.stringify({a: 1, b: 2}, (key, value) => (key === 'a') ? 2 : value),
@@ -415,4 +461,21 @@ test('stringify(value, {quote}): uses single quotes if provided', () => {
 test('stringify(value, {quote}): throws on invalid quote characters', () => {
     assert.throws(() => JSON5.stringify('a', {quote: '`'}), TypeError)
     assert.throws(() => JSON5.stringify('a', {quote: '(a+)+$'}), TypeError)
+})
+
+test('stringify: reads each serialization hook once with its receiver and key', () => {
+    for (const method of ['toJSON', 'toJSON5']) {
+        let reads = 0
+        const value = {
+            get [method] () {
+                reads++
+                return Object.assign(function (key) {
+                    assert.strictEqual(this, value)
+                    return key
+                }, {call: undefined})
+            },
+        }
+        assert.strictEqual(JSON5.stringify({item: value}), "{item:'item'}")
+        assert.strictEqual(reads, 1)
+    }
 })

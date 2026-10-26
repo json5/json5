@@ -153,7 +153,7 @@ boolean, or `null`). The source text for the primitive is provided by`context.so
 allowing, for example, processing numbers with greater precision than native JavaScript
 numbers can handle.<br><br>
 
-  (This is in accordance with a
+  <a id="rv-context"></a>(This is in accordance with a
 [proposal](https://github.com/tc39/proposal-json-parse-with-source), documented
 [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse#reviver),
 which is not yet part of the official ECMAScript standard, but is nevertheless
@@ -300,3 +300,9 @@ supporter, contributing multiple patches and ideas.
 [Jordan Tucker](https://github.com/jordanbtucker) has aligned JSON5 more closely
 with ES5, wrote the official JSON5 specification, completely rewrote the
 codebase from the ground up, and is actively maintaining this project.
+
+[Kerry Shetline](https://github.com/kshetline) has updated the callbacks to
+reviver functions [as described here](#rv-context). He has also updated the unit testing and build process, and consolidated and updated the work of two other
+contributors, [@romgrk](https://github.com/romgrk) and
+[@jlguardi](https://github.com/jlguardi), for faster general parsing and faster
+long string parsing, respectively.

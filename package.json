@@ -12,20 +12,21 @@
     "dist/"
   ],
   "engines": {
-    "node": ">=6"
+    "node": ">=10.4"
   },
   "scripts": {
     "build": "rollup -c",
     "build-package": "node build/package.js",
     "build-unicode": "node build/unicode.js",
     "coverage": "tap --coverage-report html test",
-    "lint": "eslint --fix .",
+    "lint": "#eslint --fix .",
     "lint-report": "eslint .",
     "prepublishOnly": "npm run production",
     "preversion": "npm run production",
     "production": "run-s test build",
-    "tap": "tap -Rspec --100 test",
+    "tap": "tap -Rspec --100 test/*.js",
     "test": "run-s lint-report tap",
+    "speed-test": "node test/speed-test.mjs",
     "version": "npm run build-package && git add package.json5"
   },
   "repository": {
@@ -51,8 +52,9 @@
   },
   "homepage": "http://json5.org/",
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "core-js": "^2.6.5",
-    "eslint": "^5.15.3",
+    "eslint": "^6.8.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-node": "^8.0.1",

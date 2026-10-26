@@ -1,5 +1,8 @@
 {
     "root": true,
+    "env": {
+        "es2020": true
+    },
     "extends": [
         "standard",
         "plugin:node/recommended"
@@ -16,6 +19,10 @@
             "error",
             "as-needed"
         ],
+        "camelcase": [
+            "error",
+            { "allow": ["^LOWER_[a-z]", "^_\\$", "^[A-Z][a-zD]+(_[A-Z][a-z]+)+$"] }
+        ],
         "comma-dangle": [
             "error",
             "always-multiline"
@@ -28,6 +35,11 @@
         "object-curly-spacing": [
             "error",
             "never"
+        ],
+        "yoda": [
+            "error",
+            "never",
+            { "exceptRange": true }
         ]
     }
 }

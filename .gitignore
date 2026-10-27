@@ -260,6 +260,9 @@ vite.config.ts.timestamp-*
 # Built Visual Studio Code Extensions
 *.vsix
 
+# IntelliJ IDEA
+.idea/
+
 # Files created by tests
 test/output.json
 test/test.json

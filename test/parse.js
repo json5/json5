@@ -56,6 +56,13 @@ t.test('parse(text)', t => {
         )
 
         t.strictSame(
+            // eslint-disable-next-line no-proto
+            JSON5.parse('{"__proto__":1}', (k, v) => v).__proto__,
+            1,
+            'preserves __proto__ property names when reviver is used',
+        )
+
+        t.strictSame(
             JSON5.parse('{abc:1,def:2}'),
             {abc: 1, def: 2},
             'parses multiple properties',
@@ -126,14 +133,14 @@ t.test('parse(text)', t => {
 
     t.test('numbers', t => {
         t.strictSame(
-            JSON5.parse('[0,0.,0e0]'),
-            [0, 0, 0],
+            JSON5.parse('[0,0.,0e0,0E0]'),
+            [0, 0, 0, 0],
             'parses leading zeroes',
         )
 
         t.strictSame(
-            JSON5.parse('[1,23,456,7890]'),
-            [1, 23, 456, 7890],
+            JSON5.parse('[1,23,456,7890,09,-08]'),
+            [1, 23, 456, 7890, 9, -8],
             'parses integers',
         )
 
@@ -144,9 +151,9 @@ t.test('parse(text)', t => {
         )
 
         t.strictSame(
-            JSON5.parse('[.1,.23]'),
-            [0.1, 0.23],
-            'parses leading decimal points',
+            JSON5.parse('[.1,.23,-4.]'),
+            [0.1, 0.23, -4],
+            'parses leading and trailing decimal points',
         )
 
         t.strictSame(
@@ -156,14 +163,14 @@ t.test('parse(text)', t => {
         )
 
         t.strictSame(
-            JSON5.parse('[1e0,1e1,1e01,1.e0,1.1e0,1e-1,1e+1]'),
-            [1, 10, 10, 1, 1.1, 0.1, 10],
+            JSON5.parse('[1e0,1e1,1e01,1.e0,1.E0,1.1E0,1e-1,1E+1]'),
+            [1, 10, 10, 1, 1, 1.1, 0.1, 10],
             'parses exponents',
         )
 
         t.strictSame(
-            JSON5.parse('[0x1,0x10,0xff,0xFF]'),
-            [1, 16, 255, 255],
+            JSON5.parse('[0x1,0x10,0Xff,0xFF,0x11]'),
+            [1, 16, 255, 255, 17],
             'parses hexadecimal numbers',
         )
 
@@ -212,8 +219,8 @@ t.test('parse(text)', t => {
 
     t.test('strings', t => {
         t.equal(
-            JSON5.parse('"abc"'),
-            'abc',
+            JSON5.parse('"ab😀c"'),
+            'ab😀c',
             'parses double quoted strings',
         )
 
@@ -327,6 +334,19 @@ t.test('parse(text, reviver)', t => {
         'deletes array values',
     )
 
+    t.strictSame(
+        JSON5.parse('[0,1,2]', function (k, v) {
+            if (k === '1') {
+                this.splice(parseInt(k), 1)
+                return undefined
+            } else {
+                return v
+            }
+        }),
+        [0, 2],
+        'deletes array values and shrinks array',
+    )
+
     t.equal(
         JSON5.parse('1', (k, v) => (k === '') ? 'revived' : v),
         'revived',
@@ -351,6 +371,41 @@ t.test('parse(text, reviver)', t => {
         {a: 1234567890123456789001234567890n, b: '@x@'},
         'make sure content of primitive values is accessible',
     )
+
+    t.end()
+})
+
+t.test('very long strings', t => {
+    const s1 = 'a'.repeat(1000 * 1000)
+    const s2 = '\\t'.repeat(10000)
+
+    t.strictSame(
+        JSON5.parse(`'${s1}'`), s1,
+        'parse long string (1MB)',
+    )
+
+    t.strictSame(
+        JSON5.parse(`'${s2}'`), s2.replace(/\\t/g, '\t'),
+        'parse long escaped string (20KB)',
+    )
+
+    t.end()
+})
+
+t.test('line ending agnosticism', t => {
+    try {
+        JSON5.parse('[1,\n2,\r3,\r\n4,\u20285,\u2029?]')
+        t.fail('counts lines correctly')
+    } catch (err) {
+        if (err instanceof SyntaxError &&
+            /^JSON5: invalid character/.test(err.message) &&
+            err.lineNumber === 6 &&
+            err.columnNumber === 1) {
+            t.pass()
+        } else {
+            t.fail('counts lines correctly')
+        }
+    }
 
     t.end()
 })

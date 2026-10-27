@@ -165,6 +165,11 @@ t.test('JSON5', t => {
             )
 
             t.strictSame(
+                JSON5.stringify(-0.1), '-0.1',
+                'doesn\'t create double negative sign',
+            )
+
+            t.strictSame(
                 JSON5.stringify([Infinity, -Infinity, NaN]),
                 '[Infinity,-Infinity,NaN]',
                 'stringifies non-finite numbers',
@@ -182,8 +187,8 @@ t.test('JSON5', t => {
 
         t.test('strings', t => {
             t.strictSame(
-                JSON5.stringify('abc'),
-                "'abc'",
+                JSON5.stringify('ab😀c'),
+                "'ab😀c'",
                 'stringifies single quoted strings',
             )
 
@@ -419,6 +424,57 @@ t.test('JSON5', t => {
             )
             t.end()
         })
+
+        t.strictSame(
+            JSON5.stringify({a: 1, b: 2}, (key, value) => (key === 'b') ? undefined : value),
+            '{a:1}',
+            'deletes object values when a replacer returns `undefined`',
+        )
+
+        t.test('can shrink array by manipulating holder', t => {
+            t.strictSame(
+                JSON5.stringify([1, 77, 3, 44], function (key, value) {
+                    if (key > 1) {
+                        --this.length
+                        return undefined
+                    } else {
+                        return value
+                    }
+                }),
+                '[1,77]',
+            )
+
+            t.strictSame(
+                JSON5.stringify([1, 2, 3, 4, 5], function (key, value) {
+                    if (key === '2') {
+                        this.splice(parseInt(key), 1)
+                        return undefined
+                    } else {
+                        return value
+                    }
+                }),
+                '[1,2,4,5]',
+            )
+
+            t.strictSame(
+                JSON5.stringify([1, 2, 3, 4, 5], (key, value) => key === '2' ? undefined : value),
+                '[1,2,null,4,5]',
+            )
+
+            t.end()
+        })
+
+        t.strictSame(
+            JSON5.stringify([1, 77, 3, 44], function (key, value) {
+                if (key > 1) {
+                    return undefined
+                } else {
+                    return value
+                }
+            }),
+            '[1,77,null,null]',
+            'does not shrink array when not manipulating holder',
+        )
 
         t.test('is called after toJSON5', t => {
             function C () {}

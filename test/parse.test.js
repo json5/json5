@@ -237,7 +237,7 @@ test('parse: does not keep the bigint option between calls', () => {
 })
 
 test('parse: parses double quoted strings', () => {
-    assert.strictEqual(JSON5.parse('"abc"'), 'abc')
+    assert.strictEqual(JSON5.parse('"ab😀c"'), 'ab😀c')
 })
 
 test('parse: parses single quoted strings', () => {
@@ -321,6 +321,14 @@ test('parse(text, reviver): modifies array values', () => {
     assert.deepStrictEqual(
         JSON5.parse('[0,1,2]', (k, v) => (k === '1') ? 'revived' : v),
         [0, 'revived', 2]
+    )
+})
+
+test('parse(text, reviver): deletes array values', () => {
+    // noinspection JSConsecutiveCommasInArrayLiteral
+    assert.deepStrictEqual(
+        JSON5.parse('[0,1,2]', (k, v) => (k === '1') ? undefined : v),
+        [0, , 2] // eslint-disable-line no-sparse-arrays
     )
 })
 
@@ -421,3 +429,18 @@ for (const operation of ['defineProperty', 'deleteProperty']) {
         }
     })
 }
+
+test('parse(text, reviver): content of primitive values is accessible', () =>
+    assert.deepStrictEqual(
+        JSON5.parse('{a:1234567890123456789001234567890,b:"x"}', function (k, v, context) {
+            if (typeof v === 'number') {
+                return BigInt(context.source);
+            }
+            else if (typeof v === 'string') {
+                return context.source.replace(/"/g, '@');
+            }
+            return v;
+        }),
+        { a: 1234567890123456789001234567890n, b: '@x@' }
+    )
+);

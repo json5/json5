@@ -114,8 +114,15 @@ test('parse: parses exponents', () => {
     )
 })
 
+test('parse: parses uppercase exponents', () => {
+    assert.deepStrictEqual(
+        JSON5.parse('[0E0,1E1,1E01,1.E0,1.1E0,1E-1,1E+1]'),
+        [0, 10, 10, 1, 1.1, 0.1, 10]
+    )
+})
+
 test('parse: parses hexadecimal numbers', () => {
-    assert.deepStrictEqual(JSON5.parse('[0x1,0x10,0xff,0xFF]'), [1, 16, 255, 255])
+    assert.deepStrictEqual(JSON5.parse('[0x1,0x10,0Xff,0xFF]'), [1, 16, 255, 255])
 })
 
 test('parse: parses signed and unsigned Infinity', () => {

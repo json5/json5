@@ -262,6 +262,7 @@ vite.config.ts.timestamp-*
 
 # IntelliJ IDEA
 .idea/
+.claude/
 
 # Files created by tests
 test/output.json

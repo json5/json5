@@ -114,8 +114,15 @@ test('parse: parses exponents', () => {
     )
 })
 
+test('parse: parses uppercase exponents', () => {
+    assert.deepStrictEqual(
+        JSON5.parse('[0E0,1E1,1E01,1.E0,1.1E0,1E-1,1E+1]'),
+        [0, 10, 10, 1, 1.1, 0.1, 10]
+    )
+})
+
 test('parse: parses hexadecimal numbers', () => {
-    assert.deepStrictEqual(JSON5.parse('[0x1,0x10,0xff,0xFF]'), [1, 16, 255, 255])
+    assert.deepStrictEqual(JSON5.parse('[0x1,0x10,0Xff,0xFF]'), [1, 16, 255, 255])
 })
 
 test('parse: parses signed and unsigned Infinity', () => {
@@ -237,7 +244,7 @@ test('parse: does not keep the bigint option between calls', () => {
 })
 
 test('parse: parses double quoted strings', () => {
-    assert.strictEqual(JSON5.parse('"abc"'), 'abc')
+    assert.strictEqual(JSON5.parse('"ab😀c"'), 'ab😀c')
 })
 
 test('parse: parses single quoted strings', () => {
@@ -321,6 +328,14 @@ test('parse(text, reviver): modifies array values', () => {
     assert.deepStrictEqual(
         JSON5.parse('[0,1,2]', (k, v) => (k === '1') ? 'revived' : v),
         [0, 'revived', 2]
+    )
+})
+
+test('parse(text, reviver): deletes array values', () => {
+    // noinspection JSConsecutiveCommasInArrayLiteral
+    assert.deepStrictEqual(
+        JSON5.parse('[0,1,2]', (k, v) => (k === '1') ? undefined : v),
+        [0, , 2] // eslint-disable-line no-sparse-arrays
     )
 })
 
@@ -421,3 +436,18 @@ for (const operation of ['defineProperty', 'deleteProperty']) {
         }
     })
 }
+
+test('parse(text, reviver): content of primitive values is accessible', () =>
+    assert.deepStrictEqual(
+        JSON5.parse('{a:1234567890123456789001234567890,b:"x"}', function (k, v, context) {
+            if (typeof v === 'number') {
+                return BigInt(context.source);
+            }
+            else if (typeof v === 'string') {
+                return context.source.replace(/"/g, '@');
+            }
+            return v;
+        }),
+        { a: 1234567890123456789001234567890n, b: '@x@' }
+    )
+);

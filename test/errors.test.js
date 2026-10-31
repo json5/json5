@@ -134,8 +134,8 @@ test('parse errors: throws on invalid characters following a hexadecimal indicat
 test('parse errors: throws on invalid new lines in strings', () => {
     throwsWith(() => JSON5.parse('"\n"'), {
         message: /^JSON5: invalid character '\\n'/,
-        lineNumber: 2,
-        columnNumber: 0,
+        lineNumber: 1,
+        columnNumber: 1,
     })
 })
 

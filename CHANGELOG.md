@@ -66,6 +66,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   [#384])
 - `stringify` preserves a Boolean object's value when its `valueOf` method is
   overridden. ([#389])
+- `stringify` detects Number, String, Boolean, and BigInt objects the way
+  `JSON.stringify` does, by their internal slots instead of `instanceof`. An
+  object that only inherits from one of their prototypes, such as
+  `Object.create(String.prototype)`, is serialized as a plain object instead of
+  throwing, and a wrapper object from another realm, such as an iframe or
+  `node:vm`, is serialized as its primitive value instead of as a plain object.
 - `stringify` leaves property names unquoted when they contain identifier
   characters outside the BMP after the first character, such as `{a𐀀b:1}`.
   ([#388])

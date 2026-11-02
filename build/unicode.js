@@ -9,10 +9,6 @@ async function codePoints (category) {
     return module.default
 }
 
-const Space_Separator = regenerate()
-    .add(await codePoints('Space_Separator'))
-    .remove('\t', '\v', '\f', ' ', '\u00A0', '\uFEFF')
-
 const ID_Start = regenerate()
     .add(await codePoints('Uppercase_Letter'))
     .add(await codePoints('Lowercase_Letter'))
@@ -38,7 +34,6 @@ const ID_Continue = regenerate()
 const outPath = fileURLToPath(new URL('../lib/unicode.js', import.meta.url))
 
 const data = {
-    Space_Separator,
     ID_Start,
     ID_Continue,
 }

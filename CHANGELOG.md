@@ -76,6 +76,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Performance
 
 - Avoid object allocations during stringify (~1.5x faster)
+- Lazily compute characters during parse/stringify (~1.1x faster)
 
 ## v2.2.3 - 2022-12-31
 

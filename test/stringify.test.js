@@ -451,6 +451,11 @@ test('stringify(value, {quote}): uses double quotes if provided', () => {
     )
 })
 
+test('stringify(value, {quote}): uses the quote option for strings without escapes', () => {
+    assert.strictEqual(JSON5.stringify(['abc', ''], {quote: '"'}), '["abc",""]')
+    assert.strictEqual(JSON5.stringify(['abc', ''], {quote: "'"}), "['abc','']")
+})
+
 test('stringify(value, {quote}): uses single quotes if provided', () => {
     assert.strictEqual(
         JSON5.stringify({"a'": "1'"}, {quote: "'"}),

@@ -81,6 +81,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Performance
 
 - Avoid object allocations during stringify (~1.5x faster)
+- `stringify` returns strings that need no escaping without rebuilding them
+  character by character.
 
 ## v2.2.3 - 2022-12-31
 

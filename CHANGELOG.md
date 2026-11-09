@@ -47,6 +47,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixes
 
+- `parse` and `stringify` invoke reviver and replacer functions without reading
+  their `call` property, matching `JSON.parse` and `JSON.stringify`.
 - `parse` visits an object's original own keys when a reviver deletes properties,
   matching `JSON.parse`.
 - `stringify` reads `toJSON5` and `toJSON` once before calling them,

@@ -80,6 +80,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Performance
 
+- Read plain runs of string characters as one slice during parse, so parsed
+  strings no longer keep one heap object per character (~85% less retained
+  memory and ~1.9x faster on string-heavy documents)
 - Avoid object allocations during stringify (~1.5x faster)
 
 ## v2.2.3 - 2022-12-31

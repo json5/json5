@@ -78,6 +78,28 @@ test('stringify: stringifies nested arrays', () => {
     assert.strictEqual(JSON5.stringify([1, [2, 3]]), '[1,[2,3]]')
 })
 
+test('stringify: uses the converted length of an array proxy', () => {
+    const withLength = length => new Proxy([10, 20, 30], {
+        get (target, key, receiver) {
+            return key === 'length' ? length : Reflect.get(target, key, receiver)
+        },
+    })
+
+    let conversions = 0
+    const value = withLength({
+        valueOf () {
+            conversions++
+            return 1.9
+        },
+    })
+    assert.strictEqual(JSON5.stringify(value), '[10]')
+    assert.strictEqual(conversions, 1)
+
+    for (const length of [1n, Symbol('length')]) {
+        assert.throws(() => JSON5.stringify(withLength(length)), TypeError)
+    }
+})
+
 test('stringify: stringifies nulls', () => {
     assert.strictEqual(JSON5.stringify(null), 'null')
 })

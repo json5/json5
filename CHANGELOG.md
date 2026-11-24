@@ -47,6 +47,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixes
 
+- `stringify` converts array proxy lengths once before visiting elements,
+  matching `JSON.stringify`.
 - `parse` visits an object's original own keys when a reviver deletes properties,
   matching `JSON.parse`.
 - `stringify` reads `toJSON5` and `toJSON` once before calling them,

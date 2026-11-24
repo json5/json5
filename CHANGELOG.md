@@ -47,6 +47,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixes
 
+- `parse` reads the `bigint` option once and preserves it when an option getter
+  or input conversion calls `parse` again.
+
 - `parse` visits an object's original own keys when a reviver deletes properties,
   matching `JSON.parse`.
 - `stringify` reads `toJSON5` and `toJSON` once before calling them,

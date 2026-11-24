@@ -231,6 +231,40 @@ test('parse(text, reviver, options): does not treat an array reviver as options'
     )
 })
 
+test('parse: uses the bigint value returned by the first option read', () => {
+    let reads = 0
+    const options = {
+        get bigint () {
+            return ++reads === 1
+        },
+    }
+
+    assert.strictEqual(JSON5.parse('9007199254740993', options), 9007199254740993n)
+    assert.strictEqual(reads, 1)
+})
+
+test('parse: a nested parse in a bigint getter does not change the default', () => {
+    const options = {
+        get bigint () {
+            JSON5.parse('1', {bigint: true})
+            return null
+        },
+    }
+
+    assert.strictEqual(JSON5.parse('9007199254740993', options), 9007199254740992)
+})
+
+test('parse: input coercion cannot overwrite the outer bigint option', () => {
+    const text = {
+        toString () {
+            JSON5.parse('{}')
+            return '9007199254740993'
+        },
+    }
+
+    assert.strictEqual(JSON5.parse(text, {bigint: true}), 9007199254740993n)
+})
+
 test('parse: does not keep the bigint option between calls', () => {
     JSON5.parse('1', {bigint: true})
     assert.strictEqual(JSON5.parse('12345678901234567890'), 12345678901234567000)

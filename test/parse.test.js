@@ -338,6 +338,16 @@ test('parse(text, reviver): deletes array values', () => {
     )
 })
 
+test('parse(text, reviver): does not visit array elements added by the reviver', () => {
+    const reviver = function (key, value) {
+        if (key === '0') this.push(10)
+        return typeof value === 'number' ? value * 2 : value
+    }
+
+    assert.deepStrictEqual(JSON5.parse('[1]', reviver), [2, 10])
+    assert.deepStrictEqual(JSON5.parse('[1]', reviver), JSON.parse('[1]', reviver))
+})
+
 test('parse(text, reviver): modifies the root value', () => {
     assert.strictEqual(
         JSON5.parse('1', (k, v) => (k === '') ? 'revived' : v),
